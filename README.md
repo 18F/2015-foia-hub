@@ -2,7 +2,7 @@
 
 Core interaction between FOIA requestor and FOIA office.
 
-The tentative plan for this repo is a Python/Flask API service, whose first pass is to contain -
+The tentative plan for this repo is a Python API service, whose first pass is to contain -
 
 * Receive and store a FOIA request from [foia-portal](https://github.com/18f/foia-portal).
 * Publish received FOIA requests in the direction of the specified FOIA office.
@@ -11,6 +11,7 @@ The tentative plan for this repo is a Python/Flask API service, whose first pass
 * Support the low-fidelity (is it open or closed?) status checking of individual requests in [foia-portal](https://github.com/18f/foia-portal).
 
 This project is to be API-only, no templates. The user-facing portion reisdes at [foia-portal](https://github.com/18f/foia-portal), a static site.
+
 
 ## Public domain
 
