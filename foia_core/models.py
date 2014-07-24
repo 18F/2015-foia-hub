@@ -9,6 +9,9 @@ STATUS_CHOICES = (
 	('C', 'closed'),
 	)
 
+#TODO: Add slug to almost everything that could be a page, the 
+# population that slug
+
 
 class Department(models.Model):
 
