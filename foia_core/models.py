@@ -15,7 +15,7 @@ STATUS_CHOICES = (
 
 class Department(models.Model):
 
-	abbreviation =  models.CharField(max_length=5)
+	abbreviation = models.CharField(max_length=5,null=True)
 	name = models.CharField(max_length=250)
 	description = models.TextField()
 
@@ -26,25 +26,36 @@ class Department(models.Model):
 class Agency(models.Model):
 
 	name = models.CharField(max_length=250)
-	addres = models.TextField()
-	phone = models.CharField(max_length=12)
+	phone = models.CharField(max_length=12)	
 	service_center = models.CharField(max_length=12)
-	website = models.URLField()
 
-	# Q: Do we need to store this link also? 
-	# request_form: http://www.epa.gov/foia/requestform.html
+	online_request_form = models.URLField(null=True)
+	website = models.URLField(null=True)
 
 	department = models.ForeignKey(Department)
+	notes = models.TextField(null=True)
 
 	def __str__(self):
 		return 'Agency: %s' % (self.name,)
 
 
-class FOIAContact(models.Model):
-	name = models.CharField(max_length=250) 
-	phone = models.CharField(max_length=12) # 'service_center'
-	email = models.EmailField()
+class Address(models.Model):
 
+	street_address = models.CharField(max_length=250, null=True)
+	room_number = models.CharField(max_length=250, null=True)
+	city = models.CharField(max_length=250, null=True)
+	state = models.CharField(max_length=100, null=True)
+	zip_code = models.CharField(max_length=10, null=True)
+
+
+class FOIAContact(models.Model):
+	name = models.CharField(max_length=2) 
+
+	phone = models.CharField(max_length=12, null=True) # 'service_center'
+	fax = models.CharField(max_length=12, null=True)
+	email = models.EmailField(null=True)
+
+	location = models.ForeignKey(Address, null=True)
 	agency = models.ManyToManyField(Agency)
 	department = models.ManyToManyField(Department)
 
