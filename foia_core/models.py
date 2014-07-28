@@ -15,24 +15,28 @@ STATUS_CHOICES = (
 
 class Department(models.Model):
 
-	abbreviation = models.CharField(max_length=5,null=True)
-	name = models.CharField(max_length=250)
-	description = models.TextField()
+	name = models.CharField(max_length=250, unique=True)
+	abbreviation = models.CharField(max_length=10, null=True, unique=True)
+	description = models.TextField(null=True)
 
 	def __str__(self):
 		return 'Dept: %s' % (self.name,)
 
-
 class Agency(models.Model):
 
-	name = models.CharField(max_length=250)
-	phone = models.CharField(max_length=12)	
-	service_center = models.CharField(max_length=12)
+	name = models.CharField(max_length=250, unique=True)
+	#phone = models.CharField(max_length=12)	
+	#service_center = models.CharField(max_length=12, null=True)
 
 	online_request_form = models.URLField(null=True)
 	website = models.URLField(null=True)
 
 	department = models.ForeignKey(Department)
+
+	# TODO: Many of the notes may just be the following: 
+	# 'This agency has additional FOIA contact information 
+	# that can be found by visiting its website.'
+	# Check the notes field and turn into Boolean if this is consistant. 
 	notes = models.TextField(null=True)
 
 	def __str__(self):
@@ -49,18 +53,20 @@ class Address(models.Model):
 
 
 class FOIAContact(models.Model):
-	name = models.CharField(max_length=2) 
+	name = models.CharField(max_length=150)
+	title = models.CharField(max_length=250, null=True)
 
-	phone = models.CharField(max_length=12, null=True) # 'service_center'
-	fax = models.CharField(max_length=12, null=True)
+	phone = models.CharField(max_length=50, null=True)
+	fax = models.CharField(max_length=50, null=True) 
 	email = models.EmailField(null=True)
 
 	location = models.ForeignKey(Address, null=True)
-	agency = models.ManyToManyField(Agency)
-	department = models.ManyToManyField(Department)
+	agency = models.ForeignKey(Agency)
 
 	def __str__(self):
 		return 'FOIA Contact: %s' % (self.name,)
+
+
 
 class Requestor(models.Model):
 

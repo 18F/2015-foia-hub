@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 
-TEMPLATE_DEBUG = False
+
 
 ALLOWED_HOSTS = []
 
