@@ -77,6 +77,11 @@ class FOIAContact(models.Model):
 	location = models.ForeignKey(Address, null=True)
 	agency = models.ForeignKey(Agency)
 
+	# The original spreadsheet of contacts had two tabs.
+	# One tab was 'Agency', the other was 'Department'
+	# The difference was not clear between the contacts, but 
+	# the tabs contained unique information, so that was stored. 
+	# This field means nothing more than that.
 	agency_or_department = models.CharField(max_length=1, choices=CONTACT_STATUS)
 
 	def __str__(self):
@@ -91,7 +96,7 @@ class FOIAContact(models.Model):
 		if self.name or self.title:
 			super(FOIAContact, self).save(*args, **kwargs)
 		else:
-			logger.WARNING('%s not saved, because no title or name' % self)
+			logger.warning('%s not saved, because no title or name' % self)
 
 
 class Requestor(models.Model):
