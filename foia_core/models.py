@@ -1,12 +1,21 @@
+import logging
+
 from django.db import models
+
+logger = logging.getLogger(__name__)
 
 
 # TODO: Confirm statuses
-STATUS_CHOICES = (
+FOIA_STATUS = (
 	('O', 'open'),
 	('S', 'submitted'),
 	('P', 'processing'),
 	('C', 'closed'),
+	)
+
+CONTACT_STATUS= (
+	('A', 'Agency'),
+	('D', 'Department')
 	)
 
 #TODO: Add slug to almost everything that could be a page, the 
@@ -24,7 +33,7 @@ class Department(models.Model):
 
 class Agency(models.Model):
 
-	name = models.CharField(max_length=250, unique=True)
+	name = models.CharField(max_length=250)
 	#phone = models.CharField(max_length=12)	
 	#service_center = models.CharField(max_length=12, null=True)
 
@@ -42,6 +51,9 @@ class Agency(models.Model):
 	def __str__(self):
 		return 'Agency: %s' % (self.name,)
 
+	class Meta:
+		unique_together = (("name", "department"),)
+
 
 class Address(models.Model):
 
@@ -53,7 +65,9 @@ class Address(models.Model):
 
 
 class FOIAContact(models.Model):
-	name = models.CharField(max_length=150)
+
+
+	name = models.CharField(max_length=150, null=True)
 	title = models.CharField(max_length=250, null=True)
 
 	phone = models.CharField(max_length=50, null=True)
@@ -63,9 +77,21 @@ class FOIAContact(models.Model):
 	location = models.ForeignKey(Address, null=True)
 	agency = models.ForeignKey(Agency)
 
+	agency_or_department = models.CharField(max_length=1, choices=CONTACT_STATUS)
+
 	def __str__(self):
 		return 'FOIA Contact: %s' % (self.name,)
 
+	def save(self, *args, **kwargs):
+		""" 
+			This is to make sure that there is either a name or title.
+			Some titles don't have names and some names don't have titles.
+		"""
+
+		if self.name or self.title:
+			super(FOIAContact, self).save(*args, **kwargs)
+		else:
+			logger.WARNING('%s not saved, because no title or name' % self)
 
 
 class Requestor(models.Model):
@@ -85,7 +111,7 @@ class Requestor(models.Model):
 
 class FOIARequest(models.Model):
 
-	status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='O')	
+	status = models.CharField(max_length=1, choices=FOIA_STATUS, default='O')	
 	agency = models.ForeignKey('Requestor')
 
 	request = models.TextField()

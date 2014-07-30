@@ -7,7 +7,7 @@ import yaml
 
 from foia_core.models import Department, Agency, Address, FOIAContact
 
-logger = logging.getLogger("load_agency_contacts")
+logger = logging.getLogger(__name__)
 
 
 def check_urls(agency_url, row, field):
@@ -34,7 +34,7 @@ def process_agency_csv():
 
     csvdata = csv.DictReader(open(csvfile,'rt'))
 
-    records_to_hold = []
+    records_without_names = []
 
     for row in csvdata:
 
@@ -42,7 +42,7 @@ def process_agency_csv():
         # anything.
         name = row.get('Name', None)
         if not name:
-            records_to_hold.append(row)
+            records_without_names.append(row)
 
         else:
             dept, created = Department.objects.get_or_create(name=row['Department'])
@@ -77,8 +77,18 @@ def process_agency_csv():
                 agency = agency,
                 )
 
-    pprint.pprint(records_to_hold)
-    print(len(records_to_hold))
+    print(len(records_without_names))
+    foia_titles = []
+    for rec in records_without_names:
+        foiacontacts = FOIAContact.objects.filter(
+
+            phone = rec['Telephone']
+        )
+        if not foiacontacts:
+            foia_titles.append(rec['Title'])
+        #print('#######################################')
+
+    pprint.pprint(list(set(foia_titles)))
 
 
 if __name__ == "__main__":
