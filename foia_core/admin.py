@@ -1,5 +1,5 @@
 from django.contrib import admin
-from foia_core.models import Department, Agency, Address, FOIAContact
+from foia_core.models import Department, Agency, FOIAContact
 
 
 class GenericAdmin(admin.ModelAdmin):
