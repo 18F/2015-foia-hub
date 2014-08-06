@@ -12,16 +12,17 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
-CONTACT_STATUS = (
-    ('A', 'Agency'),
-    ('D', 'Department')
+PERSON_TYPE = (
+    ('C', 'Contact'),
+    ('L', 'Liaison'),
+    ('B', 'Both'),
 )
 
 #TODO: Add slug to almost everything that could be a page, the
 # population that slug
 
 
-class Department(models.Model):
+class Agency(models.Model):
 
     name = models.CharField(max_length=250, unique=True)
     abbreviation = models.CharField(max_length=10, null=True, unique=True)
@@ -31,32 +32,27 @@ class Department(models.Model):
         return 'Dept: %s' % (self.name,)
 
 
-class Agency(models.Model):
+class Departments(models.Model):
 
     name = models.CharField(max_length=250)
-    #phone = models.CharField(max_length=12)
-    #service_center = models.CharField(max_length=12, null=True)
-
-    online_request_form = models.URLField(null=True)
+    request_form = models.URLField(null=True)
     website = models.URLField(null=True)
 
-    department = models.ForeignKey(Department)
+    agency = models.ForeignKey(Agency)
+    service_center = models.TextField(null=True)
 
-    # TODO: Many of the notes may just be the following:
-    # 'This agency has additional FOIA contact information
-    # that can be found by visiting its website.'
-    # Check the notes field and turn into Boolean if this is consistant.
-    notes = models.TextField(null=True)
+    phone = models.CharField(max_length=50, null=True)
+    fax = models.CharField(max_length=50, null=True)
+    address = models.TextField(null=True)
 
     def __str__(self):
         return 'Agency: %s' % (self.name,)
 
     class Meta:
-        unique_together = (("name", "department"),)
+        unique_together = (("name", "agency"),)
 
 
 class Address(models.Model):
-
     street_address = models.CharField(max_length=250, null=True)
     room_number = models.CharField(max_length=250, null=True)
     city = models.CharField(max_length=250, null=True)
@@ -64,26 +60,16 @@ class Address(models.Model):
     zip_code = models.CharField(max_length=10, null=True)
 
 
-class FOIAContact(models.Model):
+class FOIAPerson(models.Model):
 
+    person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
     name = models.CharField(max_length=150, null=True)
     title = models.CharField(max_length=250, null=True)
 
-    phone = models.CharField(max_length=50, null=True)
-    fax = models.CharField(max_length=50, null=True)
     email = models.EmailField(null=True)
 
-    location = models.ForeignKey(Address, null=True)
-    agency = models.ForeignKey(Agency)
-
-    # The original spreadsheet of contacts had two tabs.
-    # One tab was 'Agency', the other was 'Department'
-    # The difference was not clear between the contacts, but
-    # the tabs contained unique information, so that was stored.
-    # This field means nothing more than that.
-    agency_or_department = models.CharField(max_length=1,
-                                            choices=CONTACT_STATUS,
-                                            null=True)
+    location = models.TextField(Address, null=True)
+    agencydepartment = models.ForeignKey(Departments)
 
     def __str__(self):
         return 'FOIA Contact: %s' % (self.name,)
@@ -95,16 +81,19 @@ class FOIAContact(models.Model):
         """
 
         if self.name or self.title:
-            super(FOIAContact, self).save(*args, **kwargs)
+            super(FOIAPerson, self).save(*args, **kwargs)
         else:
             logger.warning('%s not saved, because no title or name' % self)
+
+    #TODO: Create method to return contacts
+    #TODO: Create method to return liasons
+    #TODO: Add validation -- if the user is a 'Contact', then we need an
+    # address.
 
 
 class Requestor(models.Model):
 
     # TODO: name clarification -- first & last or one field?
-    #first_name = Charfield.models(max_length=100)
-    #last_name = models.Charfield(max_length=100)
     name = models.CharField(max_length=250)
     phone = models.CharField(max_length=10)
     email = models.EmailField()
