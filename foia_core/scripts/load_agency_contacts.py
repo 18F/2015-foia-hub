@@ -6,6 +6,8 @@ import pprint
 
 import yaml
 
+from django.utils.text import slugify
+
 
 from foia_core.models import *
 
@@ -26,64 +28,85 @@ def check_urls(agency_url, row, field):
     else:
         return row_url
 
+
 def process_yamls():
 
     folder = '/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
 
     count = 0
+
+    num_keys = 0
+    most_keys = agency = None
     for item in os.listdir(folder):
         if count <= 2:
             data_file = os.path.join(folder, item)
 
             data = yaml.load(open(data_file))
 
-            agency, created = Agency.objects.get_or_create(
-                    name=data['name'],
-                    abbreviation=data['abbreviation'],
-                    description=data['description'],
+            # Agencies
+            name = data['name']
+            slug = slugify(name[:50])
+            a, created = Agency.objects.get_or_create(slug=slug, name=name)
+
+            a.abbreviation = data['abbreviation'],
+            a.description = data.get('description', None)
+            a.save()
+
+            # Offices
+            for dept_rec in data['departments']:
+                """
+                Data mapping
+                name = name
+                request_form = request_form
+                website = website
+                service_center = service_center
+                fax = fax
+                emails = emails
+                notes = notes
+                contact = address (name, title, address, etc.)
+                contact_phone = parsed from address
+
+                public_liaison = public_liaison
+                """
+
+                office_name = dept_rec['name']
+                slug = slugify(office_name[:50])
+                o, created = Office.objects.get_or_create(
+                    agency=a,
+                    slug=slug,
                     )
 
-            for dept_rec in data['departments']:
-                #pprint.pprint(deptrec)
+                o.name = office_name
+                o.request_form = dept_rec.get('request_form', None)
+                o.website=dept_rec.get('website', None)
+                o.service_center=dept_rec.get('service_center', None)
+                o.fax=dept_rec.get('fax', None)
+                o.emails=dept_rec.get('emails', None)
+                o.notes=dept_rec.get('notes',None)
 
-                #dict_keys(['fax', 'public_liaison', 'address', 'phone', 'service_center', 'name', 'website'])
-                #'fax', 'public_liaison',
+                #FOIA contact
+                o.contact=dept_rec.get('address', None)
 
+                #FOIA public liaison
+                o.public_liaison=dept_rec.get('public_liaison', None)
 
+                o.save()
+                print(o)
 
-                dept, created = Department.objects.get_or_create(
-                   name=dept_rec['Agency'],
-                   agency=agency,
-                   request_form=dept_rec.get(['request_form'], None),
-                   service_center=dept_rec.get(['service_center'], None),
-                   website=dept_rec.get(['website'], None),
-                   address=dept_rec.get(['address'], None),
-                   fax=dept_rec.get(['fax'], None),
-                )
+                # if len(dept_rec.keys()) > num_keys:
+                #     num_keys = len(dept_rec.keys())
+                #     most_keys = dept_rec
+                #     agency = (data['name'],data['abbreviation'],data['description'])
 
-                # TODO: Access and parse service center field.
-                # What is there? Is is duplicate information?
-
-                #TODO parse and add address
-                # address, created = Address.objects.get_or_create(
-                #     street_address=row.get('Street Address', None),
-                #     room_number=row.get('Room Number', None),
-                #     city=row.get('City', None),
-                #     state=row.get('State', None),
-                #     zip_code=row.get('Zip Code', None),
-                #     )
-
-                # 'public_liaison'
-                # TODO: Parse name & phone number from public liaison
-
-                # 'emails'
-
-                # pprint.pprint(dept_rec.keys())
                 # try:
-                #     pprint.pprint(dept_rec['public_liaison'])
+                #     pprint.pprint(dept_rec['phone'])
                 # except KeyError:
                 #     pass
 
+    # print(num_keys)
+    # print(most_keys.keys())
+    # pprint.pprint(most_keys)
+    # pprint.pprint(agency)
 
 # def process_agency_csv():
 #     #TODO: Make generic as an arg when you convert to management command.

@@ -1,6 +1,7 @@
 import logging
 from django.db import models
 
+from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
 
@@ -12,11 +13,11 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
-PERSON_TYPE = (
-    ('C', 'Contact'),
-    ('L', 'Liaison'),
-    ('B', 'Both'),
-)
+# PERSON_TYPE = (
+#     ('C', 'Contact'),
+#     ('L', 'Liaison'),
+#     ('B', 'Both'),
+# )
 
 #TODO: Add slug to almost everything that could be a page, the
 # population that slug
@@ -25,51 +26,28 @@ PERSON_TYPE = (
 class Agency(models.Model):
 
     name = models.CharField(max_length=250, unique=True)
-    abbreviation = models.CharField(max_length=10, null=True, unique=True)
+    abbreviation = models.CharField(max_length=30, null=True, unique=True)
     description = models.TextField(null=True)
-
-    def __str__(self):
-        return 'Dept: %s' % (self.name,)
-
-
-class Departments(models.Model):
-
-    name = models.CharField(max_length=250)
-    request_form = models.URLField(null=True)
-    website = models.URLField(null=True)
-
-    agency = models.ForeignKey(Agency)
-    service_center = models.TextField(null=True)
-
-    phone = models.CharField(max_length=50, null=True)
-    fax = models.CharField(max_length=50, null=True)
-    address = models.TextField(null=True)
+    slug = models.SlugField(unique=True)
+    # chief_foia_officer
 
     def __str__(self):
         return 'Agency: %s' % (self.name,)
 
-    class Meta:
-        unique_together = (("name", "agency"),)
+    def save(self, *args, **kwargs):
+        super(Agency, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+            super(Agency, self).save(*args, **kwargs)
 
 
-class Address(models.Model):
-    street_address = models.CharField(max_length=250, null=True)
-    room_number = models.CharField(max_length=250, null=True)
-    city = models.CharField(max_length=250, null=True)
-    state = models.CharField(max_length=100, null=True)
-    zip_code = models.CharField(max_length=10, null=True)
+class Person(models.Model):
 
-
-class FOIAPerson(models.Model):
-
-    person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
+    #person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
     name = models.CharField(max_length=150, null=True)
     title = models.CharField(max_length=250, null=True)
-
     email = models.EmailField(null=True)
-
-    location = models.TextField(Address, null=True)
-    agencydepartment = models.ForeignKey(Departments)
+    phone = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return 'FOIA Contact: %s' % (self.name,)
@@ -81,14 +59,40 @@ class FOIAPerson(models.Model):
         """
 
         if self.name or self.title:
-            super(FOIAPerson, self).save(*args, **kwargs)
+            super(Person, self).save(*args, **kwargs)
         else:
             logger.warning('%s not saved, because no title or name' % self)
 
-    #TODO: Create method to return contacts
-    #TODO: Create method to return liasons
-    #TODO: Add validation -- if the user is a 'Contact', then we need an
-    # address.
+
+class Office(models.Model):
+
+    agency = models.ForeignKey(Agency)
+    name = models.CharField(max_length=250)
+    request_form = models.URLField(null=True)
+    website = models.URLField(null=True)
+
+    service_center = models.CharField(max_length=250, null=True)
+    fax = models.CharField(max_length=50, null=True)
+    emails = models.CharField(max_length=250, null=True)
+    notes = models.TextField(null=True)
+
+    contact = models.TextField(null=True)  # address
+    contact_phone = models.CharField(max_length=50, null=True)  # phone
+    public_liaison = models.TextField(null=True)
+
+    slug = models.SlugField()
+
+    def __str__(self):
+        return '%s, %s' % (self.agency.name, self.name,)
+
+    class Meta:
+        unique_together = (("slug", "agency"),)
+
+    def save(self, *args, **kwargs):
+        super(Office, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+            super(Office, self).save(*args, **kwargs)
 
 
 class Requestor(models.Model):
