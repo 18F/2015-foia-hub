@@ -2,8 +2,6 @@ import csv
 import logging
 import os
 
-import pprint
-
 import yaml
 
 from django.utils.text import slugify
@@ -35,8 +33,8 @@ def process_yamls():
 
     count = 0
 
-    num_keys = 0
-    most_keys = agency = None
+    # num_keys = 0
+    # most_keys = agency = None
     for item in os.listdir(folder):
         if count <= 2:
             data_file = os.path.join(folder, item)
@@ -45,7 +43,7 @@ def process_yamls():
 
             # Agencies
             name = data['name']
-            slug = slugify(name[:50])
+            slug = slugify(name)[:50]
             a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
             a.abbreviation = data['abbreviation'],
@@ -69,117 +67,133 @@ def process_yamls():
                 public_liaison = public_liaison
                 """
 
-                office_name = dept_rec['name']
-                slug = slugify(office_name[:50])
+                name = dept_rec['name']
+                slug = slugify(name)[:50]
                 o, created = Office.objects.get_or_create(
                     agency=a,
                     slug=slug,
-                    )
+                )
 
                 o.name = office_name
                 o.request_form = dept_rec.get('request_form', None)
-                o.website=dept_rec.get('website', None)
-                o.service_center=dept_rec.get('service_center', None)
-                o.fax=dept_rec.get('fax', None)
-                o.emails=dept_rec.get('emails', None)
-                o.notes=dept_rec.get('notes',None)
+                o.website = dept_rec.get('website', None)
+                o.service_center = dept_rec.get('service_center', None)
+                o.fax = dept_rec.get('fax', None)
+                o.emails = dept_rec.get('emails', None)
+                o.notes = dept_rec.get('notes', None)
 
                 #FOIA contact
-                o.contact=dept_rec.get('address', None)
+                o.contact = dept_rec.get('address', None)
 
                 #FOIA public liaison
-                o.public_liaison=dept_rec.get('public_liaison', None)
+                o.public_liaison = dept_rec.get('public_liaison', None)
 
                 o.save()
-                print(o)
 
                 # if len(dept_rec.keys()) > num_keys:
                 #     num_keys = len(dept_rec.keys())
                 #     most_keys = dept_rec
-                #     agency = (data['name'],data['abbreviation'],data['description'])
+                #     agency = (data['name'],
+                #        data['abbreviation'],data['description'])
 
                 # try:
                 #     pprint.pprint(dept_rec['phone'])
                 # except KeyError:
                 #     pass
 
-    # print(num_keys)
-    # print(most_keys.keys())
-    # pprint.pprint(most_keys)
-    # pprint.pprint(agency)
 
-# def process_agency_csv():
-#     #TODO: Make generic as an arg when you convert to management command.
-#     #folder='/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
+def process_agency_csv(folder, filepath, dept):
 
-#     #TODO check the location; pass it as an arg
-#     # when you convert to a management command.
-#     folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
-#     agency_or_dept = 'A'
-#     csvfile = folder + 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
+    csvfile = folder + filepath
 
-#     csvdata = csv.DictReader(open(csvfile, 'rt'))
+    csvdata = csv.DictReader(open(csvfile, 'rt'))
 
-#     records_without_names = []
+    """
+    {'Agency': 'Administrative Conference of the United States',
+     'City': 'Washington',
+     'Department': 'Administrative Conference of the United States',
+     'Email Address': '',
+     'Fax': '(202) 386-7190',
+     'Name': 'Shawne McGibbon',
+     'Notes': '',
+     'Online Request Form': '',
+     'Room Number': 'Suite 706 South',
+     'State': 'DC',
+     'Street Address': '1120 20th Street, NW',
+     'Telephone': '(202) 480-2088',
+     'Title': 'FOIA Officer',
+     'Website': 'http://www.acus.gov/foia/',
+     'Zip Code': '20036'}
+     """
 
-#     for row in csvdata:
+    for row in csvdata:
 
-#         #TODO: Look at records without names --
-#         # make sure that you aren't losing anything.
-#         name = row.get('Name', None)
-#         if not name:
-#             records_without_names.append(row)
+        # Agencies
+        name = row['Department']
+        slug = slugify(name)[:50]
+        a, created = Agency.objects.get_or_create(
+            slug=slug, name=name,  dept = dept
+        )
+        a.dept = dept
+        a.save()
 
-#         else:
-#             dept, created = Department.objects.get_or_create(
-#                 name=row['Department'])
+        # Offices
+        office_name = row['Agency']
+        slug = slugify(office_name)[:50]
+        o, created = Office.objects.get_or_create(
+            agency=a, slug=slug, name=office_name
+        )
 
-#             agency, created = Agency.objects.get_or_create(
-#                 name=row['Agency'],
-#                 department=dept,
-#             )
+        o.website = row.get('website', None)
+        o.request_form = row.get('Online Request Form', None)
+        o.fax = row.get('fax', None)
+        o.notes = row.get('notes', None)
+        o.save()
 
-#             #agency website
-#             agency.website = check_urls(agency.website, row, 'Website')
-#             #agency online request form
-#             orf = agency.online_request_form
-#             agency.online_request_form = check_urls(
-#                 orf, row, 'Online Request Form')
-#             agency.save()
+        # Person
+        zip_code = row.get('Zip Code', None)
+        phone = row.get('Telephone', None)
+        email = row.get('Email Address', None)
+        state = row.get('State', None)
 
-#             address, created = Address.objects.get_or_create(
-#                 street_address=row.get('Street Address', None),
-#                 room_number=row.get('Room Number', None),
-#                 city=row.get('City', None),
-#                 state=row.get('State', None),
-#                 zip_code=row.get('Zip Code', None),
-#             )
+        # Only create a person record if these exist
+        if zip_code or phone or email or state:
+            person = Person(
+                email=email, phone=phone,
 
-#             foiacontact, created = FOIAContact.objects.get_or_create(
-#                 name=row['Name'],
-#                 title=row.get('Title', None),
-#                 phone=row.get('Telephone', None),
-#                 fax=row.get('Fax', None),
-#                 email=row.get('Email Address', None).lstrip('mailto:'),
-#                 location=address,
-#                 agency=agency,
-#                 agency_or_department=agency_or_dept,
-#             )
+                name=row.get('Name', None),
+                title=row.get('Title', None),
 
-#     print(len(records_without_names))
-#     foia_titles = []
-#     for rec in records_without_names:
-#         foiacontacts = FOIAContact.objects.filter(
+                street_address=row.get('Street Address', None),
+                room_number=row.get('Room Number', None),
+                city=row.get('City', None),
 
-#             phone=rec['Telephone']
-#         )
-#         if not foiacontacts:
-#             foia_titles.append(rec['Title'])
-#         #print('#######################################')
+                state=state, zip_code=zip_code,
 
-#     pprint.pprint(list(set(foia_titles)))
-
+                office=o,
+            )
+            person.save()
 
 if __name__ == "__main__":
-    #process_agency_csv()
-    process_yamls()
+
+
+    #TODO: Make generic as an arg when you convert to management command.
+    #folder='/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
+
+    #TODO check the location; pass it as an arg
+    # when you convert to a management command.
+    folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
+    filepath = 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
+    dept = False
+
+    process_agency_csv(folder, filepath, dept)
+
+    filepath = 'full-foia-contacts/Dept. FOIA Contacts-Table 1.csv'
+    dept = True
+
+    process_agency_csv(folder, filepath, dept)
+
+
+
+
+    #process_yamls()
