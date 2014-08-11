@@ -4,6 +4,7 @@ from django.conf import settings  # For debugging.
 from django.views.generic import CreateView
 
 from foia_core.forms import FOIARequestForm
+from foia_core.views import *
 
 from django.contrib import admin
 admin.autodiscover()
@@ -18,7 +19,10 @@ urlpatterns = patterns('',
         template_name="foia_core/generic_form.html"
         ),
         name='request-form',
-        )
+        ),
+
+
+    url(r'^agency.json', agency_data, name='agency_data')
 )
 
 

@@ -27,79 +27,62 @@ def check_urls(agency_url, row, field):
         return row_url
 
 
-def process_yamls():
+def process_yamls(folder):
 
-    folder = '/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
-
-    count = 0
-
-    # num_keys = 0
-    # most_keys = agency = None
     for item in os.listdir(folder):
-        if count <= 2:
-            data_file = os.path.join(folder, item)
+        data_file = os.path.join(folder, item)
 
-            data = yaml.load(open(data_file))
+        data = yaml.load(open(data_file))
 
-            # Agencies
-            name = data['name']
-            slug = slugify(name)[:50]
-            a, created = Agency.objects.get_or_create(slug=slug, name=name)
+        # Agencies
+        name = data['name']
+        slug = slugify(name)[:50]
 
-            a.abbreviation = data['abbreviation'],
-            a.description = data.get('description', None)
-            a.save()
+        a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
-            # Offices
-            for dept_rec in data['departments']:
-                """
-                Data mapping
-                name = name
-                request_form = request_form
-                website = website
-                service_center = service_center
-                fax = fax
-                emails = emails
-                notes = notes
-                contact = address (name, title, address, etc.)
-                contact_phone = parsed from address
+        a.abbreviation = data['abbreviation'],
+        a.description = data.get('description', None)
+        a.save()
 
-                public_liaison = public_liaison
-                """
+        # Offices
+        for dept_rec in data['departments']:
+            """
+            Data mapping
+            name = name
+            request_form = request_form
+            website = website
+            service_center = service_center
+            fax = fax
+            emails = emails
+            notes = notes
+            contact = address (name, title, address, etc.)
+            contact_phone = parsed from address
 
-                name = dept_rec['name']
-                slug = slugify(name)[:50]
-                o, created = Office.objects.get_or_create(
-                    agency=a,
-                    slug=slug,
-                )
+            public_liaison = public_liaison
+            """
 
-                o.name = office_name
-                o.request_form = dept_rec.get('request_form', None)
-                o.website = dept_rec.get('website', None)
-                o.service_center = dept_rec.get('service_center', None)
-                o.fax = dept_rec.get('fax', None)
-                o.emails = dept_rec.get('emails', None)
-                o.notes = dept_rec.get('notes', None)
+            office_name = dept_rec['name']
+            slug = slugify(office_name)[:50]
+            o, created = Office.objects.get_or_create(
+                agency=a,
+                slug=slug,
+            )
 
-                #FOIA contact
-                o.contact = dept_rec.get('address', None)
+            o.name = office_name
+            o.request_form = dept_rec.get('request_form', None)
+            o.website = dept_rec.get('website', None)
+            o.service_center = dept_rec.get('service_center', None)
+            o.fax = dept_rec.get('fax', None)
+            o.emails = dept_rec.get('emails', None)
+            o.notes = dept_rec.get('notes', None)
 
-                #FOIA public liaison
-                o.public_liaison = dept_rec.get('public_liaison', None)
+            #FOIA contact
+            o.contact = dept_rec.get('address', None)
 
-                o.save()
+            #FOIA public liaison
+            o.public_liaison = dept_rec.get('public_liaison', None)
 
-                # if len(dept_rec.keys()) > num_keys:
-                #     num_keys = len(dept_rec.keys())
-                #     most_keys = dept_rec
-                #     agency = (data['name'],
-                #        data['abbreviation'],data['description'])
-
-                # try:
-                #     pprint.pprint(dept_rec['phone'])
-                # except KeyError:
-                #     pass
+            o.save()
 
 
 def process_agency_csv(folder, filepath, dept):
@@ -157,22 +140,40 @@ def process_agency_csv(folder, filepath, dept):
         state = row.get('State', None)
 
         # Only create a person record if these exist
-        if zip_code or phone or email or state:
-            person = Person(
-                email=email, phone=phone,
+        if name or title:
+            if zip_code or phone or email or state:
 
-                name=row.get('Name', None),
-                title=row.get('Title', None),
+                # To fix the following record and any like it.
+                # 20857(if sending by courier use zc 20814)
+                if len(zip_code) > 10:
+                    zip_code = zip_code[:5]
 
-                street_address=row.get('Street Address', None),
-                room_number=row.get('Room Number', None),
-                city=row.get('City', None),
+                # To fix the following record and any like it.
+                # '(800) 375-5283 (USCIS National Customer Service Unit)'
+                if len(phone) > 50:
+                    phone = phone[:14]
 
-                state=state, zip_code=zip_code,
+                # Note: Some phone fields have 2 phone numbers.
+                # Not sure if one is more important the other.
+                # TODO: Compare if one these numbers is stored with other
+                # person, so it doesn't need to be stored with this on.
+                # example: (202) 343-1743, (866) 431-0486
 
-                office=o,
-            )
-            person.save()
+                person = Person(
+                    email=email, phone=phone,
+
+                    name=row.get('Name', None),
+                    title=row.get('Title', None),
+
+                    street_address=row.get('Street Address', None),
+                    room_number=row.get('Room Number', None),
+                    city=row.get('City', None),
+
+                    state=state, zip_code=zip_code,
+
+                    office=o,
+                )
+                person.save()
 
 if __name__ == "__main__":
 
@@ -182,18 +183,18 @@ if __name__ == "__main__":
 
     #TODO check the location; pass it as an arg
     # when you convert to a management command.
-    folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
-    filepath = 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
-    dept = False
 
-    process_agency_csv(folder, filepath, dept)
+    folder = '/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
+    process_yamls(folder)
 
-    filepath = 'full-foia-contacts/Dept. FOIA Contacts-Table 1.csv'
-    dept = True
+    #folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
+    #filepath = 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
+    #dept = False
 
-    process_agency_csv(folder, filepath, dept)
+    #process_agency_csv(folder, filepath, dept)
 
+    #filepath = 'full-foia-contacts/Dept. FOIA Contacts-Table 1.csv'
+    #dept = True
 
+    #process_agency_csv(folder, filepath, dept)
 
-
-    #process_yamls()

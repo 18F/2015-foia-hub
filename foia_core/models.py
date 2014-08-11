@@ -30,7 +30,7 @@ class Agency(models.Model):
     abbreviation = models.CharField(max_length=30, null=True, unique=True)
     description = models.TextField(null=True)
     slug = models.SlugField(unique=True)
-    dept = models.BooleanField()
+    # dept = models.BooleanField()  # This is from csv - possibly removable
     # chief_foia_officer
 
     def __str__(self):
@@ -49,12 +49,23 @@ class Office(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField()
 
+    # phone numbers
+    service_center = models.CharField(max_length=250, null=True)
+    fax = models.CharField(max_length=50, null=True)
+
+    # electronic comms
     request_form = models.URLField(null=True)
     website = models.URLField(null=True)
+    emails = models.CharField(max_length=250, null=True)
 
-    fax = models.CharField(max_length=50, null=True)
+    # public contact
+    contact = models.TextField(null=True)  # address
+    contact_phone = models.CharField(max_length=50, null=True)  # phone
+
+    # Public liaison
+    public_liaison = models.TextField(null=True)
+
     notes = models.TextField(null=True)
-
 
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
@@ -69,40 +80,41 @@ class Office(models.Model):
             super(Office, self).save(*args, **kwargs)
 
 
-class Person(models.Model):
+# class Person(models.Model):
 
-    #person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
-    name = models.CharField(max_length=150, null=True)
-    title = models.CharField(max_length=250, null=True)
-    email = models.EmailField(null=True)
-    phone = models.CharField(max_length=50, null=True)
+#     #person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
+#     name = models.CharField(max_length=150, null=True)
+#     title = models.CharField(max_length=250, null=True)
+#     email = models.EmailField(null=True)
+#     phone = models.CharField(max_length=50, null=True)
 
-    street_address = models.CharField(max_length=250, null=True)
-    room_number = models.CharField(max_length=250, null=True)
-    city = models.CharField(max_length=250, null=True)
-    state = models.CharField(max_length=100, null=True)
-    zip_code = models.CharField(max_length=10, null=True)
+#     street_address = models.CharField(max_length=250, null=True)
+#     room_number = models.CharField(max_length=250, null=True)
+#     city = models.CharField(max_length=250, null=True)
+#     state = models.CharField(max_length=100, null=True)
+#     zip_code = models.CharField(max_length=10, null=True)
 
-    office = models.ForeignKey(Office)
+#     office = models.ForeignKey(Office)
 
-    def __str__(self):
-        if self.name and self.title:
-            text = '%s, %s' % (self.name, self.title)
-        elif self.name:
-            text = '%s, No title' % self.name
-        elif self.title:
-            text = 'No title, %s' % self.title
-        return 'Person: %s' % text
+#     def __str__(self):
+#         text = None
+#         if self.name and self.title:
+#             text = '%s, %s' % (self.name, self.title)
+#         elif self.name:
+#             text = '%s, No title' % self.name
+#         elif self.title:
+#             text = 'No title, %s' % self.title
+#         return 'Person: %s' % text
 
-    def save(self, *args, **kwargs):
-        """
-        This is to make sure that there is either a name or title.
-        Some titles don't have names and some names don't have titles.
-        """
-        if self.name or self.title:
-            super(Person, self).save(*args, **kwargs)
-        else:
-            logger.warning('%s not saved, because no title or name' % self)
+#     def save(self, *args, **kwargs):
+#         """
+#         This is to make sure that there is either a name or title.
+#         Some titles don't have names and some names don't have titles.
+#         """
+#         if self.name or self.title:
+#             super(Person, self).save(*args, **kwargs)
+#         else:
+#             logger.warning('%s not saved, because no title or name' % self)
 
 
 class Requestor(models.Model):
