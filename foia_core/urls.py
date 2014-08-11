@@ -22,7 +22,8 @@ urlpatterns = patterns('',
         ),
 
 
-    url(r'^agency.json', agency_data, name='agency_data')
+    url(r'^data/agency/', agency_data, name='agency_data'),
+    url(r'^data/agency/(?P<slug>)/', office_data, name='office_data')
 )
 
 

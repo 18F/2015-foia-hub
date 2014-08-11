@@ -11,12 +11,15 @@ from foia_core.models import *
 
 def agency_data(request):
 
-    objectQuerySet = Agency.objects.select_related()
-    data = serializers.serialize('json', objectQuerySet)
-
-    return HttpResponse(data,
-        content_type="application/json")
+    data = serializers.serialize('json', Agency.objects.all(), indent=4)
+    return HttpResponse(data, content_type="application/json")
 
     # Django 1.7 will have JsonResponse, which is a subclass of HttpResponse
     # but JSON-encoded.
     # return JsonResponse({"key": "value"})
+
+def office_data(request, slug):
+
+    print('here')
+    data = serializers.serialize('json', Office.objects.filter(agency__slug=slug))
+    return HttpResponse(data, content_type="application/json")

@@ -40,7 +40,7 @@ def process_yamls(folder):
 
         a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
-        a.abbreviation = data['abbreviation'],
+        a.abbreviation = data['abbreviation']
         a.description = data.get('description', None)
         a.save()
 
