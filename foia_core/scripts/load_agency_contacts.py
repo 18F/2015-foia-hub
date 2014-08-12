@@ -1,11 +1,11 @@
 import csv
 import logging
 import os
+import sys
 
 import yaml
 
 from django.utils.text import slugify
-
 
 from foia_core.models import *
 
@@ -177,16 +177,23 @@ def process_agency_csv(folder, filepath, dept):
 
 if __name__ == "__main__":
 
+    '''
+        To run this:
+        python load_agency_contacts $LOCATION_OF_DATA
 
-    #TODO: Make generic as an arg when you convert to management command.
-    #folder='/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
+        The data is currently is a folder of yaml that is in the main
+        foia repo. If you were running this locally, it might look something
+        like this:
 
-    #TODO check the location; pass it as an arg
-    # when you convert to a management command.
+        python load_agency_contacts ~/Projects/code/foia/foia/contacts/data
+    '''
 
-    folder = '/Users/jacquelinekazil/Projects/code/foia/foia/contacts/data'
-    process_yamls(folder)
+    #TODO: Make generic as an arg when you convert to management command?
+    yaml_folder = sys.argv[1]
 
+    process_yamls(yaml_folder)
+
+    # TODO Overlay extra data in CSVs -- ie email addresses
     #folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
     #filepath = 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
     #dept = False
