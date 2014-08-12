@@ -1,219 +1,218 @@
-
 [
 {
-    "fields": {
-        "contact": "['Larry Gottesman', 'National Freedom of Information Officer', '(2822T)', '1200 Pennsylvania Avenue, NW', 'Washington, DC 20460']",
-        "service_center": "Phone: (202) 566-1667",
-        "website": "http://www.epa.gov/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "I don't know which office",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "i-dont-know-which-office"
-    },
     "pk": 194,
-    "model": "foia_core.office"
-},
-{
+    "model": "foia_core.office",
     "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 10', 'Office of External Affairs', '1200 6th Avenue (CEC-142)', 'Seattle , WA 98101']",
-        "service_center": "Phone: (206) 553-8665",
-        "website": "http://yosemite.epa.gov/r10/extaff.nsf/webpage/freedom+of+information+act",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 10 (States: AK, ID, OR, WA)",
         "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-10-states-ak-id-or-wa"
-    },
-    "pk": 193,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 9', '(OPPA-2)', '75 Hawthorne Street', 'San Francisco, CA 94105']",
-        "service_center": "Phone: (415) 947-4251",
-        "website": "http://www.epa.gov/region09/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 9 (States: AZ, CA, HI, NV, AS, GU)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-9-states-az-ca-hi-nv-as-gu"
-    },
-    "pk": 192,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 8', '1595 Wynkoop Street', 'Denver, CO 80202-1129']",
-        "service_center": "Phone: (303) 312-6856",
-        "website": "http://www.epa.gov/region8/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 8 (States: CO, MT, ND, SD, UT, WY)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-8-states-co-mt-nd-sd-ut-wy"
-    },
-    "pk": 191,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 7', '11201 Renner Boulevard', 'Lenexa, KS 66219']",
-        "service_center": "Phone: (913) 551-7860",
-        "website": "http://www.epa.gov/region07/citizens/foia/index.htm",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 7 (States: IA, KS, MO, NE)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-7-states-ia-ks-mo-ne"
-    },
-    "pk": 190,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 6', '(6MD-OE)', '1445 Ross Avenue', 'Dallas, TX 75202-2733']",
-        "service_center": "Phone: (214) 665-7202",
-        "website": "http://www.epa.gov/earth1r6/6md/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 6 (States: AR, LA, NM, OK, TX)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-6-states-ar-la-nm-ok-tx"
-    },
-    "pk": 189,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 5', '(MI-9)', '77 West Jackson Boulevard', 'Chicago, IL 60604-3590']",
-        "service_center": "Phone: (312) 886-6686",
-        "website": "http://www.epa.gov/region5/foia.htm",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 5 (States: IL, IN, MI, MN, OH, WI)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-5-states-il-in-mi-mn-oh-wi"
-    },
-    "pk": 188,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 4', 'AFC Building, 9th Floor (4PM/IF)', '61 Forsyth Street, SW', 'Atlanta, GA 30303-8960']",
-        "service_center": "Phone: (404) 562-9891",
-        "website": "http://www.epa.gov/region4/foiapgs",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 4 (States: AL, FL, GA, KY, MS, NC, SC, TN)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-4-states-al-fl-ga-ky-ms-nc-sc-tn"
-    },
-    "pk": 187,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 3', '(3C610)', '1650 Arch Street', 'Philadelphia, PA 19103']",
-        "service_center": "Phone: (215) 814-3424",
-        "website": "http://www.epa.gov/region03/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 3 (States: DE, DC, MD, PA, VA, WV)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-3-states-de-dc-md-pa-va-wv"
-    },
-    "pk": 186,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 2', '26th Floor', '290 Broadway', 'New York, NY 10007-1866']",
-        "service_center": "Phone: (212) 637-3668",
-        "website": "http://www.epa.gov/region02/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 2 (States: NJ, NY, PR VI)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-2-states-nj-ny-pr-vi"
-    },
-    "pk": 185,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 1 (OARM01-6)', 'Suite 100', '5 Post Office Square', 'Boston, MA 02109-3912']",
-        "service_center": "Phone: (617) 918-1102",
-        "website": "http://www.epa.gov/ne/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "Region 1 (States: CT, ME, MA, NH, RI, VT)",
-        "request_form": "http://www.epa.gov/foia/requestform.html",
-        "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
-        "emails": null,
-        "slug": "region-1-states-ct-me-ma-nh-ri-vt"
-    },
-    "pk": 184,
-    "model": "foia_core.office"
-},
-{
-    "fields": {
-        "contact": "['Larry Gottesman', 'National Freedom of Information Officer', '(2822T)', '1200 Pennsylvania Avenue, NW', 'Washington, DC 20460']",
-        "service_center": "Phone: (202) 566-1667",
+        "slug": "i-dont-know-which-office",
         "website": "http://www.epa.gov/foia/index.html",
-        "fax": null,
-        "notes": null,
-        "agency": 25,
-        "name": "National Headquarters",
-        "request_form": "https://foiaonline.regulations.gov/foia/action/public/home",
+        "contact": "['Larry Gottesman', 'National Freedom of Information Officer', '(2822T)', '1200 Pennsylvania Avenue, NW', 'Washington, DC 20460']",
         "contact_phone": null,
-        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "service_center": "Phone: (202) 566-1667",
+        "fax": null,
         "emails": null,
-        "slug": "national-headquarters"
-    },
+        "name": "I don't know which office",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 193,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-10-states-ak-id-or-wa",
+        "website": "http://yosemite.epa.gov/r10/extaff.nsf/webpage/freedom+of+information+act",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 10', 'Office of External Affairs', '1200 6th Avenue (CEC-142)', 'Seattle , WA 98101']",
+        "contact_phone": null,
+        "service_center": "Phone: (206) 553-8665",
+        "fax": null,
+        "emails": null,
+        "name": "Region 10 (States: AK, ID, OR, WA)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 192,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-9-states-az-ca-hi-nv-as-gu",
+        "website": "http://www.epa.gov/region09/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 9', '(OPPA-2)', '75 Hawthorne Street', 'San Francisco, CA 94105']",
+        "contact_phone": null,
+        "service_center": "Phone: (415) 947-4251",
+        "fax": null,
+        "emails": null,
+        "name": "Region 9 (States: AZ, CA, HI, NV, AS, GU)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 191,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-8-states-co-mt-nd-sd-ut-wy",
+        "website": "http://www.epa.gov/region8/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 8', '1595 Wynkoop Street', 'Denver, CO 80202-1129']",
+        "contact_phone": null,
+        "service_center": "Phone: (303) 312-6856",
+        "fax": null,
+        "emails": null,
+        "name": "Region 8 (States: CO, MT, ND, SD, UT, WY)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 190,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-7-states-ia-ks-mo-ne",
+        "website": "http://www.epa.gov/region07/citizens/foia/index.htm",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 7', '11201 Renner Boulevard', 'Lenexa, KS 66219']",
+        "contact_phone": null,
+        "service_center": "Phone: (913) 551-7860",
+        "fax": null,
+        "emails": null,
+        "name": "Region 7 (States: IA, KS, MO, NE)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 189,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-6-states-ar-la-nm-ok-tx",
+        "website": "http://www.epa.gov/earth1r6/6md/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 6', '(6MD-OE)', '1445 Ross Avenue', 'Dallas, TX 75202-2733']",
+        "contact_phone": null,
+        "service_center": "Phone: (214) 665-7202",
+        "fax": null,
+        "emails": null,
+        "name": "Region 6 (States: AR, LA, NM, OK, TX)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 188,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-5-states-il-in-mi-mn-oh-wi",
+        "website": "http://www.epa.gov/region5/foia.htm",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 5', '(MI-9)', '77 West Jackson Boulevard', 'Chicago, IL 60604-3590']",
+        "contact_phone": null,
+        "service_center": "Phone: (312) 886-6686",
+        "fax": null,
+        "emails": null,
+        "name": "Region 5 (States: IL, IN, MI, MN, OH, WI)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 187,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-4-states-al-fl-ga-ky-ms-nc-sc-tn",
+        "website": "http://www.epa.gov/region4/foiapgs",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 4', 'AFC Building, 9th Floor (4PM/IF)', '61 Forsyth Street, SW', 'Atlanta, GA 30303-8960']",
+        "contact_phone": null,
+        "service_center": "Phone: (404) 562-9891",
+        "fax": null,
+        "emails": null,
+        "name": "Region 4 (States: AL, FL, GA, KY, MS, NC, SC, TN)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 186,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-3-states-de-dc-md-pa-va-wv",
+        "website": "http://www.epa.gov/region03/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 3', '(3C610)', '1650 Arch Street', 'Philadelphia, PA 19103']",
+        "contact_phone": null,
+        "service_center": "Phone: (215) 814-3424",
+        "fax": null,
+        "emails": null,
+        "name": "Region 3 (States: DE, DC, MD, PA, VA, WV)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 185,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-2-states-nj-ny-pr-vi",
+        "website": "http://www.epa.gov/region02/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 2', '26th Floor', '290 Broadway', 'New York, NY 10007-1866']",
+        "contact_phone": null,
+        "service_center": "Phone: (212) 637-3668",
+        "fax": null,
+        "emails": null,
+        "name": "Region 2 (States: NJ, NY, PR VI)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
+    "pk": 184,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "http://www.epa.gov/foia/requestform.html",
+        "slug": "region-1-states-ct-me-ma-nh-ri-vt",
+        "website": "http://www.epa.gov/ne/foia/index.html",
+        "contact": "['Regional Freedom of Information Officer', 'U.S. EPA, Region 1 (OARM01-6)', 'Suite 100', '5 Post Office Square', 'Boston, MA 02109-3912']",
+        "contact_phone": null,
+        "service_center": "Phone: (617) 918-1102",
+        "fax": null,
+        "emails": null,
+        "name": "Region 1 (States: CT, ME, MA, NH, RI, VT)",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
+},
+{
     "pk": 183,
-    "model": "foia_core.office"
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": "https://foiaonline.regulations.gov/foia/action/public/home",
+        "slug": "national-headquarters",
+        "website": "http://www.epa.gov/foia/index.html",
+        "contact": "['Larry Gottesman', 'National Freedom of Information Officer', '(2822T)', '1200 Pennsylvania Avenue, NW', 'Washington, DC 20460']",
+        "contact_phone": null,
+        "service_center": "Phone: (202) 566-1667",
+        "fax": null,
+        "emails": null,
+        "name": "National Headquarters",
+        "notes": null,
+        "public_liaison": "Deborah Williams, Phone: (202) 566-1667",
+        "agency": 25
+    }
 }
 ]
