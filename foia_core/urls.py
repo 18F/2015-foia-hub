@@ -5,6 +5,7 @@ from django.views.generic import CreateView
 
 from foia_core.forms import FOIARequestForm
 from foia_core.views import *
+from foia_core.api import *
 
 from django.contrib import admin
 admin.autodiscover()
@@ -21,8 +22,9 @@ urlpatterns = patterns('',
         name='request-form',
         ),
 
-    url(r'^data/agency/(?P<slug>[-\w]+)/$', office_data, name='office_data'),
-    url(r'^data/agency/', agency_data, name='agency_data'),
+    url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
+    url(r'^api/agency/', include(AgencyResource.urls())),
+    #url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 
 
