@@ -1,0 +1,20 @@
+[
+{
+    "pk": 223,
+    "model": "foia_core.office",
+    "fields": {
+        "request_form": null,
+        "slug": "headquarters",
+        "website": "http://www.gsa.gov/portal/category/21416",
+        "contact": "['FOIA Contact', 'FOIA Requester Service Center (H1C)', 'Room 7308', '1800 F. Street, NW', 'Washington, DC 20405']",
+        "contact_phone": null,
+        "service_center": "Phone: (855) 675-3642",
+        "fax": "202-501-2727",
+        "emails": "['gsa.foia@gsa.gov']",
+        "name": "Headquarters",
+        "notes": null,
+        "public_liaison": "Audrey Corbett Brooks, Phone: (202) 205-5912",
+        "agency": 43
+    }
+}
+]

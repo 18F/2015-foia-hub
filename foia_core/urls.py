@@ -21,9 +21,8 @@ urlpatterns = patterns('',
         name='request-form',
         ),
 
-
+    url(r'^data/agency/(?P<slug>[-\w]+)/$', office_data, name='office_data'),
     url(r'^data/agency/', agency_data, name='agency_data'),
-    url(r'^data/agency/(?P<slug>)/', office_data, name='office_data')
 )
 
 

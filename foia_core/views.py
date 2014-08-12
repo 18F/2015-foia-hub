@@ -20,6 +20,6 @@ def agency_data(request):
 
 def office_data(request, slug):
 
-    print('here')
-    data = serializers.serialize('json', Office.objects.filter(agency__slug=slug))
+    offices = Office.objects.filter(agency__slug=slug)
+    data = serializers.serialize('json', offices, indent=4)
     return HttpResponse(data, content_type="application/json")
