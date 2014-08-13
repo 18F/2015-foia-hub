@@ -39,10 +39,10 @@ If it was successful this should output the following:
  ```
 
 
- If you pass it something bad like this:
+ If you use this sample data, which is a bad set, it will return a 500:
 
  ```
- data = {
+data = {
   "first_name": "EricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEricEric",
   "last_name": "Mill",
   "email": "eric.mill@gsa.gov",
@@ -59,8 +59,10 @@ If it was successful this should output the following:
 }
 ```
 
-It will return a 500 error:
 ```
+r.status_code
+500
+
 r.json()['error']
 'value too long for type character varying(250)\n'
 ```
