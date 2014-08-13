@@ -1,5 +1,7 @@
 Django==1.6.5
 psycopg2==2.5.3
+django-jsonfield==0.9.13
+restless==2.0.0
 
 # PyYAML is for contact loading
 PyYAML==3.11
