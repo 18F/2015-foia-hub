@@ -57,7 +57,7 @@ class FOIARequestResource(DjangoResource):
         'fee_limit': 'fee_limit',
         'request_body': 'request_body',
         'custom_fields': 'custom_fields',
-        #'agency': 'agency',
+        'tracking_id': 'pk',
     })
 
     def _convert_date(self, date):
