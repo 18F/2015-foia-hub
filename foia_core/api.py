@@ -6,7 +6,6 @@ from restless.preparers import FieldsPreparer
 from foia_core.models import *
 
 
-
 class AgencyResource(DjangoResource):
 
     preparer = FieldsPreparer(fields={
@@ -86,8 +85,8 @@ class FOIARequestResource(DjangoResource):
 
         return FOIARequest.objects.create(
             status='O',
-            requester = requester,
-            office = office,
+            requester=requester,
+            office=office,
             date_start=start,
             date_end=end,
             request_body=self.data['body'],
@@ -100,6 +99,7 @@ class FOIARequestResource(DjangoResource):
 
     # Open everything wide!
     # DANGEROUS, DO NOT DO IN PRODUCTION.
-    # more info here: https://github.com/toastdriven/restless/blob/master/docs/tutorial.rst
+    # more info here:
+    # https://github.com/toastdriven/restless/blob/master/docs/tutorial.rst
     def is_authenticated(self):
         return True
