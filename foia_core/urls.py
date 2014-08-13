@@ -4,7 +4,7 @@ from django.conf import settings  # For debugging.
 from django.views.generic import CreateView
 
 from foia_core.forms import FOIARequestForm
-from foia_core.api import *
+# from foia_core.api import *
 
 from django.contrib import admin
 admin.autodiscover()
@@ -21,8 +21,8 @@ urlpatterns = patterns('',
         name='request-form',
         ),
 
-    url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
-    url(r'^api/agency/', include(AgencyResource.urls())),
+    # url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
+    # url(r'^api/agency/', include(AgencyResource.urls())),
     #url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 
