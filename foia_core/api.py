@@ -1,5 +1,7 @@
 import datetime
 
+from django.db import transaction
+
 from restless.dj import DjangoResource
 from restless.preparers import FieldsPreparer
 
@@ -66,32 +68,34 @@ class FOIARequestResource(DjangoResource):
     # POST /
     def create(self):
 
-        import pprint
-        pprint.pprint(self.data)
+        foia = None
+        with transaction.atomic():
 
-        office = Office.objects.get(
-            agency__slug=self.data['agency'],
-            slug=self.data['office'],
-        )
+            office = Office.objects.get(
+                agency__slug=self.data['agency'],
+                slug=self.data['office'],
+            )
 
-        requester = Requester.objects.create(
-            first_name=self.data['first_name'],
-            last_name=self.data['last_name'],
-            email=self.data['email']
-        )
+            requester = Requester.objects.create(
+                first_name=self.data['first_name'],
+                last_name=self.data['last_name'],
+                email=self.data['email']
+            )
 
-        start = self._convert_date(self.data['documents_start'])
-        end = self._convert_date(self.data['documents_end'])
+            start = self._convert_date(self.data['documents_start'])
+            end = self._convert_date(self.data['documents_end'])
 
-        return FOIARequest.objects.create(
-            status='O',
-            requester=requester,
-            office=office,
-            date_start=start,
-            date_end=end,
-            request_body=self.data['body'],
-            custom_fields=self.data['agency_fields'],
-        )
+            foia = FOIARequest.objects.create(
+                status='O',
+                requester=requester,
+                office=office,
+                date_start=start,
+                date_end=end,
+                request_body=self.data['body'],
+                custom_fields=self.data['agency_fields'],
+            )
+
+        return foia
 
     # GET /
     def list(self):
