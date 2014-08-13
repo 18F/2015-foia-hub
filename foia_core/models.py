@@ -2,6 +2,8 @@ import logging
 from django.db import models
 
 from django.utils.text import slugify
+from jsonfield import JSONField
+
 
 logger = logging.getLogger(__name__)
 
@@ -19,9 +21,6 @@ FOIA_STATUS = (
 #     ('C', 'chief'),
 #     ('B', 'Both'),
 # )
-
-#TODO: Add slug to almost everything that could be a page, the
-# population that slug
 
 
 class Agency(models.Model):
@@ -117,11 +116,11 @@ class Office(models.Model):
 #             logger.warning('%s not saved, because no title or name' % self)
 
 
-class Requestor(models.Model):
+class Requester(models.Model):
 
     # TODO: name clarification -- first & last or one field?
-    name = models.CharField(max_length=250)
-    phone = models.CharField(max_length=10)
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
     email = models.EmailField()
 
     #TODO: Add address fields or can we do this without?
@@ -133,17 +132,18 @@ class Requestor(models.Model):
 class FOIARequest(models.Model):
 
     status = models.CharField(max_length=1, choices=FOIA_STATUS, default='O')
-    agency = models.ForeignKey('Requestor')
 
-    request = models.TextField()
+    requester = models.ForeignKey(Requester)
+    office = models.ForeignKey(Office)
 
-    # FEES
-    #TODO: If news media, then validate news media email address?
-    # How is a member legally defined? Are there other sources that we can
-    # validate against
-    fee_newsmedia = models.BooleanField(default=False)  # member of media?
-    fee_waiver = models.BooleanField(default=False) 	# asking for a waiver?
-    fee_limit = models.PositiveIntegerField()  # limit requestor willing to pay
+    date_start = models.DateField(null=True)
+    date_end = models.DateField(null=False)
+
+    # Fee limit requester is willing to pay without consultation.
+    fee_limit = models.PositiveIntegerField(default=0)
+
+    request_body = models.TextField()
+    custom_fields = JSONField(null=True)
 
     def __str__(self):
         return 'Request: %s' % (self.pk,)

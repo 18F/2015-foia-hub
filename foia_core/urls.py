@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 
     url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
     url(r'^api/agency/', include(AgencyResource.urls())),
-    #url(r'^api/request/', include(FOIARequestResource.urls())),
+    url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 
 

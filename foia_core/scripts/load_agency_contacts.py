@@ -185,7 +185,7 @@ if __name__ == "__main__":
         foia repo. If you were running this locally, it might look something
         like this:
 
-        python load_agency_contacts ~/Projects/code/foia/foia/contacts/data
+        python load_agency_contacts.py ~/Projects/code/foia/foia/contacts/data
     '''
 
     #TODO: Make generic as an arg when you convert to management command?
