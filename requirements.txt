@@ -5,3 +5,8 @@ restless==2.0.0
 
 # PyYAML is for contact loading
 PyYAML==3.11
+
+# used as helpful in dev
+flake8
+django-debug-toolbar
+ipython
