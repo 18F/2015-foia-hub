@@ -126,7 +126,7 @@ class Requester(models.Model):
     #TODO: Add address fields or can we do this without?
 
     def __str__(self):
-        return 'Requestor: %s' % (self.name,)
+        return '%s %s' % (self.first_name, self.last_name)
 
 
 class FOIARequest(models.Model):
@@ -146,4 +146,4 @@ class FOIARequest(models.Model):
     custom_fields = JSONField(null=True)
 
     def __str__(self):
-        return 'Request: %s' % (self.pk,)
+        return '%s' % (self.pk,)

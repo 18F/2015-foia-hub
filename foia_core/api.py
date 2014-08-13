@@ -1,7 +1,10 @@
+import datetime
+
 from restless.dj import DjangoResource
 from restless.preparers import FieldsPreparer
 
 from foia_core.models import *
+
 
 
 class AgencyResource(DjangoResource):
@@ -49,17 +52,23 @@ class FOIARequestResource(DjangoResource):
 
     preparer = FieldsPreparer(fields={
         'status': 'status',
-        'requester': 'requester',
+        'requester': 'requester.pk',
         'date_start': 'date_start',
         'date_end': 'date_end',
         'fee_limit': 'fee_limit',
         'request_body': 'request_body',
         'custom_fields': 'custom_fields',
-        'agency': 'agency',
+        #'agency': 'agency',
     })
+
+    def _convert_date(self, date):
+        return datetime.datetime.strptime(date, '%B %d, %Y')
 
     # POST /
     def create(self):
+
+        import pprint
+        pprint.pprint(self.data)
 
         office = Office.objects.get(
             agency__slug=self.data['agency'],
@@ -72,14 +81,17 @@ class FOIARequestResource(DjangoResource):
             email=self.data['email']
         )
 
+        start = self._convert_date(self.data['documents_start'])
+        end = self._convert_date(self.data['documents_end'])
+
         return FOIARequest.objects.create(
             status='O',
             requester = requester,
             office = office,
-            date_start=self.data['date_start'],
-            date_end=self.data['data_end'],
-            request_body=self.data['request_body'],
-            custom_fields=self.data['custom_fields'],
+            date_start=start,
+            date_end=end,
+            request_body=self.data['body'],
+            custom_fields=self.data['agency_fields'],
         )
 
     # GET /
@@ -91,47 +103,3 @@ class FOIARequestResource(DjangoResource):
     # more info here: https://github.com/toastdriven/restless/blob/master/docs/tutorial.rst
     def is_authenticated(self):
         return True
-
-
-# class PostResource(DjangoResource):
-#     # Controls what data is included in the serialized output.
-#     preparer = Preparer(fields={
-#         'id': 'id',
-#         'title': 'title',
-#         'author': 'user.username',
-#         'body': 'content',
-#         'posted_on': 'posted_on',
-#     })
-
-#     # GET /
-#     def list(self):
-#         return Post.objects.all()
-
-#     # GET /pk/
-#     def detail(self, pk):
-#         return Post.objects.get(id=pk)
-
-#     # POST /
-#     def create(self):
-#         return Post.objects.create(
-#             title=self.data['title'],
-#             user=User.objects.get(username=self.data['author']),
-#             content=self.data['body']
-#         )
-
-#     # # PUT /pk/
-#     # def update(self, pk):
-#     #     try:
-#     #         post = Post.objects.get(id=pk)
-#     #     except Post.DoesNotExist:
-#     #         post = Post()
-
-#     #     post.title = self.data['title']
-#     #     post.user = User.objects.get(username=self.data['author'])
-#     #     post.content = self.data['body']
-#     #     post.save()
-#     #     return post
-
-#     # # DELETE /pk/
-#     # def delete(self, pk):
-#     #     Post.objects.get(id=pk).delete()
