@@ -141,7 +141,7 @@ def process_agency_csv(data_path):
             if zip_code or phone or email or state:
 
                 # To fix the following record and any like it.
-                # 20857(if sending by courier use zc 20814)
+                # "20857(if sending by courier use zc 20814)"
                 if len(zip_code) > 10:
                     zip_code = zip_code[:5]
 
@@ -185,7 +185,8 @@ if __name__ == "__main__":
         python load_agency_contacts.py ~/Projects/code/foia/foia/contacts/data
 
         # If you want to designate an alternate csv path, specify that as the
-        # next argument following the yaml dir otherwise the script will default
+        # next argument following the yaml dir otherwise
+        # the script will default
         # to the following:
 
         # ../../data/foia-contacts/full-foia-contacts/
@@ -208,4 +209,3 @@ if __name__ == "__main__":
     for item in os.listdir(folder):
         data_file = os.path.join(folder, item)
         process_agency_csv(data_file)
-
