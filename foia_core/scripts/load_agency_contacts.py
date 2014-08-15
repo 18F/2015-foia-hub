@@ -85,9 +85,7 @@ def process_yamls(folder):
             o.save()
 
 
-def process_agency_csv(folder, filepath, dept):
-
-    csvfile = folder + filepath
+def process_agency_csv(data_path):
 
     csvdata = csv.DictReader(open(csvfile, 'rt'))
 
@@ -115,9 +113,8 @@ def process_agency_csv(folder, filepath, dept):
         name = row['Department']
         slug = slugify(name)[:50]
         a, created = Agency.objects.get_or_create(
-            slug=slug, name=name,  dept = dept
+            slug=slug, name=name
         )
-        a.dept = dept
         a.save()
 
         # Offices
@@ -186,6 +183,13 @@ if __name__ == "__main__":
         like this:
 
         python load_agency_contacts.py ~/Projects/code/foia/foia/contacts/data
+
+        # If you want to designate an alternate csv path, specify that as the
+        # next argument following the yaml dir otherwise the script will default
+        # to the following:
+
+        # ../../data/foia-contacts/full-foia-contacts/
+
     '''
 
     #TODO: Make generic as an arg when you convert to management command?
@@ -193,15 +197,15 @@ if __name__ == "__main__":
 
     process_yamls(yaml_folder)
 
-    # TODO Overlay extra data in CSVs -- ie email addresses
-    #folder = '/Users/jacquelinekazil/Projects/code/foia/foia-core/data/'
-    #filepath = 'full-foia-contacts/Agency FOIA Contacts-Table 1.csv'
-    #dept = False
+    # # Overlay csv file information on the yaml info
+    # try:
+    #     csv_folder = sys.argv[2]
+    # except IndexError:
+    #     csv_folder = "../../data/foia-contacts/full-foia-contacts/"
+    #     print('No csv folder passed as arg.')
+    #     print('Setting to default %s.' % csv_folder)
 
-    #process_agency_csv(folder, filepath, dept)
-
-    #filepath = 'full-foia-contacts/Dept. FOIA Contacts-Table 1.csv'
-    #dept = True
-
-    #process_agency_csv(folder, filepath, dept)
+    for item in os.listdir(folder):
+        data_file = os.path.join(folder, item)
+        process_agency_csv(data_file)
 
