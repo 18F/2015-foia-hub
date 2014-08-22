@@ -46,8 +46,29 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'foia_core.urls'
-
 WSGI_APPLICATION = 'foia_core.wsgi.application'
+
+
+## JINJA SETTINGS
+TEMPLATE_LOADERS = (
+    'django_jinja.loaders.AppLoader',
+    'django_jinja.loaders.FileSystemLoader',
+)
+
+INSTALLED_APPS += ('django_jinja',)
+
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
+
+# Enable bytecode cache (default: False)
+#JINJA2_BYTECODE_CACHE_ENABLE = False
+
+# Cache backend name for bytecode cache (default: "default")
+#JINJA2_BYTECODE_CACHE_NAME = "default"
+
+# Specify custom bytecode cache subclass (default: None)
+#JINJA2_BYTECODE_CACHE_BACKEND = "path.to.you.cache.class"
+##/ END JINJA SETTINGS
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
