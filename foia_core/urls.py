@@ -8,7 +8,7 @@ from foia_core.api import *
 
 # Front-end
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="index.jinja"), name='home'),
+    url(r'^$', TemplateView.as_view(template_name="index.html"), name='home'),
 )
 
 # APIs

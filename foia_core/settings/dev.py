@@ -13,6 +13,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
 ) + INSTALLED_APPS
 
+DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r"^(?!debug_toolbar/).*"
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

@@ -57,7 +57,7 @@ TEMPLATE_LOADERS = (
 
 INSTALLED_APPS += ('django_jinja',)
 
-DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
 
 # Enable bytecode cache (default: False)
 #JINJA2_BYTECODE_CACHE_ENABLE = False
@@ -68,7 +68,6 @@ DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.jinja'
 # Specify custom bytecode cache subclass (default: None)
 #JINJA2_BYTECODE_CACHE_BACKEND = "path.to.you.cache.class"
 ##/ END JINJA SETTINGS
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
