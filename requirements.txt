@@ -4,11 +4,8 @@ django-jsonfield==0.9.13
 
 django-cors-headers
 
-# Restless has an open issue that is effecting us.
-# https://github.com/toastdriven/restless/issues/14
-# This fork resolves it for the time being.
-git+https://github.com/socketubs/restless.git@python3-bytes
-#restless==2.0.0
+#git+https://github.com/toastdriven/restless.git
+restless==2.0.1
 
 # PyYAML is for contact loading
 PyYAML==3.11
