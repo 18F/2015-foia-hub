@@ -2,11 +2,16 @@
 
 A consolidated FOIA request hub, and resource center.
 
-
-* Receive and store a FOIA request, through a form or via API.
-* Publish received FOIA requests in the direction of the specified FOIA office.
+* Receive and store a FOIA request, via a form or API.
+* Send received FOIA requests on to the specified FOIA office.
 * Send requestors a notice after the opening of a request, along with contact information for the FOIA office that is expected to handle the request.
 * Send requestors a notice after the closing of a request, with the nature of the response and the necessary contact information to follow up on or appeal.
+
+Some related repos:
+
+* [foia](https://github.com/18F/foia) - Discussion forum and miscellaneous resources and scrapers.
+* [foia-search](https://github.com/18F/foia-search) - Full text search API over FOIA requests and responses.
+* (_Retired_) [foia-design](https://github.com/18F/foia-design) - original Jekyll-based HTML prototype.
 
 ## Setup
 
