@@ -1,4 +1,4 @@
-from foia_core.settings.default import *
+from foia_hub.settings.default import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

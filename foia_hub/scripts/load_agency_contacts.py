@@ -7,7 +7,7 @@ import yaml
 
 from django.utils.text import slugify
 
-from foia_core.models import *
+from foia_hub.models import *
 
 logger = logging.getLogger(__name__)
 

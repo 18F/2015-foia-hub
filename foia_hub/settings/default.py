@@ -1,5 +1,5 @@
 """
-Django settings for foia_core project.
+Django settings for foia_hub project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -32,7 +32,7 @@ INSTALLED_APPS = (
 
     'corsheaders',
 
-    'foia_core',
+    'foia_hub',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -45,8 +45,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'foia_core.urls'
-WSGI_APPLICATION = 'foia_core.wsgi.application'
+ROOT_URLCONF = 'foia_hub.urls'
+WSGI_APPLICATION = 'foia_hub.wsgi.application'
 
 
 ## JINJA SETTINGS

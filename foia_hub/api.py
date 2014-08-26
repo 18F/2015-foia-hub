@@ -5,7 +5,7 @@ from django.db import transaction
 from restless.dj import DjangoResource
 from restless.preparers import FieldsPreparer
 
-from foia_core.models import *
+from foia_hub.models import *
 
 
 class AgencyResource(DjangoResource):

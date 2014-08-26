@@ -53,7 +53,7 @@ pip install -r requirements.txt
 Set your Django settings module.
 
 ```bash
-export DJANGO_SETTINGS_MODULE=foia_core.settings.dev
+export DJANGO_SETTINGS_MODULE=foia_hub.settings.dev
 ```
 
 

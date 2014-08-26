@@ -1,5 +1,5 @@
 from django.contrib import admin
-from foia_core.models import *
+from foia_hub.models import *
 
 class GenericAdmin(admin.ModelAdmin):
     pass

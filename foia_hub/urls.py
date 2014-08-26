@@ -3,7 +3,7 @@ from django.conf import settings  # For debugging.
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from foia_core.api import *
+from foia_hub.api import *
 
 
 # Front-end
