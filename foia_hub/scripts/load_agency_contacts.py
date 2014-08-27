@@ -206,6 +206,6 @@ if __name__ == "__main__":
     #     print('No csv folder passed as arg.')
     #     print('Setting to default %s.' % csv_folder)
 
-    for item in os.listdir(folder):
-        data_file = os.path.join(folder, item)
-        process_agency_csv(data_file)
+    # for item in os.listdir(folder):
+    #     data_file = os.path.join(folder, item)
+    #     process_agency_csv(data_file)

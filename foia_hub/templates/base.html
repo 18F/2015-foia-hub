@@ -1,13 +1,29 @@
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-</head>
+  <title>{% block title %}
+    alpha.FOIA.gov > Freedom of Information Act
+  {% endblock %}</title>
 
+  {% include "includes/head.html" %}
+</head>
 <body>
-<p>This content is in the base.</p>
-{% block container %}
-    <div class="container">
-        {% block content %}Empty page{% endblock %}
-    </div> <!-- container -->
-{% endblock %}
+
+{% include "includes/nav.html" %}
+
+<div id="main">
+  <div class="content pure-g">
+    <header class="pure-u-1">
+      <h1 id="logo">
+        <a href="/">
+          alpha.<em><strong>foia</strong>.gov</span></em>
+        </a>
+      </h1>
+    </header>
+  </div>
+
+  {% block body %}Body.{% endblock %}
+</div>
+
 </body>
 </html>
