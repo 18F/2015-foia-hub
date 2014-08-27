@@ -193,7 +193,6 @@ if __name__ == "__main__":
 
     '''
 
-    #TODO: Make generic as an arg when you convert to management command?
     yaml_folder = sys.argv[1]
 
     process_yamls(yaml_folder)
