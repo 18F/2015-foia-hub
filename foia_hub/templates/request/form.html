@@ -8,14 +8,8 @@
 </header>
 
 <section class="request agency pure-u-1">
-  <p>
-    <a href="http://www.gsa.gov">The General Services Administration (GSA)</a> helps manage and support the basic functioning of federal agencies. The GSA supplies products and communications for U.S. government offices, provides transportation and office space to federal employees, and develops government-wide cost-minimizing policies, and other management tasks.
-  </p>
-
-  <p>
-    Common FOIA requests from GSA include <strong>federal contracts</strong>, <strong>purchase card use</strong>, and <strong>government forms</strong>.
-  </p>
-
+  {% set header_template = "agencies/" + slug + "/form_header.html" %}
+  {% include header_template %}
 </section>
 
 
@@ -29,34 +23,49 @@
     <input type="hidden" class="agency_name" name="agency_name" value="General Services Administration" />
 
 
-    {% include "request/basic.html" %}
-
-
-    <fieldset>
-      <legend>If your request relates to a specific GSA contract, enter the contract number. (optional)</legend>
-      <input type="text" class="pure-u-1 agency_fields_contract" name="agency_fields[contract]" placeholder="GS-"/>
+    <fieldset class="pure-group">
+      <input type="text" placeholder="First name" name="first_name" class="first_name pure-u-1" />
+      <input type="text" placeholder="Last name" name="last_name" class="last_name pure-u-1" />
+      <input type="email" placeholder="Email address" name="email" class="email pure-u-1" />
     </fieldset>
 
     <fieldset>
-      <legend>If your request relates to a specific GSA region, choose the region or choose your state. (optional)</legend>
+      <legend>Describe the records you are requesting</legend>
+      <textarea class="request body pure-u-1" class="body" name="body"></textarea>
+    </fieldset>
 
-      <select class="pure-u-1 agency_fields_region" name="agency_fields[region]">
-        <option value="" selected>-- GSA region --</option>
-        <option value="1A">New England Region (1A)</option>
-        <option value="2A">Northeast and Caribbean Region (2A)</option>
-        <option value="3A">Mid-Atlantic Region (3A)</option>
-        <option value="4A">Southeast Sunbelt Region (4A)</option>
-        <option value="5A">Great Lakes Region (5A)</option>
-        <option value="6A">The Heartland Region (6A)</option>
-        <option value="7A">Greater Southwest Region (7A)</option>
-        <option value="8A">Rocky Mountain Region (8A)</option>
-        <option value="9A">Pacific Rim Region (9A)</option>
-        <option value="10A">Northwest/Arctic Region (10A)</option>
-        <option value="11A">National Capital Region (11A)</option>
-        <option value="Central">Central Office (00)</option>
-      </select>
+    <fieldset>
+      <label for="document_start">Documents Date Start (optional)</label>
+      <input type="text" id="document_start" name="documents_start" placeholder="Click to select" /><br />
 
-    {% include "request/fees.html" %}
+      <label for="document_end">Documents Date End (optional)</label>
+      <input type="text" id="document_end" name="documents_end" placeholder="Click to select" />
+    </fieldset>
+
+
+    {% set header_template = "agencies/" + slug + "/form.html" %}
+    {% include header_template %}
+
+    <fieldset>
+      <legend>Fees</legend>
+      I'll pay up to
+      $<input type="text" class="upto" name="fee_limit" placeholder="0" />
+      in request processing fees.
+      <br/><br/>
+      If it's higher than <span class="fee-amount">$0</span>, stop and inform me before continuing.
+    </fieldset>
+
+    <fieldset>
+      <div data-role="fieldcontain">
+        <input id="fee-waiver-request" type="checkbox" name="fee_waiver" />
+        <label class="fee-waiver" for="fee-waiver-request">
+          I request that all fees associated with the request be waived.
+        </label>
+      </div>
+
+      <textarea id="fee-waiver-justification" class="pure-u-1" placeholder="Fee waiver justification (required)"></textarea>
+    </fieldset>
+
 
     <div class="request error">
       There was an error submitting your request. Please fill out all the required fields above, and try again.
@@ -97,6 +106,6 @@
 </section>
 </div>
 
-{% include "request/script.html" %}
+<script src="/static/js/requests/form.js"></script>
 
 {% endblock %}

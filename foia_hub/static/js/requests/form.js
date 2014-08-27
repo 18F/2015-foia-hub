@@ -1,5 +1,3 @@
-<script>
-
 var onRequestSuccess = function(data, status, xhr) {
   console.log("Success! Tracking: " + data.tracking_id);
 
@@ -56,7 +54,7 @@ $("form.request").submit(function() {
 
   $.ajax({
     type: "POST",
-    url: Env.core + "/api/request/",
+    url: "/api/request/",
     data: JSON.stringify(data),
     processData: false,
     contentType: 'application/json'
@@ -85,5 +83,3 @@ $upto.keyup(onchange);
 $("#fee-waiver-request").change(function() {
   $("#fee-waiver-justification").toggle();
 })
-
-</script>
