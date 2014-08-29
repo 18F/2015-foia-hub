@@ -1,6 +1,7 @@
 ## FOIA Hub
 
-A consolidated FOIA request hub, and resource center.
+A consolidated FOIA (Freedom of Information Act) request hub, and resource
+center.
 
 * Receive and store a FOIA request, via a form or API.
 * Send received FOIA requests on to the specified FOIA office.
@@ -17,7 +18,10 @@ Some related repos:
 
 This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
 
-**Installing Python 3**: You may wish to use [pyenv](https://github.com/yyuu/pyenv) to manage downloading Python 3. Or, you can install `python3` through [Homebrew](http://brew.sh) (OS X) or `apt-get` (Ubuntu).
+**Installing Python 3**: You may wish to use
+[pyenv](https://github.com/yyuu/pyenv) to manage downloading Python 3. Or, you
+can install `python3` through [Homebrew](http://brew.sh) (OS X) or `apt-get`
+(Ubuntu).
 
 **Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
 
@@ -31,23 +35,26 @@ Create an environment to install Python dependencies, with virtualenvwrapper.
 mkvirtualenv --python=/path/to/python3 foia-hub
 ```
 
+Note: You don't need to explicitly specify the Python version, especially if
+you use pyenv + virtualenvwrapper. Running mkvirtualenv in that scenario will
+'freeze' the currently active version of Python. 
+
 Pull down the repo:
 
 ```bash
 git clone https://github.com/18F/foia-hub
 ```
 
-Add the project to the virtualenv:
-
-```bash
-cd foia-hub
-add2virtualenv .
-```
-
 Install project requirements.
 
 ```bash
 pip install -r requirements.txt
+```
+
+Note: On Ubuntu, I had to run the following before psycopg2 installed correctly:
+
+```bash
+sudo apt-get install libpq-dev python3-dev
 ```
 
 Set your Django settings module.
@@ -67,11 +74,13 @@ createdb foia
 
 If you you get a `could not connect to server` error, then add `export PGHOST=localhost` to your bash profile:
 
-Next, create user `foia` with password `foia`:
+Next, create user `foia` with password <<PASSWORD>>:
 
 ```bash
-psql -d foia -c "CREATE USER foia WITH PASSWORD 'foia';"
+psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 ```
+
+where <<PASSWORD>> is a password of your choosing. 
 
 Initialize your database schema:
 
@@ -85,13 +94,18 @@ Finally, launch the server locally:
 django-admin.py runserver
 ```
 
-The site should be running at [`http://localhost:8000/data/agency/`](http://localhost:8000/data/agency/).
+The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 
 ## Public domain
 
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
 
-> This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+> This project is in the public domain within the United States, and copyright
+> and related rights in the work worldwide are waived through the [CC0 1.0
+> Universal public domain
+> dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 >
-> All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
+> All contributions to this project will be released under the CC0 dedication.
+> By submitting a pull request, you are agreeing to comply with this waiver of
+> copyright interest.
