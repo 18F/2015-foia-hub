@@ -72,6 +72,7 @@ def process_yamls(folder):
             o.request_form = dept_rec.get('request_form', None)
             o.website = dept_rec.get('website', None)
             o.service_center = dept_rec.get('service_center', None)
+            o.phone = dept_rec.get('phone', None)
             o.fax = dept_rec.get('fax', None)
             o.emails = dept_rec.get('emails', None)
             o.notes = dept_rec.get('notes', None)
