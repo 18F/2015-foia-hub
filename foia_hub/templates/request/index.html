@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="content pure-g">
+
+<section class="agency pure-u-1">
+  <h2>
+    What agency are you submitting a request to?
+  </h2>
+
+  <p>
+    The United States government is made up of many different <strong>federal agencies</strong>. To file a FOIA request, you need to choose the agency that has the information you're looking for, and request it directly from them.
+  </p>
+
+  <form class="agency">
+    <div class="scrollable-dropdown-menu">
+      <input class="typeahead agency" type="text" placeholder="Agency name">
+    </div>
+  </form>
+</section>
+
+</div>
+
+<script src="/static/js/typeahead.bundle.js"></script>
+<script src="/static/data/agencies.js"></script>
+<script>
+
+var names = Agencies.names.sort();
+
+$('.scrollable-dropdown-menu .typeahead').typeahead({
+  hint: false,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'agency_name',
+  displayKey: 'value',
+  source: Utils.substringMatcher(names)
+}).bind("typeahead:selected", function() {
+  window.arguments = arguments;
+  var name = arguments[1].value;
+  var slug = Agencies.by_name[name];
+  window.location = "/request/" + slug + "/";
+});
+
+// disable form submission
+$("form").submit(function() {return false});
+
+$("input.agency").focus();
+
+</script>
+{% endblock %}

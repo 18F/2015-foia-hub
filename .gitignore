@@ -5,3 +5,5 @@ debug.log
 *.pyo
 *.DS_Store
 *.swp
+
+/todo.txt

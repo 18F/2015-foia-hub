@@ -195,7 +195,6 @@ if __name__ == "__main__":
     '''
 
     yaml_folder = sys.argv[1]
-
     process_yamls(yaml_folder)
 
     # # Overlay csv file information on the yaml info
@@ -206,6 +205,6 @@ if __name__ == "__main__":
     #     print('No csv folder passed as arg.')
     #     print('Setting to default %s.' % csv_folder)
 
-    for item in os.listdir(folder):
-        data_file = os.path.join(folder, item)
-        process_agency_csv(data_file)
+    # for item in os.listdir(folder):
+    #     data_file = os.path.join(folder, item)
+    #     process_agency_csv(data_file)

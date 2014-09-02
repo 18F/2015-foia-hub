@@ -105,6 +105,30 @@ django-admin.py runserver
 
 The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
+### Loading Data
+
+#### Loading Agency FOIA Contact Data
+
+Agency contact data is stored in another repository as YAML files. 
+
+Clone the repository: 
+
+```bash
+git clone git@github.com:18F/foia.git
+```
+
+Then run the data loading script:
+
+```bash
+cd foia_hub/foia_hub/scripts
+python load_agency_contacts.py <<path to foia repository>>/foia/contacts/data/
+```
+
+Note that the data repository is your local clone of:
+[https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
+
+Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format. 
+
 
 ## Public domain
 
