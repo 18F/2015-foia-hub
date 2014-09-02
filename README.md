@@ -118,7 +118,7 @@ python load_agency_contacts.py <<path to foia repository>>/foia/contacts/data/
 Note that the data repository is your local clone of:
 [https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
 
-Now if you access: http://localhost:8000/api/agency/, you'll the list of agencies in JSON format. 
+Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format. 
 
 
 ## Public domain
