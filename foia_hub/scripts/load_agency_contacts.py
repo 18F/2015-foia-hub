@@ -195,7 +195,6 @@ if __name__ == "__main__":
     '''
 
     yaml_folder = sys.argv[1]
-
     process_yamls(yaml_folder)
 
     # # Overlay csv file information on the yaml info
