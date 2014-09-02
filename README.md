@@ -98,7 +98,7 @@ The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 ### Loading Data
 
-## Loading Agency FOIA Contact Data
+#### Loading Agency FOIA Contact Data
 
 Agency contact data is stored in another repository as YAML files. 
 
