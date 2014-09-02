@@ -1,5 +1,44 @@
 {% extends "base.html" %}
 
-{% block container %}
-    The content in this block will replace the content in block container in base.html.
+{% block body %}
+<div class="content pure-g">
+  <header class="pure-u-1">
+    <h3>Welcome to the new Freedom of Information hub.</h3>
+  </header>
+
+  <form class="pure-form pure-u-1" method="get" action="/search/">
+    <input type="search" name="query" class="search" placeholder="Search public records from FOIA..." />
+  </form>
+
+  <section class="blog pure-u-1">
+
+    <h2>Blog</h2>
+
+    <ul>
+      <li>
+        <h3>
+          Discussing Proactive Disclosures and Online Information
+        </h3>
+        <p>
+          OIP’s ongoing series of Best Practices Workshops continued yesterday with a panel discussing proactive disclosures and how agencies can make information posted online more useful to interested parties.  The workshop series, designed as a part of the Administration’s efforts to modernize and improve FOIA administration, looks to showcase successes achieved by agencies across the government on a wide range of FOIA issues and to share successful strategies so that agencies can learn from one another.
+        </p>
+        <p>
+          <a class="more" href="http://blogs.justice.gov/oip/archives/1485">Read on...</a>
+        </p>
+      </li>
+
+      <li>
+        <h3>
+          Summary of Fiscal Year 2013 Annual FOIA Reports
+        </h3>
+        <p>
+          Each year, federal departments and agencies are required by law to submit a report to the Attorney General detailing various statistics regarding their agency’s FOIA activities, such as the numbers of requests processed and received, and the time taken to process them.  These Annual FOIA Reports, ninety-nine in total for FY 2013, are compiled by OIP and posted on the Reports page of our site.  The data from the agency Annual FOIA Reports is also uploaded onto FOIA.gov, the Justice Department’s government-wide FOIA resource.
+        </p>
+        <p>
+          <a class="more" href="http://blogs.justice.gov/oip/archives/1479">Read on...</a>
+        </p>
+      </li>
+    </ul>
+  </section>
+</div>
 {% endblock %}

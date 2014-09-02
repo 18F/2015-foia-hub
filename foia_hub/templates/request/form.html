@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="content pure-g">
+
+<header class="pure-u-1">
+  <h2>General Services Administration</h2>
+</header>
+
+<section class="request agency pure-u-1">
+  {% set header_template = "agencies/" + slug + "/form_header.html" %}
+  {% include header_template %}
+</section>
+
+
+<!-- request form, shown by default -->
+
+<section class="request form pure-u-1">
+
+  <form class="request pure-form" method="get" action="#">
+    <input type="hidden" class="agency_agency" name="agency" value="general-services-administration" />
+    <input type="hidden" class="agency_office" name="office" value="headquarters" />
+    <input type="hidden" class="agency_name" name="agency_name" value="General Services Administration" />
+
+
+    <fieldset class="pure-group">
+      <input type="text" placeholder="First name" name="first_name" class="first_name pure-u-1" />
+      <input type="text" placeholder="Last name" name="last_name" class="last_name pure-u-1" />
+      <input type="email" placeholder="Email address" name="email" class="email pure-u-1" />
+    </fieldset>
+
+    <fieldset>
+      <legend>Describe the records you are requesting</legend>
+      <textarea class="request body pure-u-1" class="body" name="body"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <label for="document_start">Documents Date Start (optional)</label>
+      <input type="text" id="document_start" name="documents_start" placeholder="Click to select" /><br />
+
+      <label for="document_end">Documents Date End (optional)</label>
+      <input type="text" id="document_end" name="documents_end" placeholder="Click to select" />
+    </fieldset>
+
+
+    {% set header_template = "agencies/" + slug + "/form.html" %}
+    {% include header_template %}
+
+    <fieldset>
+      <legend>Fees</legend>
+      I'll pay up to
+      $<input type="text" class="upto" name="fee_limit" placeholder="0" />
+      in request processing fees.
+      <br/><br/>
+      If it's higher than <span class="fee-amount">$0</span>, stop and inform me before continuing.
+    </fieldset>
+
+    <fieldset>
+      <div data-role="fieldcontain">
+        <input id="fee-waiver-request" type="checkbox" name="fee_waiver" />
+        <label class="fee-waiver" for="fee-waiver-request">
+          I request that all fees associated with the request be waived.
+        </label>
+      </div>
+
+      <textarea id="fee-waiver-justification" class="pure-u-1" placeholder="Fee waiver justification (required)"></textarea>
+    </fieldset>
+
+
+    <div class="request error">
+      There was an error submitting your request. Please fill out all the required fields above, and try again.
+    </div>
+
+    <input type="submit" class="pure-button pure-button-primary" value="Submit Request" />
+  </form>
+
+</section>
+
+<!-- hidden by default, request success -->
+<section class="request success pure-u-1">
+  <h3>
+    You've successfully submitted your request!
+  </h3>
+
+  <p>
+    We've emailed a copy of your request to <a id="requester-email"></a>.
+  </p>
+
+  <p>
+    Your request's tracking ID is <span id="tracking-number"></span>.
+  </p>
+
+  <p>
+    You should receive a status update from the <span class="agency-name"></span> by email within 20 working days.
+  </p>
+
+  <p>
+    To reach the FOIA office of the <span class="agency-name"></span> directly, contact:
+
+    <blockquote>
+      Audrey Corbett Brooks<br/>
+      (202) 205-5912<br/>
+      <a href="mailto:gsa.foia@gsa.gov">gsa.foia@gsa.gov</a>
+    </blockquote>
+  </p>
+</section>
+</div>
+
+<script src="/static/js/requests/form.js"></script>
+
+{% endblock %}

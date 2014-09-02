@@ -1,0 +1,124 @@
+body { padding-bottom: 20px; }
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] { font-family: 'Open Sans', sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Raleway', sans-serif; }
+a { color: #18f; text-decoration: none;}
+p a:hover { text-decoration: underline; }
+.pure-menu a, .pure-menu .pure-menu-can-have-children>li:after { color: #333; }
+.pure-menu li a { padding: 5px 12px; }
+
+#logo { font-weight:200; color: #18f; }
+#logo em { color: #cc2211; font-style: normal;}
+
+input.search, input.agency { width: 100% }
+textarea.request { height: 9em; }
+textarea.fee-waiver-justification  { height: 4em; }
+.pure-form input.upto[type=text] { width: 80px; display: inline;}
+span.fee-amount { font-weight: bold; }
+
+label.fee-waiver {display: inline;}
+
+.pure-menu a {border-bottom: 0.3em solid #fff;}
+.pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
+.pure-menu li a:hover {background: none; color: #777; border-bottom: 0.3em solid #777;}
+.pure-menu li a:focus {background: #cc2211; color:#fff; }
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  max-width: 768px;
+}
+
+/* todo: error/success states still need styling */
+
+/* error message next to submit button */
+div.request.error {
+  display: none; padding: 10px 0;
+  font-weight: bold; color: #f00;
+}
+
+/* success message area, replaces request form upon success */
+section.request.success {
+  display: none;
+}
+
+#tracking-number {font-weight: bold;}
+#requester-email {font-weight: bold;}
+#fee-waiver-justification {display: none; margin: 10px 0;}
+
+
+/* agency autocomplete */
+.twitter-typeahead {width: 100%;}
+.scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 396px;
+  height: 30px;
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999;
+}
+
+.tt-dropdown-menu {
+  width: 422px;
+  margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 8px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
