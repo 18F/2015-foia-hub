@@ -18,14 +18,16 @@ Some related repos:
 
 This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
 
-**Installing Python 3**: You may wish to use
-[pyenv](https://github.com/yyuu/pyenv) to manage downloading Python 3. Or, you
-can install `python3` through [Homebrew](http://brew.sh) (OS X) or `apt-get`
-(Ubuntu).
+**Installing Python 3**:
+There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
+
+One option is to [pyenv](https://github.com/yyuu/pyenv) to manage downloading Python 3 or you can install them directly.
+
+For OS X, install Homebrew](http://brew.sh) (OS X), then run `brew install Python3`. For Ubuntu, install using `apt-get install Python3`.
 
 **Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
 
-The instructions below assume you use [virtualenv](http://virtualenv.readthedocs.org/en/latest/) [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
+The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest/), [virtualenv](http://virtualenv.readthedocs.org/en/latest/), and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
 
 ### Project setup
 
@@ -35,9 +37,14 @@ Create an environment to install Python dependencies, with virtualenvwrapper.
 mkvirtualenv --python=/path/to/python3 foia-hub
 ```
 
+Example:
+```bash
+mkvirtualenv --python=/usr/local/bin/python3 foia-core
+```
+
 Note: You don't need to explicitly specify the Python version, especially if
 you use pyenv + virtualenvwrapper. Running mkvirtualenv in that scenario will
-'freeze' the currently active version of Python. 
+'freeze' the currently active version of Python.
 
 Pull down the repo:
 
@@ -57,12 +64,12 @@ Note: On Ubuntu, I had to run the following before psycopg2 installed correctly:
 sudo apt-get install libpq-dev python3-dev
 ```
 
-Set your Django settings module.
+Set your [Django settings module](https://docs.djangoproject.com/en/dev/ref/django-admin/).
 
 ```bash
 export DJANGO_SETTINGS_MODULE=foia_hub.settings.dev
 ```
-
+Note: So, you don't have to do this every time, you might want to add this to your virtualenv postactivate script.
 
 ### Database set up
 
@@ -72,7 +79,9 @@ Create a `foia` database in Postgres:
 createdb foia
 ```
 
-If you you get a `could not connect to server` error, then add `export PGHOST=localhost` to your bash profile:
+If you you get a `could not connect to server` error, you could be experiencing a number of issues. Check the following:
+* PGHOST is set to localhost. If not `export PGHOST=localhost` to your bash profile.
+* Postgres has been started.
 
 Next, create user `foia` with password <<PASSWORD>>:
 
@@ -80,7 +89,7 @@ Next, create user `foia` with password <<PASSWORD>>:
 psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-where <<PASSWORD>> is a password of your choosing. 
+where <<PASSWORD>> is a password of your choosing.
 
 Initialize your database schema:
 
