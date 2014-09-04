@@ -64,10 +64,10 @@ Note: On Ubuntu, I had to run the following before psycopg2 installed correctly:
 sudo apt-get install libpq-dev python3-dev
 ```
 
-Add the following to your `~/.bashrc` or `~/.bash_profile`:
+Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
 
 ```bash
-export PYTHONPATH=/home/eric/foia/hub:PYTHONPATH
+export PYTHONPATH=/path/to/hub:PYTHONPATH
 export DJANGO_SETTINGS_MODULE=foia_hub.settings.dev
 ```
 
