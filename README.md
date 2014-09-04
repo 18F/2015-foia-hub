@@ -64,12 +64,14 @@ Note: On Ubuntu, I had to run the following before psycopg2 installed correctly:
 sudo apt-get install libpq-dev python3-dev
 ```
 
-Set your [Django settings module](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+Add the following to your `~/.bashrc` or `~/.bash_profile`:
 
 ```bash
+export PYTHONPATH=/home/eric/foia/hub:PYTHONPATH
 export DJANGO_SETTINGS_MODULE=foia_hub.settings.dev
 ```
-Note: So, you don't have to do this every time, you might want to add this to your virtualenv postactivate script.
+
+This will update your Python path and [Django settings module](https://docs.djangoproject.com/en/dev/ref/django-admin/) for sessions going forward.
 
 ### Database set up
 
