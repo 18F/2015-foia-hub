@@ -20,7 +20,7 @@ class AgencyResource(DjangoResource):
 
     # GET /
     def list(self):
-        return Agency.objects.all()
+        return Agency.objects.order_by('name').all()
 
 
 class OfficeResource(DjangoResource):
