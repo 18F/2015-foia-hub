@@ -12,7 +12,14 @@ Some related repos:
 
 * [foia](https://github.com/18F/foia) - Discussion forum and miscellaneous resources and scrapers.
 * [foia-search](https://github.com/18F/foia-search) - Full text search API over FOIA requests and responses.
-* (_Retired_) [foia-design](https://github.com/18F/foia-design) - original Jekyll-based HTML prototype.
+
+## How is this different from other stuff?
+
+There are some [fantastic open source tools](https://github.com/18F/foia/wiki/Platforms) out there for processing FOIA requests, like Postcode's [RecordTrac](https://github.com/postcode/recordtrac) (which powers [FOI for the City of Oakland](http://records.oaklandnet.com/)) and mySociety's [Alavateli](http://www.alaveteli.org/) (used [all over the world](http://alaveteli.org/deployments/)).
+
+Our platform, while still in its infancy, plans to be heavily optimized for the US federal government. It also plans to *not* be a backend tool for FOIA processing offices. In other words, there's no plans to allow government employees to log in to this system.
+
+Instead, our tool will focus on a small, US-focused user experience, and API-driven integration for tools to submit, and receive submissions, through the US Freedom of Information Act.
 
 ## Setup
 
