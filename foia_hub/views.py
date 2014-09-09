@@ -27,9 +27,8 @@ def request_autocomplete(request):
         response.append({
             "name": agency.name,
             "description": agency.description,
-            "abbreviation": agency.abbreviation
+            "abbreviation": agency.abbreviation,
+            "slug": agency.slug
         })
     agency_json = json.dumps(response, cls=DjangoJSONEncoder)
     return HttpResponse(agency_json, content_type = "application/json")
-
-    # return response

@@ -62,10 +62,7 @@ $('.scrollable-dropdown-menu .typeahead').typeahead({
     }
   }
 ).bind("typeahead:selected", function() {
-  console.log(arguments);
-  var name = arguments[1].value;
-  var slug = Agencies.by_name[name];
-  window.location = "/request/" + slug + "/";
+  window.location = "/request/" + arguments[1].slug + "/";
 });
 
 {% endraw %}
