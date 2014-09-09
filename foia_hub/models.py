@@ -28,6 +28,7 @@ class Agency(models.Model):
     name = models.CharField(max_length=250, unique=True)
     abbreviation = models.CharField(max_length=30, null=True, unique=True)
     description = models.TextField(null=True)
+    keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
     # dept = models.BooleanField()  # This is from csv - possibly removable
     # chief_foia_officer

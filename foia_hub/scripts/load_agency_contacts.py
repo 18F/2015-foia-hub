@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import csv
 import logging
 import os
@@ -42,6 +44,7 @@ def process_yamls(folder):
 
         a.abbreviation = data['abbreviation']
         a.description = data.get('description', None)
+        a.keywords = data.get('keywords', None)
         a.save()
 
         # Offices

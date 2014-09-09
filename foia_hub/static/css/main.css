@@ -119,6 +119,8 @@ section.request.success {
   background-color: #0097cf;
 }
 
-.tt-suggestion p {
+.tt-suggestion p,
+.tt-suggestion h5 {
   margin: 0;
 }
+
