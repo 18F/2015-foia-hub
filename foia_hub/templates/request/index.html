@@ -31,6 +31,7 @@ var agencies = new Bloodhound({
       .concat(Bloodhound.tokenizers.whitespace(d.name))
       .concat(Bloodhound.tokenizers.whitespace(d.description))
       .concat(Bloodhound.tokenizers.whitespace(d.abbreviation))
+      .concat(Bloodhound.tokenizers.whitespace(d.keywords ? d.keywords.join(' ') : []))
     ;
   },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
