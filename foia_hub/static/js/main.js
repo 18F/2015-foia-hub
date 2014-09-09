@@ -1,7 +1,6 @@
 // global variables for the app
 
 Env = {
-  search: "http://ec2-54-210-43-35.compute-1.amazonaws.com:8080"
 }
 
 Utils = {

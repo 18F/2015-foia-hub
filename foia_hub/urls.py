@@ -11,7 +11,8 @@ from foia_hub.api import *
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="index.html"), name='home'),
     url(r'^learn/?$', TemplateView.as_view(template_name="learn.html"), name='learn'),
-    url(r'^request/?$', TemplateView.as_view(template_name="request/index.html"), name='request'),
+    url(r'^request/?$', request_start, name='request'),
+    url(r'^request/autocomplete?$', request_autocomplete, name='autocomplete'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form')
 )
 
