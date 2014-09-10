@@ -14,7 +14,6 @@ def request_form(request, slug=None):
     return HttpResponse(template.render(slug=slug))
 
 def request_start(request):
-
     template = env.get_template('request/index.html')
     return HttpResponse(template.render())
 

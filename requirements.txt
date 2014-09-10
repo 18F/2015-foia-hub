@@ -1,11 +1,10 @@
-Django==1.6.5
+# Django, using
+Django==1.7
 psycopg2==2.5.3
 django-jinja==1.0.4
 django-jsonfield==0.9.13
 
 django-cors-headers
-
-#git+https://github.com/toastdriven/restless.git
 restless==2.0.1
 
 # PyYAML is for contact loading

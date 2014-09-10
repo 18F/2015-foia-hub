@@ -6,6 +6,8 @@ import os
 import sys
 
 import yaml
+import django
+django.setup()
 
 from django.utils.text import slugify
 
