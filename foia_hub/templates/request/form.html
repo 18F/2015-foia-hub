@@ -17,9 +17,9 @@
 <section class="request form pure-u-1">
 
   <form class="request pure-form" method="get" action="#">
-    <input type="hidden" class="agency_agency" name="agency" value="general-services-administration" />
-    <input type="hidden" class="agency_office" name="office" value="headquarters" />
-    <input type="hidden" class="agency_name" name="agency_name" value="General Services Administration" />
+    <input type="hidden" class="agency_agency" name="agency" value="{{ agency.slug }}" />
+    <input type="hidden" class="agency_office" name="office" value="{{ office.slug }}" />
+    <input type="hidden" class="agency_name" name="agency_name" value="{{ agency.name }}" />
 
 
     <fieldset class="pure-group">
