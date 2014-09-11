@@ -1,20 +1,22 @@
 var onRequestSuccess = function(data, status, xhr) {
   console.log("Success! Tracking: " + data.tracking_id);
 
-  var tracking = "0000000" + data.tracking_id;
-  var email = $(".email").val();
-  var agency_name = $(".agency_name").val();
+  window.location = "/request/success/" + data.tracking_id;
 
-  // insert values into success message
-  $("#tracking-number").html(tracking);
-  $(".agency-name").html(agency_name);
-  $("#requester-email").html(email).attr("href", "mailto:" + email);
+  // var tracking = "0000000" + data.tracking_id;
+  // var email = $(".email").val();
+  // var agency_name = $(".agency_name").val();
 
-  // show success form
-  $(".request.form, .request.agency").hide();
-  $(".request.success").show();
+  // // insert values into success message
+  // $("#tracking-number").html(tracking);
+  // $(".agency-name").html(agency_name);
+  // $("#requester-email").html(email).attr("href", "mailto:" + email);
 
-  return false;
+  // // show success form
+  // $(".request.form, .request.agency").hide();
+  // $(".request.success").show();
+
+  // return false;
 };
 
 var onRequestFailure = function(xhr, status, err) {

@@ -19,6 +19,14 @@ def request_start(request):
     template = env.get_template('request/index.html')
     return HttpResponse(template.render())
 
+def request_success(request, id):
+    foia_request = FOIARequest.objects.filter(id=id).first()
+    requester = foia_request.requester
+    office = foia_request.office
+    agency = office.agency
+
+    template = env.get_template('request/success.html')
+    return HttpResponse(template.render(foia_request=foia_request, requester=requester, office=office, agency=agency))
 
 # similar to agency API, but optimized for typeahead consumption
 def request_autocomplete(request):
