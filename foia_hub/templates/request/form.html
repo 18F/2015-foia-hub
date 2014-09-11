@@ -4,16 +4,15 @@
 <div class="content pure-g">
 
 <header class="pure-u-1">
-  <h2>General Services Administration</h2>
+  <h2>{{ agency.name }}</h2>
 </header>
 
 <section class="request agency pure-u-1">
-  {% set header_template = "agencies/" + slug + "/form_header.html" %}
-  {% include header_template %}
+  <p>
+    {{ agency.description }}
+  </p>
 </section>
 
-
-<!-- request form, shown by default -->
 
 <section class="request form pure-u-1">
 
@@ -42,9 +41,8 @@
       <input type="text" id="document_end" name="documents_end" placeholder="Click to select" />
     </fieldset>
 
-
-    {% set header_template = "agencies/" + slug + "/form.html" %}
-    {% include header_template %}
+    {% set header_template = "agencies/" + agency.slug + "/form.html" %}
+    {% include [header_template] ignore missing %}
 
     <fieldset>
       <legend>Fees</legend>

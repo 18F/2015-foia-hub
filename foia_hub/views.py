@@ -10,8 +10,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 from foia_hub.models import *
 
 def request_form(request, slug=None):
+    agency = Agency.objects.filter(slug=slug).first()
+
     template = env.get_template('request/form.html')
-    return HttpResponse(template.render(slug=slug))
+    return HttpResponse(template.render(agency=agency))
 
 def request_start(request):
     template = env.get_template('request/index.html')
