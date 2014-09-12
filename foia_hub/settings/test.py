@@ -1,6 +1,5 @@
-from foia_hub.settings.default import *
+from .base import *
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '#-nl=1b8yr*zr&6dmnv8rj5(f8w7^lv6lyd)7eyjg_xqk$zhe$'
 
 # Database

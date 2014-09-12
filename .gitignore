@@ -6,4 +6,6 @@ debug.log
 *.DS_Store
 *.swp
 
+local_settings.py
+
 /todo.txt

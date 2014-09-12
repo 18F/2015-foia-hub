@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from foia_hub.settings.default import BASE_DIR
+from foia_hub.settings.base import BASE_DIR
 from foia_hub.scripts.load_agency_contacts import process_yamls
 
 # TODO: Figure out repo structure to make this generic.
