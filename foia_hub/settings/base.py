@@ -18,12 +18,11 @@ STATICFILES_DIRS = (
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
+DATABASES = {}
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,7 +32,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'corsheaders',
-
     'foia_hub',
 )
 
@@ -49,7 +47,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'foia_hub.urls'
 WSGI_APPLICATION = 'foia_hub.wsgi.application'
-
 
 ## JINJA SETTINGS
 TEMPLATE_LOADERS = (
