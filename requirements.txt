@@ -1,4 +1,4 @@
-# Django, using
+# Django, using PostgreSQL
 Django==1.7
 psycopg2==2.5.3
 django-jinja==1.0.4
@@ -18,3 +18,6 @@ ipython
 # Used in the scraper
 beautifulsoup4
 
+# deployed/hosted with gunicorn
+gunicorn
+dj-static
