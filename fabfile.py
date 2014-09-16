@@ -68,8 +68,6 @@ def start():
     "PYTHONPATH=%s:$PYTHONPATH " +
     "gunicorn -c %s/deploy/config.py %s") %
     (virtualenv, environment, current_path, current_path, wsgi), pty=False
-    # "gunicorn -w 2 -D %s") %
-    # (virtualenv, environment, current_path, wsgi), pty=False
   )
 
 # config.py is expected to point the .pid to the shared/ dir
