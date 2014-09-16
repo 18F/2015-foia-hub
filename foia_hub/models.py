@@ -80,42 +80,6 @@ class Office(models.Model):
             super(Office, self).save(*args, **kwargs)
 
 
-# class Person(models.Model):
-
-#     #person_type = models.CharField(max_length=1, choices=PERSON_TYPE)
-#     name = models.CharField(max_length=150, null=True)
-#     title = models.CharField(max_length=250, null=True)
-#     email = models.EmailField(null=True)
-#     phone = models.CharField(max_length=50, null=True)
-
-#     street_address = models.CharField(max_length=250, null=True)
-#     room_number = models.CharField(max_length=250, null=True)
-#     city = models.CharField(max_length=250, null=True)
-#     state = models.CharField(max_length=100, null=True)
-#     zip_code = models.CharField(max_length=10, null=True)
-
-#     office = models.ForeignKey(Office)
-
-#     def __str__(self):
-#         text = None
-#         if self.name and self.title:
-#             text = '%s, %s' % (self.name, self.title)
-#         elif self.name:
-#             text = '%s, No title' % self.name
-#         elif self.title:
-#             text = 'No title, %s' % self.title
-#         return 'Person: %s' % text
-
-#     def save(self, *args, **kwargs):
-#         """
-#         This is to make sure that there is either a name or title.
-#         Some titles don't have names and some names don't have titles.
-#         """
-#         if self.name or self.title:
-#             super(Person, self).save(*args, **kwargs)
-#         else:
-#             logger.warning('%s not saved, because no title or name' % self)
-
 
 class Requester(models.Model):
 

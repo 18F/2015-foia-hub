@@ -39,10 +39,6 @@ div.request.error {
   font-weight: bold; color: #f00;
 }
 
-/* success message area, replaces request form upon success */
-section.request.success {
-  display: none;
-}
 
 #tracking-number {font-weight: bold;}
 #requester-email {font-weight: bold;}

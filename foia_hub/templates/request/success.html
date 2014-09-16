@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="content pure-g">
+
+<section class="request success pure-u-1">
+  <h3>
+    You've successfully submitted your request!
+  </h3>
+
+  <p>
+    We've emailed a copy of your request to <a id="requester-email">{{ requester.email }}</a>.
+  </p>
+
+  <p>
+    Your request's tracking ID is <span id="tracking-number">000000{{ foia_request.id }}</span>.
+  </p>
+
+  <p>
+    You should receive a status update from the <span class="agency-name">{{ agency.name }}</span> by email within 20 working days.
+  </p>
+
+  <p>
+    To reach the FOIA office of the <span class="agency-name"></span> directly, contact <strong>{{ office.public_liaison }}</strong>.
+  </p>
+</section>
+
+{% endblock %}
