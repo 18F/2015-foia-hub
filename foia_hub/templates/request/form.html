@@ -4,23 +4,22 @@
 <div class="content pure-g">
 
 <header class="pure-u-1">
-  <h2>General Services Administration</h2>
+  <h2>{{ agency.name }}</h2>
 </header>
 
 <section class="request agency pure-u-1">
-  {% set header_template = "agencies/" + slug + "/form_header.html" %}
-  {% include header_template %}
+  <p>
+    {{ agency.description }}
+  </p>
 </section>
 
-
-<!-- request form, shown by default -->
 
 <section class="request form pure-u-1">
 
   <form class="request pure-form" method="get" action="#">
-    <input type="hidden" class="agency_agency" name="agency" value="general-services-administration" />
-    <input type="hidden" class="agency_office" name="office" value="headquarters" />
-    <input type="hidden" class="agency_name" name="agency_name" value="General Services Administration" />
+    <input type="hidden" class="agency_agency" name="agency" value="{{ agency.slug }}" />
+    <input type="hidden" class="agency_office" name="office" value="{{ office.slug }}" />
+    <input type="hidden" class="agency_name" name="agency_name" value="{{ agency.name }}" />
 
 
     <fieldset class="pure-group">
@@ -42,9 +41,8 @@
       <input type="text" id="document_end" name="documents_end" placeholder="Click to select" />
     </fieldset>
 
-
-    {% set header_template = "agencies/" + slug + "/form.html" %}
-    {% include header_template %}
+    {% set header_template = "agencies/" + agency.slug + "/form.html" %}
+    {% include [header_template] ignore missing %}
 
     <fieldset>
       <legend>Fees</legend>
@@ -76,34 +74,6 @@
 
 </section>
 
-<!-- hidden by default, request success -->
-<section class="request success pure-u-1">
-  <h3>
-    You've successfully submitted your request!
-  </h3>
-
-  <p>
-    We've emailed a copy of your request to <a id="requester-email"></a>.
-  </p>
-
-  <p>
-    Your request's tracking ID is <span id="tracking-number"></span>.
-  </p>
-
-  <p>
-    You should receive a status update from the <span class="agency-name"></span> by email within 20 working days.
-  </p>
-
-  <p>
-    To reach the FOIA office of the <span class="agency-name"></span> directly, contact:
-
-    <blockquote>
-      Audrey Corbett Brooks<br/>
-      (202) 205-5912<br/>
-      <a href="mailto:gsa.foia@gsa.gov">gsa.foia@gsa.gov</a>
-    </blockquote>
-  </p>
-</section>
 </div>
 
 <script src="/static/js/requests/form.js"></script>
