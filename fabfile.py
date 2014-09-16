@@ -84,6 +84,11 @@ def restart():
   run("kill -HUP `cat %s/gunicorn.pid`" % shared_path)
 
 def deploy():
+  """
+  Usual deploy script. Expects app to be running.
+  Checks out code, makes symlinks, installs dependencies,
+  restarts app, cleans up old deploys.
+  """
   execute(checkout)
   execute(links)
   execute(dependencies)
@@ -92,6 +97,10 @@ def deploy():
   execute(cleanup)
 
 def deploy_cold():
+  """
+  Similar to normal deploy, but expects the app to be stopped.
+  Doesn't bother doing cleanup.
+  """
   execute(checkout)
   execute(links)
   execute(dependencies)
