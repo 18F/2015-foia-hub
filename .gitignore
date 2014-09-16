@@ -10,5 +10,5 @@ local_settings.py
 
 /todo.txt
 
-/deplpy/config.py
+/deploy/config.py
 /log
