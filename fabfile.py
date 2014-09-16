@@ -61,9 +61,15 @@ def links():
 
 ## can be run on their own
 
-# run gunicorn with production settings, with project root in pythonpath,
-# expecting gunicorn config in shared/, with our wsgi application module.
 def start():
+  """
+  Run gunicorn:
+    * with production settings,
+    * with project root in the PYTHONPATH,
+    * expecting the gunicorn config in deploy/config.py,
+    * with our wsgi application module.
+  """
+
   run(("workon %s && DJANGO_SETTINGS_MODULE=foia_hub.settings.%s " +
     "PYTHONPATH=%s:$PYTHONPATH " +
     "gunicorn -c %s/deploy/config.py %s") %
