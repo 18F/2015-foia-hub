@@ -1,8 +1,8 @@
 import time
 from fabric.api import run, execute, env
 
-# even in staging, using 'dev' for now
-environment = "dev"
+# which settings file to use in production
+environment = "production"
 
 # depends on virtualenvwrapper with a named virtualenv to `workon`
 virtualenv = "foia"
