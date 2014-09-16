@@ -15,7 +15,7 @@ env.use_ssh_config = True
 env.hosts = ["foia"]
 
 # using master branch for now, we could change this
-branch = "fabric"
+branch = "master"
 repo = "git@github.com:18f/foia-hub.git"
 
 # base directory structure -
