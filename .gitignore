@@ -9,3 +9,6 @@ debug.log
 local_settings.py
 
 /todo.txt
+
+/deplpy/config.py
+/log
