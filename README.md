@@ -75,10 +75,16 @@ Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub
 
 ```bash
 export PYTHONPATH=/path/to/hub:PYTHONPATH
-export DJANGO_SETTINGS_MODULE=foia_hub.settings.dev
 ```
 
-This will update your Python path and [Django settings module](https://docs.djangoproject.com/en/dev/ref/django-admin/) for sessions going forward.
+This will update your Python path for sessions going forward.
+
+You will also need to create a `local_settings.py` file inside
+`foia-hub/settings`. It should contain `SECRET_KEY` and `DATABASES`
+configurations. Up-and-running defaults (using sqlite) can be found in the
+`test.py` configuration. See the Django settings
+[documentation](https://docs.djangoproject.com/en/dev/ref/django-admin/) for
+details.
 
 ### Database set up
 
