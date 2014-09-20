@@ -67,6 +67,8 @@ class Office(models.Model):
 
     notes = models.TextField(null=True)
 
+    top_level = models.BooleanField(default=False)
+
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
 
@@ -78,7 +80,6 @@ class Office(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)[:50]
             super(Office, self).save(*args, **kwargs)
-
 
 
 class Requester(models.Model):
