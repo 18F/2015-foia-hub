@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 
 from foia_hub.views import request_start, request_autocomplete, request_form, request_success
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
+from foia_hub.api import AgencyOfficeResource
 
 
 # Front-end
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
     url(r'^api/agency/', include(AgencyResource.urls())),
+    url(r'^api/agencyoffice/', include(AgencyOfficeResource.urls())),
     url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 

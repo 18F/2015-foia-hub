@@ -1,12 +1,70 @@
 import datetime
 
 from django.db import transaction
+from django.conf.urls import patterns, url
 
 from restless.dj import DjangoResource
+from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
 
 from foia_hub.models import *
 
+
+class AgencyOfficeResource(DjangoResource):
+    """ This helps implement endpoints for discoverable entities. Discoverable
+    entities are Agencies and those Offices that are designated as top-tier.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(AgencyOfficeResource, self).__init__(*args, **kwargs)
+        self.http_methods.update({
+            'autocomplete': {
+                'GET': 'autocomplete',
+            }
+        })
+
+
+    @skip_prepare
+    def autocomplete(self):
+        agencies = Agency.objects.all()
+
+        response = []
+
+        for agency in agencies:
+            response.append(
+                {
+                    'name': agency.name,
+                    'description': agency.description,
+                    'abbreviation': agency.abbreviation,
+                    'slug': agency.slug,
+                    'keywords': agency.keywords
+                })
+
+        offices = Office.objects.filter(top_level=True)
+
+        for office in offices:
+            response.append(
+                {
+                    'name': office.name,
+                    'description': '',
+                    'abbreviation': '',
+                    'slug': office.slug,
+                    'keywords': ''
+                }
+            )
+        response.sort(key=lambda x: x['name'])
+        return response 
+
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(AgencyOfficeResource, cls).urls(name_prefix=name_prefix)
+        return urlpatterns + patterns(
+            '',
+            url(
+                r'^autocomplete/$',
+                cls.as_view('autocomplete'),
+                name=cls.build_url_name('autocomplete', name_prefix))
+        )
 
 class AgencyResource(DjangoResource):
 
