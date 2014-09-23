@@ -1,52 +1,70 @@
 'use strict';
 $('body').ready(function() {
   var currentText = '',
-      agencies = new Bloodhound({
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: '/request/autocomplete',
-        datumTokenizer: function(d) {
-          return []
-            .concat(Bloodhound.tokenizers.whitespace(d.name))
-            .concat(Bloodhound.tokenizers.whitespace(d.description))
-            .concat(Bloodhound.tokenizers.whitespace(d.abbreviation))
-            .concat(Bloodhound.tokenizers.whitespace(
-              d.keywords ? d.keywords.join(' ') : []))
-          ;
-        }});
+      longestText = '',
+      onUserStroke,
+      onAgencySelection,
+      agencyDatasource,
+      agencyAdaptor;
 
-  // always clear local storage for new requests, at least in dev
-  agencies.clearPrefetchCache();
-  agencies.initialize();
-
-  $('.scrollable-dropdown-menu .typeahead').typeahead({
-      hint: false,
-      highlight: true,
-      minLength: 1
-    },
-    {
-      name: 'agencies',
-      displayKey: 'value',
-      source: agencies.ttAdapter(),
-      templates: {
-        suggestion: Handlebars.compile(
-          [
-            '<h5 class="agency-name">{{name}}</h5>',
-            '<p class="agency-description">{{description}}</p>'
-          ].join('')
-        )
-      }
+  //  Set up the agency data source
+  agencyDatasource = new Bloodhound({
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: '/request/autocomplete',
+    datumTokenizer: function(d) {
+      return []
+        .concat(Bloodhound.tokenizers.whitespace(d.name))
+        .concat(Bloodhound.tokenizers.whitespace(d.description))
+        .concat(Bloodhound.tokenizers.whitespace(d.abbreviation))
+        .concat(Bloodhound.tokenizers.whitespace(
+          d.keywords ? d.keywords.join(' ') : []));
     }
-  //  Track the entry as the user types
-  ).bind('keyup', function(ev) {
+  });
+  // always clear local storage for new requests, at least in dev
+  agencyDatasource.clearPrefetchCache();
+  agencyDatasource.initialize();
+
+  //  Set up the agency adaptor
+  agencyAdaptor = {
+    name: 'agencies',
+    displayKey: 'value',
+    source: agencyDatasource.ttAdapter(),
+    templates: {
+      suggestion: Handlebars.compile(
+        ['<h5 class="agency-name">{{name}}</h5>',
+         '<p class="agency-description">{{description}}</p>'].join('')
+      )
+    }
+  };
+
+  //  Track the text as the user types
+  onUserStroke = function(ev) {
     currentText = $(ev.target).val();
-  //  Option was selected - notify analytics and redirect
-  }).bind('typeahead:selected', function(ev, suggestion) {
+    if (currentText.length > longestText.length) {
+      longestText = currentText;
+    //  blanked out the text after initially typing something
+    } else if (currentText.length === 0 && longestText.length > 0) {
+      ga('send', 'event', 'contacts', 'did-not-want', longestText);
+      longestText = '';
+    }
+  };
+
+  //  An agency was selected; notify analytics and redirect
+  onAgencySelection = function(ev, suggestion) {
     var callback = function() {
       window.location = '/request/' + suggestion.slug + '/';
     };
     ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
        currentText, {'hitCallback': callback});
-  });
+  };
+
+  //  Initialize typeahead
+  $('.scrollable-dropdown-menu .typeahead').typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    }, agencyAdaptor
+  ).bind('keyup', onUserStroke).bind('typeahead:selected', onAgencySelection);
 
   // disable form submission
   $('form').submit(function() { return false; });
