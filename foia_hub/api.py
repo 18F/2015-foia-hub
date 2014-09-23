@@ -10,6 +10,22 @@ from restless.preparers import FieldsPreparer
 from foia_hub.models import *
 
 
+def agency_preparer():
+    return FieldsPreparer(fields={
+            'name': 'name',
+            'description': 'description',
+            'abbreviation': 'abbreviation',
+            'slug': 'slug',
+            'keywords': 'keywords'
+    })
+
+def office_preparer():
+    return FieldsPreparer(fields={
+            'name': 'name',
+            'slug': 'slug',
+        })
+
+
 class AgencyOfficeResource(DjangoResource):
     """ This helps implement endpoints for discoverable entities. Discoverable
     entities are Agencies and those Offices that are designated as top-tier.
@@ -23,35 +39,17 @@ class AgencyOfficeResource(DjangoResource):
             }
         })
 
+        self.agency_preparer = agency_preparer()
+        self.office_preparer = office_preparer()
 
     @skip_prepare
     def autocomplete(self):
         agencies = Agency.objects.all()
-
-        response = []
-
-        for agency in agencies:
-            response.append(
-                {
-                    'name': agency.name,
-                    'description': agency.description,
-                    'abbreviation': agency.abbreviation,
-                    'slug': agency.slug,
-                    'keywords': agency.keywords
-                })
-
         offices = Office.objects.filter(top_level=True)
 
-        for office in offices:
-            response.append(
-                {
-                    'name': office.name,
-                    'description': '',
-                    'abbreviation': '',
-                    'slug': office.slug,
-                    'keywords': ''
-                }
-            )
+        a_response = [self.agency_preparer.prepare(a) for a in agencies]
+        o_response = [self.office_preparer.prepare(o) for o in offices]
+        response = a_response + o_response
         response.sort(key=lambda x: x['name'])
         return response 
 
