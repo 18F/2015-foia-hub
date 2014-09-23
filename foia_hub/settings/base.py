@@ -83,3 +83,5 @@ STATIC_URL = '/static/'
 
 # turn on CORS for everything (will be locked down later)
 CORS_ORIGIN_ALLOW_ALL = True
+
+ANALYTICS_ID = ""
