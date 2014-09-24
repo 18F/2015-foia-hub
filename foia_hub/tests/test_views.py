@@ -2,6 +2,7 @@ from datetime import date
 
 from django.core.urlresolvers import reverse
 from django.test import SimpleTestCase
+from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 
@@ -50,8 +51,9 @@ class RequestFormTests(SimpleTestCase):
             'success', kwargs={'id': 9999999999}))
         self.assertEqual(404, response.status_code)
 
+    @patch.dict('foia_hub.views.env.globals',
+                {'ANALYTICS_ID': 'MyAwesomeAnalyticsCode'})
     def test_analytics_id(self):
         """Verify that the analytics id appears *somewhere* on the page"""
-        with self.settings(ANALYTICS_ID='MyAwesomeAnalyticsCode'):
-            response = self.client.get(reverse('request'))
-            self.assertContains(response, 'MyAwesomeAnalyticsCode')
+        response = self.client.get(reverse('request'))
+        self.assertContains(response, 'MyAwesomeAnalyticsCode')
