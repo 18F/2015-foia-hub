@@ -1,13 +1,16 @@
+import json
+
+from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-
 from jinja2 import Environment, PackageLoader
-env = Environment(loader=PackageLoader('foia_hub', 'templates'))
-
-import json
-from django.core.serializers.json import DjangoJSONEncoder
 
 from foia_hub.models import Agency, FOIARequest
+
+
+env = Environment(loader=PackageLoader('foia_hub', 'templates'))
+env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 
 def request_form(request, slug=None):

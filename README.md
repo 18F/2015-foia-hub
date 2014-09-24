@@ -109,7 +109,7 @@ where <<PASSWORD>> is a password of your choosing.
 Initialize your database schema:
 
 ```bash
-django-admin.py migrate
+django-admin.py syncdb
 ```
 
 Finally, launch the server locally:
