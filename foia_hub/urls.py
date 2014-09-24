@@ -3,7 +3,8 @@ from django.conf import settings  # For debugging.
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from foia_hub.views import request_start, request_autocomplete, request_form, request_success
+from foia_hub.views import (
+    request_start, request_autocomplete, request_form, request_success)
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 from foia_hub.api import AgencyOfficeResource
 
@@ -11,7 +12,9 @@ from foia_hub.api import AgencyOfficeResource
 # Front-end
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="index.html"), name='home'),
-    url(r'^learn/?$', TemplateView.as_view(template_name="learn.html"), name='learn'),
+    url(
+        r'^learn/?$',
+        TemplateView.as_view(template_name="learn.html"), name='learn'),
 
     url(r'^request/?$', request_start, name='request'),
     url(r'^request/autocomplete?$', request_autocomplete, name='autocomplete'),

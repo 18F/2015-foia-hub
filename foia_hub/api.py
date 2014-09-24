@@ -19,6 +19,7 @@ def agency_preparer():
             'keywords': 'keywords'
     })
 
+
 def office_preparer():
     return FieldsPreparer(fields={
             'name': 'name',
@@ -51,11 +52,12 @@ class AgencyOfficeResource(DjangoResource):
         o_response = [self.office_preparer.prepare(o) for o in offices]
         response = a_response + o_response
         response.sort(key=lambda x: x['name'])
-        return response 
+        return response
 
     @classmethod
     def urls(cls, name_prefix=None):
-        urlpatterns = super(AgencyOfficeResource, cls).urls(name_prefix=name_prefix)
+        urlpatterns = super(
+            AgencyOfficeResource, cls).urls(name_prefix=name_prefix)
         return urlpatterns + patterns(
             '',
             url(
@@ -63,6 +65,7 @@ class AgencyOfficeResource(DjangoResource):
                 cls.as_view('autocomplete'),
                 name=cls.build_url_name('autocomplete', name_prefix))
         )
+
 
 class AgencyResource(DjangoResource):
 
