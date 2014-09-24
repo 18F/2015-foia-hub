@@ -14,6 +14,7 @@ PyYAML==3.11
 flake8
 django-debug-toolbar
 ipython
+mock
 
 # Used in the scraper
 beautifulsoup4
