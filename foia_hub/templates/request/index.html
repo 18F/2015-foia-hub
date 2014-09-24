@@ -23,55 +23,5 @@
 
 <script src="/static/js/typeahead.bundle.js"></script>
 <script src="/static/js/handlebars-v1.2.0.js"></script>
-<script>
-
-var agencies = new Bloodhound({
-  datumTokenizer: function(d) {
-    return []
-      .concat(Bloodhound.tokenizers.whitespace(d.name))
-      .concat(Bloodhound.tokenizers.whitespace(d.description))
-      .concat(Bloodhound.tokenizers.whitespace(d.abbreviation))
-      .concat(Bloodhound.tokenizers.whitespace(d.keywords ? d.keywords.join(' ') : []))
-    ;
-  },
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/request/autocomplete'
-});
-
-// always clear local storage for new requests, at least in dev
-agencies.clearPrefetchCache();
-agencies.initialize();
-
-{% raw %}
-
-$('.scrollable-dropdown-menu .typeahead').typeahead({
-    hint: false,
-    highlight: true,
-    minLength: 1
-  },
-  {
-    name: 'agencies',
-    displayKey: 'value',
-    source: agencies.ttAdapter(),
-    templates: {
-      suggestion: Handlebars.compile(
-        [
-          '<h5 class="agency-name">{{name}}</h5>',
-          '<p class="agency-description">{{description}}</p>'
-        ].join('')
-      )
-    }
-  }
-).bind("typeahead:selected", function() {
-  window.location = "/request/" + arguments[1].slug + "/";
-});
-
-{% endraw %}
-
-// disable form submission
-$("form").submit(function() {return false});
-
-$("input.agency").focus();
-
-</script>
+<script src="/static/js/requests/index.js"></script>
 {% endblock %}

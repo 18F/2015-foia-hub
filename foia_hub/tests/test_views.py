@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.urlresolvers import reverse
 from django.test import SimpleTestCase
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
@@ -25,23 +26,32 @@ class RequestFormTests(SimpleTestCase):
 
     def test_request_form_successful(self):
         """The agency name should be present in the request form"""
-        response = self.client.get('/request/' + self.agency.slug + '/')
+        response = self.client.get(reverse(
+            'form', kwargs={'slug': self.agency.slug}))
         self.assertContains(response, "My Agency")
 
     def test_request_form_404(self):
         """Should get a 404 if requesting an agency that doesn't exist"""
-        response = self.client.get('/request/does-not-exist/')
+        response = self.client.get(reverse(
+            'form', kwargs={'slug': 'does-not-exist'}))
         self.assertEqual(404, response.status_code)
 
     def test_request_success(self):
         """Request should be retrieved and displayed"""
-        response = self.client.get('/request/success/'
-                                   + str(self.request.id) + '/')
+        response = self.client.get(reverse(
+            'success', kwargs={'id': self.request.id}))
         self.assertContains(response, "eve@example.com")
         self.assertContains(response, "My Agency")
 
     def test_request_success_404(self):
         """Should get a 404 if trying to get a success page for a request
         which doesn't exist"""
-        response = self.client.get('/request/success/999999999/')
+        response = self.client.get(reverse(
+            'success', kwargs={'id': 9999999999}))
         self.assertEqual(404, response.status_code)
+
+    def test_analytics_id(self):
+        """Verify that the analytics id appears *somewhere* on the page"""
+        with self.settings(ANALYTICS_ID='MyAwesomeAnalyticsCode'):
+            response = self.client.get(reverse('request'))
+            self.assertContains(response, 'MyAwesomeAnalyticsCode')
