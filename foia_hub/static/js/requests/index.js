@@ -1,5 +1,5 @@
 'use strict';
-$('body').ready(function() {
+$(document).ready(function() {
   var currentText = '',
       longestText = '',
       onUserStroke,
@@ -64,7 +64,7 @@ $('body').ready(function() {
       highlight: true,
       minLength: 1
     }, agencyAdaptor
-  ).bind('keyup', onUserStroke).bind('typeahead:selected', onAgencySelection);
+  ).on('keyup', onUserStroke).on('typeahead:selected', onAgencySelection);
 
   // disable form submission
   $('form').submit(function() { return false; });
