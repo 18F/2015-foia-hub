@@ -10,7 +10,7 @@ $(document).ready(function() {
   //  Set up the agency data source
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/request/autocomplete',
+    prefetch: '/api/agencyoffice/autocomplete',
     datumTokenizer: function(d) {
       return []
         .concat(Bloodhound.tokenizers.whitespace(d.name))
