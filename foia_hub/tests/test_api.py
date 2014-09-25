@@ -48,13 +48,13 @@ class AgencyOfficeAPITests(TestCase):
 
         slugs = [a['slug'] for a in content]
         slugs.sort()
-        fema-slug = 'department-of-homeland-security'
+        fema_slug = 'department-of-homeland-security'
         fema_slug += '--federal-emergency-management-agency'
         self.assertEqual([
             'department-of-commerce',
             'department-of-commerce--census-bureau',
             'department-of-homeland-security',
-            fema-slug], slugs)
+            fema_slug], slugs)
 
     def test_agency_contact(self):
         c = Client()
