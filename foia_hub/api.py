@@ -23,8 +23,35 @@ def agency_preparer():
 def office_preparer():
     return FieldsPreparer(fields={
             'name': 'name',
-            'slug': 'slug',
+            'slug': 'searchable_slug',
         })
+
+def full_office_preparer():
+    preparer = FieldsPreparer(fields={
+        'id': 'id',
+        'name': 'name',
+        'slug': 'searchable_slug',
+
+        'service_center': 'service_center',
+        'fax': 'fax',
+
+        'request_form': 'request_form',
+        'website': 'website',
+        'emails': 'emails',
+
+        'contact': 'contact',
+        'contact_phone': 'contact_phone',
+        'public_liaison': 'public_liaison',
+
+        'notes': 'notes',
+    })
+    return preparer
+
+
+def searchable_slug(office):
+    """ An Office doesn't have a unique slug. We provide a unique slug by
+    concatenating with the agency slug. """
+    return '%s--%s' % (office.agency.slug, office.slug)
 
 
 class AgencyOfficeResource(DjangoResource):
@@ -37,22 +64,70 @@ class AgencyOfficeResource(DjangoResource):
         self.http_methods.update({
             'autocomplete': {
                 'GET': 'autocomplete',
+            },
+            'contact': {
+                'GET': 'contact',
             }
         })
 
         self.agency_preparer = agency_preparer()
         self.office_preparer = office_preparer()
+        self.full_office_preparer = full_office_preparer()
 
     @skip_prepare
     def autocomplete(self):
         agencies = Agency.objects.all()
         offices = Office.objects.filter(top_level=True)
 
+        for office in offices:
+            office.searchable_slug = searchable_slug(office)
+
         a_response = [self.agency_preparer.prepare(a) for a in agencies]
         o_response = [self.office_preparer.prepare(o) for o in offices]
         response = a_response + o_response
         response.sort(key=lambda x: x['name'])
         return response
+
+    def prepare_office_contact(self, office):
+        office.searchable_slug = searchable_slug(office)
+        office_data = self.full_office_preparer.prepare(office)
+
+        data = {
+            'agency_name': office.agency.name,
+            'agency_slug': office.agency.slug,
+            'offices': [office_data]
+        }
+        return data
+
+    def prepare_agency_contact(self, agency):
+        offices = []
+        for o in agency.office_set.all():
+            o.searchable_slug = searchable_slug(o)
+            offices.append(self.full_office_preparer.prepare(o))
+
+        data = {
+            'agency_name': agency.name,
+            'agency_slug': agency.slug,
+            'offices':  [offices]
+        }
+        return data
+
+    @skip_prepare
+    def contact(self, slug):
+        if '--' in slug:
+            agency_slug, office_slug = slug.split('--')
+            offices = Office.objects.filter(agency__slug=agency_slug, slug=office_slug)
+            if len(offices) == 1:
+                office = offices[0]
+                response = self.prepare_office_contact(office)
+                return response
+        else:
+            agencies  = Agency.objects.filter(slug=slug)
+            if len(agencies) == 1:
+                agency = agencies[0]
+                response = self.prepare_agency_contact(agency)
+                return response
+        return {}
 
     @classmethod
     def urls(cls, name_prefix=None):
@@ -63,8 +138,12 @@ class AgencyOfficeResource(DjangoResource):
             url(
                 r'^autocomplete/$',
                 cls.as_view('autocomplete'),
-                name=cls.build_url_name('autocomplete', name_prefix))
-        )
+                name=cls.build_url_name('autocomplete', name_prefix)),
+            url(
+                r'^contact/(?P<slug>[\w-]+)/$',
+                cls.as_view('contact'),
+                name=cls.build_url_name('contact', name_prefix)),
+            )
 
 
 class AgencyResource(DjangoResource):
