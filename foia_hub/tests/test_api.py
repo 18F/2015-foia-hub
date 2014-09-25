@@ -20,13 +20,19 @@ class PreparerTests(TestCase):
         self.assertEqual('agency-slug', ap['slug'])
 
     def test_office_preparer(self):
+        agency = Agency(
+            name='agency-name',
+            description='agency-description',
+            abbreviation='AN',
+            slug='agency-slug')
         office = Office(
             name='office-name',
-            slug='office-slug')
+            slug='office-slug',
+            agency=agency)
         fields_preparer = office_preparer()
         op = fields_preparer.prepare(office)
         self.assertEqual('office-name', op['name'])
-        self.assertEqual('office-slug', op['slug'])
+        self.assertEqual('agency-slug--office-slug', op['slug'])
 
 
 class AgencyOfficeAPITests(TestCase):
@@ -43,7 +49,21 @@ class AgencyOfficeAPITests(TestCase):
         slugs = [a['slug'] for a in content]
         slugs.sort()
         self.assertEqual([
-            'census-bureau',
             'department-of-commerce',
+            'department-of-commerce--census-bureau',
             'department-of-homeland-security',
-            'federal-emergency-management-agency'], slugs)
+            'department-of-homeland-security--federal-emergency-management-agency'], slugs)
+
+    def test_agency_contact(self):
+        c = Client()
+        response = c.get('/api/agencyoffice/contact/department-of-commerce/')
+        self.assertEqual(200, response.status_code)
+        content = response.content
+        content = json.loads(content.decode('utf-8'))
+
+        self.assertEqual(content['agency_name'], 'Department of Commerce')
+        self.assertEqual(1, len(content['offices']))
+        self.assertEqual(
+            'department-of-commerce--census-bureau',
+            content['offices'][0]['slug'])
+        

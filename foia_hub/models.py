@@ -69,6 +69,10 @@ class Office(models.Model):
 
     top_level = models.BooleanField(default=False)
 
+    def _get_searchable_slug(self):
+        return '%s--%s' % (self.agency.slug, self.slug)
+    searchable_slug = property(_get_searchable_slug)
+
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
 

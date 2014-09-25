@@ -48,12 +48,6 @@ def full_office_preparer():
     return preparer
 
 
-def searchable_slug(office):
-    """ An Office doesn't have a unique slug. We provide a unique slug by
-    concatenating with the agency slug. """
-    return '%s--%s' % (office.agency.slug, office.slug)
-
-
 class AgencyOfficeResource(DjangoResource):
     """ This helps implement endpoints for discoverable entities. Discoverable
     entities are Agencies and those Offices that are designated as top-tier.
@@ -79,9 +73,6 @@ class AgencyOfficeResource(DjangoResource):
         agencies = Agency.objects.all()
         offices = Office.objects.filter(top_level=True)
 
-        for office in offices:
-            office.searchable_slug = searchable_slug(office)
-
         a_response = [self.agency_preparer.prepare(a) for a in agencies]
         o_response = [self.office_preparer.prepare(o) for o in offices]
         response = a_response + o_response
@@ -89,7 +80,6 @@ class AgencyOfficeResource(DjangoResource):
         return response
 
     def prepare_office_contact(self, office):
-        office.searchable_slug = searchable_slug(office)
         office_data = self.full_office_preparer.prepare(office)
 
         data = {
@@ -102,13 +92,12 @@ class AgencyOfficeResource(DjangoResource):
     def prepare_agency_contact(self, agency):
         offices = []
         for o in agency.office_set.all():
-            o.searchable_slug = searchable_slug(o)
             offices.append(self.full_office_preparer.prepare(o))
 
         data = {
             'agency_name': agency.name,
             'agency_slug': agency.slug,
-            'offices':  [offices]
+            'offices': offices
         }
         return data
 
