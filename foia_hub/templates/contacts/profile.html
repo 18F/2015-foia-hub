@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if profile.offices|length == 1 %}
+{# This is an agency with one office or a top-level office. #}
+{% set office = profile.offices[0] %}
+  {% if office.website %}
+  <h2><a href="{{office.website}}">{{ office.name }}</a></h2>
+  {% else %}
+  <h2>{{ office.name }}</h2>
+  {% endif %}
+  {% if office.name != profile.agency_name %}
+  <h3>(part of {{profile.agency_name}})</h3>
+  {% endif %}
+  {% include 'contacts/partial_office.html' %}
+{% else %}
+{# This is an agency with sub-components #}
+  <h2>{{ profile.agency_name }}</h2>
+  {% for office in profile.offices %}
+    {% if office.website %}
+    <h3><a href="{{office.website}}">{{ office.name }}</a></h3>
+    {% else %}
+    <h3>{{ office.name }}</h3>
+    {% endif %}
+    {% include 'contacts/partial_office.html' %}
+  {% endfor %}
+{% endif %}
+{% endblock %}
