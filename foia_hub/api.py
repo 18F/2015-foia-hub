@@ -105,8 +105,8 @@ class AgencyOfficeResource(DjangoResource):
     @skip_prepare
     def contact(self, slug):
         if '--' in slug:
-            #Searchable slugs are a compound of agency.slug and office.slug, 
-            #separated by a '---'. We split those out here for searching. 
+            # Searchable slugs are a compound of agency.slug and office.slug,
+            # separated by a '---'. We split those out here for searching.
             agency_slug, office_slug = slug.split('--')
 
             office = get_object_or_404(
@@ -117,7 +117,6 @@ class AgencyOfficeResource(DjangoResource):
             agency = get_object_or_404(Agency, slug=slug)
             response = self.prepare_agency_contact(agency)
             return response
-        return {}
 
     @classmethod
     def urls(cls, name_prefix=None):

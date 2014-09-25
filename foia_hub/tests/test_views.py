@@ -13,6 +13,8 @@ class RequestFormTests(SimpleTestCase):
         self.agency.save()
         self.office = Office(agency=self.agency, name='An Office')
         self.office.save()
+        self.office2 = Office(agency=self.agency, name='Other Office')
+        self.office2.save()
         self.requester = Requester.objects.create(
             first_name='Alice', last_name='Bobson', email='eve@example.com')
         self.request = FOIARequest.objects.create(
@@ -22,6 +24,7 @@ class RequestFormTests(SimpleTestCase):
     def tearDown(self):
         self.request.delete()
         self.requester.delete()
+        self.office2.delete()
         self.office.delete()
         self.agency.delete()
 
@@ -57,3 +60,28 @@ class RequestFormTests(SimpleTestCase):
         """Verify that the analytics id appears *somewhere* on the page"""
         response = self.client.get(reverse('request'))
         self.assertContains(response, 'MyAwesomeAnalyticsCode')
+
+    def test_contact_landing_404(self):
+        """Verify that non-existing agency/offices cause 404s"""
+        response = self.client.get(reverse(
+            'contact_landing', kwargs={'slug': 'sssss'}))
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(reverse(
+            'contact_landing', kwargs={'slug': 'sss--ss'}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_contact_landing_success(self):
+        """If loading an agency or a top-level office, we should see agency
+        name. If an office, we should not see peer offices."""
+        response = self.client.get(reverse(
+            'contact_landing', kwargs={'slug': self.agency.slug}))
+        self.assertContains(response, self.agency.name)
+        self.assertContains(response, self.office.name)
+        self.assertContains(response, self.office2.name)
+
+        slug = self.agency.slug + '--' + self.office.slug
+        response = self.client.get(reverse(
+            'contact_landing', kwargs={'slug': slug}))
+        self.assertContains(response, self.agency.name)
+        self.assertContains(response, self.office.name)
+        self.assertNotContains(response, self.office2.name)

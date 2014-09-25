@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from jinja2 import Environment, PackageLoader
 
 from foia_hub.models import Agency, FOIARequest
+from foia_hub.api import AgencyOfficeResource
 
 
 env = Environment(loader=PackageLoader('foia_hub', 'templates'))
@@ -54,3 +55,11 @@ def request_autocomplete(request):
         })
     agency_json = json.dumps(response, cls=DjangoJSONEncoder)
     return HttpResponse(agency_json, content_type="application/json")
+
+
+def contact_landing(request, slug):
+    """List contacts for an agency or office."""
+    resource = AgencyOfficeResource()
+    data = resource.contact(slug).value
+    template = env.get_template('contacts/profile.html')
+    return HttpResponse(template.render(profile=data))

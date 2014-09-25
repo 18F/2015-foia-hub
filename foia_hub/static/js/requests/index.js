@@ -10,7 +10,7 @@ $(document).ready(function() {
   //  Set up the agency data source
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/api/agencyoffice/autocomplete',
+    prefetch: '/api/agencyoffice/autocomplete/',
     datumTokenizer: function(d) {
       return []
         .concat(Bloodhound.tokenizers.whitespace(d.name))
@@ -52,7 +52,7 @@ $(document).ready(function() {
   //  An agency was selected; notify analytics and redirect
   onAgencySelection = function(ev, suggestion) {
     var callback = function() {
-      window.location = '/request/' + suggestion.slug + '/';
+      window.location = '/contacts/' + suggestion.slug + '/';
     };
     ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
        currentText, {'hitCallback': callback});
