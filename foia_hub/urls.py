@@ -21,7 +21,8 @@ urlpatterns = patterns(
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
     url(r'^request/?$', request_start, name='request'),
-    url(r'^request/autocomplete?$', request_autocomplete, name='autocomplete'),
+    url(r'^request/autocomplete/?$', request_autocomplete,
+        name='autocomplete'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^request/success/(?P<id>[\d]+)/$', request_success, name='success')
 )
