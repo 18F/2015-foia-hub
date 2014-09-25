@@ -2,6 +2,7 @@ import datetime
 
 from django.db import transaction
 from django.conf.urls import patterns, url
+from django.shortcuts import get_object_or_404
 
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
@@ -107,18 +108,15 @@ class AgencyOfficeResource(DjangoResource):
             #Searchable slugs are a compound of agency.slug and office.slug, 
             #separated by a '---'. We split those out here for searching. 
             agency_slug, office_slug = slug.split('--')
-            offices = Office.objects.filter(
-                agency__slug=agency_slug, slug=office_slug)
-            if len(offices) == 1:
-                office = offices[0]
-                response = self.prepare_office_contact(office)
-                return response
+
+            office = get_object_or_404(
+                Office, agency__slug=agency_slug, slug=office_slug)
+            response = self.prepare_office_contact(office)
+            return response
         else:
-            agencies = Agency.objects.filter(slug=slug)
-            if len(agencies) == 1:
-                agency = agencies[0]
-                response = self.prepare_agency_contact(agency)
-                return response
+            agency = get_object_or_404(Agency, slug=slug)
+            response = self.prepare_agency_contact(agency)
+            return response
         return {}
 
     @classmethod
