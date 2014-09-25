@@ -12,19 +12,19 @@ from foia_hub.models import *
 
 def agency_preparer():
     return FieldsPreparer(fields={
-            'name': 'name',
-            'description': 'description',
-            'abbreviation': 'abbreviation',
-            'slug': 'slug',
-            'keywords': 'keywords'
+        'name': 'name',
+        'description': 'description',
+        'abbreviation': 'abbreviation',
+        'slug': 'slug',
+        'keywords': 'keywords'
     })
 
 
 def office_preparer():
     return FieldsPreparer(fields={
-            'name': 'name',
-            'slug': 'searchable_slug',
-        })
+        'name': 'name',
+        'slug': 'searchable_slug'})
+
 
 def full_office_preparer():
     preparer = FieldsPreparer(fields={
@@ -105,13 +105,14 @@ class AgencyOfficeResource(DjangoResource):
     def contact(self, slug):
         if '--' in slug:
             agency_slug, office_slug = slug.split('--')
-            offices = Office.objects.filter(agency__slug=agency_slug, slug=office_slug)
+            offices = Office.objects.filter(
+                agency__slug=agency_slug, slug=office_slug)
             if len(offices) == 1:
                 office = offices[0]
                 response = self.prepare_office_contact(office)
                 return response
         else:
-            agencies  = Agency.objects.filter(slug=slug)
+            agencies = Agency.objects.filter(slug=slug)
             if len(agencies) == 1:
                 agency = agencies[0]
                 response = self.prepare_agency_contact(agency)
