@@ -2,6 +2,7 @@ import datetime
 
 from django.db import transaction
 from django.conf.urls import patterns, url
+from django.shortcuts import get_object_or_404
 
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
@@ -12,19 +13,40 @@ from foia_hub.models import *
 
 def agency_preparer():
     return FieldsPreparer(fields={
-            'name': 'name',
-            'description': 'description',
-            'abbreviation': 'abbreviation',
-            'slug': 'slug',
-            'keywords': 'keywords'
+        'name': 'name',
+        'description': 'description',
+        'abbreviation': 'abbreviation',
+        'slug': 'slug',
+        'keywords': 'keywords'
     })
 
 
 def office_preparer():
     return FieldsPreparer(fields={
-            'name': 'name',
-            'slug': 'slug',
-        })
+        'name': 'name',
+        'slug': 'searchable_slug'})
+
+
+def full_office_preparer():
+    preparer = FieldsPreparer(fields={
+        'id': 'id',
+        'name': 'name',
+        'slug': 'searchable_slug',
+
+        'service_center': 'service_center',
+        'fax': 'fax',
+
+        'request_form': 'request_form',
+        'website': 'website',
+        'emails': 'emails',
+
+        'contact': 'contact',
+        'contact_phone': 'contact_phone',
+        'public_liaison': 'public_liaison',
+
+        'notes': 'notes',
+    })
+    return preparer
 
 
 class AgencyOfficeResource(DjangoResource):
@@ -37,11 +59,15 @@ class AgencyOfficeResource(DjangoResource):
         self.http_methods.update({
             'autocomplete': {
                 'GET': 'autocomplete',
+            },
+            'contact': {
+                'GET': 'contact',
             }
         })
 
         self.agency_preparer = agency_preparer()
         self.office_preparer = office_preparer()
+        self.full_office_preparer = full_office_preparer()
 
     @skip_prepare
     def autocomplete(self):
@@ -54,6 +80,45 @@ class AgencyOfficeResource(DjangoResource):
         response.sort(key=lambda x: x['name'])
         return response
 
+    def prepare_office_contact(self, office):
+        office_data = self.full_office_preparer.prepare(office)
+
+        data = {
+            'agency_name': office.agency.name,
+            'agency_slug': office.agency.slug,
+            'offices': [office_data]
+        }
+        return data
+
+    def prepare_agency_contact(self, agency):
+        offices = []
+        for o in agency.office_set.all():
+            offices.append(self.full_office_preparer.prepare(o))
+
+        data = {
+            'agency_name': agency.name,
+            'agency_slug': agency.slug,
+            'offices': offices
+        }
+        return data
+
+    @skip_prepare
+    def contact(self, slug):
+        if '--' in slug:
+            #Searchable slugs are a compound of agency.slug and office.slug, 
+            #separated by a '---'. We split those out here for searching. 
+            agency_slug, office_slug = slug.split('--')
+
+            office = get_object_or_404(
+                Office, agency__slug=agency_slug, slug=office_slug)
+            response = self.prepare_office_contact(office)
+            return response
+        else:
+            agency = get_object_or_404(Agency, slug=slug)
+            response = self.prepare_agency_contact(agency)
+            return response
+        return {}
+
     @classmethod
     def urls(cls, name_prefix=None):
         urlpatterns = super(
@@ -63,8 +128,12 @@ class AgencyOfficeResource(DjangoResource):
             url(
                 r'^autocomplete/$',
                 cls.as_view('autocomplete'),
-                name=cls.build_url_name('autocomplete', name_prefix))
-        )
+                name=cls.build_url_name('autocomplete', name_prefix)),
+            url(
+                r'^contact/(?P<slug>[\w-]+)/$',
+                cls.as_view('contact'),
+                name=cls.build_url_name('contact', name_prefix)),
+            )
 
 
 class AgencyResource(DjangoResource):
