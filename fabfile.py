@@ -43,6 +43,9 @@ def checkout():
 def dependencies():
   run('workon %s && cd %s && pip install -r requirements.txt' % (virtualenv, version_path))
 
+def migrate():
+  run('workon %s && cd %s && python manage.py migrate' % (virtualenv, version_path))
+
 def make_current():
   run('rm -f %s && ln -s %s %s' % (current_path, version_path, current_path))
 
@@ -92,6 +95,7 @@ def deploy():
   execute(checkout)
   execute(links)
   execute(dependencies)
+  execute(migrate)
   execute(make_current)
   execute(restart)
   execute(cleanup)
@@ -104,8 +108,6 @@ def deploy_cold():
   execute(checkout)
   execute(links)
   execute(dependencies)
+  execute(migrate)
   execute(make_current)
   execute(start)
-
-def testing():
-  run("workon foia && which gunicorn")
