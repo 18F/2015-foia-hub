@@ -74,6 +74,10 @@ class Agency(Contactable):
     keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
 
+    parent = models.ForeignKey(
+        'self',
+        help_text='Some agencies have a parent agency.')
+
     chief_name = models.CharField(
         max_length=128,
         null=True, help_text='Name of the Chief FOIA Officer')
