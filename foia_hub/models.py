@@ -58,7 +58,8 @@ class Agency(Contactable):
     keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
 
-    chief_name = models.CharField(null=True)
+    chief_name = models.CharField(
+        null=True, help_text='Name of the Chief FOIA Officer')
 
     def __str__(self):
         return 'Agency: %s' % (self.name,)
@@ -78,20 +79,14 @@ class Office(Contactable):
     name = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)
 
-    @property
-    def searchable_slug(self):
-        return '%s--%s' % (self.agency.slug, self.slug)
-
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
-
-    class Meta:
-        unique_together = (("slug", "agency"),)
 
     def save(self, *args, **kwargs):
         super(Office, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.name)[:50]
+            office_slug = slugify(self.name)[:50]
+            self.slug = return '%s--%s' % (self.agency.slug, office_slug)
             super(Office, self).save(*args, **kwargs)
 
 
