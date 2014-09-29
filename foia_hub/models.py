@@ -15,23 +15,44 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
-# PERSON_TYPE = (
-#     ('S', 'contact'),
-#     ('L', 'liaison'),
-#     ('C', 'chief'),
-#     ('B', 'Both'),
-# )
+class Contactable(models.Model):
+
+    office_url = models.URLField(null=True)
+    phone = PhoneNumberField(null=True)
+    toll_free_phone = PhoneNumberField(null=True)
+    TTY_phone = PhoneNumberField(null=True)
+    email = models.EmailField()
+    fax = PhoneNumberField(null=True)
+
+    reading_room_url = models.URLField(null=True)
+    request_form_url = models.URLField(null=True)
+    office_url = models.URLField(null=True)
+
+    person_name = models.CharField()
+    address_line1  = models.CharField()
+    address_street = models.CharField()
+    address_city = models.CharField()
+    address_state = USPostalCodeField()
+    address_zip = models.IntegerField(max_length=5)
+    address_zip_four = models.IntegerField(max_length=4)
+
+    public_liason_name = models.CharField(null=True)
+    public_liason_email = models.EmailField(null=True)
+    public_liason_phone = PhoneNumberField()
+
+    class Meta:
+        abstract = True
 
 
-class Agency(models.Model):
+class Agency(Contactable):
 
     name = models.CharField(max_length=250, unique=True)
     abbreviation = models.CharField(max_length=30, null=True, unique=True)
     description = models.TextField(null=True)
     keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
-    # dept = models.BooleanField()  # This is from csv - possibly removable
-    # chief_foia_officer
+
+    chief_name = models.CharField(null=True)
 
     def __str__(self):
         return 'Agency: %s' % (self.name,)
@@ -43,31 +64,11 @@ class Agency(models.Model):
             super(Agency, self).save(*args, **kwargs)
 
 
-class Office(models.Model):
+class Office(Contactable):
 
     agency = models.ForeignKey(Agency)
     name = models.CharField(max_length=250)
-    slug = models.SlugField()
-
-    # phone numbers
-    service_center = models.CharField(max_length=250, null=True)
-    fax = models.CharField(max_length=50, null=True)
-
-    # electronic comms
-    request_form = models.URLField(null=True)
-    website = models.URLField(null=True)
-    emails = models.CharField(max_length=250, null=True)
-
-    # public contact
-    contact = models.TextField(null=True)  # address
-    contact_phone = models.CharField(max_length=50, null=True)  # phone
-
-    # Public liaison
-    public_liaison = models.TextField(null=True)
-
-    notes = models.TextField(null=True)
-
-    top_level = models.BooleanField(default=False)
+    slug = models.SlugField(unique=True)
 
     @property
     def searchable_slug(self):
