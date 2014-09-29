@@ -54,7 +54,7 @@ class Contactable(USAddress):
 
     person_name = models.CharField(max_length=250)
 
-    public_liason_name = models.CharField(null=True)
+    public_liason_name = models.CharField(null=True, max_length=128)
     public_liason_email = models.EmailField(null=True)
     public_liason_phone = PhoneNumberField()
 
@@ -75,6 +75,7 @@ class Agency(Contactable):
     slug = models.SlugField(unique=True)
 
     chief_name = models.CharField(
+        max_length=128,
         null=True, help_text='Name of the Chief FOIA Officer')
 
     def __str__(self):
