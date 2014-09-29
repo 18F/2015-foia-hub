@@ -23,8 +23,10 @@ def request_form(request, slug=None):
 
 
 def request_start(request):
-    template = env.get_template('request/index.html')
-    return HttpResponse(template.render())
+    return HttpResponse(env.get_template('request/index.html').render())
+
+def learn(request):
+    return HttpResponse(env.get_template('request/learn.html').render())
 
 
 def request_success(request, id):
