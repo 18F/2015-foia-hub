@@ -89,7 +89,7 @@ class Office(Contactable):
         super(Office, self).save(*args, **kwargs)
         if not self.slug:
             office_slug = slugify(self.name)[:50]
-            self.slug = return '%s--%s' % (self.agency.slug, office_slug)
+            self.slug = '%s--%s' % (self.agency.slug, office_slug)
             super(Office, self).save(*args, **kwargs)
 
 
