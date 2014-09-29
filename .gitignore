@@ -12,3 +12,5 @@ local_settings.py
 
 /deploy/config.py
 /log
+
+docs/build
