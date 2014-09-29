@@ -16,17 +16,19 @@ FOIA_STATUS = (
 )
 
 class Contactable(models.Model):
+    """ An abstract class that represents all the contactable pieces of an
+    office or agency. Agencies will certainly have almost all of these fields.
+    It's less clear if Offices will.  """
 
-    office_url = models.URLField(null=True)
     phone = PhoneNumberField(null=True)
     toll_free_phone = PhoneNumberField(null=True)
     TTY_phone = PhoneNumberField(null=True)
     email = models.EmailField()
     fax = PhoneNumberField(null=True)
 
+    office_url = models.URLField(null=True)
     reading_room_url = models.URLField(null=True)
     request_form_url = models.URLField(null=True)
-    office_url = models.URLField(null=True)
 
     person_name = models.CharField()
     address_line1  = models.CharField()
@@ -45,6 +47,10 @@ class Contactable(models.Model):
 
 
 class Agency(Contactable):
+    """ This represents a FOIA-able agency of the government. In some cases
+    this will be a large institution like the Department of Commerce, in other
+    cases it will be like the Census Bureau (which is actually part of the
+    Department of Commerce)"""
 
     name = models.CharField(max_length=250, unique=True)
     abbreviation = models.CharField(max_length=30, null=True, unique=True)
@@ -65,6 +71,8 @@ class Agency(Contactable):
 
 
 class Office(Contactable):
+    """ Agencies sometimes have offices that are contactable separately for
+    FOIA purposes. """
 
     agency = models.ForeignKey(Agency)
     name = models.CharField(max_length=250)
