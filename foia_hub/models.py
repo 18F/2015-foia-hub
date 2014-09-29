@@ -17,13 +17,13 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
-class USAddress(models.model):
+class USAddress(models.Model):
     """ An abstract representation of a United States Address."""
 
-    line_1 = = models.CharField(max_length=128)
+    address_line_1 = models.CharField(max_length=128)
     street = models.CharField(max_length=128)
     city  = models.CharField(max_length=64)
-    state = = USPostalCodeField()
+    state = USPostalCodeField()
     zip_code = models.IntegerField(max_length=5)
 
     class Meta:
