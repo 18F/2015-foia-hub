@@ -1,8 +1,11 @@
 import logging
-from django.db import models
 
+from django.db import models
 from django.utils.text import slugify
+
 from jsonfield import JSONField
+from localflavor.us.models import PhoneNumberField, USPostalCodeField
+
 
 
 logger = logging.getLogger(__name__)
