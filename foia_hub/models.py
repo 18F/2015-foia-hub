@@ -7,7 +7,6 @@ from jsonfield import JSONField
 from localflavor.us.models import PhoneNumberField, USPostalCodeField
 
 
-
 logger = logging.getLogger(__name__)
 
 # TODO: Confirm statuses
@@ -18,7 +17,20 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
-class Contactable(models.Model):
+class USAddress(models.model):
+    """ An abstract representation of a United States Address."""
+
+    line_1 = = models.CharField(max_length=128)
+    street = models.CharField(max_length=128)
+    city  = models.CharField(max_length=64)
+    state = = USPostalCodeField()
+    zip_code = models.IntegerField(max_length=5)
+
+    class Meta:
+        abstract=True
+
+
+class Contactable(USAddress):
     """ An abstract class that represents all the contactable pieces of an
     office or agency. Agencies will certainly have almost all of these fields.
     It's less clear if Offices will.  """
@@ -29,17 +41,18 @@ class Contactable(models.Model):
     email = models.EmailField()
     fax = PhoneNumberField(null=True)
 
-    office_url = models.URLField(null=True)
-    reading_room_url = models.URLField(null=True)
-    request_form_url = models.URLField(null=True)
+    office_url = models.URLField(
+        null=True,
+        help_text='A FOIA specific URL for the office or the agency.')
 
-    person_name = models.CharField()
-    address_line1  = models.CharField()
-    address_street = models.CharField()
-    address_city = models.CharField()
-    address_state = USPostalCodeField()
-    address_zip = models.IntegerField(max_length=5)
-    address_zip_four = models.IntegerField(max_length=4)
+    reading_room_url = models.URLField(
+        null=True, help_text='Link to repository of documents')
+
+    request_form_url = models.URLField(
+        null=True, 
+        help_text='If entity accepts FOIA requests online, link to the form.')
+
+    person_name = models.CharField(max_length=250)
 
     public_liason_name = models.CharField(null=True)
     public_liason_email = models.EmailField(null=True)
