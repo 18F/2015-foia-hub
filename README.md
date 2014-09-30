@@ -1,17 +1,13 @@
 ## FOIA Hub
 
-A consolidated FOIA (Freedom of Information Act) request hub, and resource
-center.
+A starting place for FOIA in the US government.
 
-* Receive and store a FOIA request, via a form or API.
-* Send received FOIA requests on to the specified FOIA office.
-* Send requestors a notice after the opening of a request, along with contact information for the FOIA office that is expected to handle the request.
-* Send requestors a notice after the closing of a request, with the nature of the response and the necessary contact information to follow up on or appeal.
+This project is currently working on getting people to the right place in the government to file their FOIA request.
 
 Some related repos:
 
 * [foia](https://github.com/18F/foia) - Discussion forum and miscellaneous resources and scrapers.
-* [foia-search](https://github.com/18F/foia-search) - Full text search API over FOIA requests and responses.
+* [foia-search](https://github.com/18F/foia-search) - Experimental full text search API over FOIA materials.
 
 ## How is this different from other stuff?
 
@@ -124,9 +120,9 @@ The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 #### Loading Agency FOIA Contact Data
 
-Agency contact data is stored in another repository as YAML files. 
+Agency contact data is stored in another repository as YAML files.
 
-Clone the repository: 
+Clone the repository:
 
 ```bash
 git clone git@github.com:18F/foia.git
@@ -142,7 +138,7 @@ python load_agency_contacts.py <<path to foia repository>>/foia/contacts/data/
 Note that the data repository is your local clone of:
 [https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
 
-Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format. 
+Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
 
 
 ## Public domain
