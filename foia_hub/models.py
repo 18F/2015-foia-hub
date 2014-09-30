@@ -20,7 +20,7 @@ FOIA_STATUS = (
 class USAddress(models.Model):
     """ An abstract representation of a United States Address."""
 
-    address_line_1 = models.CharField(max_length=128)
+    address_line_1 = models.CharField(max_length=128, null=True)
     street = models.CharField(max_length=128)
     city  = models.CharField(max_length=64)
     state = USPostalCodeField()
@@ -38,7 +38,7 @@ class Contactable(USAddress):
     phone = PhoneNumberField(null=True)
     toll_free_phone = PhoneNumberField(null=True)
     TTY_phone = PhoneNumberField(null=True)
-    email = models.EmailField()
+    email = models.EmailField(null=True)
     fax = PhoneNumberField(null=True)
 
     office_url = models.URLField(
@@ -52,11 +52,11 @@ class Contactable(USAddress):
         null=True, 
         help_text='If entity accepts FOIA requests online, link to the form.')
 
-    person_name = models.CharField(max_length=250)
+    person_name = models.CharField(max_length=250, null=True)
 
     public_liason_name = models.CharField(null=True, max_length=128)
     public_liason_email = models.EmailField(null=True)
-    public_liason_phone = PhoneNumberField()
+    public_liason_phone = PhoneNumberField(null=True)
 
     class Meta:
         abstract = True
@@ -76,6 +76,7 @@ class Agency(Contactable):
 
     parent = models.ForeignKey(
         'self',
+        null=True,
         help_text='Some agencies have a parent agency.')
 
     chief_name = models.CharField(
@@ -98,7 +99,7 @@ class Office(Contactable):
 
     agency = models.ForeignKey(Agency)
     name = models.CharField(max_length=250)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=100)
 
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
@@ -107,7 +108,7 @@ class Office(Contactable):
         super(Office, self).save(*args, **kwargs)
         if not self.slug:
             office_slug = slugify(self.name)[:50]
-            self.slug = '%s--%s' % (self.agency.slug, office_slug)
+            self.slug = '%s--%s' % (self.agency.slug, office_slug)[:100]
             super(Office, self).save(*args, **kwargs)
 
 
