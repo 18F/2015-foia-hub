@@ -99,7 +99,7 @@ class Office(Contactable):
 
     agency = models.ForeignKey(Agency)
     name = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
