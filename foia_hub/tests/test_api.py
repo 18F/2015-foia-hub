@@ -32,7 +32,7 @@ class PreparerTests(TestCase):
         fields_preparer = office_preparer()
         op = fields_preparer.prepare(office)
         self.assertEqual('office-name', op['name'])
-        self.assertEqual('agency-slug--office-slug', op['slug'])
+        self.assertEqual('office-slug', op['slug'])
 
 
 class AgencyOfficeAPITests(TestCase):
