@@ -1,36 +1,35 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="content pure-g">
 
-<header class="pure-u-1">
+<header>
   <h2>{{ agency.name }}</h2>
 </header>
 
-<section class="request agency pure-u-1">
+<section class="request agency">
   <p>
     {{ agency.description }}
   </p>
 </section>
 
 
-<section class="request form pure-u-1">
+<section class="request form">
 
-  <form class="request pure-form" method="get" action="#">
+  <form class="request" method="get" action="#">
     <input type="hidden" class="agency_agency" name="agency" value="{{ agency.slug }}" />
     <input type="hidden" class="agency_office" name="office" value="{{ office.slug }}" />
     <input type="hidden" class="agency_name" name="agency_name" value="{{ agency.name }}" />
 
 
-    <fieldset class="pure-group">
-      <input type="text" placeholder="First name" name="first_name" class="first_name pure-u-1" />
-      <input type="text" placeholder="Last name" name="last_name" class="last_name pure-u-1" />
-      <input type="email" placeholder="Email address" name="email" class="email pure-u-1" />
+    <fieldset id="name-email">
+      <input type="text" placeholder="First name" name="first_name" class="first_name" />
+      <input type="text" placeholder="Last name" name="last_name" class="last_name" />
+      <input type="email" placeholder="Email address" name="email" class="email" />
     </fieldset>
 
     <fieldset>
       <legend>Describe the records you are requesting</legend>
-      <textarea class="request body pure-u-1" class="body" name="body"></textarea>
+      <textarea class="request body" class="body" name="body"></textarea>
     </fieldset>
 
     <fieldset>
@@ -61,7 +60,7 @@
         </label>
       </div>
 
-      <textarea id="fee-waiver-justification" class="pure-u-1" placeholder="Fee waiver justification (required)"></textarea>
+      <textarea id="fee-waiver-justification" placeholder="Fee waiver justification (required)"></textarea>
     </fieldset>
 
 
@@ -69,12 +68,10 @@
       There was an error submitting your request. Please fill out all the required fields above, and try again.
     </div>
 
-    <input type="submit" class="pure-button pure-button-primary" value="Submit Request" />
+    <input type="submit" value="Submit Request" />
   </form>
 
 </section>
-
-</div>
 
 <script src="/static/js/requests/form.js"></script>
 

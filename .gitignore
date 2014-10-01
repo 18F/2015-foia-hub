@@ -6,6 +6,11 @@ debug.log
 *.DS_Store
 *.swp
 
+# SCSS/SASS
+.sass-cache
+*/static/sass/bourbon
+*/static/sass/neat
+
 local_settings.py
 
 /todo.txt

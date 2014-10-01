@@ -141,6 +141,40 @@ Note that the data repository is your local clone of:
 Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
 
 
+### Front-end Dev Environment
+
+We use SASS, Bourbon, and Neat for our front-end stack. To set them up, you
+will need ruby (and gem) installed. On a Debian/Linux box, this can be
+accomplished via:
+
+```bash
+sudo apt-get install ruby
+```
+
+You next need to install the appropriate ruby libraries. In this example, we
+will install them system wide, though you may prefer bundler, etc.
+
+```bash
+sudo gem install neat sass bourbon
+```
+
+You will then need to pull down the appropriate sass libraries for bourbon and
+neat:
+
+```bash
+cd foia_hub/static/sass
+bourbon install
+neat install
+```
+
+Finally, run the "watch" script, which will recompile CSS as you make SASS
+changes. From within the sass directory:
+
+```bash
+sass --watch .:../css
+```
+
+
 ## Public domain
 
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
