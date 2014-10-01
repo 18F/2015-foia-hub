@@ -5,6 +5,7 @@ from django.db import models, migrations
 from django.utils.text import slugify
 import localflavor.us.models
 
+
 def change_office_slugs(apps, schema_editor):
     """ Make the Office slugs unique. """
     Office = apps.get_model("foia_hub", "Office")
@@ -14,6 +15,7 @@ def change_office_slugs(apps, schema_editor):
         office_slug = slugify(office.name)[:50]
         office.slug = ('%s--%s' % (office.agency.slug, office_slug))[:100]
         office.save()
+
 
 class Migration(migrations.Migration):
     dependencies = [
