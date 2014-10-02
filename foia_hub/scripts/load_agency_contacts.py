@@ -134,6 +134,7 @@ def process_yamls(folder):
 
                     sub_agency, created = Agency.objects.get_or_create(
                         slug=sub_agency_slug, name=sub_agency_name)
+                    sub_agency.parent = a
                     # Guessing at abbreviation
                     abbreviation = ''
                     for ch in sub_agency_name:
