@@ -1,52 +1,230 @@
-body { padding-bottom: 20px; }
-html, button, input, select, textarea,
-.pure-g [class *= "pure-u"] { font-family: 'Open Sans', sans-serif; }
-h1,h2,h3,h4,h5,h6 { font-family: 'Raleway', sans-serif; }
-a { color: #18f; text-decoration: none;}
-p a:hover { text-decoration: underline; }
-.pure-menu a, .pure-menu .pure-menu-can-have-children>li:after { color: #333; }
-.pure-menu li a { padding: 5px 12px; }
+/* line 2, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_grid.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
-#logo { font-weight:200; color: #18f; }
-#logo em { color: #cc2211; font-style: normal;}
-
-input.search, input.agency { width: 100% }
-textarea.request { height: 9em; }
-textarea.fee-waiver-justification  { height: 4em; }
-.pure-form input.upto[type=text] { width: 80px; display: inline;}
-span.fee-amount { font-weight: bold; }
-
-label.fee-waiver {display: inline;}
-
-.pure-menu a {border-bottom: 0.3em solid #fff;}
-.pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
-.pure-menu li a:hover {background: none; color: #777; border-bottom: 0.3em solid #777;}
-.pure-menu li a:focus {background: #cc2211; color:#fff; }
-
-.content {
+/* line 4 */
+body {
+  max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
-  max-width: 768px;
+  padding-bottom: 20px;
+}
+/* line 15, /home/vagrant/foia-hub/foia_hub/static/sass/bourbon/addons/_clearfix.scss */
+body:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 9 */
+nav {
+  margin-left: 12.79471%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+}
+/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+nav:last-child {
+  margin-right: 0;
+}
+/* line 13 */
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 18 */
+nav li {
+  display: inline-block;
+}
+/* line 22 */
+nav a {
+  color: #333;
+  padding: 5px 12px;
+}
+/* line 26 */
+nav a:hover {
+  background: none;
+  color: #777;
+  border-bottom: 0.3em solid #777;
+}
+/* line 31 */
+nav a:focus {
+  background: #cc2211;
+  color: #fff;
+}
+
+/* line 37 */
+#main {
+  margin-left: 12.79471%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+}
+/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+#main:last-child {
+  margin-right: 0;
+}
+/* line 41 */
+#main header, #main > div, #main > section {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+#main header:last-child, #main > div:last-child, #main > section:last-child {
+  margin-right: 0;
+}
+/* line 45 */
+#main #logo {
+  font-weight: 200;
+  color: #18f;
+}
+/* line 48 */
+#main #logo em {
+  color: #cc2211;
+  font-style: normal;
+}
+
+/* line 53 */
+form.request input.upto[type=text] {
+  width: 80px;
+  display: inline;
+}
+/* line 54 */
+form.request fieldset {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  border: 0;
+}
+/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+form.request fieldset:last-child {
+  margin-right: 0;
+}
+/* line 58 */
+form.request fieldset input {
+  font-size: 100%;
+  padding: 10px;
+}
+/* line 63 */
+form.request fieldset legend {
+  display: block;
+  width: 100%;
+  padding: .3em 0;
+  margin-bottom: .3em;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* line 72 */
+form.request #name-email input {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin: 0;
+}
+/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+form.request #name-email input:last-child {
+  margin-right: 0;
+}
+/* line 76 */
+form.request textarea.request {
+  height: 9em;
+  width: 100%;
+}
+/* line 77 */
+form.request textarea.fee-waiver-justification {
+  height: 4em;
+}
+/* line 78 */
+form.request span.fee-amount {
+  font-weight: bold;
+}
+/* line 80 */
+form.request label.fee-waiver {
+  display: inline;
+}
+/* line 82 */
+form.request input[type=submit] {
+  font-size: 100%;
+  padding: .5em 1em;
+  color: #fff;
+  border: 0;
+  background-color: #0078e7;
+  border-radius: 2px;
+}
+
+/* line 92 */
+html, button, input, select, textarea {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* line 95 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}
+
+/* line 96 */
+a {
+  color: #18f;
+  text-decoration: none;
+}
+
+/* line 97 */
+p a:hover {
+  text-decoration: underline;
+}
+
+/* line 100 */
+input.search, input.agency {
+  width: 100%;
+}
+
+/* line 102 */
+.pure-menu .pure-menu-selected a {
+  border-bottom: 0.3em solid #333;
 }
 
 /* todo: error/success states still need styling */
-
 /* error message next to submit button */
+/* line 108 */
 div.request.error {
-  display: none; padding: 10px 0;
-  font-weight: bold; color: #f00;
+  display: none;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #f00;
 }
 
+/* line 114 */
+#tracking-number {
+  font-weight: bold;
+}
 
-#tracking-number {font-weight: bold;}
-#requester-email {font-weight: bold;}
-#fee-waiver-justification {display: none; margin: 10px 0;}
+/* line 115 */
+#requester-email {
+  font-weight: bold;
+}
 
+/* line 116 */
+#fee-waiver-justification {
+  display: none;
+  margin: 10px 0;
+}
 
 /* agency autocomplete */
-.twitter-typeahead {width: 100%;}
+/* line 120 */
+.twitter-typeahead {
+  width: 100%;
+}
+
+/* line 121 */
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
@@ -54,41 +232,45 @@ div.request.error {
   margin-bottom: 100px;
 }
 
-
-
+/* line 130 */
 .typeahead,
 .tt-query,
 .tt-hint {
   width: 396px;
-  height: 30px;
+  height: 50px;
   padding: 8px 12px;
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
   -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
   outline: none;
 }
 
+/* line 145 */
 .typeahead {
   background-color: #fff;
 }
 
+/* line 149 */
 .typeahead:focus {
   border: 2px solid #0097cf;
 }
 
+/* line 153 */
 .tt-query {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+/* line 159 */
 .tt-hint {
   color: #999;
 }
 
+/* line 163 */
 .tt-dropdown-menu {
   width: 422px;
   margin-top: 12px;
@@ -97,26 +279,28 @@ div.request.error {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* line 178 */
 .tt-suggestion {
   padding: 8px 20px;
   font-size: 18px;
   line-height: 24px;
 }
 
+/* line 184 */
 .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0097cf;
 }
 
+/* line 189 */
 .tt-suggestion p,
 .tt-suggestion h5 {
   margin: 0;
 }
-
