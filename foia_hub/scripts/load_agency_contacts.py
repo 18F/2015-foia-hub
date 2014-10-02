@@ -2,6 +2,8 @@
 
 import logging
 import os
+import re
+import string
 import sys
 
 import yaml
@@ -30,6 +32,74 @@ def check_urls(agency_url, row, field):
         return row_url
 
 
+TTY_RE = re.compile('\(?\d{3}\)? \d{3}-\d{4} \(TTY\)')
+ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
+
+
+def clean_phone(number_str):
+    """Cut down the phone number string as much as possible. If multiple
+    numbers are present, take the first only"""
+    number_str = number_str or ''
+    number_str = number_str.replace('(', '').replace(')', '')
+    number_str = number_str.replace('ext. ', 'x').replace('ext ', 'x')
+    number_str = number_str.split(',')[0].strip()
+
+    if number_str:
+        return number_str
+
+
+def contactable_fields(agency, office_dict):
+    """Add the Contactable and USAddress fields to the agency based on values
+    in the office dictionary. This will be called for both parent and child
+    agencies/offices (as written in our current data set)"""
+    agency.phone = clean_phone(office_dict.get('phone'))
+    # a.toll_free_phone - not an explicit field in our data set
+    agency.email = office_dict.get('emails')    # @todo: account for list
+    agency.fax = clean_phone(office_dict.get('fax'))
+    agency.office_url = office_dict.get('website')
+    # a.reading_room_url - not an explicit field in our data set
+    agency.request_form_url = office_dict.get('request_form')
+
+    service_center = office_dict.get('service_center', '')
+    match = TTY_RE.search(service_center)
+    if match:
+        agency.TTY_phone = match.group(0)
+    #   Hack until we fix the underlying data
+    if ', Phone:' in service_center:
+        name = service_center[:service_center.index(', Phone:')]
+    else:
+        name = service_center
+    agency.person_name = name or None
+
+    public_liaison = office_dict.get('public_liaison', '')
+    #   Hack until we fix the underlying data
+    if ', Phone:' in public_liaison:
+        name = public_liaison[:public_liaison.index(', Phone:')]
+        phone = public_liaison[public_liaison.index('Phone:'):]
+        phone = phone[len('Phone:'):].strip()
+        # Remove TTY, if present
+        match = TTY_RE.search(phone)
+        if match:
+            phone = phone[:match.start()].strip()
+        agency.public_liaison_phone = clean_phone(phone)
+    else:
+        name = public_liaison
+    agency.public_liaison_name = name or None
+
+    address = office_dict.get('address', [])
+    if address:
+        match = ADDY_RE.match(address[-1])
+        if match:
+            agency.zip_code = match.group('zip')
+            agency.state = match.group('state')
+            agency.city = match.group('city')
+
+        if len(address) > 1:
+            agency.street = address[-2]
+        if len(address) > 2:
+            agency.address_line_1 = address[-3]
+
+
 def process_yamls(folder):
 
     for item in os.listdir(folder):
@@ -44,52 +114,47 @@ def process_yamls(folder):
         a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
         a.abbreviation = data['abbreviation']
-        a.description = data.get('description', None)
-        a.keywords = data.get('keywords', None)
+        a.description = data.get('description')
+        a.keywords = data.get('keywords')
+
+        #   Only has a single, main branch/office
+        if len(data['departments']) == 1:
+            dept_rec = data['departments'][0]
+            contactable_fields(a, dept_rec)
+
         a.save()
 
         # Offices
-        for dept_rec in data['departments']:
-            """
-            Data mapping
-            name = name
-            request_form = request_form
-            website = website
-            service_center = service_center
-            fax = fax
-            emails = emails
-            notes = notes
-            contact = address (name, title, address, etc.)
-            contact_phone = parsed from address
+        if len(data['departments']) > 1:
+            for dept_rec in data['departments']:
+                if dept_rec.get('top_level'):
+                    # This is actually an agency
+                    sub_agency_name = dept_rec['name']
+                    sub_agency_slug = slugify(sub_agency_name)[:50]
 
-            public_liaison = public_liaison
-            """
+                    sub_agency, created = Agency.objects.get_or_create(
+                        slug=sub_agency_slug, name=sub_agency_name)
+                    sub_agency.parent = a
+                    # Guessing at abbreviation
+                    abbreviation = ''
+                    for ch in sub_agency_name:
+                        if ch in string.ascii_uppercase:
+                            abbreviation += ch
+                    sub_agency.abbreviation = abbreviation
+                    sub_agency.description = dept_rec.get('description')
+                    sub_agency.keyword = dept_rec.get('keywords')
+                    contactable_fields(sub_agency, dept_rec)
+                    sub_agency.save()
+                else:
+                    # Just an office
+                    office_name = dept_rec['name']
+                    office_slug = slug + '--' + slugify(office_name)[:50]
+                    o, created = Office.objects.get_or_create(
+                        agency=a, slug=office_slug)
 
-            office_name = dept_rec['name']
-            slug = slugify(office_name)[:50]
-            o, created = Office.objects.get_or_create(
-                agency=a,
-                slug=slug,
-            )
-
-            o.name = office_name
-            o.request_form = dept_rec.get('request_form', None)
-            o.website = dept_rec.get('website', None)
-            o.service_center = dept_rec.get('service_center', None)
-            o.phone = dept_rec.get('phone', None)
-            o.fax = dept_rec.get('fax', None)
-            o.emails = dept_rec.get('emails', None)
-            o.notes = dept_rec.get('notes', None)
-
-            # FOIA contact
-            o.contact = dept_rec.get('address', None)
-
-            # FOIA public liaison
-            o.public_liaison = dept_rec.get('public_liaison', None)
-
-            o.top_level = dept_rec.get('top_level', False)
-
-            o.save()
+                    o.name = office_name
+                    contactable_fields(o, dept_rec)
+                    o.save()
 
 
 if __name__ == "__main__":
