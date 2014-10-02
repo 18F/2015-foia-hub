@@ -10,6 +10,7 @@ debug.log
 .sass-cache
 */static/sass/bourbon
 */static/sass/neat
+.webassets-cache
 
 local_settings.py
 

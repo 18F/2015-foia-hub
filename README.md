@@ -167,12 +167,17 @@ bourbon install
 neat install
 ```
 
-Finally, run the "watch" script, which will recompile CSS as you make SASS
-changes. From within the sass directory:
+While developing you can trigger a recompile or run a "watch" script, which
+will recompile as you make Sass changes:
 
 ```bash
-sass --watch .:../css
+python manage.py assets build   # one-off
+
+python manage.py assets watch   # will run continuously
 ```
+
+During development, then, you will likely have both `assets watch` and
+`runserver`.
 
 
 ## Public domain
