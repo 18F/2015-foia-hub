@@ -54,9 +54,9 @@ class Contactable(USAddress):
 
     person_name = models.CharField(max_length=250, null=True)
 
-    public_liason_name = models.CharField(null=True, max_length=128)
-    public_liason_email = models.EmailField(null=True)
-    public_liason_phone = PhoneNumberField(null=True)
+    public_liaison_name = models.CharField(null=True, max_length=128)
+    public_liaison_email = models.EmailField(null=True)
+    public_liaison_phone = PhoneNumberField(null=True)
 
     class Meta:
         abstract = True
