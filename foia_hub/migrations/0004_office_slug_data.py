@@ -16,6 +16,14 @@ def change_office_slugs(apps, schema_editor):
         office.slug = ('%s--%s' % (office.agency.slug, office_slug))[:100]
         office.save()
 
+def reverse_office_slugs(apps, schema_editor):
+    Office = apps.get_model("foia_hub", "Office")
+    db_alias = schema_editor.connection.alias
+
+    for office in Office.objects.using(db_alias).all():
+        office_slug = slugify(office.name)[:50]
+        office.slug = office_slug
+        office.save()
 
 class Migration(migrations.Migration):
     dependencies = [
@@ -25,5 +33,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             change_office_slugs,
+            reverse_code=reverse_office_slugs
         )
     ]
