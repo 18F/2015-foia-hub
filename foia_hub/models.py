@@ -17,17 +17,18 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
+
 class USAddress(models.Model):
     """ An abstract representation of a United States Address."""
 
     address_line_1 = models.CharField(max_length=128, null=True)
-    street = models.CharField(max_length=128)
-    city  = models.CharField(max_length=64)
-    state = USPostalCodeField()
-    zip_code = models.IntegerField(max_length=5)
+    street = models.CharField(max_length=128, null=True)
+    city = models.CharField(max_length=64, null=True)
+    state = USPostalCodeField(null=True)
+    zip_code = models.CharField(max_length=10, null=True)
 
     class Meta:
-        abstract=True
+        abstract = True
 
 
 class Contactable(USAddress):
@@ -49,7 +50,7 @@ class Contactable(USAddress):
         null=True, help_text='Link to repository of documents')
 
     request_form_url = models.URLField(
-        null=True, 
+        null=True,
         help_text='If entity accepts FOIA requests online, link to the form.')
 
     person_name = models.CharField(max_length=250, null=True)
