@@ -1,40 +1,54 @@
 [
     {
         "fields": {
-            "agency": 15,
-            "contact": "['Terry Cochran', 'FOIA Officer', 'Room 840', '500 C Street, SW', 'Washington, DC 20472']",
-            "contact_phone": null,
-            "emails": "['fema-foia@dhs.gov']",
-            "fax": "202-646-3347",
-            "name": "Federal Emergency Management Agency",
-            "notes": null,
-            "public_liaison": "Terry Cochran, Phone: (202) 646-3323",
-            "request_form": "https://faq.fema.gov/ci/documents/submit",
-            "service_center": "Phone: (202) 646-3323",
-            "slug": "federal-emergency-management-agency",
-            "top_level": true,
-            "website": "http://www.fema.gov/help/foia.shtm"
-        },
-        "model": "foia_hub.office",
-        "pk": 20
-    },
-    {
-        "fields": {
+            "TTY_phone": null,
+            "address_line_1": null,
             "agency": 17,
-            "contact": "['Michael Toland, Ph.D.', 'Freedom of Information Act Officer', 'Room 8H207', '4600 Silver Hill Road', 'Washington, DC 20233-3700']",
-            "contact_phone": null,
-            "emails": "['census.efoia@census.gov']",
+            "city": "",
+            "email": null,
             "fax": "301-763-6239",
             "name": "Census Bureau",
-            "notes": null,
-            "public_liaison": "Jennifer Goode, PH.D., , Phone: (301) 763-2127",
-            "request_form": "http://www.census.gov/foia/foia_request.php",
-            "service_center": "Phone: (301) 763-2127",
-            "slug": "census-bureau",
-            "top_level": true,
-            "website": "http://www.census.gov/foia/"
+            "office_url": null,
+            "person_name": null,
+            "phone": null,
+            "public_liaison_email": null,
+            "public_liaison_name": null,
+            "public_liaison_phone": null,
+            "reading_room_url": null,
+            "request_form_url": null,
+            "slug": "department-of-commerce--census-bureau",
+            "state": "",
+            "street": "",
+            "toll_free_phone": null,
+            "zip_code": 0
         },
         "model": "foia_hub.office",
         "pk": 33
+    },
+    {
+        "fields": {
+            "TTY_phone": null,
+            "address_line_1": null,
+            "agency": 15,
+            "city": "",
+            "email": null,
+            "fax": "202-646-3347",
+            "name": "Federal Emergency Management Agency",
+            "office_url": null,
+            "person_name": null,
+            "phone": null,
+            "public_liaison_email": null,
+            "public_liaison_name": null,
+            "public_liaison_phone": null,
+            "reading_room_url": null,
+            "request_form_url": null,
+            "slug": "department-of-homeland-security--federal-emergency-management-agency",
+            "state": "",
+            "street": "",
+            "toll_free_phone": null,
+            "zip_code": 0
+        },
+        "model": "foia_hub.office",
+        "pk": 20
     }
 ]

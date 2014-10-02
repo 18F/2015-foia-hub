@@ -16,3 +16,5 @@ beautifulsoup4
 # deployed/hosted with gunicorn
 gunicorn
 dj-static
+
+django-localflavor

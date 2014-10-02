@@ -9,11 +9,11 @@ from foia_hub.models import Agency, FOIARequest, Office, Requester
 
 class RequestFormTests(SimpleTestCase):
     def setUp(self):
-        self.agency = Agency(name='My Agency')
+        self.agency = Agency(name='My Agency', zip_code=20404)
         self.agency.save()
-        self.office = Office(agency=self.agency, name='An Office')
+        self.office = Office(agency=self.agency, name='An Office', zip_code=20404)
         self.office.save()
-        self.office2 = Office(agency=self.agency, name='Other Office')
+        self.office2 = Office(agency=self.agency, name='Other Office', zip_code=20404)
         self.office2.save()
         self.requester = Requester.objects.create(
             first_name='Alice', last_name='Bobson', email='eve@example.com')
@@ -79,7 +79,7 @@ class RequestFormTests(SimpleTestCase):
         self.assertContains(response, self.office.name)
         self.assertContains(response, self.office2.name)
 
-        slug = self.agency.slug + '--' + self.office.slug
+        slug = self.office.slug
         response = self.client.get(reverse(
             'contact_landing', kwargs={'slug': slug}))
         self.assertContains(response, self.agency.name)
