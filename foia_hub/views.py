@@ -26,7 +26,7 @@ def request_start(request):
     return HttpResponse(env.get_template('request/index.html').render())
 
 def learn(request):
-    return HttpResponse(env.get_template('request/learn.html').render())
+    return HttpResponse(env.get_template('learn.html').render())
 
 
 def request_success(request, id):
