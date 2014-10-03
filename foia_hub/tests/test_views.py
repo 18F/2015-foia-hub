@@ -85,8 +85,3 @@ class RequestFormTests(SimpleTestCase):
         self.assertContains(response, self.agency.name)
         self.assertContains(response, self.office.name)
         self.assertNotContains(response, self.office2.name)
-
-    def test_learn(self):
-        """The /learn/ page should load without errors."""
-        response = self.client.get(reverse('learn'))
-        self.assertEqual(response.status_code, 200)
