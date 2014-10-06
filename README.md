@@ -131,12 +131,24 @@ git clone git@github.com:18F/foia.git
 Then run the data loading script:
 
 ```bash
-cd foia_hub/foia_hub/scripts
-python load_agency_contacts.py <<path to foia repository>>/foia/contacts/data/
+cd foia_hub
+python manage.py load_agency_contacts <<path to foia repository>>/foia/contacts/data/
 ```
 
 Note that the data repository is your local clone of:
 [https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
+
+There's a small bash script which will check for changes to the repository,
+and if found, import the new data. This can be useful if combined with a cron
+script to run on a routine basis. The script expects to be ran from the
+foia-hub repository's root:
+
+```bash
+./check-new-data.sh <<path to foia repository>>
+```
+
+No repository parameter is needed if both the foia and foia-hub projects are
+cloned into the same directory.
 
 Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
 
