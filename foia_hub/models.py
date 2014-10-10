@@ -80,8 +80,8 @@ class Agency(Contactable):
     description = models.TextField(null=True)
     keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
-    examples = JSONField(default=empty_list)
-    counter_examples = JSONField(default=empty_list)
+    common_requests = JSONField(default=empty_list)
+    no_records_about = JSONField(default=empty_list)
 
     parent = models.ForeignKey(
         'self',

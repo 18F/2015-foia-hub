@@ -116,8 +116,8 @@ def process_yamls(folder):
         a.abbreviation = data['abbreviation']
         a.description = data.get('description')
         a.keywords = data.get('keywords')
-        a.examples = data.get('examples', [])
-        a.counter_examples = data.get('counter_examples', [])
+        a.common_requests = data.get('common_requests', [])
+        a.no_records_about = data.get('no_records_about', [])
 
         #   Only has a single, main branch/office
         if len(data['departments']) == 1:
@@ -145,9 +145,10 @@ def process_yamls(folder):
                     sub_agency.abbreviation = abbreviation
                     sub_agency.description = dept_rec.get('description')
                     sub_agency.keyword = dept_rec.get('keywords')
-                    sub_agency.examples = dept_rec.get('examples', [])
-                    sub_agency.counter_examples = dept_rec.get(
-                        'counter_examples', [])
+                    sub_agency.common_requests = dept_rec.get(
+                        'common_requests', [])
+                    sub_agency.no_records_about = dept_rec.get(
+                        'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
                 else:
