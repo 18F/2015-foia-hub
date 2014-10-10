@@ -63,6 +63,12 @@ class Contactable(USAddress):
         abstract = True
 
 
+def empty_list():
+    """Thunk for returning a *new* empty list. Must be named so that it can be
+    serialized by django migrations."""
+    return []
+
+
 class Agency(Contactable):
     """ This represents a FOIA-able agency of the government. In some cases
     this will be a large institution like the Department of Commerce, in other
@@ -74,6 +80,8 @@ class Agency(Contactable):
     description = models.TextField(null=True)
     keywords = JSONField(null=True)
     slug = models.SlugField(unique=True)
+    examples = JSONField(default=empty_list)
+    counter_examples = JSONField(default=empty_list)
 
     parent = models.ForeignKey(
         'self',
