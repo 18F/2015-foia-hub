@@ -1,4 +1,4 @@
-/* line 2, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_grid.scss */
+/* line 2, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_grid.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12,7 +12,7 @@ body {
   margin-right: auto;
   padding-bottom: 20px;
 }
-/* line 15, /home/vagrant/foia-hub/foia_hub/static/sass/bourbon/addons/_clearfix.scss */
+/* line 15, /home/eric/foia/hub/foia_hub/static/sass/bourbon/addons/_clearfix.scss */
 body:after {
   content: "";
   display: table;
@@ -27,7 +27,7 @@ nav {
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+/* line 38, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
 nav:last-child {
   margin-right: 0;
 }
@@ -65,7 +65,7 @@ nav a:focus {
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+/* line 38, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
 #main:last-child {
   margin-right: 0;
 }
@@ -76,7 +76,7 @@ nav a:focus {
   margin-right: 2.35765%;
   width: 100%;
 }
-/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+/* line 38, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
 #main header:last-child, #main > div:last-child, #main > section:last-child {
   margin-right: 0;
 }
@@ -90,13 +90,17 @@ nav a:focus {
   color: #cc2211;
   font-style: normal;
 }
+/* line 51 */
+#main section.search {
+  margin-bottom: 30px;
+}
 
-/* line 53 */
+/* line 57 */
 form.request input.upto[type=text] {
   width: 80px;
   display: inline;
 }
-/* line 54 */
+/* line 58 */
 form.request fieldset {
   float: left;
   display: block;
@@ -104,16 +108,16 @@ form.request fieldset {
   width: 100%;
   border: 0;
 }
-/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+/* line 38, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
 form.request fieldset:last-child {
   margin-right: 0;
 }
-/* line 58 */
+/* line 62 */
 form.request fieldset input {
   font-size: 100%;
   padding: 10px;
 }
-/* line 63 */
+/* line 67 */
 form.request fieldset legend {
   display: block;
   width: 100%;
@@ -122,7 +126,7 @@ form.request fieldset legend {
   color: #333;
   border-bottom: 1px solid #e5e5e5;
 }
-/* line 72 */
+/* line 76 */
 form.request #name-email input {
   float: left;
   display: block;
@@ -130,28 +134,28 @@ form.request #name-email input {
   width: 100%;
   margin: 0;
 }
-/* line 38, /home/vagrant/foia-hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
+/* line 38, /home/eric/foia/hub/foia_hub/static/sass/neat/grid/_span-columns.scss */
 form.request #name-email input:last-child {
   margin-right: 0;
 }
-/* line 76 */
+/* line 80 */
 form.request textarea.request {
   height: 9em;
   width: 100%;
 }
-/* line 77 */
+/* line 81 */
 form.request textarea.fee-waiver-justification {
   height: 4em;
 }
-/* line 78 */
+/* line 82 */
 form.request span.fee-amount {
   font-weight: bold;
 }
-/* line 80 */
+/* line 84 */
 form.request label.fee-waiver {
   display: inline;
 }
-/* line 82 */
+/* line 86 */
 form.request input[type=submit] {
   font-size: 100%;
   padding: .5em 1em;
@@ -161,40 +165,40 @@ form.request input[type=submit] {
   border-radius: 2px;
 }
 
-/* line 92 */
+/* line 96 */
 html, button, input, select, textarea {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 95 */
+/* line 99 */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Raleway', sans-serif;
 }
 
-/* line 96 */
+/* line 100 */
 a {
   color: #18f;
   text-decoration: none;
 }
 
-/* line 97 */
+/* line 101 */
 p a:hover {
   text-decoration: underline;
 }
 
-/* line 100 */
+/* line 104 */
 input.search, input.agency {
   width: 100%;
 }
 
-/* line 102 */
+/* line 106 */
 .pure-menu .pure-menu-selected a {
   border-bottom: 0.3em solid #333;
 }
 
 /* todo: error/success states still need styling */
 /* error message next to submit button */
-/* line 108 */
+/* line 112 */
 div.request.error {
   display: none;
   padding: 10px 0;
@@ -202,29 +206,29 @@ div.request.error {
   color: #f00;
 }
 
-/* line 114 */
+/* line 118 */
 #tracking-number {
   font-weight: bold;
 }
 
-/* line 115 */
+/* line 119 */
 #requester-email {
   font-weight: bold;
 }
 
-/* line 116 */
+/* line 120 */
 #fee-waiver-justification {
   display: none;
   margin: 10px 0;
 }
 
 /* agency autocomplete */
-/* line 120 */
+/* line 124 */
 .twitter-typeahead {
   width: 100%;
 }
 
-/* line 121 */
+/* line 125 */
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
@@ -232,7 +236,7 @@ div.request.error {
   margin-bottom: 100px;
 }
 
-/* line 130 */
+/* line 134 */
 .typeahead,
 .tt-query,
 .tt-hint {
@@ -248,29 +252,29 @@ div.request.error {
   outline: none;
 }
 
-/* line 145 */
+/* line 149 */
 .typeahead {
   background-color: #fff;
 }
 
-/* line 149 */
+/* line 153 */
 .typeahead:focus {
   border: 2px solid #0097cf;
 }
 
-/* line 153 */
+/* line 157 */
 .tt-query {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-/* line 159 */
+/* line 163 */
 .tt-hint {
   color: #999;
 }
 
-/* line 163 */
+/* line 167 */
 .tt-dropdown-menu {
   width: 422px;
   margin-top: 12px;
@@ -286,20 +290,20 @@ div.request.error {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* line 178 */
+/* line 182 */
 .tt-suggestion {
   padding: 8px 20px;
   font-size: 18px;
   line-height: 24px;
 }
 
-/* line 184 */
+/* line 188 */
 .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0097cf;
 }
 
-/* line 189 */
+/* line 193 */
 .tt-suggestion p,
 .tt-suggestion h5 {
   margin: 0;

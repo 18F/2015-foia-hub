@@ -82,6 +82,7 @@ class AgencyOfficeResource(DjangoResource):
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
+            'agency_description': office.agency.description,
             'offices': [office_data]
         }
         return data
@@ -94,6 +95,7 @@ class AgencyOfficeResource(DjangoResource):
         data = {
             'agency_name': agency.name,
             'agency_slug': agency.slug,
+            'agency_description': agency.description,
             'offices': offices
         }
         return data
