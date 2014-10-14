@@ -98,7 +98,9 @@ class AgencyOfficeResource(DjangoResource):
             'agency_slug': agency.slug,
             'agency_description': agency.description,
             'offices': offices,
-            'is_a': 'agency'
+            'is_a': 'agency',
+            "common_requests": agency.common_requests,
+            "no_records_about": agency.no_records_about
         }
         return data
 

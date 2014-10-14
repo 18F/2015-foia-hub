@@ -18,6 +18,36 @@
   </p>
 {% endif %}
 
+{% if profile.is_a == "agency" %}
+  {% if profile.common_requests or profile.no_records_about %}
+  <section class="records">
+    <h2>Records maintained</h2>
+
+    {% if profile.common_requests %}
+      <p>
+        Some of the most common FOIA requests include:
+      </p>
+      <ul>
+        {% for record in profile.common_requests %}
+          <li>{{ record }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if profile.no_records_about %}
+      <p>
+        This agency <strong>does not possess records</strong> on:
+      </p>
+      <ul>
+        {% for record in profile.no_records_about %}
+          <li>{{ record }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+  {% endif %}
+{% endif %}
+
 {# List any sub-components with links, below. #}
 {% if profile.offices|length > 1 %}
 
