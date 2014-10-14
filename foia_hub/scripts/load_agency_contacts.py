@@ -58,6 +58,7 @@ def contactable_fields(agency, office_dict):
     agency.fax = clean_phone(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
 
+    # TODO: obviously not ideal
     if agency.email and (len(agency.email) > 0):
         agency.email = agency.email[0]
 
