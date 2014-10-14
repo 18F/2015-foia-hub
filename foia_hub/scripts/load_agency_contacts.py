@@ -57,6 +57,10 @@ def contactable_fields(agency, office_dict):
     agency.email = office_dict.get('emails')    # @todo: account for list
     agency.fax = clean_phone(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
+
+    if agency.email and (len(agency.email) > 0):
+        agency.email = agency.email[0]
+
     # a.reading_room_url - not an explicit field in our data set
     agency.request_form_url = office_dict.get('request_form')
 
