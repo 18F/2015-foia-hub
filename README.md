@@ -183,12 +183,12 @@ While developing you can trigger a recompile or run a "watch" script, which
 will recompile as you make Sass changes:
 
 ```bash
-python manage.py assets build   # one-off
+python manage.py scss   # one-off
 
-python manage.py assets watch   # will run continuously
+python manage.py scss watch   # will run continuously
 ```
 
-During development, then, you will likely have both `assets watch` and
+During development, then, you will likely have both `scss watch` and
 `runserver`.
 
 
