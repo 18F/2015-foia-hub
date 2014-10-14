@@ -83,7 +83,8 @@ class AgencyOfficeResource(DjangoResource):
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
             'agency_description': office.agency.description,
-            'offices': [office_data]
+            'offices': [office_data],
+            'is_a': 'office'
         }
         return data
 
@@ -96,7 +97,8 @@ class AgencyOfficeResource(DjangoResource):
             'agency_name': agency.name,
             'agency_slug': agency.slug,
             'agency_description': agency.description,
-            'offices': offices
+            'offices': offices,
+            'is_a': 'agency'
         }
         return data
 
@@ -113,12 +115,36 @@ class AgencyOfficeResource(DjangoResource):
                 Office,
                 slug=slug
             )
+            agencyoffice = office
             response = self.prepare_office_contact(office)
-            return response
         else:
             agency = get_object_or_404(Agency, slug=slug)
+            agencyoffice = agency
             response = self.prepare_agency_contact(agency)
-            return response
+
+        response.update({
+            'name': agencyoffice.name,
+            'person_name': agencyoffice.person_name,
+            'email': agencyoffice.email,
+            'phone': agencyoffice.phone,
+            'toll_free_phone': agencyoffice.toll_free_phone,
+            'fax': agencyoffice.fax,
+
+            'public_liaison_name': agencyoffice.public_liaison_name,
+            'public_liaison_email': agencyoffice.public_liaison_email,
+            'public_liaison_phone': agencyoffice.public_liaison_phone,
+
+            'request_form_url': agencyoffice.request_form_url,
+            'office_url': agencyoffice.office_url,
+
+            'address_line_1': agencyoffice.address_line_1,
+            'street': agencyoffice.street,
+            'city': agencyoffice.city,
+            'state': agencyoffice.state,
+            'zip_code': agencyoffice.zip_code
+        })
+
+        return response
 
     @classmethod
     def urls(cls, name_prefix=None):
