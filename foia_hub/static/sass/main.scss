@@ -30,7 +30,7 @@ nav {
   }
   a:focus {
     background: #cc2211;
-    color:#fff; 
+    color:#fff;
   }
 }
 
@@ -42,10 +42,25 @@ nav {
     @include span-columns(12);
   }
 
-  #logo { 
+  #logo {
     font-weight:200;
-    color: #18f; 
+    color: #18f;
     em { color: #cc2211; font-style: normal;}
+  }
+
+  section.search {
+    margin-bottom: 30px
+  }
+
+  section.contact {
+    h3 {
+      margin-top: 30px; margin-bottom: 10px;
+    }
+    ul, li {
+      list-style-type: none;
+      list-style-position: outside;
+      padding: 0; margin: 0;
+    }
   }
 }
 
@@ -53,7 +68,7 @@ form.request {
   input.upto[type=text] { width: 80px; display: inline;}
   fieldset {
     @include span-columns(12);
-    border: 0; 
+    border: 0;
 
     input {
       font-size: 100%;
@@ -190,5 +205,4 @@ div.request.error {
 .tt-suggestion h5 {
   margin: 0;
 }
-
 

@@ -1,28 +1,139 @@
 {% extends "base.html" %}
-
 {% block body %}
-{% if profile.offices|length == 1 %}
-{# This is an agency with one office or a top-level office. #}
-{% set office = profile.offices[0] %}
-  {% if office.website %}
-  <h2><a href="{{office.website}}">{{ office.name }}</a></h2>
-  {% else %}
-  <h2>{{ office.name }}</h2>
-  {% endif %}
-  {% if office.name != profile.agency_name %}
-  <h3>(part of {{profile.agency_name}})</h3>
-  {% endif %}
-  {% include 'contacts/partial_office.html' %}
-{% else %}
-{# This is an agency with sub-components #}
-  <h2>{{ profile.agency_name }}</h2>
-  {% for office in profile.offices %}
-    {% if office.website %}
-    <h3><a href="{{office.website}}">{{ office.name }}</a></h3>
-    {% else %}
-    <h3>{{ office.name }}</h3>
-    {% endif %}
-    {% include 'contacts/partial_office.html' %}
-  {% endfor %}
+
+<h1>{{ profile.name }}</h1>
+
+{% if profile.agency_description %}
+  <p>
+    {{ profile.agency_description }}
+  </p>
 {% endif %}
+
+{% if profile.agency_name != profile.name %}
+  <p>
+    {{ profile.name }}
+    is a component of the
+    <a href="/contacts/{{ profile.agency_slug }}">
+      {{ profile.agency_name }}</a>.
+  </p>
+{% endif %}
+
+{% if profile.is_a == "agency" %}
+  {% if profile.common_requests or profile.no_records_about %}
+  <section class="records">
+    <h2>Records maintained</h2>
+
+    {% if profile.common_requests %}
+      <p>
+        Some of the most common FOIA requests include:
+      </p>
+      <ul>
+        {% for record in profile.common_requests %}
+          <li>{{ record }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if profile.no_records_about %}
+      <p>
+        This agency <strong>does not possess records</strong> on:
+      </p>
+      <ul>
+        {% for record in profile.no_records_about %}
+          <li>{{ record }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+  {% endif %}
+{% endif %}
+
+{# List any sub-components with links, below. #}
+{% if profile.offices|length > 1 %}
+
+  <h2>Offices</h2>
+  {% for office in profile.offices %}
+    <h3>
+      <a href="/contacts/{{ office.slug }}">
+        {{ office.name }}
+      </a>
+    </h3>
+  {% endfor %}
+
+{% else %}
+<section class="contact">
+
+  <h2>FOIA Contact</h2>
+
+  <p>
+    {{ profile.address_line_1 }}<br/>
+    {{ profile.street }}<br/>
+    {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+  </p>
+
+  {% if profile.office_url %}
+    <ul>
+      <li>
+        <a href="{{ profile.office_url }}">
+          Website
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
+  {% if profile.email %}
+    <h3>Email</h3>
+    <ul>
+      <li>
+        <a href="mailto:{{ profile.email }}">
+          {{ profile.email }}
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+
+  {% if profile.phone %}
+    <h3>Phone</h3>
+    <ul>
+      <li>{{ profile.phone }}</li>
+    </ul>
+  {% endif %}
+
+  {% if profile.request_form_url %}
+    <h3>Make a request</h3>
+    <ul>
+      <li><a href="{{ profile.request_form_url }}">Request form</a></li>
+    </ul>
+  {% endif %}
+
+  {% if profile.public_liaison_name %}
+    <h3>Public Liaison</h3>
+    <ul>
+      <li>{{ profile.public_liaison_name }}</li>
+      {% if profile.public_liaison_email %}
+        <li>{{ profile.public_liaison_email }}</li>
+      {% endif %}
+      {% if profile.public_liaison_phone %}
+        <li>{{ profile.public_liaison_phone }}</li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+  {% if profile.fax %}
+    <h3>Fax</h3>
+    <ul>
+      <li>{{ profile.fax }}</li>
+    </ul>
+  {% endif %}
+</ul>
+
+</section>
+{% endif %}
+
+<section class="inaccurate">
+  <p>
+    <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate agency contact information">Is there inaccurate information on this page?</a>
+  </p>
+</section>
+
 {% endblock %}
