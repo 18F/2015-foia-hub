@@ -1,0 +1,6 @@
+[report]
+omit = 
+    bin/*
+    develop-eggs/*
+    eggs/*
+    */site-packages/*
