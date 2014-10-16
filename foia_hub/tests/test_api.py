@@ -24,6 +24,9 @@ class AgencyOfficeAPITests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
     def test_autocomplete(self):
+        """ Test that the autocomplete API works, and also ensure the results
+        are sorted by name """
+
         c = Client()
         response = c.get('/api/agencyoffice/autocomplete/')
         content = response.content
@@ -32,9 +35,6 @@ class AgencyOfficeAPITests(TestCase):
         self.assertEqual(2, len(content))
 
         slugs = [a['slug'] for a in content]
-        slugs.sort()
-        fema_slug = 'department-of-homeland-security'
-        fema_slug += '--federal-emergency-management-agency'
         self.assertEqual([
             'department-of-commerce',
             'department-of-homeland-security'], slugs)

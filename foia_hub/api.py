@@ -52,9 +52,8 @@ class AgencyOfficeResource(DjangoResource):
 
     @skip_prepare
     def autocomplete(self):
-        agencies = Agency.objects.all()
+        agencies = Agency.objects.all().order_by('name')
         response = [self.agency_preparer.prepare(a) for a in agencies]
-        response.sort(key=lambda x: x['name'])
         return response
 
     def prepare_office_contact(self, office):
