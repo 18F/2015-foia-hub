@@ -2,7 +2,7 @@ import json
 from django.test import TestCase, Client
 from foia_hub.models import Agency, Office
 
-from foia_hub.api import agency_preparer, office_preparer
+from foia_hub.api import agency_preparer
 
 
 class PreparerTests(TestCase):
@@ -18,21 +18,6 @@ class PreparerTests(TestCase):
         self.assertEqual('agency-description', ap['description'])
         self.assertEqual('AN', ap['abbreviation'])
         self.assertEqual('agency-slug', ap['slug'])
-
-    def test_office_preparer(self):
-        agency = Agency(
-            name='agency-name',
-            description='agency-description',
-            abbreviation='AN',
-            slug='agency-slug')
-        office = Office(
-            name='office-name',
-            slug='office-slug',
-            agency=agency)
-        fields_preparer = office_preparer()
-        op = fields_preparer.prepare(office)
-        self.assertEqual('office-name', op['name'])
-        self.assertEqual('office-slug', op['slug'])
 
 
 class AgencyOfficeAPITests(TestCase):

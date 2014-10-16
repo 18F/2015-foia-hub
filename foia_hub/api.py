@@ -21,30 +21,12 @@ def agency_preparer():
     })
 
 
-def office_preparer():
-    return FieldsPreparer(fields={
-        'name': 'name',
-        'slug': 'slug'})
-
-
 def full_office_preparer():
     preparer = FieldsPreparer(fields={
         'id': 'id',
         'name': 'name',
         'slug': 'slug',
-
-        #'service_center': 'service_center',
         'fax': 'fax',
-
-        #'request_form': 'request_form',
-        #'website': 'website',
-        #'emails': 'emails',
-
-        #'contact': 'contact',
-        #'contact_phone': 'contact_phone',
-        #'public_liaison': 'public_liaison',
-
-        #'notes': 'notes',
     })
     return preparer
 
@@ -66,7 +48,6 @@ class AgencyOfficeResource(DjangoResource):
         })
 
         self.agency_preparer = agency_preparer()
-        self.office_preparer = office_preparer()
         self.full_office_preparer = full_office_preparer()
 
     @skip_prepare
@@ -107,22 +88,13 @@ class AgencyOfficeResource(DjangoResource):
     @skip_prepare
     def contact(self, slug):
         if '--' in slug:
-            # Searchable slugs are a compound of agency.slug and office.slug,
-            # separated by a '---'. We split those out here for searching.
-            #agency_slug, office_slug = slug.split('--')
-
-            #office = get_object_or_404(
-            #    Office, agency__slug=agency_slug, slug=office_slug)
-            office = get_object_or_404(
-                Office,
-                slug=slug
-            )
-            agencyoffice = office
+            office = get_object_or_404(Office, slug=slug)
             response = self.prepare_office_contact(office)
+            agencyoffice = office
         else:
             agency = get_object_or_404(Agency, slug=slug)
-            agencyoffice = agency
             response = self.prepare_agency_contact(agency)
+            agencyoffice = agency
 
         response.update({
             'name': agencyoffice.name,
