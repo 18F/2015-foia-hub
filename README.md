@@ -1,5 +1,7 @@
 ## FOIA Hub
 
+[![Coverage Status](https://coveralls.io/repos/18F/foia-hub/badge.png)](https://coveralls.io/r/18F/foia-hub)
+
 A starting place for FOIA in the US government.
 
 This project is currently working on getting people to the right place in the government to file their FOIA request.
