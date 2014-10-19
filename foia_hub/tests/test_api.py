@@ -2,10 +2,12 @@ import json
 from django.test import TestCase, Client
 from foia_hub.models import Agency, Office
 
-from foia_hub.api import agency_preparer
+from foia_hub.api import agency_preparer, contact_preparer
 
 
 class PreparerTests(TestCase):
+    fixtures = ['agencies_test.json']
+
     def test_agency_preparer(self):
         agency = Agency(
             name='agency-name',
@@ -19,6 +21,32 @@ class PreparerTests(TestCase):
         self.assertEqual('AN', ap['abbreviation'])
         self.assertEqual('agency-slug', ap['slug'])
 
+    def test_contact_preparer(self):
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        self.assertNotEqual(agency, None)
+
+        fields_preparer = contact_preparer()
+        ap = fields_preparer.prepare(agency)
+
+        data = {
+            'name': 'Department of Homeland Security',
+            'person_name': 'Joe Bureaucrat', 
+            'email': 'foia@hq.dhs.gov', 
+            'phone': None, 
+            'toll_free_phone': None, 
+            'fax': '202-343-1743',
+            'public_liaison_name': 'Joe Liaison',
+            'public_liaison_email': 'liaison@email.gov',
+            'public_liaison_phone': '202-555-5555', 
+            'request_form_url': 'http://dhs.gov/xfoia/editorial_0579.html',
+            'office_url': 'http://www.dhs.gov/freedom-information-act-foia',
+            'address_line_1': 'Stop 1',
+            'street': '245 Murray Lane, SW',
+            'city': 'Washington',
+            'state': 'DC',
+            'zip_code': '20528'
+        }
+        self.assertEqual(ap, data)
 
 class AgencyOfficeAPITests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']

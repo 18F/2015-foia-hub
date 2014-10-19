@@ -10,6 +10,29 @@ from restless.preparers import FieldsPreparer
 
 from foia_hub.models import *
 
+def contact_preparer():
+    return FieldsPreparer(fields={
+        'name': 'name',
+        'person_name': 'person_name',
+        'email': 'email',
+        'phone': 'phone',
+        'toll_free_phone': 'toll_free_phone',
+        'fax': 'fax',
+
+        'public_liaison_name': 'public_liaison_name',
+        'public_liaison_email': 'public_liaison_email',
+        'public_liaison_phone': 'public_liaison_phone',
+
+        'request_form_url': 'request_form_url',
+        'office_url': 'office_url',
+
+        'address_line_1': 'address_line_1',
+        'street': 'street',
+        'city': 'city',
+        'state': 'state',
+        'zip_code': 'zip_code'
+        })
+
 
 def agency_preparer():
     return FieldsPreparer(fields={
@@ -26,7 +49,6 @@ def full_office_preparer():
         'id': 'id',
         'name': 'name',
         'slug': 'slug',
-        'fax': 'fax',
     })
     return preparer
 
@@ -49,6 +71,7 @@ class AgencyOfficeResource(DjangoResource):
 
         self.agency_preparer = agency_preparer()
         self.full_office_preparer = full_office_preparer()
+        self.contact_preparer = contact_preparer()
 
     @skip_prepare
     def autocomplete(self):
@@ -63,9 +86,11 @@ class AgencyOfficeResource(DjangoResource):
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
             'agency_description': office.agency.description,
-            'offices': [office_data],
             'is_a': 'office'
         }
+
+        data.update(office_data)
+        data.update(self.contact_preparer.prepare(office))
         return data
 
     def prepare_agency_contact(self, agency):
@@ -82,6 +107,8 @@ class AgencyOfficeResource(DjangoResource):
             "common_requests": agency.common_requests,
             "no_records_about": agency.no_records_about
         }
+
+        data.update(self.contact_preparer.prepare(agency))
         return data
 
     @skip_prepare
@@ -94,29 +121,6 @@ class AgencyOfficeResource(DjangoResource):
             agency = get_object_or_404(Agency, slug=slug)
             response = self.prepare_agency_contact(agency)
             agencyoffice = agency
-
-        response.update({
-            'name': agencyoffice.name,
-            'person_name': agencyoffice.person_name,
-            'email': agencyoffice.email,
-            'phone': agencyoffice.phone,
-            'toll_free_phone': agencyoffice.toll_free_phone,
-            'fax': agencyoffice.fax,
-
-            'public_liaison_name': agencyoffice.public_liaison_name,
-            'public_liaison_email': agencyoffice.public_liaison_email,
-            'public_liaison_phone': agencyoffice.public_liaison_phone,
-
-            'request_form_url': agencyoffice.request_form_url,
-            'office_url': agencyoffice.office_url,
-
-            'address_line_1': agencyoffice.address_line_1,
-            'street': agencyoffice.street,
-            'city': agencyoffice.city,
-            'state': agencyoffice.state,
-            'zip_code': agencyoffice.zip_code
-        })
-
         return response
 
     @classmethod
