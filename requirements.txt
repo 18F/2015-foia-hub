@@ -6,7 +6,6 @@ django-jsonfield==0.9.13
 
 django-cors-headers
 restless==2.0.1
-django-assets
 
 # PyYAML is for contact loading
 PyYAML==3.11
