@@ -8,7 +8,7 @@ from restless.dj import DjangoResource
 from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
 
-from foia_hub.models import *
+from foia_hub.models import Agency, Office, Requester, FOIARequest
 
 def contact_preparer():
     return FieldsPreparer(fields={
