@@ -10,6 +10,7 @@ from restless.preparers import FieldsPreparer
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 
+
 def contact_preparer():
     return FieldsPreparer(fields={
         'name': 'name',
@@ -116,11 +117,9 @@ class AgencyOfficeResource(DjangoResource):
         if '--' in slug:
             office = get_object_or_404(Office, slug=slug)
             response = self.prepare_office_contact(office)
-            agencyoffice = office
         else:
             agency = get_object_or_404(Agency, slug=slug)
             response = self.prepare_agency_contact(agency)
-            agencyoffice = agency
         return response
 
     @classmethod
