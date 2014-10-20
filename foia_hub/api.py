@@ -127,7 +127,7 @@ class AgencyOfficeResource(DjangoResource):
         response.update({
             'name': agencyoffice.name,
             'person_name': agencyoffice.person_name,
-            'email': agencyoffice.email,
+            'emails': agencyoffice.emails,
             'phone': agencyoffice.phone,
             'toll_free_phone': agencyoffice.toll_free_phone,
             'fax': agencyoffice.fax,
@@ -139,7 +139,7 @@ class AgencyOfficeResource(DjangoResource):
             'request_form_url': agencyoffice.request_form_url,
             'office_url': agencyoffice.office_url,
 
-            'address_line_1': agencyoffice.address_line_1,
+            'address_lines': agencyoffice.address_lines,
             'street': agencyoffice.street,
             'city': agencyoffice.city,
             'state': agencyoffice.state,

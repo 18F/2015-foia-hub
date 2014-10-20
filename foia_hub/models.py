@@ -17,11 +17,16 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
+def empty_list():
+    """Thunk for returning a *new* empty list. Must be named so that it can be
+    serialized by django migrations."""
+    return []
+
 
 class USAddress(models.Model):
     """ An abstract representation of a United States Address."""
 
-    address_line_1 = models.CharField(max_length=128, null=True)
+    address_lines = JSONField(default=empty_list)
     street = models.CharField(max_length=128, null=True)
     city = models.CharField(max_length=64, null=True)
     state = USPostalCodeField(null=True)
@@ -39,7 +44,7 @@ class Contactable(USAddress):
     phone = PhoneNumberField(null=True)
     toll_free_phone = PhoneNumberField(null=True)
     TTY_phone = PhoneNumberField(null=True)
-    email = models.EmailField(null=True)
+    emails = JSONField(default=empty_list)
     fax = PhoneNumberField(null=True)
 
     office_url = models.URLField(
@@ -61,12 +66,6 @@ class Contactable(USAddress):
 
     class Meta:
         abstract = True
-
-
-def empty_list():
-    """Thunk for returning a *new* empty list. Must be named so that it can be
-    serialized by django migrations."""
-    return []
 
 
 class Agency(Contactable):
