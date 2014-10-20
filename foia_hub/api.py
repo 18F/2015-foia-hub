@@ -199,9 +199,44 @@ class OfficeResource(DjangoResource):
         'notes': 'notes',
     })
 
-    # GET /
-    def list(self, slug):
-        return Office.objects.filter(agency__slug=slug)
+    def __init__(self, *args, **kwargs):
+        super(OfficeResource, self).__init__(*args, **kwargs)
+        self.agency_preparer = agency_preparer()
+        self.office_preparer = office_preparer()
+        self.contact_preparer = contact_preparer()
+
+    @skip_prepare
+    def detail(self, slug):
+        """ A detailed return of an Office object. """
+        office = get_object_or_404(Office, slug=slug)
+        response = self.prepare_office_contact(office)
+        return response
+        
+    def prepare_office_contact(self, office):
+        office_data = self.office_preparer.prepare(office)
+
+        data = {
+            'agency_name': office.agency.name,
+            'agency_slug': office.agency.slug,
+            'agency_description': office.agency.description,
+            'is_a': 'office'
+        }
+
+        data.update(office_data)
+        data.update(self.contact_preparer.prepare(office))
+        return data
+
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(
+            OfficeResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('detail'),
+                name=cls.build_url_name('detail', name_prefix)),
+            ) + urlpatterns
 
 
 class FOIARequestResource(DjangoResource):

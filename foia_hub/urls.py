@@ -25,6 +25,7 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     '',
     url(r'^api/agency/', include(AgencyResource.urls())),
+    url(r'^api/office/', include(OfficeResource.urls())),
     url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 
