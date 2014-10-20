@@ -32,19 +32,7 @@ def full_office_preparer():
         'id': 'id',
         'name': 'name',
         'slug': 'slug',
-
-        #'service_center': 'service_center',
         'fax': 'fax',
-
-        #'request_form': 'request_form',
-        #'website': 'website',
-        #'emails': 'emails',
-
-        #'contact': 'contact',
-        #'contact_phone': 'contact_phone',
-        #'public_liaison': 'public_liaison',
-
-        #'notes': 'notes',
     })
     return preparer
 
@@ -90,7 +78,7 @@ class AgencyOfficeResource(DjangoResource):
 
     def prepare_agency_contact(self, agency):
         offices = []
-        for o in agency.office_set.all():
+        for o in agency.office_set.order_by('name').all():
             offices.append(self.full_office_preparer.prepare(o))
 
         data = {
