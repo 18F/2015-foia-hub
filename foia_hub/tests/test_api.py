@@ -6,7 +6,7 @@ from foia_hub.api import agency_preparer, contact_preparer
 
 
 class PreparerTests(TestCase):
-    fixtures = ['agencies_test.json', offices_test.json]
+    fixtures = ['agencies_test.json', 'offices_test.json']
 
     def test_agency_preparer(self):
         """ Test the preparer that deals with just the unique Agency fields.
@@ -51,34 +51,35 @@ class PreparerTests(TestCase):
         }
         self.assertEqual(ap, data)
 
-class AgencyOfficeAPITests(TestCase):
+class AgencyAPITests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_autocomplete(self):
-        """ Test that the autocomplete API works, and also ensure the results
-        are sorted by name """
+    def test_list(self):
+        """ Test that listing agencies work, and also ensure that the results
+        are sorted by name. """
 
         c = Client()
-        response = c.get('/api/agencyoffice/autocomplete/')
+        response = c.get('/api/agency/')
+        self.assertEqual(200, response.status_code)
+
         content = response.content
         content = json.loads(content.decode('utf-8'))
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(2, len(content))
-
-        slugs = [a['slug'] for a in content]
+        self.assertEqual(2, len(content['objects']))
+        slugs = [a['slug'] for a in content['objects']]
         self.assertEqual([
-            'department-of-commerce',
-            'department-of-homeland-security'], slugs)
+           'department-of-commerce',
+           'department-of-homeland-security'], slugs)
 
-    def test_agency_contact(self):
+    def test_detail(self):
+        """ Check the detail view for an agency."""
+
         c = Client()
-        response = c.get('/api/agencyoffice/contact/department-of-commerce/')
+        response = c.get('/api/agency/department-of-commerce/')
         self.assertEqual(200, response.status_code)
         content = response.content
         content = json.loads(content.decode('utf-8'))
-
-        self.assertEqual(content['agency_name'], 'Department of Commerce')
+        self.assertEqual(content['name'], 'Department of Commerce')
         self.assertEqual(1, len(content['offices']))
         self.assertEqual(
             'department-of-commerce--census-bureau',
-            content['offices'][0]['slug'])
+            content['offices'][0]['slug']) 
