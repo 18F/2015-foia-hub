@@ -90,7 +90,7 @@ class AgencyOfficeResource(DjangoResource):
     def prepare_agency_contact(self, agency):
         offices = []
         for o in agency.office_set.order_by('name').all():
-            offices.append(self.full_office_preparer.prepare(o))
+            offices.append(self.office_preparer.prepare(o))
 
         data = {
             'agency_name': agency.name,
