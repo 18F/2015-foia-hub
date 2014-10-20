@@ -1,5 +1,7 @@
 ## FOIA Hub
 
+[![Coverage Status](https://coveralls.io/repos/18F/foia-hub/badge.png)](https://coveralls.io/r/18F/foia-hub)
+
 A starting place for FOIA in the US government.
 
 This project is currently working on getting people to the right place in the government to file their FOIA request.
@@ -183,12 +185,12 @@ While developing you can trigger a recompile or run a "watch" script, which
 will recompile as you make Sass changes:
 
 ```bash
-python manage.py assets build   # one-off
+python manage.py scss   # one-off
 
-python manage.py assets watch   # will run continuously
+python manage.py scss watch   # will run continuously
 ```
 
-During development, then, you will likely have both `assets watch` and
+During development, then, you will likely have both `scss watch` and
 `runserver`.
 
 
