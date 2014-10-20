@@ -6,9 +6,12 @@ from foia_hub.api import agency_preparer, contact_preparer
 
 
 class PreparerTests(TestCase):
-    fixtures = ['agencies_test.json']
+    fixtures = ['agencies_test.json', offices_test.json]
 
     def test_agency_preparer(self):
+        """ Test the preparer that deals with just the unique Agency fields.
+        """
+        
         agency = Agency(
             name='agency-name',
             description='agency-description',

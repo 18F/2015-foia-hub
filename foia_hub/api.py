@@ -41,11 +41,12 @@ def agency_preparer():
         'description': 'description',
         'abbreviation': 'abbreviation',
         'slug': 'slug',
-        'keywords': 'keywords'
+        'keywords': 'keywords',
+        'common_requests': 'common_requests'
     })
 
 
-def full_office_preparer():
+def office_preparer():
     preparer = FieldsPreparer(fields={
         'id': 'id',
         'name': 'name',
@@ -71,17 +72,12 @@ class AgencyOfficeResource(DjangoResource):
         })
 
         self.agency_preparer = agency_preparer()
-        self.full_office_preparer = full_office_preparer()
+        self.office_preparer = office_preparer()
         self.contact_preparer = contact_preparer()
 
-    @skip_prepare
-    def autocomplete(self):
-        agencies = Agency.objects.all().order_by('name')
-        response = [self.agency_preparer.prepare(a) for a in agencies]
-        return response
 
     def prepare_office_contact(self, office):
-        office_data = self.full_office_preparer.prepare(office)
+        office_data = self.office_preparer.prepare(office)
 
         data = {
             'agency_name': office.agency.name,
@@ -97,7 +93,7 @@ class AgencyOfficeResource(DjangoResource):
     def prepare_agency_contact(self, agency):
         offices = []
         for o in agency.office_set.all():
-            offices.append(self.full_office_preparer.prepare(o))
+            offices.append(self.office_preparer.prepare(o))
 
         data = {
             'agency_name': agency.name,
@@ -140,18 +136,48 @@ class AgencyOfficeResource(DjangoResource):
 
 
 class AgencyResource(DjangoResource):
+    
+    preparer = agency_preparer()
 
-    preparer = FieldsPreparer(fields={
-        'id': 'id',
-        'name': 'name',
-        'abbreviation': 'abbreviation',
-        'description': 'description',
-        'slug': 'slug',
-    })
+    def __init__(self, *args, **kwargs):
+        super(AgencyResource, self).__init__(*args, **kwargs)
+        self.office_preparer = office_preparer()
+        self.contact_preparer = contact_preparer()
 
-    # GET /
+    def prepare_agency_contact(self, agency):
+        offices = []
+        for o in agency.office_set.all():
+            offices.append(self.office_preparer.prepare(o))
+
+        data = {
+            'offices': offices,
+            'is_a': 'agency',
+            "no_records_about": agency.no_records_about
+        }
+        data.update(AgencyResource.preparer.prepare(agency))
+        data.update(self.contact_preparer.prepare(agency))
+        return data
+
     def list(self):
-        return Agency.objects.order_by('name').all()
+        return Agency.objects.all().order_by('name')
+    
+    @skip_prepare
+    def detail(self, slug):
+        agency = get_object_or_404(Agency, slug=slug)
+        response = self.prepare_agency_contact(agency)
+        return response
+        
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(
+            AgencyResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('detail'),
+                name=cls.build_url_name('detail', name_prefix)),
+            ) + urlpatterns
 
 
 class OfficeResource(DjangoResource):
