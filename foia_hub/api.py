@@ -63,9 +63,6 @@ class AgencyOfficeResource(DjangoResource):
     def __init__(self, *args, **kwargs):
         super(AgencyOfficeResource, self).__init__(*args, **kwargs)
         self.http_methods.update({
-            'autocomplete': {
-                'GET': 'autocomplete',
-            },
             'contact': {
                 'GET': 'contact',
             }
@@ -125,10 +122,6 @@ class AgencyOfficeResource(DjangoResource):
         return urlpatterns + patterns(
             '',
             url(
-                r'^autocomplete/$',
-                cls.as_view('autocomplete'),
-                name=cls.build_url_name('autocomplete', name_prefix)),
-            url(
                 r'^contact/(?P<slug>[\w-]+)/$',
                 cls.as_view('contact'),
                 name=cls.build_url_name('contact', name_prefix)),
@@ -136,6 +129,7 @@ class AgencyOfficeResource(DjangoResource):
 
 
 class AgencyResource(DjangoResource):
+    """ The resource that represents the endpoint for an Agency """
     
     preparer = agency_preparer()
 
@@ -159,10 +153,14 @@ class AgencyResource(DjangoResource):
         return data
 
     def list(self):
+        """ This lists all the Agency objects. It doesn't provide every field
+        for every object, instead limiting the output to useful fields. To see
+        the detail for each object, use the detail endpoint. """
         return Agency.objects.all().order_by('name')
     
     @skip_prepare
     def detail(self, slug):
+        """ A detailed return of an Agency objects. """
         agency = get_object_or_404(Agency, slug=slug)
         response = self.prepare_agency_contact(agency)
         return response
