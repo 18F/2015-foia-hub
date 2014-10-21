@@ -25,6 +25,7 @@ def request_form(request, slug=None):
 def request_start(request):
     return HttpResponse(env.get_template('request/index.html').render())
 
+
 def learn(request):
     return HttpResponse(env.get_template('learn.html').render())
 
@@ -41,22 +42,6 @@ def request_success(request, id):
     return HttpResponse(template.render(
         foia_request=foia_request, requester=requester, office=office,
         agency=agency))
-
-
-# similar to agency API, but optimized for typeahead consumption
-def request_autocomplete(request):
-    agencies = Agency.objects.order_by('name').all()
-    response = []
-    for agency in agencies:
-        response.append({
-            "name": agency.name,
-            "description": agency.description,
-            "abbreviation": agency.abbreviation,
-            "slug": agency.slug,
-            "keywords": agency.keywords
-        })
-    agency_json = json.dumps(response, cls=DjangoJSONEncoder)
-    return HttpResponse(agency_json, content_type="application/json")
 
 
 def contact_landing(request, slug):

@@ -8,7 +8,31 @@ from restless.dj import DjangoResource
 from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
 
-from foia_hub.models import *
+from foia_hub.models import Agency, Office, Requester, FOIARequest
+
+
+def contact_preparer():
+    return FieldsPreparer(fields={
+        'name': 'name',
+        'person_name': 'person_name',
+        'emails': 'emails',
+        'phone': 'phone',
+        'toll_free_phone': 'toll_free_phone',
+        'fax': 'fax',
+
+        'public_liaison_name': 'public_liaison_name',
+        'public_liaison_email': 'public_liaison_email',
+        'public_liaison_phone': 'public_liaison_phone',
+
+        'request_form_url': 'request_form_url',
+        'office_url': 'office_url',
+
+        'address_lines': 'address_lines',
+        'street': 'street',
+        'city': 'city',
+        'state': 'state',
+        'zip_code': 'zip_code'
+        })
 
 
 def agency_preparer():
@@ -17,22 +41,16 @@ def agency_preparer():
         'description': 'description',
         'abbreviation': 'abbreviation',
         'slug': 'slug',
-        'keywords': 'keywords'
+        'keywords': 'keywords',
+        'common_requests': 'common_requests'
     })
 
 
 def office_preparer():
-    return FieldsPreparer(fields={
-        'name': 'name',
-        'slug': 'slug'})
-
-
-def full_office_preparer():
     preparer = FieldsPreparer(fields={
         'id': 'id',
         'name': 'name',
         'slug': 'slug',
-        'fax': 'fax',
     })
     return preparer
 
@@ -45,9 +63,6 @@ class AgencyOfficeResource(DjangoResource):
     def __init__(self, *args, **kwargs):
         super(AgencyOfficeResource, self).__init__(*args, **kwargs)
         self.http_methods.update({
-            'autocomplete': {
-                'GET': 'autocomplete',
-            },
             'contact': {
                 'GET': 'contact',
             }
@@ -55,31 +70,27 @@ class AgencyOfficeResource(DjangoResource):
 
         self.agency_preparer = agency_preparer()
         self.office_preparer = office_preparer()
-        self.full_office_preparer = full_office_preparer()
+        self.contact_preparer = contact_preparer()
 
-    @skip_prepare
-    def autocomplete(self):
-        agencies = Agency.objects.all()
-        response = [self.agency_preparer.prepare(a) for a in agencies]
-        response.sort(key=lambda x: x['name'])
-        return response
 
     def prepare_office_contact(self, office):
-        office_data = self.full_office_preparer.prepare(office)
+        office_data = self.office_preparer.prepare(office)
 
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
             'agency_description': office.agency.description,
-            'offices': [office_data],
             'is_a': 'office'
         }
+
+        data.update(office_data)
+        data.update(self.contact_preparer.prepare(office))
         return data
 
     def prepare_agency_contact(self, agency):
         offices = []
         for o in agency.office_set.order_by('name').all():
-            offices.append(self.full_office_preparer.prepare(o))
+            offices.append(self.office_preparer.prepare(o))
 
         data = {
             'agency_name': agency.name,
@@ -90,50 +101,18 @@ class AgencyOfficeResource(DjangoResource):
             "common_requests": agency.common_requests,
             "no_records_about": agency.no_records_about
         }
+
+        data.update(self.contact_preparer.prepare(agency))
         return data
 
     @skip_prepare
     def contact(self, slug):
         if '--' in slug:
-            # Searchable slugs are a compound of agency.slug and office.slug,
-            # separated by a '---'. We split those out here for searching.
-            #agency_slug, office_slug = slug.split('--')
-
-            #office = get_object_or_404(
-            #    Office, agency__slug=agency_slug, slug=office_slug)
-            office = get_object_or_404(
-                Office,
-                slug=slug
-            )
-            agencyoffice = office
+            office = get_object_or_404(Office, slug=slug)
             response = self.prepare_office_contact(office)
         else:
             agency = get_object_or_404(Agency, slug=slug)
-            agencyoffice = agency
             response = self.prepare_agency_contact(agency)
-
-        response.update({
-            'name': agencyoffice.name,
-            'person_name': agencyoffice.person_name,
-            'emails': agencyoffice.emails,
-            'phone': agencyoffice.phone,
-            'toll_free_phone': agencyoffice.toll_free_phone,
-            'fax': agencyoffice.fax,
-
-            'public_liaison_name': agencyoffice.public_liaison_name,
-            'public_liaison_email': agencyoffice.public_liaison_email,
-            'public_liaison_phone': agencyoffice.public_liaison_phone,
-
-            'request_form_url': agencyoffice.request_form_url,
-            'office_url': agencyoffice.office_url,
-
-            'address_lines': agencyoffice.address_lines,
-            'street': agencyoffice.street,
-            'city': agencyoffice.city,
-            'state': agencyoffice.state,
-            'zip_code': agencyoffice.zip_code
-        })
-
         return response
 
     @classmethod
@@ -143,10 +122,6 @@ class AgencyOfficeResource(DjangoResource):
         return urlpatterns + patterns(
             '',
             url(
-                r'^autocomplete/$',
-                cls.as_view('autocomplete'),
-                name=cls.build_url_name('autocomplete', name_prefix)),
-            url(
                 r'^contact/(?P<slug>[\w-]+)/$',
                 cls.as_view('contact'),
                 name=cls.build_url_name('contact', name_prefix)),
@@ -154,18 +129,53 @@ class AgencyOfficeResource(DjangoResource):
 
 
 class AgencyResource(DjangoResource):
+    """ The resource that represents the endpoint for an Agency """
+    
+    preparer = agency_preparer()
 
-    preparer = FieldsPreparer(fields={
-        'id': 'id',
-        'name': 'name',
-        'abbreviation': 'abbreviation',
-        'description': 'description',
-        'slug': 'slug',
-    })
+    def __init__(self, *args, **kwargs):
+        super(AgencyResource, self).__init__(*args, **kwargs)
+        self.office_preparer = office_preparer()
+        self.contact_preparer = contact_preparer()
 
-    # GET /
+    def prepare_agency_contact(self, agency):
+        offices = []
+        for o in agency.office_set.order_by('name').all():
+            offices.append(self.office_preparer.prepare(o))
+
+        data = {
+            'offices': offices,
+            'is_a': 'agency',
+            "no_records_about": agency.no_records_about
+        }
+        data.update(AgencyResource.preparer.prepare(agency))
+        data.update(self.contact_preparer.prepare(agency))
+        return data
+
     def list(self):
-        return Agency.objects.order_by('name').all()
+        """ This lists all the Agency objects. It doesn't provide every field
+        for every object, instead limiting the output to useful fields. To see
+        the detail for each object, use the detail endpoint. """
+        return Agency.objects.all().order_by('name')
+    
+    @skip_prepare
+    def detail(self, slug):
+        """ A detailed return of an Agency objects. """
+        agency = get_object_or_404(Agency, slug=slug)
+        response = self.prepare_agency_contact(agency)
+        return response
+        
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(
+            AgencyResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('detail'),
+                name=cls.build_url_name('detail', name_prefix)),
+            ) + urlpatterns
 
 
 class OfficeResource(DjangoResource):
@@ -189,9 +199,44 @@ class OfficeResource(DjangoResource):
         'notes': 'notes',
     })
 
-    # GET /
-    def list(self, slug):
-        return Office.objects.filter(agency__slug=slug)
+    def __init__(self, *args, **kwargs):
+        super(OfficeResource, self).__init__(*args, **kwargs)
+        self.agency_preparer = agency_preparer()
+        self.office_preparer = office_preparer()
+        self.contact_preparer = contact_preparer()
+
+    @skip_prepare
+    def detail(self, slug):
+        """ A detailed return of an Office object. """
+        office = get_object_or_404(Office, slug=slug)
+        response = self.prepare_office_contact(office)
+        return response
+        
+    def prepare_office_contact(self, office):
+        office_data = self.office_preparer.prepare(office)
+
+        data = {
+            'agency_name': office.agency.name,
+            'agency_slug': office.agency.slug,
+            'agency_description': office.agency.description,
+            'is_a': 'office'
+        }
+
+        data.update(office_data)
+        data.update(self.contact_preparer.prepare(office))
+        return data
+
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(
+            OfficeResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('detail'),
+                name=cls.build_url_name('detail', name_prefix)),
+            ) + urlpatterns
 
 
 class FOIARequestResource(DjangoResource):

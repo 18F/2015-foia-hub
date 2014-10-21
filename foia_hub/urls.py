@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from foia_hub.views import (
     contact_landing, learn,
-    request_start, request_autocomplete, request_form, request_success)
+    request_start, request_form, request_success)
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 from foia_hub.api import AgencyOfficeResource
 
@@ -17,8 +17,6 @@ urlpatterns = patterns(
     url(r'^learn/?$', learn, name='learn'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
-    url(r'^request/autocomplete/?$', request_autocomplete,
-        name='autocomplete'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^request/success/(?P<id>[\d]+)/$', request_success, name='success')
 )
@@ -26,9 +24,8 @@ urlpatterns = patterns(
 # APIs
 urlpatterns += patterns(
     '',
-    url(r'^api/agency/(?P<slug>[-\w]+)/$', include(OfficeResource.urls())),
     url(r'^api/agency/', include(AgencyResource.urls())),
-    url(r'^api/agencyoffice/', include(AgencyOfficeResource.urls())),
+    url(r'^api/office/', include(OfficeResource.urls())),
     url(r'^api/request/', include(FOIARequestResource.urls())),
 )
 
