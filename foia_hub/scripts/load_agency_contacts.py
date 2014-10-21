@@ -54,13 +54,9 @@ def contactable_fields(agency, office_dict):
     agencies/offices (as written in our current data set)"""
     agency.phone = clean_phone(office_dict.get('phone'))
     # a.toll_free_phone - not an explicit field in our data set
-    agency.email = office_dict.get('emails')    # @todo: account for list
+    agency.emails = office_dict.get('emails', [])
     agency.fax = clean_phone(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
-
-    # TODO: obviously not ideal
-    if agency.email and (len(agency.email) > 0):
-        agency.email = agency.email[0]
 
     # a.reading_room_url - not an explicit field in our data set
     agency.request_form_url = office_dict.get('request_form')
@@ -102,7 +98,7 @@ def contactable_fields(agency, office_dict):
         if len(address) > 1:
             agency.street = address[-2]
         if len(address) > 2:
-            agency.address_line_1 = address[-3]
+            agency.address_lines = address[0:-2]
 
 
 def process_yamls(folder):

@@ -15,7 +15,7 @@ def contact_preparer():
     return FieldsPreparer(fields={
         'name': 'name',
         'person_name': 'person_name',
-        'email': 'email',
+        'email': 'emails',
         'phone': 'phone',
         'toll_free_phone': 'toll_free_phone',
         'fax': 'fax',
@@ -27,7 +27,7 @@ def contact_preparer():
         'request_form_url': 'request_form_url',
         'office_url': 'office_url',
 
-        'address_line_1': 'address_line_1',
+        'address_lines': 'address_lines',
         'street': 'street',
         'city': 'city',
         'state': 'state',
