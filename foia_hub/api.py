@@ -15,7 +15,7 @@ def contact_preparer():
     return FieldsPreparer(fields={
         'name': 'name',
         'person_name': 'person_name',
-        'email': 'emails',
+        'emails': 'emails',
         'phone': 'phone',
         'toll_free_phone': 'toll_free_phone',
         'fax': 'fax',

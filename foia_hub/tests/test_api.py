@@ -25,6 +25,7 @@ class PreparerTests(TestCase):
         self.assertEqual('agency-slug', ap['slug'])
 
     def test_contact_preparer(self):
+        self.maxDiff = None
         agency = Agency.objects.get(slug='department-of-homeland-security')
         self.assertNotEqual(agency, None)
 
@@ -34,7 +35,7 @@ class PreparerTests(TestCase):
         data = {
             'name': 'Department of Homeland Security',
             'person_name': 'Joe Bureaucrat', 
-            'email': 'foia@hq.dhs.gov', 
+            'emails': ['foia@hq.dhs.gov'], 
             'phone': None, 
             'toll_free_phone': None, 
             'fax': '202-343-1743',
@@ -43,7 +44,7 @@ class PreparerTests(TestCase):
             'public_liaison_phone': '202-555-5555', 
             'request_form_url': 'http://dhs.gov/xfoia/editorial_0579.html',
             'office_url': 'http://www.dhs.gov/freedom-information-act-foia',
-            'address_line_1': 'Stop 1',
+            'address_lines': ['Stop 1'],
             'street': '245 Murray Lane, SW',
             'city': 'Washington',
             'state': 'DC',
