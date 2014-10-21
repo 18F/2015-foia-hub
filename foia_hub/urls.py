@@ -1,13 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings  # For debugging.
 from django.contrib import admin
-from django.views.generic import TemplateView
 
 from foia_hub.views import (
     contact_landing, learn,
     request_start, request_form, request_success)
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
-from foia_hub.api import AgencyOfficeResource
 
 
 # Front-end

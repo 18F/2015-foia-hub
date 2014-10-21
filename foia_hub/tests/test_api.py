@@ -1,6 +1,6 @@
 import json
 from django.test import TestCase, Client
-from foia_hub.models import Agency, Office
+from foia_hub.models import Agency
 
 from foia_hub.api import agency_preparer, contact_preparer
 
@@ -11,7 +11,7 @@ class PreparerTests(TestCase):
     def test_agency_preparer(self):
         """ Test the preparer that deals with just the unique Agency fields.
         """
-        
+
         agency = Agency(
             name='agency-name',
             description='agency-description',
@@ -34,14 +34,14 @@ class PreparerTests(TestCase):
 
         data = {
             'name': 'Department of Homeland Security',
-            'person_name': 'Joe Bureaucrat', 
-            'emails': ['foia@hq.dhs.gov'], 
-            'phone': None, 
-            'toll_free_phone': None, 
+            'person_name': 'Joe Bureaucrat',
+            'emails': ['foia@hq.dhs.gov'],
+            'phone': None,
+            'toll_free_phone': None,
             'fax': '202-343-1743',
             'public_liaison_name': 'Joe Liaison',
             'public_liaison_email': 'liaison@email.gov',
-            'public_liaison_phone': '202-555-5555', 
+            'public_liaison_phone': '202-555-5555',
             'request_form_url': 'http://dhs.gov/xfoia/editorial_0579.html',
             'office_url': 'http://www.dhs.gov/freedom-information-act-foia',
             'address_lines': ['Stop 1'],
@@ -51,6 +51,7 @@ class PreparerTests(TestCase):
             'zip_code': '20528'
         }
         self.assertEqual(ap, data)
+
 
 class AgencyAPITests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
@@ -67,9 +68,9 @@ class AgencyAPITests(TestCase):
         content = json.loads(content.decode('utf-8'))
         self.assertEqual(2, len(content['objects']))
         slugs = [a['slug'] for a in content['objects']]
-        self.assertEqual([
-           'department-of-commerce',
-           'department-of-homeland-security'], slugs)
+        self.assertEqual(
+            ['department-of-commerce', 'department-of-homeland-security'],
+            slugs)
 
     def test_detail(self):
         """ Check the detail view for an agency."""
@@ -83,4 +84,4 @@ class AgencyAPITests(TestCase):
         self.assertEqual(1, len(content['offices']))
         self.assertEqual(
             'department-of-commerce--census-bureau',
-            content['offices'][0]['slug']) 
+            content['offices'][0]['slug'])

@@ -55,82 +55,9 @@ def office_preparer():
     return preparer
 
 
-class AgencyOfficeResource(DjangoResource):
-    """ This helps implement endpoints for discoverable entities. Discoverable
-    entities are Agencies and those Offices that are designated as top-tier.
-    """
-
-    def __init__(self, *args, **kwargs):
-        super(AgencyOfficeResource, self).__init__(*args, **kwargs)
-        self.http_methods.update({
-            'contact': {
-                'GET': 'contact',
-            }
-        })
-
-        self.agency_preparer = agency_preparer()
-        self.office_preparer = office_preparer()
-        self.contact_preparer = contact_preparer()
-
-
-    def prepare_office_contact(self, office):
-        office_data = self.office_preparer.prepare(office)
-
-        data = {
-            'agency_name': office.agency.name,
-            'agency_slug': office.agency.slug,
-            'agency_description': office.agency.description,
-            'is_a': 'office'
-        }
-
-        data.update(office_data)
-        data.update(self.contact_preparer.prepare(office))
-        return data
-
-    def prepare_agency_contact(self, agency):
-        offices = []
-        for o in agency.office_set.order_by('name').all():
-            offices.append(self.office_preparer.prepare(o))
-
-        data = {
-            'agency_name': agency.name,
-            'agency_slug': agency.slug,
-            'agency_description': agency.description,
-            'offices': offices,
-            'is_a': 'agency',
-            "common_requests": agency.common_requests,
-            "no_records_about": agency.no_records_about
-        }
-
-        data.update(self.contact_preparer.prepare(agency))
-        return data
-
-    @skip_prepare
-    def contact(self, slug):
-        if '--' in slug:
-            office = get_object_or_404(Office, slug=slug)
-            response = self.prepare_office_contact(office)
-        else:
-            agency = get_object_or_404(Agency, slug=slug)
-            response = self.prepare_agency_contact(agency)
-        return response
-
-    @classmethod
-    def urls(cls, name_prefix=None):
-        urlpatterns = super(
-            AgencyOfficeResource, cls).urls(name_prefix=name_prefix)
-        return urlpatterns + patterns(
-            '',
-            url(
-                r'^contact/(?P<slug>[\w-]+)/$',
-                cls.as_view('contact'),
-                name=cls.build_url_name('contact', name_prefix)),
-            )
-
-
 class AgencyResource(DjangoResource):
     """ The resource that represents the endpoint for an Agency """
-    
+
     preparer = agency_preparer()
 
     def __init__(self, *args, **kwargs):
@@ -157,14 +84,14 @@ class AgencyResource(DjangoResource):
         for every object, instead limiting the output to useful fields. To see
         the detail for each object, use the detail endpoint. """
         return Agency.objects.all().order_by('name')
-    
+
     @skip_prepare
     def detail(self, slug):
         """ A detailed return of an Agency objects. """
         agency = get_object_or_404(Agency, slug=slug)
         response = self.prepare_agency_contact(agency)
         return response
-        
+
     @classmethod
     def urls(cls, name_prefix=None):
         urlpatterns = super(
@@ -179,6 +106,7 @@ class AgencyResource(DjangoResource):
 
 
 class OfficeResource(DjangoResource):
+    """ The resource that represents the endpoint for an Office. """
 
     preparer = FieldsPreparer(fields={
         'id': 'id',
@@ -211,7 +139,7 @@ class OfficeResource(DjangoResource):
         office = get_object_or_404(Office, slug=slug)
         response = self.prepare_office_contact(office)
         return response
-        
+
     def prepare_office_contact(self, office):
         office_data = self.office_preparer.prepare(office)
 

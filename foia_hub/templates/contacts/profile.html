@@ -3,13 +3,13 @@
 
 <h1>{{ profile.name }}</h1>
 
-{% if profile.agency_description %}
+{% if profile.description %}
   <p>
-    {{ profile.agency_description }}
+    {{ profile.description }}
   </p>
 {% endif %}
 
-{% if profile.agency_name != profile.name %}
+{% if profile.is_a == "office" %}
   <p>
     {{ profile.name }}
     is a component of the
