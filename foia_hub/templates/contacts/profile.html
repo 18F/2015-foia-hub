@@ -66,7 +66,9 @@
   <h2>FOIA Contact</h2>
 
   <p>
-    {{ profile.address_line_1 }}<br/>
+    {% for line in profile.address_lines %}
+      {{ line }}<br/>
+    {% endfor %}
     {{ profile.street }}<br/>
     {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
   </p>
@@ -81,14 +83,22 @@
     </ul>
   {% endif %}
 
-  {% if profile.email %}
-    <h3>Email</h3>
+  {% if profile.emails %}
+    <h3>
+      {% if profile.emails|length > 1 %}
+        Emails
+      {% else %}
+        Email
+      {% endif %}
+    </h3>
     <ul>
-      <li>
-        <a href="mailto:{{ profile.email }}">
-          {{ profile.email }}
-        </a>
-      </li>
+      {% for email in profile.emails %}
+        <li>
+          <a href="mailto:{{ email }}">
+            {{ email }}
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   {% endif %}
 

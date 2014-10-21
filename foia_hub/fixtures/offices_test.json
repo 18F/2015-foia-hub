@@ -2,10 +2,10 @@
     {
         "fields": {
             "TTY_phone": null,
-            "address_line_1": null,
+            "address_lines": [],
             "agency": 17,
             "city": "",
-            "email": null,
+            "emails": [],
             "fax": "301-763-6239",
             "name": "Census Bureau",
             "office_url": null,
@@ -28,10 +28,10 @@
     {
         "fields": {
             "TTY_phone": null,
-            "address_line_1": null,
+            "address_lines": [],
             "agency": 15,
             "city": "",
-            "email": null,
+            "emails": [],
             "fax": "202-646-3347",
             "name": "Federal Emergency Management Agency",
             "office_url": null,
