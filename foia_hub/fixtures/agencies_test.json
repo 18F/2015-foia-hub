@@ -3,8 +3,7 @@
         "fields": {
             "TTY_phone": null,
             "abbreviation": "DHS",
-            "address_line_1": ["Stop 1"],
-            "address_lines": [],
+            "address_lines": ["Stop 1"],
             "chief_name": null,
             "city": "Washington",
             "description": "The Department of Homeland Security has a vital mission: to secure the nation from the many threats we face. This requires the dedication of more than 230,000 employees in jobs that range from aviation and border security to emergency response, from cybersecurity analyst to chemical facility inspector",
