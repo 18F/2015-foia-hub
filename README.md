@@ -42,49 +42,36 @@ Create an environment to install Python dependencies, with virtualenvwrapper.
 mkvirtualenv --python=/path/to/python3 foia-hub
 ```
 
-Example:
-```bash
-mkvirtualenv --python=/usr/local/bin/python3 foia-core
-```
+Note: You don't need to explicitly specify the Python version, especially if you use pyenv + virtualenvwrapper. Running mkvirtualenv in that scenario will 'freeze' the currently active version of Python.
 
-Note: You don't need to explicitly specify the Python version, especially if
-you use pyenv + virtualenvwrapper. Running mkvirtualenv in that scenario will
-'freeze' the currently active version of Python.
 
-Pull down the repo:
-
-```bash
-git clone https://github.com/18F/foia-hub
-```
-
-Install project requirements.
+* Install project requirements.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Note: On Ubuntu, I had to run the following before psycopg2 installed correctly:
+* **If using Ubuntu**, run the following before psycopg2 installed correctly:
 
 ```bash
 sudo apt-get install libpq-dev python3-dev
 ```
 
-Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
+* Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
 
 ```bash
 export PYTHONPATH=/path/to/hub:PYTHONPATH
 ```
 
-This will update your Python path for sessions going forward.
+* Create a `local_settings.py` file inside `foia-hub/settings`. Start by copying the example:
 
-You will also need to create a `local_settings.py` file inside
-`foia-hub/settings`. It should contain `SECRET_KEY` and `DATABASES`
-configurations. Up-and-running defaults (using sqlite) can be found in the
-`test.py` configuration. See the Django settings
-[documentation](https://docs.djangoproject.com/en/dev/ref/django-admin/) for
-details.
+```bash
+cp foia_hub/settings/local_settings.py.example foia_hub/settings/local_settings.py
+```
 
-### Database set up
+* In development, you may not need to update anything. It assumes a local Postgres database named `foia` with a username of `foia` and a password of `foia`. Change this if need be.
+
+### Database setup
 
 Create a `foia` database in Postgres:
 
@@ -119,8 +106,6 @@ django-admin.py runserver
 The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 ### Loading Data
-
-#### Loading Agency FOIA Contact Data
 
 Agency contact data is stored in another repository as YAML files.
 
