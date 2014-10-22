@@ -1,13 +1,10 @@
-import json
-
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from jinja2 import Environment, PackageLoader
 
 from foia_hub.models import Agency, FOIARequest
-from foia_hub.api import AgencyOfficeResource
+from foia_hub.api import AgencyResource, OfficeResource
 
 
 env = Environment(loader=PackageLoader('foia_hub', 'templates'))
@@ -46,7 +43,12 @@ def request_success(request, id):
 
 def contact_landing(request, slug):
     """List contacts for an agency or office."""
-    resource = AgencyOfficeResource()
-    data = resource.contact(slug).value
+    if '--' in slug:
+        # -- indicates office.
+        resource = OfficeResource()
+    else:
+        resource = AgencyResource()
+
+    data = resource.detail(slug).value
     template = env.get_template('contacts/profile.html')
     return HttpResponse(template.render(profile=data))

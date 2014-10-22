@@ -11,9 +11,11 @@ class RequestFormTests(SimpleTestCase):
     def setUp(self):
         self.agency = Agency(name='My Agency', zip_code=20404)
         self.agency.save()
-        self.office = Office(agency=self.agency, name='An Office', zip_code=20404)
+        self.office = Office(
+            agency=self.agency, name='An Office', zip_code=20404)
         self.office.save()
-        self.office2 = Office(agency=self.agency, name='Other Office', zip_code=20404)
+        self.office2 = Office(
+            agency=self.agency, name='Other Office', zip_code=20404)
         self.office2.save()
         self.requester = Requester.objects.create(
             first_name='Alice', last_name='Bobson', email='eve@example.com')
@@ -66,8 +68,8 @@ class RequestFormTests(SimpleTestCase):
         response = self.client.get(reverse(
             'contact_landing', kwargs={'slug': 'sssss'}))
         self.assertEqual(response.status_code, 404)
-        response = self.client.get(reverse(
-            'contact_landing', kwargs={'slug': 'sss--ss'}))
+        response = self.client.get(
+            reverse('contact_landing', kwargs={'slug': 'sss--ss'}))
         self.assertEqual(response.status_code, 404)
 
     def test_contact_landing_success(self):
