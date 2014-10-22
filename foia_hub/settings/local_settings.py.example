@@ -3,13 +3,13 @@ from .base import *
 SECRET_KEY = 'CHANGE THIS IN PRODUCTION'
 
 
-# in development, it's easiest to configure your PG install to use these params
+# change the password below to the one you use
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'foia',
         'USER': 'foia',
-        'PASSWORD': 'foia',
+        'PASSWORD': 'CHANGETHIS',
         'HOST': 'localhost',
         'PORT': '5432',
     }
