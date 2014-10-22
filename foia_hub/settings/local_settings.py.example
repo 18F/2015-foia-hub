@@ -1,0 +1,19 @@
+from .base import *
+
+SECRET_KEY = 'CHANGE THIS IN PRODUCTION'
+
+
+# in development, it's easiest to configure your PG install to use these params
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'foia',
+        'USER': 'foia',
+        'PASSWORD': 'foia',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+# Replace with a Google Analytics ID in production
+ANALYTICS_ID = ""
