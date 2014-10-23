@@ -1,10 +1,12 @@
+import json
 from datetime import date
 
 from django.core.urlresolvers import reverse
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase, Client
 from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
+from foia_hub.views import get_agency_list
 
 
 class RequestFormTests(SimpleTestCase):
@@ -92,3 +94,33 @@ class RequestFormTests(SimpleTestCase):
         """The /learn/ page should load without errors."""
         response = self.client.get(reverse('learn'))
         self.assertEqual(response.status_code, 200)
+
+class MainPageTests(TestCase):
+    fixtures = ['agencies_test.json']
+
+    def test_main_page(self):
+        """ The main page should load without errors. """
+        response = self.client.get(reverse('request'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_agency_list(self):
+        agencies = get_agency_list()
+        self.assertEqual(agencies, 
+            [{
+                'name': 'Department of Commerce',
+                'slug': 'department-of-commerce'}, 
+             {
+                'name': 'Department of Homeland Security',
+                'slug': 'department-of-homeland-security'}])
+
+    def test_main_page_most_requested(self):
+        response = self.client.get(reverse('request'))
+        content = response.content.decode('utf-8')
+        self.assertTrue('Most requests received' in content)
+
+    def test_main_page_browse_all(self):
+        response = self.client.get(reverse('request'))
+        content = response.content.decode('utf-8')
+        self.assertTrue('Browse all agencies' in content)
+        self.assertTrue('Department of Commerce' in content)
+        self.assertTrue('Department of Homeland Security' in content)

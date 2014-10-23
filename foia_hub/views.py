@@ -18,9 +18,17 @@ def request_form(request, slug=None):
     template = env.get_template('request/form.html')
     return HttpResponse(template.render(agency=agency, office=office))
 
+def get_agency_list():
+    resource = AgencyResource()
+    agencies = resource.list()
+    agency_list = [
+        {'name': agency.name, 'slug': agency.slug} for agency in agencies]
+    return agency_list
 
 def request_start(request):
-    return HttpResponse(env.get_template('request/index.html').render())
+    agency_list = get_agency_list()
+    template = env.get_template('request/index.html')
+    return HttpResponse(template.render(agencies=agency_list))
 
 
 def learn(request):
