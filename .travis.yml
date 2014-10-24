@@ -1,9 +1,12 @@
 language: python
 python:
   - "3.4"
+cache:
+    directories:
+        - $HOME/.pip-cache/
 install:
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -r requirements-dev.txt --use-mirrors
+  - pip install -r requirements.txt --download-cache $HOME/.pip-cache --use-mirrors
+  - pip install -r requirements-dev.txt --download-cache $HOME/.pip-cache --use-mirrors
   - pip install coveralls
 script:
   - coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
