@@ -104,6 +104,10 @@ def contactable_fields(agency, office_dict):
 def process_yamls(folder):
 
     for item in os.listdir(folder):
+        #only load yaml files
+        if ".yaml" not in item:
+            continue
+
         data_file = os.path.join(folder, item)
 
         data = yaml.load(open(data_file))
