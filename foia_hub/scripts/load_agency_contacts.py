@@ -105,7 +105,7 @@ def contactable_fields(agency, office_dict):
 def process_yamls(folder):
 
     #only load yaml files
-    for item in iglob(folder + "*.yaml"):
+    for item in iglob(folder + "/*.yaml"):
 
         data_file = os.path.join(folder, item)
 
