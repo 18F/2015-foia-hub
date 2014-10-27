@@ -46,9 +46,27 @@ forever start -l $HOME/hookshot.log -a deploy/hookshot.js -p 3000 -b your-branch
 
 You can stop and restart your hooks by supplying the same arguments you gave.
 
-```bash
-forever stop deploy/hookshot.js -p 3000 -b your-branch -c "cd $HOME/18f/18f.gsa.gov && git pull && jekyll build >> $HOME/hookshot.log"
-forever restart deploy/hookshot.js -p 3000 -b your-branch -c "cd $HOME/foia/hub && git pull && jekyll build >> $HOME/hookshot.log"
+You may wish to use [ngrok](https://ngrok.com/) or [localtunnel](https://localtunnel.me/) in development to test out the webhook.
+
+### Staging server
+
+On the staging server, this hookshot daemon is run:
+
+```
+forever start -l $HOME/hub/shared/log/hookshot.log -a deploy/hookshot.js -p 3000 -b master -c "bash $HOME/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log 2>&1"
 ```
 
-You may wish to use [ngrok](https://ngrok.com/) or [localtunnel](https://localtunnel.me/) in development to test out the webhook.
+It should be run from the project root (the `current` dir/symlink). Both the hook and the output log to the same file, and when it's hit it will execute a small bash script:
+
+```bash
+#!/bin/bash
+
+source /home/foia/.bashrc
+cd /home/foia/hub/current
+workon fab
+fab -H localhost deploy
+```
+
+This loads in the `foia` user's environment, navigates to the project root, activates the Fabric (Python 2.x) virtualenv, `fab`, and then runs the deploy script against itself.
+
+Fabric is able to deploy to itself because the `foia` user's public key is also on the `foia` user's `.ssh/authorized_keys` list. It has been previously authorized as a known host and should run without warnings.
