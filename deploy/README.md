@@ -70,3 +70,4 @@ fab -H localhost deploy
 This loads in the `foia` user's environment, navigates to the project root, activates the Fabric (Python 2.x) virtualenv, `fab`, and then runs the deploy script against itself.
 
 Fabric is able to deploy to itself because the `foia` user's public key is also on the `foia` user's `.ssh/authorized_keys` list. It has been previously authorized as a known host and should run without warnings.
+
