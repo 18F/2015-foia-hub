@@ -82,10 +82,6 @@ class Agency(Contactable):
     common_requests = JSONField(default=empty_list)
     no_records_about = JSONField(default=empty_list)
 
-    usa_contact_id = models.IntegerField(null=True,
-        help_text='usa.gov contacts api id.'
-        )
-
     parent = models.ForeignKey(
         'self',
         null=True,

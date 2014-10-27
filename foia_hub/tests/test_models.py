@@ -14,3 +14,12 @@ class AgencyTests(SimpleTestCase):
         self.assertEqual(retrieved.common_requests,
                          ['Thing one', 'Thing two', 'Red Fish'])
         agency.delete()
+
+    def test_agency_save(self):
+        agency = Agency(name='Department of Transportation')
+        agency.save()
+
+        retrieved = Agency.objects.get(pk=agency.pk)
+        self.assertEqual(
+            'Agency: Department of Transportation', str(retrieved))
+        self.assertEqual(agency.slug, 'department-of-transportation')
