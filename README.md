@@ -178,6 +178,31 @@ python manage.py scss watch   # will run continuously
 During development, then, you will likely have both `scss watch` and
 `runserver`.
 
+## Deploying
+
+Install [Fabric](http://fabfile.org).
+
+Fabric requires **Python 2.7**, so you may wish to make a separate virtualenv (e.g. `fab`) with Python 2.7 locked in it, and then activate it (e.g. `workon fab`) for the purposes of running Fabric commands.
+
+```bash
+pip install fabric
+```
+
+Make an entry in your `.ssh/config` file for the FOIA development server, and give it a name. Consult with the team if you need that information -- it's not sensitive, but it is subject to change.
+
+Assuming the `.ssh/config` entry is named `foia`, test your configuration  with:
+
+```bash
+fab -H foia test
+```
+
+Deploy the site with:
+
+```bash
+fab -H foia deploy
+```
+
+This will check out a new copy of the site on the staging server, install dependencies and run migrations, and adjust some symlinks around to perform a zero-downtime deploy.
 
 ## Public domain
 

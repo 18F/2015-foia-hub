@@ -10,9 +10,8 @@ virtualenv = "foia"
 # name of WSGI wrapper for gunicorn to work with
 wsgi = "foia_hub.wsgi:application"
 
-# expects an SSH entry named 'foia-hub', rather than hardcoded server details
+# use `-H foia` or something to control where fabric runs
 env.use_ssh_config = True
-env.hosts = ["foia"]
 
 # using master branch for now, we could change this
 branch = "master"
@@ -111,3 +110,6 @@ def deploy_cold():
   execute(migrate)
   execute(make_current)
   execute(start)
+
+def test():
+  run("uname -a")
