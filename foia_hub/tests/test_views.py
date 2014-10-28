@@ -124,3 +124,15 @@ class MainPageTests(TestCase):
         self.assertTrue('Browse all agencies' in content)
         self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Department of Homeland Security' in content)
+
+class ContactPageTests(TestCase):
+    fixtures = ['agencies_test.json']
+
+    def test_inaccurate_contact(self):
+        response = self.client.get(
+            reverse('contact_landing',
+            args=['department-of-homeland-security']))
+        self.assertTrue(200, response.status_code)
+        content = response.content.decode('utf-8')
+        self.assertTrue('Contact us so we can fix it' in content)
+        self.assertTrue('18f-foia@gsa.gov' in content)
