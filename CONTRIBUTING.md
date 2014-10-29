@@ -1,7 +1,13 @@
-## Day to day work
+## Team Processes
 
-* Pull requests for all commits, even typos.
+Pull requests for all commits, even typos.
 
+When creating a new pull request:
+
+* If the pull request is still a work-in-progress and should not be merged, say so in the description and then **assign the PR to yourself**. When the PR is ready to be merged, **unassign yourself and add a comment**.
+* If a new pull request is ready for review, **leave it unassigned**. This is the assumed state of new PRs, but work-in-progress PRs are quite welcome.
+* If you decide to review a pull request with the intent of merging it (or deciding what still needs to be done before merge), then **assign the PR to yourself** so that it's clear that someone's grabbed it.
+* Anyone is welcome to informally review a PR and comment on it at any time, no matter who is assigned.
 
 ## Public domain
 
