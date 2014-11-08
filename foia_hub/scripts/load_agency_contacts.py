@@ -11,8 +11,6 @@ from glob import iglob
 import django
 django.setup()
 
-from django.utils.text import slugify
-
 from foia_hub.models import Agency, Office
 
 logger = logging.getLogger(__name__)
@@ -113,7 +111,7 @@ def process_yamls(folder):
 
         # Agencies
         name = data['name']
-        slug = slugify(name)[:50]
+        slug = Agency.slug_for(name)
 
         a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
@@ -136,7 +134,7 @@ def process_yamls(folder):
                 if dept_rec.get('top_level'):
                     # This is actually an agency
                     sub_agency_name = dept_rec['name']
-                    sub_agency_slug = slugify(sub_agency_name)[:50]
+                    sub_agency_slug = Agency.slug_for(sub_agency_name)
 
                     sub_agency, created = Agency.objects.get_or_create(
                         slug=sub_agency_slug, name=sub_agency_name)
@@ -158,10 +156,13 @@ def process_yamls(folder):
                 else:
                     # Just an office
                     office_name = dept_rec['name']
-                    office_slug = slug + '--' + slugify(office_name)[:50]
-                    o, created = Office.objects.get_or_create(
-                        agency=a, slug=office_slug)
+                    office_slug = Office.slug_for(office_name)
+                    full_slug = slug + '--' + office_slug
 
+                    o, created = Office.objects.get_or_create(
+                        agency=a, slug=full_slug)
+
+                    o.office_slug=office_slug
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()

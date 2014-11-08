@@ -97,8 +97,12 @@ class Agency(Contactable):
     def save(self, *args, **kwargs):
         super(Agency, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.name)[:50]
+            self.slug = Agency.slug_for(self.name)
             super(Agency, self).save(*args, **kwargs)
+
+    # helper method for slugifying agency names
+    def slug_for(text):
+        return slugify(text)[:50]
 
 
 class Office(Contactable):
@@ -108,17 +112,22 @@ class Office(Contactable):
     agency = models.ForeignKey(Agency)
     name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique=True)
+    office_slug = models.SlugField(max_length=100, unique=True)
 
     def __str__(self):
         return '%s, %s' % (self.agency.name, self.name)
 
     def save(self, *args, **kwargs):
         super(Office, self).save(*args, **kwargs)
+        if not self.office_slug:
+            self.office_slug = Office.slug_for(self.name)
         if not self.slug:
-            office_slug = slugify(self.name)[:50]
-            self.slug = ('%s--%s' % (self.agency.slug, office_slug))[:100]
+            self.slug = ('%s--%s' % (self.agency.slug, self.office_slug))[:100]
             super(Office, self).save(*args, **kwargs)
 
+    # helper method for slugifying office names
+    def slug_for(text):
+        return slugify(text)[:50]
 
 class Requester(models.Model):
 
