@@ -108,25 +108,6 @@ class AgencyResource(DjangoResource):
 class OfficeResource(DjangoResource):
     """ The resource that represents the endpoint for an Office. """
 
-    preparer = FieldsPreparer(fields={
-        'id': 'id',
-        'name': 'name',
-        'slug': 'slug',
-
-        'service_center': 'service_center',
-        'fax': 'fax',
-
-        'request_form': 'request_form',
-        'website': 'website',
-        'emails': 'emails',
-
-        'contact': 'contact',
-        'contact_phone': 'contact_phone',
-        'public_liaison': 'public_liaison',
-
-        'notes': 'notes',
-    })
-
     def __init__(self, *args, **kwargs):
         super(OfficeResource, self).__init__(*args, **kwargs)
         self.agency_preparer = agency_preparer()
@@ -146,6 +127,7 @@ class OfficeResource(DjangoResource):
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
+            'office_slug': office.office_slug,
             'agency_description': office.agency.description,
             'is_a': 'office'
         }

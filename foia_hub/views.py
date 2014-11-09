@@ -51,27 +51,14 @@ def learn(request):
 
 def request_form(request, slug=None):
     """Request form for an agency or office."""
+    if '--' in slug:
+        resource = OfficeResource()
+    else:
+        resource = AgencyResource()
 
-    agency = get_object_or_404(Agency, slug=slug)
-    office = agency.office_set.first()
-
+    data = resource.detail(slug).value
     template = env.get_template('request/form.html')
-    return HttpResponse(template.render(agency=agency, office=office))
-
-    # if '--' in slug:
-    #     resource = OfficeResource()
-    # else:
-    #     resource = AgencyResource()
-
-    # data = resource.detail(slug).value
-    # template = env.get_template('request/form.html')
-    # return HttpResponse(template.render(profile=data, slug=slug))
-
-
-def request_start(request):
-    agency_list = get_agency_list()
-    template = env.get_template('request/index.html')
-    return HttpResponse(template.render(agencies=agency_list))
+    return HttpResponse(template.render(profile=data, slug=slug))
 
 
 def request_success(request, id):
@@ -86,3 +73,11 @@ def request_success(request, id):
     return HttpResponse(template.render(
         foia_request=foia_request, requester=requester, office=office,
         agency=agency))
+
+
+# starting a request
+
+def request_start(request):
+    agency_list = get_agency_list()
+    template = env.get_template('request/index.html')
+    return HttpResponse(template.render(agencies=agency_list))
