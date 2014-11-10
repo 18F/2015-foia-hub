@@ -3,7 +3,7 @@
 {% block body %}
 
 <div>
-    <h3> Most requests received </h3>
+    <h3>Most requests received</h3>
     <ul>
         <li>
             <a href="/contacts/department-of-homeland-security/">Department of Homeland Security</a>
@@ -24,10 +24,12 @@
 </div>
 
 <div>
-    <h3> Browse all agencies </h3>
+    <h3>Browse all agencies</h3>
     <ul>
     {% for agency in agencies %}
-        <li> <a href="/contacts/{{agency.slug}}">{{agency.name}}</a></li>
+        <li>
+            <a href="/contacts/{{agency.slug}}">{{agency.name}}</a>
+        </li>
     {% endfor %}
     </ul>
 </div>
