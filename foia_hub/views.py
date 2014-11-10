@@ -79,5 +79,16 @@ def request_success(request, id):
 
 def request_start(request):
     agency_list = get_agency_list()
+    most_requested_slugs = (
+        'department-of-homeland-security',
+        'department-of-justice',
+        'department-of-defense',
+        'department-of-health-and-human-services',
+        'social-security-administration'
+    )
+    most_requested = []
+    for slug in most_requested_slugs:
+        most_requested.append(Agency.objects.get(slug=slug))
+
     template = env.get_template('request/index.html')
-    return HttpResponse(template.render(agencies=agency_list))
+    return HttpResponse(template.render(agencies=agency_list, most_requested=most_requested))

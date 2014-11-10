@@ -5,21 +5,11 @@
 <div>
     <h3>Most requests received</h3>
     <ul>
+    {% for agency in most_requested %}
         <li>
-            <a href="/contacts/department-of-homeland-security/">Department of Homeland Security</a>
+            <a href="/contacts/{{agency.slug}}">{{agency.name}}</a>
         </li>
-        <li>
-            <a href="/contacts/department-of-justice/">Department of Justice</a>
-        </li>
-        <li>
-            <a href="/contacts/department-of-defense/">Department of Defense</a>
-        </li>
-        <li>
-            <a href="/contacts/department-of-health-and-human-services/">Department of Health and Human Services</a>
-        </li>
-        <li>
-            <a href="/contacts/social-security-administration/">Social Security Administration</a>
-        </li>
+    {% endfor %}
     </ul>
 </div>
 
