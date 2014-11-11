@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='foiarequest',
             name='agency',
-            field=models.ForeignKey(to='foia_hub.Agency'),
+            field=models.ForeignKey(to='foia_hub.Agency', null=True),
             preserve_default=True,
         ),
     ]
