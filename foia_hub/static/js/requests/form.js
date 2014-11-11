@@ -26,11 +26,6 @@ var collectRequestData = function() {
     documents_end: $("#document_end").val(),
     fee_limit: fee_limit,
 
-    agency_fields: {
-      region: $(".agency_fields_region").val(),
-      contract: $(".agency_fields_contract").val(),
-    },
-
     agency: $(".agency_agency").val(),
     office: $(".agency_office").val()
   };
