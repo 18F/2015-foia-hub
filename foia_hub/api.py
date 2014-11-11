@@ -155,12 +155,6 @@ class FOIARequestResource(DjangoResource):
 
     preparer = FieldsPreparer(fields={
         'status': 'status',
-        'requester': 'requester.pk',
-        'date_start': 'date_start',
-        'date_end': 'date_end',
-        'fee_limit': 'fee_limit',
-        'request_body': 'request_body',
-        'custom_fields': 'custom_fields',
         'tracking_id': 'pk',
     })
 
@@ -199,8 +193,15 @@ class FOIARequestResource(DjangoResource):
                 email=self.data['email']
             )
 
-            start = self._convert_date(self.data['documents_start'])
-            end = self._convert_date(self.data['documents_end'])
+            if self.data.get("documents_start"):
+                start = self._convert_date(self.data['documents_start'])
+            else:
+                start = None
+
+            if self.data.get("documents_end"):
+                end = self._convert_date(self.data['documents_end'])
+            else:
+                end = None
 
             foia = FOIARequest.objects.create(
                 status='O',
@@ -211,7 +212,6 @@ class FOIARequestResource(DjangoResource):
                 date_start=start,
                 date_end=end,
                 request_body=self.data['body'],
-                custom_fields=self.data['agency_fields'],
             )
 
         return foia
