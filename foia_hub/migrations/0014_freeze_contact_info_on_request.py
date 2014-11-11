@@ -44,6 +44,11 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
 
+        migrations.RemoveField(
+            model_name='foiarequest',
+            name='custom_fields'
+        ),
+
         # needs to be done first on the way down, before column removal above
         # invalidates the lookup call.
         migrations.RunPython(
