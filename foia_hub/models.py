@@ -176,7 +176,6 @@ class FOIARequest(models.Model):
     fee_limit = models.PositiveIntegerField(default=0)
 
     request_body = models.TextField()
-    custom_fields = JSONField(null=True)
 
     def __str__(self):
         return '%s' % (self.pk,)
