@@ -29,6 +29,13 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to='foia_hub.Office', null=True),
         ),
 
+        # end dates was meant to be optional.
+        migrations.AlterField(
+            model_name='foiarequest',
+            name='date_end',
+            field=models.DateField(null=True)
+        ),
+
         # Add possible emails from agency or office.
         migrations.AddField(
             model_name='foiarequest',
