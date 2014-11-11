@@ -5,6 +5,10 @@ from django.db import models, migrations
 from django.utils.text import slugify
 import localflavor.us.models
 
+# These migrations uses `slugify(office.name)[:50]` instead of
+# calling `Office.slug_for(office.name)` so that their operation
+# is frozen at how slugifying worked at the time of this migration,
+# not at whatever Office.slug_for currently does.
 
 def change_office_slugs(apps, schema_editor):
     """ Make the Office slugs unique. """

@@ -20,5 +20,4 @@ local_settings.py
 /log
 
 docs/build
-
-
+.coverage
