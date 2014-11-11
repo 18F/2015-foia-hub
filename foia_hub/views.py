@@ -58,6 +58,7 @@ def request_form(request, slug=None):
 
     data = resource.detail(slug).value
     template = env.get_template('request/form.html')
+    print(data)
     return HttpResponse(template.render(profile=data, slug=slug))
 
 
@@ -67,7 +68,7 @@ def request_success(request, id):
     foia_request = get_object_or_404(FOIARequest, pk=id)
     requester = foia_request.requester
     office = foia_request.office
-    agency = office.agency
+    agency = foia_request.agency or office.agency
 
     template = env.get_template('request/success.html')
     return HttpResponse(template.render(

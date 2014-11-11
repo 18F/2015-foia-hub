@@ -161,8 +161,13 @@ class FOIARequest(models.Model):
     status = models.CharField(max_length=1, choices=FOIA_STATUS, default='O')
 
     requester = models.ForeignKey(Requester)
-    office = models.ForeignKey(Office)
-    agency = models.ForeignKey(Agency)
+
+    # which office or agency this went to
+    office = models.ForeignKey(Office, null=True)
+    agency = models.ForeignKey(Agency, null=True)
+    # the relevant email addresses this went to.
+    # TODO: for now, it can be null, but we need firmer policy on what to do.
+    emails = JSONField(null=True)
 
     date_start = models.DateField(null=True)
     date_end = models.DateField(null=True)

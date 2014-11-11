@@ -73,6 +73,8 @@ class AgencyResource(DjangoResource):
         data = {
             'offices': offices,
             'is_a': 'agency',
+            'agency_slug': agency.slug,
+            'agency_name': agency.name,
             "no_records_about": agency.no_records_about
         }
         data.update(AgencyResource.preparer.prepare(agency))
@@ -171,10 +173,25 @@ class FOIARequestResource(DjangoResource):
         foia = None
         with transaction.atomic():
 
-            office = Office.objects.get(
-                agency__slug=self.data['agency'],
-                slug=self.data['office'],
-            )
+            # Is this request to an Agency, or an Office?
+            if self.data.get('office') and self.data.get('agency'):
+                office = Office.objects.get(
+                    agency__slug=self.data['agency'],
+                    office_slug=self.data['office'],
+                )
+                agency = None
+                emails = office.emails
+            elif self.data.get('agency'):
+                agency = Agency.objects.get(
+                    slug=self.data['agency']
+                )
+                office = None
+                emails = agency.emails
+
+            # Not sure yet what this actually returns.
+            # restless docs could be better on this point.
+            else:
+                raise Exception("No agency or office given.")
 
             requester = Requester.objects.create(
                 first_name=self.data['first_name'],
@@ -189,6 +206,8 @@ class FOIARequestResource(DjangoResource):
                 status='O',
                 requester=requester,
                 office=office,
+                agency=agency,
+                emails=emails,
                 date_start=start,
                 date_end=end,
                 request_body=self.data['body'],
