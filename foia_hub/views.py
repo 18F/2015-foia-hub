@@ -58,7 +58,6 @@ def request_form(request, slug=None):
 
     data = resource.detail(slug).value
     template = env.get_template('request/form.html')
-    print(data)
     return HttpResponse(template.render(profile=data, slug=slug))
 
 
