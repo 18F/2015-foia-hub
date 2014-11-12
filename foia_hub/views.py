@@ -75,9 +75,8 @@ def request_success(request, id):
         agency=agency))
 
 
-# starting a request
-
 def request_start(request):
+    """ Starting a request. """
     agency_list = get_agency_list()
     most_requested_slugs = [
         'department-of-homeland-security',
