@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 
-from foia_hub.models import Agency, Office
+from foia_hub.models import Agency, Office, Stats
 
 
 class AgencyTests(SimpleTestCase):
@@ -34,3 +34,24 @@ class AgencyTests(SimpleTestCase):
 
         self.assertEqual(retrieved.office_slug, 'commerce-is-fundamental')
         self.assertEqual(retrieved.slug, 'department-of-commerce--commerce-is-fundamental')
+
+
+class StatsTest(SimpleTestCase):
+    def test_statstest_save(self):
+        """ Confirm obj saves and validate number handling. """
+        agency = Agency(name='Department of Homeland Security')
+        agency.save()
+
+        stats = Stats(
+            agency=agency,
+            year=2014,
+            stat_type='S',
+            average=1.2666,
+            median=1,
+            )
+        stats.save()
+
+        retrieved = Stats.objects.get(pk=stats.pk)
+        self.assertEqual(retrieved.low, None)
+        self.assertEqual(retrieved.average, 1.2666)
+        self.assertEqual(retrieved.median, 1)
