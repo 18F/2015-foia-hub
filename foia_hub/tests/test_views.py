@@ -54,10 +54,7 @@ class RequestFormTests(SimpleTestCase):
             })
         )
 
-        if response.status_code != 201:
-            print(response.content)
-
-        self.assertEqual(201, response.status_code)
+        self.assertEqual(201, response.status_code, response.content)
         data = helpers.json_from(response)
         self.assertTrue(data.get('tracking_id') is not None)
         self.assertEqual('O', data.get('status'))
@@ -87,10 +84,7 @@ class RequestFormTests(SimpleTestCase):
             })
         )
 
-        if response.status_code != 201:
-            print(response.content)
-
-        self.assertEqual(201, response.status_code)
+        self.assertEqual(201, response.status_code, response.content)
         data = helpers.json_from(response)
         self.assertTrue(data.get('tracking_id') is not None)
         self.assertEqual('O', data.get('status'))
