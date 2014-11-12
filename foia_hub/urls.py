@@ -5,7 +5,8 @@ from django.contrib import admin
 from foia_hub.views import (
     contact_landing, learn,
     request_start, request_form, request_success)
-from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
+from foia_hub.api import AgencyResource, OfficeResource,\
+    FOIARequestResource, StatsResource
 
 
 # Front-end
@@ -25,6 +26,8 @@ urlpatterns += patterns(
     url(r'^api/agency/', include(AgencyResource.urls())),
     url(r'^api/office/', include(OfficeResource.urls())),
     url(r'^api/request/', include(FOIARequestResource.urls())),
+    url(r'^api/stats/', include(StatsResource.urls())),
+
 )
 
 # Admin

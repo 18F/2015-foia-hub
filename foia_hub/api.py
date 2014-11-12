@@ -8,7 +8,7 @@ from restless.dj import DjangoResource
 from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
 
-from foia_hub.models import Agency, Office, Requester, FOIARequest
+from foia_hub.models import Agency, Office, Requester, Stats
 
 
 def contact_preparer():
@@ -225,3 +225,82 @@ class FOIARequestResource(DjangoResource):
     # https://github.com/toastdriven/restless/blob/master/docs/tutorial.rst
     def is_authenticated(self):
         return True
+
+
+class StatsResource(DjangoResource):
+
+    preparer = FieldsPreparer(fields={
+        'agency': 'agency',
+        'office': 'office',
+        'year': 'year',
+        'stat_type': 'stat_type',
+        'average': 'average',
+        'median': 'median',
+        'high': 'high',
+        'low': 'low',
+    })
+
+    def __init__(self, *args, **kwargs):
+        super(StatsResource, self).__init__(*args, **kwargs)
+        self.agency_preparer = agency_preparer()
+        self.office_preparer = office_preparer()
+
+    def prepare_stats_record(self,stat):
+        '''prepares one record'''
+        prepared_stat = self.preparer.prepare(stat)
+        office = stat.office
+        if office:
+            office_name = office.slug
+        else:
+            office_name = None
+        data = {
+            'agency': stat.agency.slug,
+            'office': office_name,
+        }
+        prepared_stat.update(data)
+        return prepared_stat
+
+    def prepare_stats_records(self, stats):
+        '''prepares multiple records'''
+        response = []
+        for stat in stats:
+            response.append(self.prepare_stats_record(stat))
+        return response
+
+
+    def list(self):
+        return self.prepare_stats_records(Stats.objects.all()\
+            .order_by('agency__name'))
+
+    @skip_prepare
+    def detail(self, slug, year, stat_type):
+        agency = Agency.objects.get(slug=slug.split("--")[0])
+        if "--" in slug:
+            office = Office.objects.get(slug=slug)
+        else:
+            office = None
+        stats = Stats.objects.get(
+                agency=agency,
+                office=office,
+                year=year,
+                stat_type=stat_type
+        )
+        return self.prepare_stats_record(stats)
+
+
+    @classmethod
+    def urls(cls, name_prefix=None):
+        urlpatterns = super(
+            StatsResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/(?P<stat_type>[\w])/$',
+                cls.as_view('detail'),
+                name=cls.build_url_name('detail', name_prefix)),
+            ) + urlpatterns
+
+
+    def is_authenticated(self):
+        return True
+
