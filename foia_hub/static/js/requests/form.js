@@ -1,27 +1,12 @@
 var onRequestSuccess = function(data, status, xhr) {
   console.log("Success! Tracking: " + data.tracking_id);
-
   window.location = "/request/success/" + data.tracking_id;
-
-  // var tracking = "0000000" + data.tracking_id;
-  // var email = $(".email").val();
-  // var agency_name = $(".agency_name").val();
-
-  // // insert values into success message
-  // $("#tracking-number").html(tracking);
-  // $(".agency-name").html(agency_name);
-  // $("#requester-email").html(email).attr("href", "mailto:" + email);
-
-  // // show success form
-  // $(".request.form, .request.agency").hide();
-  // $(".request.success").show();
-
-  // return false;
 };
 
 var onRequestFailure = function(xhr, status, err) {
   window.arguments = arguments;
   console.log("Failure.");
+  console.log(xhr.responseJSON);
 
   $(".request.error").show();
   return false;
@@ -40,11 +25,6 @@ var collectRequestData = function() {
     documents_start: $("#document_start").val(),
     documents_end: $("#document_end").val(),
     fee_limit: fee_limit,
-
-    agency_fields: {
-      region: $(".agency_fields_region").val(),
-      contract: $(".agency_fields_contract").val(),
-    },
 
     agency: $(".agency_agency").val(),
     office: $(".agency_office").val()

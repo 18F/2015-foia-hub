@@ -51,27 +51,14 @@ def learn(request):
 
 def request_form(request, slug=None):
     """Request form for an agency or office."""
+    if '--' in slug:
+        resource = OfficeResource()
+    else:
+        resource = AgencyResource()
 
-    agency = get_object_or_404(Agency, slug=slug)
-    office = agency.office_set.first()
-
+    data = resource.detail(slug).value
     template = env.get_template('request/form.html')
-    return HttpResponse(template.render(agency=agency, office=office))
-
-    # if '--' in slug:
-    #     resource = OfficeResource()
-    # else:
-    #     resource = AgencyResource()
-
-    # data = resource.detail(slug).value
-    # template = env.get_template('request/form.html')
-    # return HttpResponse(template.render(profile=data, slug=slug))
-
-
-def request_start(request):
-    agency_list = get_agency_list()
-    template = env.get_template('request/index.html')
-    return HttpResponse(template.render(agencies=agency_list))
+    return HttpResponse(template.render(profile=data, slug=slug))
 
 
 def request_success(request, id):
@@ -80,9 +67,25 @@ def request_success(request, id):
     foia_request = get_object_or_404(FOIARequest, pk=id)
     requester = foia_request.requester
     office = foia_request.office
-    agency = office.agency
+    agency = foia_request.agency or office.agency
 
     template = env.get_template('request/success.html')
     return HttpResponse(template.render(
         foia_request=foia_request, requester=requester, office=office,
         agency=agency))
+
+
+def request_start(request):
+    """ Starting a request. """
+    agency_list = get_agency_list()
+    most_requested_slugs = [
+        'department-of-homeland-security',
+        'department-of-justice',
+        'department-of-defense',
+        'department-of-health-and-human-services',
+        'social-security-administration'
+    ]
+    most_requested = Agency.objects.filter(slug__in=most_requested_slugs)
+
+    template = env.get_template('request/index.html')
+    return HttpResponse(template.render(agencies=agency_list, most_requested=most_requested))

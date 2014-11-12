@@ -73,6 +73,8 @@ class AgencyResource(DjangoResource):
         data = {
             'offices': offices,
             'is_a': 'agency',
+            'agency_slug': agency.slug,
+            'agency_name': agency.name,
             "no_records_about": agency.no_records_about
         }
         data.update(AgencyResource.preparer.prepare(agency))
@@ -108,25 +110,6 @@ class AgencyResource(DjangoResource):
 class OfficeResource(DjangoResource):
     """ The resource that represents the endpoint for an Office. """
 
-    preparer = FieldsPreparer(fields={
-        'id': 'id',
-        'name': 'name',
-        'slug': 'slug',
-
-        'service_center': 'service_center',
-        'fax': 'fax',
-
-        'request_form': 'request_form',
-        'website': 'website',
-        'emails': 'emails',
-
-        'contact': 'contact',
-        'contact_phone': 'contact_phone',
-        'public_liaison': 'public_liaison',
-
-        'notes': 'notes',
-    })
-
     def __init__(self, *args, **kwargs):
         super(OfficeResource, self).__init__(*args, **kwargs)
         self.agency_preparer = agency_preparer()
@@ -146,6 +129,7 @@ class OfficeResource(DjangoResource):
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
+            'office_slug': office.office_slug,
             'agency_description': office.agency.description,
             'is_a': 'office'
         }
@@ -171,12 +155,6 @@ class FOIARequestResource(DjangoResource):
 
     preparer = FieldsPreparer(fields={
         'status': 'status',
-        'requester': 'requester.pk',
-        'date_start': 'date_start',
-        'date_end': 'date_end',
-        'fee_limit': 'fee_limit',
-        'request_body': 'request_body',
-        'custom_fields': 'custom_fields',
         'tracking_id': 'pk',
     })
 
@@ -189,10 +167,25 @@ class FOIARequestResource(DjangoResource):
         foia = None
         with transaction.atomic():
 
-            office = Office.objects.get(
-                agency__slug=self.data['agency'],
-                slug=self.data['office'],
-            )
+            # Is this request to an Agency, or an Office?
+            if self.data.get('office') and self.data.get('agency'):
+                office = Office.objects.get(
+                    agency__slug=self.data['agency'],
+                    office_slug=self.data['office'],
+                )
+                agency = None
+                emails = office.emails
+            elif self.data.get('agency'):
+                agency = Agency.objects.get(
+                    slug=self.data['agency']
+                )
+                office = None
+                emails = agency.emails
+
+            # Not sure yet what this actually returns.
+            # restless docs could be better on this point.
+            else:
+                raise Exception("No agency or office given.")
 
             requester = Requester.objects.create(
                 first_name=self.data['first_name'],
@@ -200,17 +193,25 @@ class FOIARequestResource(DjangoResource):
                 email=self.data['email']
             )
 
-            start = self._convert_date(self.data['documents_start'])
-            end = self._convert_date(self.data['documents_end'])
+            if self.data.get("documents_start"):
+                start = self._convert_date(self.data['documents_start'])
+            else:
+                start = None
+
+            if self.data.get("documents_end"):
+                end = self._convert_date(self.data['documents_end'])
+            else:
+                end = None
 
             foia = FOIARequest.objects.create(
                 status='O',
                 requester=requester,
                 office=office,
+                agency=agency,
+                emails=emails,
                 date_start=start,
                 date_end=end,
                 request_body=self.data['body'],
-                custom_fields=self.data['agency_fields'],
             )
 
         return foia

@@ -140,20 +140,42 @@ class Requester(models.Model):
 
 
 class FOIARequest(models.Model):
+    """
+    The FOIARequest model captures a generic set of information that is
+    required and/or helpful when filing federal Freedom of Information
+    Act requests.
 
+    There are currently no facilities for agency- or office-specific fields,
+    as our current target is providing a basic webform for those offices that
+    do not provide one themselves.
+
+    A FOIARequest contains a number of informational fields about the request.
+    It also contains a foreign key to the agency or office the request was to.
+
+    However, this is for reference and not dereference -- the contact details
+    for the agency or office the request was to is copied onto the FOIARequest
+    at creation time, so that even if an Agency or Office's contact data
+    changes later, we maintain an accurate record of where and how the
+    request was sent.
+    """
     status = models.CharField(max_length=1, choices=FOIA_STATUS, default='O')
 
     requester = models.ForeignKey(Requester)
-    office = models.ForeignKey(Office)
+
+    # which office or agency this went to
+    office = models.ForeignKey(Office, null=True)
+    agency = models.ForeignKey(Agency, null=True)
+    # the relevant email addresses this went to.
+    # TODO: for now, it can be null, but we need firmer policy on what to do.
+    emails = JSONField(null=True)
 
     date_start = models.DateField(null=True)
-    date_end = models.DateField(null=False)
+    date_end = models.DateField(null=True)
 
     # Fee limit requester is willing to pay without consultation.
     fee_limit = models.PositiveIntegerField(default=0)
 
     request_body = models.TextField()
-    custom_fields = JSONField(null=True)
 
     def __str__(self):
         return '%s' % (self.pk,)

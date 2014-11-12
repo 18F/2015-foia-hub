@@ -114,6 +114,11 @@
     <ul>
       <li><a href="{{ profile.request_form_url }}">Request form</a></li>
     </ul>
+  {% else %}
+    <h3>Make a request</h3>
+    <ul>
+      <li><a href="/request/{{ slug }}">Request form</a></li>
+    </ul>
   {% endif %}
 
   {% if profile.public_liaison_name %}

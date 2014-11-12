@@ -3,22 +3,28 @@
 {% block body %}
 
 <header>
-  <h2>{{ agency.name }}</h2>
+  <h2>{{ profile.name }}</h2>
 </header>
 
 <section class="request agency">
-  <p>
-    {{ agency.description }}
-  </p>
+  {% if profile.description %}
+    <p>
+      {{ profile.description }}
+    </p>
+  {% endif %}
 </section>
 
 
 <section class="request form">
 
   <form class="request" method="get" action="#">
-    <input type="hidden" class="agency_agency" name="agency" value="{{ agency.slug }}" />
-    <input type="hidden" class="agency_office" name="office" value="{{ office.slug }}" />
-    <input type="hidden" class="agency_name" name="agency_name" value="{{ agency.name }}" />
+    <input type="hidden" class="agency_agency" name="agency" value="{{ profile.agency_slug }}" />
+
+    {% if profile.is_a == "office" %}
+      <input type="hidden" class="agency_office" name="office" value="{{ profile.office_slug }}" />
+    {% endif %}
+
+    <input type="hidden" class="agency_name" name="agency_name" value="{{ profile.agency_name }}" />
 
 
     <fieldset id="name-email">
@@ -39,9 +45,6 @@
       <label for="document_end">Documents Date End (optional)</label>
       <input type="text" id="document_end" name="documents_end" placeholder="Click to select" />
     </fieldset>
-
-    {% set header_template = "agencies/" + agency.slug + "/form.html" %}
-    {% include [header_template] ignore missing %}
 
     <fieldset>
       <legend>Fees</legend>
