@@ -245,6 +245,7 @@ class StatsResource(DjangoResource):
         self.agency_preparer = agency_preparer()
         self.office_preparer = office_preparer()
 
+
     def prepare_stats_record(self,stat):
         '''prepares one record'''
         prepared_stat = self.preparer.prepare(stat)
@@ -260,6 +261,7 @@ class StatsResource(DjangoResource):
         prepared_stat.update(data)
         return prepared_stat
 
+
     def prepare_stats_records(self, stats):
         '''prepares multiple records'''
         response = []
@@ -268,36 +270,51 @@ class StatsResource(DjangoResource):
         return response
 
 
-    def list(self):
-        return self.prepare_stats_records(Stats.objects.all()\
-            .order_by('agency__name'))
-
-    @skip_prepare
-    def detail(self, slug, year, stat_type):
+    def get_agency_office(self, slug):
+        '''returns agency and office from slug'''
         agency = Agency.objects.get(slug=slug.split("--")[0])
         if "--" in slug:
             office = Office.objects.get(slug=slug)
         else:
             office = None
-        stats = Stats.objects.get(
-                agency=agency,
-                office=office,
-                year=year,
-                stat_type=stat_type
-        )
-        return self.prepare_stats_record(stats)
+        return agency, office
+
+
+    @skip_prepare
+    def list(self, slug = None, year = None, stat_type = None):
+        '''prepares a list endpoint with optional args'''
+        kwargs = {}
+        if year:
+            kwargs['year'] = year
+        if stat_type:
+            kwargs['stat_type'] = stat_type
+        if slug:
+            kwargs['agency'], kwargs['office'] = self.get_agency_office(slug)
+            stats = Stats.objects.filter(**kwargs)
+            return self.prepare_stats_records(stats)
+        else:
+            return self.prepare_stats_records(Stats.objects.all())
 
 
     @classmethod
     def urls(cls, name_prefix=None):
+        '''generate optional patterns for different endpoints'''
         urlpatterns = super(
             StatsResource, cls).urls(name_prefix=name_prefix)
         return patterns(
             '',
             url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
+           url(
+                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/$',
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
+            url(
                 r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/(?P<stat_type>[\w])/$',
-                cls.as_view('detail'),
-                name=cls.build_url_name('detail', name_prefix)),
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
             ) + urlpatterns
 
 
