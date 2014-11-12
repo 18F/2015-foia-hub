@@ -31,9 +31,5 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name='stats',
             unique_together=set([('agency', 'office', 'year', 'stat_type')]),
-        ),
-        migrations.RemoveField(
-            model_name='foiarequest',
-            name='agency',
-        ),
+        )
     ]
