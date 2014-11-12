@@ -279,6 +279,17 @@ class StatsResource(DjangoResource):
             office = None
         return agency, office
 
+    def transform_stats_type(self,stat_type):
+        '''converts readable stats type into database queries'''
+
+        if "simple-requests" == stat_type:
+            return "S"
+        elif "complex-requests" == stat_type:
+            return "C"
+        elif "expedited-requests" == stat_type:
+            return "E"
+        else:
+            return "error"
 
     @skip_prepare
     def list(self, slug = None, year = None, stat_type = None):
@@ -287,7 +298,7 @@ class StatsResource(DjangoResource):
         if year:
             kwargs['year'] = year
         if stat_type:
-            kwargs['stat_type'] = stat_type
+            kwargs['stat_type'] = self.transform_stats_type(stat_type)
         if slug:
             kwargs['agency'], kwargs['office'] = self.get_agency_office(slug)
             stats = Stats.objects.filter(**kwargs)
@@ -312,7 +323,7 @@ class StatsResource(DjangoResource):
                 cls.as_view('list'),
                 name=cls.build_url_name('list', name_prefix)),
             url(
-                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/(?P<stat_type>[\w])/$',
+                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/(?P<stat_type>[\w-]+)/$',
                 cls.as_view('list'),
                 name=cls.build_url_name('list', name_prefix)),
             ) + urlpatterns

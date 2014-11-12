@@ -85,3 +85,17 @@ class AgencyAPITests(TestCase):
         self.assertEqual(
             'department-of-commerce--census-bureau',
             content['offices'][0]['slug'])
+
+
+class StatsAPITests(TestCase):
+    fixtures = ['stats_test.json','agencies_test.json', 'offices_test.json']
+
+    def test_list(self):
+        """ tests that listing stats works """
+
+        c = Client()
+        response = c.get('/api/stats/department-of-homeland-security/')
+        self.assertEqual(200,response.status_code)
+        content = response.content
+        content = json.loads(content.decode('utf-8'))
+        self.assertEqual(18, len(content['objects']))
