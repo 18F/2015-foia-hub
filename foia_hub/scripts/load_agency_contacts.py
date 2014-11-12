@@ -5,13 +5,12 @@ import os
 import re
 import string
 import sys
-
 import yaml
 from glob import iglob
 import django
 django.setup()
-
-from foia_hub.models import Agency, Office
+from django.utils.text import slugify
+from foia_hub.models import Agency, Office, Stats
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +98,41 @@ def contactable_fields(agency, office_dict):
         if len(address) > 2:
             agency.address_lines = address[0:-2]
 
+#def extract_stats_type()
+
+def add_stats(data, agency, office = None):
+
+    if not data.get('request_time_stats'):
+        return
+
+    for year in data['request_time_stats'].keys():
+
+        year_data = data['request_time_stats'][year]
+        int_year = int(year)
+        s, s_created = Stats.objects.get_or_create(
+            agency=agency, office=office, year=int_year, stat_type='S')
+        c, c_created = Stats.objects.get_or_create(
+            agency=agency, office=office, year=int_year, stat_type='C')
+        e, e_created = Stats.objects.get_or_create(
+            agency=agency, office=office, year=int_year, stat_type='E')
+
+        s.average = year_data.get("Simple-Average No. of Days")
+        s.median = year_data.get("Simple-Median No. of Days")
+        s.high =  year_data.get("Simple-Highest No. of Days")
+        s.low = year_data.get("Simple-Lowest No. of Days")
+        s.save()
+
+        c.average = year_data.get("Complex-Average No. of Days")
+        c.median = year_data.get("Complex-Median No. of Days")
+        c.high =  year_data.get("Complex-Highest No. of Days")
+        c.low = year_data.get("Complex-Lowest No. of Days")
+        c.save()
+
+        e.average = year_data.get("Expedited Processing-Average No. of Days")
+        e.median = year_data.get("Expedited Processing-Median No. of Days")
+        e.high =  year_data.get("Expedited Processing-Highest No. of Days")
+        e.low = year_data.get("Expedited Processing-Lowest No. of Days")
+        e.save()
 
 def process_yamls(folder):
 
@@ -128,6 +162,8 @@ def process_yamls(folder):
 
         a.save()
 
+        add_stats(data, a)
+
         # Offices
         if len(data['departments']) > 1:
             for dept_rec in data['departments']:
@@ -153,6 +189,8 @@ def process_yamls(folder):
                         'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
+
+                    add_stats(dept_rec, sub_agency)
                 else:
                     # Just an office
                     office_name = dept_rec['name']
@@ -166,6 +204,7 @@ def process_yamls(folder):
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()
+                    add_stats(dept_rec, a, o)
 
 
 if __name__ == "__main__":

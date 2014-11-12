@@ -8,7 +8,7 @@ from restless.dj import DjangoResource
 from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
 
-from foia_hub.models import Agency, Office, Requester, FOIARequest
+from foia_hub.models import Agency, Office, Requester, Stats
 
 
 def contact_preparer():
@@ -226,3 +226,110 @@ class FOIARequestResource(DjangoResource):
     # https://github.com/toastdriven/restless/blob/master/docs/tutorial.rst
     def is_authenticated(self):
         return True
+
+
+class StatsResource(DjangoResource):
+
+    preparer = FieldsPreparer(fields={
+        'agency': 'agency',
+        'office': 'office',
+        'year': 'year',
+        'stat_type': 'stat_type',
+        'average': 'average',
+        'median': 'median',
+        'high': 'high',
+        'low': 'low',
+    })
+
+    def __init__(self, *args, **kwargs):
+        super(StatsResource, self).__init__(*args, **kwargs)
+        self.agency_preparer = agency_preparer()
+        self.office_preparer = office_preparer()
+
+
+    def prepare_stats_record(self,stat):
+        '''prepares one record'''
+        prepared_stat = self.preparer.prepare(stat)
+        office = stat.office
+        if office:
+            office_name = office.slug
+        else:
+            office_name = None
+        data = {
+            'agency': stat.agency.slug,
+            'office': office_name,
+        }
+        prepared_stat.update(data)
+        return prepared_stat
+
+
+    def prepare_stats_records(self, stats):
+        '''prepares multiple records'''
+        response = []
+        for stat in stats:
+            response.append(self.prepare_stats_record(stat))
+        return response
+
+
+    def get_agency_office(self, slug):
+        '''returns agency and office from slug'''
+        agency = Agency.objects.get(slug=slug.split("--")[0])
+        if "--" in slug:
+            office = Office.objects.get(slug=slug)
+        else:
+            office = None
+        return agency, office
+
+    def transform_stats_type(self,stat_type):
+        '''converts readable stats type into database queries'''
+
+        if "simple-requests" == stat_type:
+            return "S"
+        elif "complex-requests" == stat_type:
+            return "C"
+        elif "expedited-requests" == stat_type:
+            return "E"
+        else:
+            return "error"
+
+    @skip_prepare
+    def list(self, slug = None, year = None, stat_type = None):
+        '''prepares a list endpoint with optional args'''
+        kwargs = {}
+        if year:
+            kwargs['year'] = year
+        if stat_type:
+            kwargs['stat_type'] = self.transform_stats_type(stat_type)
+        if slug:
+            kwargs['agency'], kwargs['office'] = self.get_agency_office(slug)
+            stats = Stats.objects.filter(**kwargs)
+            return self.prepare_stats_records(stats)
+        else:
+            return self.prepare_stats_records(Stats.objects.all())
+
+
+    @classmethod
+    def urls(cls, name_prefix=None):
+        '''generate optional patterns for different endpoints'''
+        urlpatterns = super(
+            StatsResource, cls).urls(name_prefix=name_prefix)
+        return patterns(
+            '',
+            url(
+                r'^(?P<slug>[\w-]+)/$',
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
+           url(
+                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/$',
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
+            url(
+                r'^(?P<slug>[\w-]+)/(?P<year>[\d]+)/(?P<stat_type>[\w-]+)/$',
+                cls.as_view('list'),
+                name=cls.build_url_name('list', name_prefix)),
+            ) + urlpatterns
+
+
+    def is_authenticated(self):
+        return True
+
