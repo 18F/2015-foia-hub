@@ -129,6 +129,34 @@ class Office(Contactable):
         """ Helper method for slugifying office names."""
         return slugify(text)[:50]
 
+class Stats(models.Model):
+    """The stats object to used to store stats pulled from reports."""
+
+    STAT_TYPE = (
+        ('S', 'simple'),
+        ('C', 'complex'),
+    )
+
+    agency = models.ForeignKey(Agency)
+    office = models.ForeignKey(Office, null=True, blank=True)
+    year = models.PositiveSmallIntegerField()
+    stat_type =  models.CharField(max_length=1, choices=STAT_TYPE)
+
+    median = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        unique_together = (("agency", "office", "year", "stat_type"),)
+
+    def __str__(self):
+        if self.office:
+            office_name = self.office.name
+        else:
+            office_name = None
+
+        return '%s, %s, %s, %s' % (self.agency.name, office_name,
+            self.year, self.stat_type)
+
+
 class Requester(models.Model):
 
     first_name = models.CharField(max_length=250)
