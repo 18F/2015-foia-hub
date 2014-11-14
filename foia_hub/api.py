@@ -70,12 +70,24 @@ class AgencyResource(DjangoResource):
         for o in agency.office_set.order_by('name').all():
             offices.append(self.office_preparer.prepare(o))
 
+        simple = agency.stats_set.\
+            filter(office = None, stat_type = 'S').first()
+        comp = agency.stats_set.\
+            filter(office = None, stat_type = 'C').first()
+        if simple:
+            simple = simple.median
+        if comp:
+            comp = comp.median
+
         data = {
             'offices': offices,
             'is_a': 'agency',
             'agency_slug': agency.slug,
             'agency_name': agency.name,
-            "no_records_about": agency.no_records_about
+            "no_records_about": agency.no_records_about,
+            'simple_processing_time' : simple,
+            'complex_processing_time' : comp,
+
         }
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
@@ -126,12 +138,23 @@ class OfficeResource(DjangoResource):
     def prepare_office_contact(self, office):
         office_data = self.office_preparer.prepare(office)
 
+        simple = office.stats_set.\
+            filter(stat_type = 'S').first()
+        comp = office.stats_set.\
+            filter(stat_type = 'C').first()
+        if simple:
+            simple = simple.median
+        if comp:
+            comp = comp.median
+
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
             'office_slug': office.office_slug,
             'agency_description': office.agency.description,
-            'is_a': 'office'
+            'is_a': 'office',
+            'simple_processing_time':simple,
+            'complex_processing_time':comp,
         }
 
         data.update(office_data)
