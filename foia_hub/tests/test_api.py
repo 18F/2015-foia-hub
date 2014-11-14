@@ -86,5 +86,31 @@ class AgencyAPITests(TestCase):
         self.assertEqual(
             'department-of-homeland-security--federal-emergency-management-agency',
             content['offices'][0]['slug'])
+        #test Stats models for both numbers and nulls
         self.assertEqual(37.5,content['complex_processing_time'])
-        self.assertEqual(11,content['simple_processing_time'])
+        self.assertEqual(None,content['simple_processing_time'])
+
+
+
+class OfficeAPITests(TestCase):
+    fixtures = ['agencies_test.json', 'offices_test.json',
+        'stats_test.json']
+
+    def test_detail(self):
+        """ Check the detail view for an agency."""
+
+        c = Client()
+        response = c.get('/api/office/department-of-commerce--census-bureau/')
+        self.assertEqual(200, response.status_code)
+        content = response.content
+        content = json.loads(content.decode('utf-8'))
+        self.assertEqual(content['name'], 'Census Bureau')
+        self.assertEqual(
+            'department-of-commerce--census-bureau',
+            content['slug'])
+        self.assertEqual(
+            'department-of-commerce',
+            content['agency_slug'])
+        #test Stats models for both numbers and nulls
+        self.assertEqual(12.2,content['complex_processing_time'])
+        self.assertEqual(None,content['simple_processing_time'])

@@ -55,6 +55,22 @@ def office_preparer():
     return preparer
 
 
+def get_latest_stats(stat_type ,agency = None, office = None):
+    '''gets the latest median stats for an agency/office'''
+
+    if agency and not office:
+        stats = agency.stats_set \
+            .filter(office = None, stat_type = stat_type) \
+            .order_by('-year').first()
+    if office and not agency:
+        stats = office.stats_set \
+            .filter(stat_type = stat_type) \
+            .order_by('-year').first()
+    if stats:
+        return stats.median
+    else:
+        return None
+
 class AgencyResource(DjangoResource):
     """ The resource that represents the endpoint for an Agency """
 
@@ -70,14 +86,8 @@ class AgencyResource(DjangoResource):
         for o in agency.office_set.order_by('name').all():
             offices.append(self.office_preparer.prepare(o))
 
-        simple = agency.stats_set.\
-            filter(office = None, stat_type = 'S').first()
-        comp = agency.stats_set.\
-            filter(office = None, stat_type = 'C').first()
-        if simple:
-            simple = simple.median
-        if comp:
-            comp = comp.median
+        simple = get_latest_stats(stat_type="S", agency = agency)
+        comp =get_latest_stats(stat_type="C", agency = agency )
 
         data = {
             'offices': offices,
@@ -138,14 +148,8 @@ class OfficeResource(DjangoResource):
     def prepare_office_contact(self, office):
         office_data = self.office_preparer.prepare(office)
 
-        simple = office.stats_set.\
-            filter(stat_type = 'S').first()
-        comp = office.stats_set.\
-            filter(stat_type = 'C').first()
-        if simple:
-            simple = simple.median
-        if comp:
-            comp = comp.median
+        simple = get_latest_stats(stat_type="S", office = office)
+        comp =get_latest_stats(stat_type="C" ,office = office)
 
         data = {
             'agency_name': office.agency.name,
