@@ -54,7 +54,8 @@ class PreparerTests(TestCase):
 
 
 class AgencyAPITests(TestCase):
-    fixtures = ['agencies_test.json', 'offices_test.json']
+    fixtures = ['agencies_test.json', 'offices_test.json',
+        'stats_test.json']
 
     def test_list(self):
         """ Test that listing agencies work, and also ensure that the results
@@ -76,12 +77,14 @@ class AgencyAPITests(TestCase):
         """ Check the detail view for an agency."""
 
         c = Client()
-        response = c.get('/api/agency/department-of-commerce/')
+        response = c.get('/api/agency/department-of-homeland-security/')
         self.assertEqual(200, response.status_code)
         content = response.content
         content = json.loads(content.decode('utf-8'))
-        self.assertEqual(content['name'], 'Department of Commerce')
+        self.assertEqual(content['name'], 'Department of Homeland Security')
         self.assertEqual(1, len(content['offices']))
         self.assertEqual(
-            'department-of-commerce--census-bureau',
+            'department-of-homeland-security--federal-emergency-management-agency',
             content['offices'][0]['slug'])
+        self.assertEqual(37.5,content['complex_processing_time'])
+        self.assertEqual(11,content['simple_processing_time'])
