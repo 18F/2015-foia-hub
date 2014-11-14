@@ -55,8 +55,8 @@ def office_preparer():
     return preparer
 
 
-def get_latest_stats(stat_type ,agency = None, office = None):
-    '''gets the latest median stats for an agency/office'''
+def get_latest_stats(stat_type, agency = None, office = None):
+    '''Gets the latest median stats for an agency/office.'''
 
     if agency and not office:
         stats = agency.stats_set \
@@ -87,16 +87,16 @@ class AgencyResource(DjangoResource):
             offices.append(self.office_preparer.prepare(o))
 
         simple = get_latest_stats(stat_type="S", agency = agency)
-        comp =get_latest_stats(stat_type="C", agency = agency )
+        comp = get_latest_stats(stat_type="C", agency = agency)
 
         data = {
             'offices': offices,
             'is_a': 'agency',
             'agency_slug': agency.slug,
             'agency_name': agency.name,
-            "no_records_about": agency.no_records_about,
-            'simple_processing_time' : simple,
-            'complex_processing_time' : comp,
+            'no_records_about': agency.no_records_about,
+            'simple_processing_time': simple,
+            'complex_processing_time': comp,
 
         }
         data.update(AgencyResource.preparer.prepare(agency))
@@ -149,7 +149,7 @@ class OfficeResource(DjangoResource):
         office_data = self.office_preparer.prepare(office)
 
         simple = get_latest_stats(stat_type="S", office = office)
-        comp =get_latest_stats(stat_type="C" ,office = office)
+        comp = get_latest_stats(stat_type="C", office = office)
 
         data = {
             'agency_name': office.agency.name,
@@ -157,8 +157,8 @@ class OfficeResource(DjangoResource):
             'office_slug': office.office_slug,
             'agency_description': office.agency.description,
             'is_a': 'office',
-            'simple_processing_time':simple,
-            'complex_processing_time':comp,
+            'simple_processing_time': simple,
+            'complex_processing_time': comp,
         }
 
         data.update(office_data)

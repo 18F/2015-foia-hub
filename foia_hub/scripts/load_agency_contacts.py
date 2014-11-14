@@ -101,7 +101,7 @@ def contactable_fields(agency, office_dict):
 
 
 def add_stats(data, agency, office = None):
-    '''load stats data into db'''
+    '''Load stats data about agencies into the database.'''
     if not data.get('request_time_stats'):
         return
     if not data['request_time_stats'].get('2013'):

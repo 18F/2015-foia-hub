@@ -86,7 +86,7 @@ class AgencyAPITests(TestCase):
         self.assertEqual(
             'department-of-homeland-security--federal-emergency-management-agency',
             content['offices'][0]['slug'])
-        #test Stats models for both numbers and nulls
+        # test Stats models for both numbers and nulls
         self.assertEqual(37.5,content['complex_processing_time'])
         self.assertEqual(None,content['simple_processing_time'])
 
@@ -111,6 +111,6 @@ class OfficeAPITests(TestCase):
         self.assertEqual(
             'department-of-commerce',
             content['agency_slug'])
-        #test Stats models for both numbers and nulls
+        # test Stats models for both numbers and nulls
         self.assertEqual(12.2,content['complex_processing_time'])
         self.assertEqual(None,content['simple_processing_time'])
