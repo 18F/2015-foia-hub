@@ -2,51 +2,74 @@
 @import "neat/neat";
 
 body {
-  @include outer-container();
+  @include outer-container;
   padding-bottom: 20px;
 }
 
-nav {
+header {
   @include shift(1.5);
   @include span-columns(9);
 
-  ul {
+  border-bottom: 1px solid #dedede;
+
+  padding-top: 20px;
+
+  height: 80px;
+
+  h1 {
+    font-weight: normal;
+    font-size: 2em;
+
     margin: 0;
     padding: 0;
+
+    color: #18f;
+    a {color: #18f;}
+    strong {font-weight: normal;}
+    em { color: #cc2211; font-style: normal;}
+    @include span-columns(5);
   }
 
-  li {
-    display: inline-block;
-  }
+  nav {
+    @include span-columns(7);
 
-  a {
-    color: #333;
-    padding: 5px 12px;
-  }
-  a:hover {
-    background: none;
-    color: #777;
-    border-bottom: 0.3em solid #777;
-  }
-  a:focus {
-    background: #cc2211;
-    color:#fff;
+    position: relative;
+    height: 100%;
+
+    ul {
+      padding: 0; margin: 0;
+
+      position: absolute;
+      bottom: 0;
+      height: 50px;
+
+      li {
+        display: inline-block;
+        padding: 0px 12px;
+      }
+
+      a {
+        color: #333;
+        padding: 5px 12px 24px 12px;
+      }
+      a:hover, a.active {
+        border-bottom: 0.3em solid #777;
+      }
+      a:hover {
+        background: none;
+        color: #777;
+      }
+      a:focus {
+        background: #cc2211;
+        color:#fff;
+      }
+    }
   }
 }
 
 #main {
   @include shift(1.5);
   @include span-columns(9);
-
-  header, & > div, & > section {
-    @include span-columns(12);
-  }
-
-  #logo {
-    font-weight:200;
-    color: #18f;
-    em { color: #cc2211; font-style: normal;}
-  }
 
   section.search {
     margin-bottom: 30px

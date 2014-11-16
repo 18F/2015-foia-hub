@@ -43,7 +43,10 @@ def get_agency_list():
 ###
 
 def learn(request):
-    return HttpResponse(env.get_template('learn.html').render())
+    return HttpResponse(env.get_template('learn.html').render(request=request))
+
+def about(request):
+    return HttpResponse(env.get_template('about.html').render(request=request))
 
 ###
 # Webform for agencies/offices that lack one of their own.
