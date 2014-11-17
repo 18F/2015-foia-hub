@@ -39,9 +39,9 @@ class AgencyTests(SimpleTestCase):
 class MoreAgencyTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_get_all_offices(self):
+    def test_get_all_components(self):
         agency = Agency.objects.get(slug='department-of-commerce')
-        all_offices = agency.get_all_offices()
+        all_offices = agency.get_all_components()
         names = [a.name for a in all_offices]
         self.assertTrue('U.S. Patent and Trademark Office' in names)
         self.assertTrue('Census Bureau' in names)

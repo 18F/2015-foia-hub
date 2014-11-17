@@ -100,10 +100,11 @@ class Agency(Contactable):
             self.slug = Agency.slug_for(self.name)
             super(Agency, self).save(*args, **kwargs)
 
-    def get_all_offices(self):
+    def get_all_components(self):
         """ Agencies have Offices. Agencies also have child Agencies that are
         also offices. This returns the list of both Offices and Child agencies
         (sorted by name). """
+
         agencies = list(self.agency_set.all())
         offices = list(self.office_set.all())
         all_offices = agencies + offices
