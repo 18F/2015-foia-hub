@@ -66,8 +66,10 @@ def get_latest_stats(stat_type, agency = None, office = None):
         stats = office.stats_set \
             .filter(stat_type = stat_type) \
             .order_by('-year').first()
-    if stats:
-        return stats.median
+
+    # TODO: figure out better way to handle decimals.
+    if stats and (stats.median is not None):
+        return int(stats.median)
     else:
         return None
 
