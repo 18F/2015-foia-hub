@@ -7,4 +7,3 @@ class GenericAdmin(admin.ModelAdmin):
 
 admin.site.register(Office, GenericAdmin)
 admin.site.register(Agency, GenericAdmin)
-#admin.site.register(Person, GenericAdmin)

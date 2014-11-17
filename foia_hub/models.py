@@ -17,6 +17,7 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
+
 def empty_list():
     """Thunk for returning a *new* empty list. Must be named so that it can be
     serialized by django migrations."""
@@ -115,7 +116,6 @@ class Agency(Contactable):
         return slugify(text)[:50]
 
 
-
 class Office(Contactable):
     """ Agencies sometimes have offices that are contactable separately for
     FOIA purposes. """
@@ -140,6 +140,7 @@ class Office(Contactable):
         """ Helper method for slugifying office names."""
         return slugify(text)[:50]
 
+
 class Stats(models.Model):
     """The stats object to used to store stats pulled from reports."""
 
@@ -151,7 +152,7 @@ class Stats(models.Model):
     agency = models.ForeignKey(Agency)
     office = models.ForeignKey(Office, null=True, blank=True)
     year = models.PositiveSmallIntegerField()
-    stat_type =  models.CharField(max_length=1, choices=STAT_TYPE)
+    stat_type = models.CharField(max_length=1, choices=STAT_TYPE)
 
     median = models.FloatField(null=True, blank=True)
 
@@ -164,8 +165,8 @@ class Stats(models.Model):
         else:
             office_name = None
 
-        return '%s, %s, %s, %s' % (self.agency.name, office_name,
-            self.year, self.stat_type)
+        return '%s, %s, %s, %s' % (
+            self.agency.name, office_name, self.year, self.stat_type)
 
 
 class Requester(models.Model):

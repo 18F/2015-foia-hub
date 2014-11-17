@@ -55,16 +55,16 @@ def office_preparer():
     return preparer
 
 
-def get_latest_stats(stat_type, agency = None, office = None):
+def get_latest_stats(stat_type, agency=None, office=None):
     '''Gets the latest median stats for an agency/office.'''
 
     if agency and not office:
         stats = agency.stats_set \
-            .filter(office = None, stat_type = stat_type) \
+            .filter(office=None, stat_type=stat_type) \
             .order_by('-year').first()
     if office and not agency:
         stats = office.stats_set \
-            .filter(stat_type = stat_type) \
+            .filter(stat_type=stat_type) \
             .order_by('-year').first()
 
     # TODO: figure out better way to handle decimals.
@@ -72,6 +72,7 @@ def get_latest_stats(stat_type, agency = None, office = None):
         return int(stats.median)
     else:
         return None
+
 
 class AgencyResource(DjangoResource):
     """ The resource that represents the endpoint for an Agency """
@@ -89,8 +90,8 @@ class AgencyResource(DjangoResource):
         for o in components:
             offices.append(self.office_preparer.prepare(o))
 
-        simple = get_latest_stats(stat_type="S", agency = agency)
-        comp = get_latest_stats(stat_type="C", agency = agency)
+        simple = get_latest_stats(stat_type="S", agency=agency)
+        comp = get_latest_stats(stat_type="C", agency=agency)
 
         data = {
             'offices': offices,
@@ -155,8 +156,8 @@ class OfficeResource(DjangoResource):
     def prepare_office_contact(self, office):
         office_data = self.office_preparer.prepare(office)
 
-        simple = get_latest_stats(stat_type="S", office = office)
-        comp = get_latest_stats(stat_type="C", office = office)
+        simple = get_latest_stats(stat_type="S", office=office)
+        comp = get_latest_stats(stat_type="C", office=office)
 
         data = {
             'agency_name': office.agency.name,
