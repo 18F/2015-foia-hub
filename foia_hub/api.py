@@ -32,7 +32,7 @@ def contact_preparer():
         'city': 'city',
         'state': 'state',
         'zip_code': 'zip_code'
-        })
+    })
 
 
 def agency_preparer():
@@ -66,8 +66,10 @@ def get_latest_stats(stat_type, agency = None, office = None):
         stats = office.stats_set \
             .filter(stat_type = stat_type) \
             .order_by('-year').first()
-    if stats:
-        return stats.median
+
+    # TODO: figure out better way to handle decimals.
+    if stats and (stats.median is not None):
+        return int(stats.median)
     else:
         return None
 
@@ -97,8 +99,12 @@ class AgencyResource(DjangoResource):
             'no_records_about': agency.no_records_about,
             'simple_processing_time': simple,
             'complex_processing_time': comp,
-
         }
+
+        # some agencies have parents (e.g. FBI->DOJ)
+        if agency.parent:
+            data['parent'] = AgencyResource.preparer.prepare(agency.parent)
+
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
         return data

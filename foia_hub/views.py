@@ -22,7 +22,11 @@ def contact_landing(request, slug):
         resource = AgencyResource()
 
     data = resource.detail(slug).value
-    template = env.get_template('contacts/profile.html')
+
+    if (data['is_a'] == 'agency') and (len(data.get("offices", [])) > 0):
+        template = env.get_template('contacts/parent_profile.html')
+    else:
+        template = env.get_template('contacts/profile.html')
     return HttpResponse(template.render(profile=data, slug=slug))
 
 
