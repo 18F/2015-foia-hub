@@ -6,7 +6,7 @@ body {
   padding-bottom: 20px;
 }
 
-header {
+body > header {
   @include shift(1.5);
   @include span-columns(9);
 

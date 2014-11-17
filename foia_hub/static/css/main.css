@@ -16,7 +16,7 @@ body:after {
   clear: both;
 }
 
-header {
+body > header {
   margin-left: 12.79471%;
   float: left;
   display: block;
@@ -26,10 +26,10 @@ header {
   padding-top: 20px;
   height: 80px;
 }
-header:last-child {
+body > header:last-child {
   margin-right: 0;
 }
-header h1 {
+body > header h1 {
   font-weight: normal;
   font-size: 2em;
   margin: 0;
@@ -40,20 +40,20 @@ header h1 {
   margin-right: 2.35765%;
   width: 40.29137%;
 }
-header h1 a {
+body > header h1 a {
   color: #18f;
 }
-header h1 strong {
+body > header h1 strong {
   font-weight: normal;
 }
-header h1 em {
+body > header h1 em {
   color: #cc2211;
   font-style: normal;
 }
-header h1:last-child {
+body > header h1:last-child {
   margin-right: 0;
 }
-header nav {
+body > header nav {
   float: left;
   display: block;
   margin-right: 2.35765%;
@@ -61,32 +61,32 @@ header nav {
   position: relative;
   height: 100%;
 }
-header nav:last-child {
+body > header nav:last-child {
   margin-right: 0;
 }
-header nav ul {
+body > header nav ul {
   padding: 0;
   margin: 0;
   position: absolute;
   bottom: 0;
   height: 50px;
 }
-header nav ul li {
+body > header nav ul li {
   display: inline-block;
   padding: 0px 12px;
 }
-header nav ul a {
+body > header nav ul a {
   color: #333;
   padding: 5px 12px 24px 12px;
 }
-header nav ul a:hover, header nav ul a.active {
+body > header nav ul a:hover, body > header nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
-header nav ul a:hover {
+body > header nav ul a:hover {
   background: none;
   color: #777;
 }
-header nav ul a:focus {
+body > header nav ul a:focus {
   background: #cc2211;
   color: #fff;
 }

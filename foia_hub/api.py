@@ -32,7 +32,7 @@ def contact_preparer():
         'city': 'city',
         'state': 'state',
         'zip_code': 'zip_code'
-        })
+    })
 
 
 def agency_preparer():
@@ -97,8 +97,12 @@ class AgencyResource(DjangoResource):
             'no_records_about': agency.no_records_about,
             'simple_processing_time': simple,
             'complex_processing_time': comp,
-
         }
+
+        # some agencies have parents (e.g. FBI->DOJ)
+        if agency.parent:
+            data['parent'] = AgencyResource.preparer.prepare(agency.parent)
+
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
         return data

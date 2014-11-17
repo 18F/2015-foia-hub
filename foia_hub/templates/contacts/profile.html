@@ -1,149 +1,140 @@
 {% extends "base.html" %}
 {% block body %}
 
-<h1>{{ profile.name }}</h1>
+{# 'profile' here can be an office, or an agency with no sub-offices. #}
 
-{% if profile.description %}
-  <p>
-    {{ profile.description }}
-  </p>
-{% endif %}
+<header>
+  {% if profile.parent %}
+    <div class="parent">
+      <a href="/contacts/{{ profile.parent.slug }}">
+        {{ profile.parent.name }} &rarr;
+      </a>
+    </div>
+  {% endif %}
 
-{% if profile.is_a == "office" %}
-  <p>
-    {{ profile.name }}
-    is a component of the
-    <a href="/contacts/{{ profile.agency_slug }}">
-      {{ profile.agency_name }}</a>.
-  </p>
-{% endif %}
+  <h1>{{ profile.name }}</h1>
+</header>
 
-{% if profile.is_a == "agency" %}
-  {% if profile.common_requests or profile.no_records_about %}
-  <section class="records">
-    <h2>Records maintained</h2>
+<section class="department">
 
-    {% if profile.common_requests %}
+  <section class="description">
+    {% if profile.description %}
       <p>
-        Some of the most common FOIA requests include:
+        {{ profile.description }}
       </p>
-      <ul>
-        {% for record in profile.common_requests %}
-          <li>{{ record }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% if profile.no_records_about %}
-      <p>
-        This agency <strong>does not possess records</strong> on:
-      </p>
-      <ul>
-        {% for record in profile.no_records_about %}
-          <li>{{ record }}</li>
-        {% endfor %}
-      </ul>
     {% endif %}
   </section>
-  {% endif %}
-{% endif %}
 
-{# List any sub-components with links, below. #}
-{% if profile.offices|length > 1 %}
+  <section class="resources">
 
-  <h2>Offices</h2>
-  {% for office in profile.offices %}
-    <h3>
-      <a href="/contacts/{{ office.slug }}">
-        {{ office.name }}
-      </a>
-    </h3>
-  {% endfor %}
+    <!-- todo: reading room -->
 
-{% else %}
-<section class="contact">
+    {% if profile.public_liaison_name %}
+      <div class="liaison resource_type">
+        <h3>Public liaison</h3>
+        <ul>
+          <li>{{ profile.public_liaison_name }}</li>
+          {% if profile.public_liaison_phone %}
+            <li>{{ profile.public_liaison_phone }}</li>
+          {% endif %}
+          {% if profile.public_liaison_email %}
+            <li>{{ profile.public_liaison_email }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    {% endif %}
 
-  <h2>FOIA Contact</h2>
+    {% if profile.office_url %}
+      <div class="website resource_type">
+        <h3>Website</h3>
+        <ul>
+          <li>
+            <a href="{{ profile.office_url }}">
+              {{ profile.office_url }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    {% endif %}
 
-  <p>
-    {% for line in profile.address_lines %}
-      {{ line }}<br/>
-    {% endfor %}
-    {{ profile.street }}<br/>
-    {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
-  </p>
+    {% if profile.phone %}
+      <div class="phone resource_type">
+        <h3>Phone</h3>
+        <ul>
+          <li><a href="tel:{{profile.phone }}">
+            {{ profile.phone }}
+          </a></li>
+        </ul>
+      </div>
+    {% endif %}
 
-  {% if profile.office_url %}
-    <ul>
-      <li>
-        <a href="{{ profile.office_url }}">
-          Website
-        </a>
-      </li>
-    </ul>
-  {% endif %}
+    <!-- todo: response time -->
 
-  {% if profile.emails %}
-    <h3>
-      {% if profile.emails|length > 1 %}
-        Emails
-      {% else %}
-        Email
-      {% endif %}
-    </h3>
-    <ul>
-      {% for email in profile.emails %}
-        <li>
-          <a href="mailto:{{ email }}">
-            {{ email }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  {% if profile.phone %}
-    <h3>Phone</h3>
-    <ul>
-      <li>{{ profile.phone }}</li>
-    </ul>
-  {% endif %}
-
-  {% if profile.request_form_url %}
-    <h3>Make a request</h3>
-    <ul>
-      <li><a href="{{ profile.request_form_url }}">Request form</a></li>
-    </ul>
-  {% else %}
-    <h3>Make a request</h3>
-    <ul>
-      <li><a href="/request/{{ slug }}">Request form</a></li>
-    </ul>
-  {% endif %}
-
-  {% if profile.public_liaison_name %}
-    <h3>Public Liaison</h3>
-    <ul>
-      <li>{{ profile.public_liaison_name }}</li>
-      {% if profile.public_liaison_email %}
-        <li>{{ profile.public_liaison_email }}</li>
-      {% endif %}
-      {% if profile.public_liaison_phone %}
-        <li>{{ profile.public_liaison_phone }}</li>
-      {% endif %}
-    </ul>
-  {% endif %}
-
-  {% if profile.fax %}
-    <h3>Fax</h3>
-    <ul>
-      <li>{{ profile.fax }}</li>
-    </ul>
-  {% endif %}
-</ul>
-
+  </section>
 </section>
-{% endif %}
+
+<section class="details">
+
+  <header>
+    <h2>Submitting a request</h2>
+  </header>
+
+  <div class="left">
+    <div class="webform contact_type">
+      <h3>Request online</h3>
+      <ul>
+        <li><a
+          {% if profile.request_form_url %}
+            href="{{ profile.request_form_url }}"
+          {% else %}
+            href="/request/{{ slug }}"
+          {% endif %}
+          >
+            Submit a request via web
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="address contact_type">
+      <h3>Request by mail</h3>
+      <p>
+        {% for line in profile.address_lines %}
+          {{ line }}<br/>
+        {% endfor %}
+        {{ profile.street }}<br/>
+        {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+      </p>
+    </div>
+  </div>
+
+  <div class="right">
+    {% if profile.emails %}
+      <div class="email contact_type">
+        <h3>
+          Request by email
+        </h3>
+        <ul>
+          {% for email in profile.emails %}
+            <li>
+              <a href="mailto:{{ email }}">
+                {{ email }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if profile.fax %}
+      <div class="fax contact_type">
+        <h3>Request by FAX</h3>
+        <ul>
+          <li>{{ profile.fax }}</li>
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
 <section class="inaccurate">
   <p>
