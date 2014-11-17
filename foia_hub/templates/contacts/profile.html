@@ -77,7 +77,26 @@
       </div>
     {% endif %}
 
-    <!-- todo: response time -->
+    {% if profile.simple_processing_time or profile.complex_processing_time %}
+      <div class="processing resource_type">
+        <h3>Median processing time</h3>
+        <ul>
+          {% if profile.simple_processing_time %}
+            <li>
+              Simple requests:
+              {{ profile.simple_processing_time }} days
+            </li>
+          {% endif %}
+
+          {% if profile.complex_processing_time %}
+            <li>
+              Complex requests:
+              {{ profile.complex_processing_time }} days
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    {% endif %}
 
   </section>
 </section>
