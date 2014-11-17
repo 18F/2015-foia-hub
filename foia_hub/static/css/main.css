@@ -119,15 +119,24 @@ body > header nav ul a:focus {
   display: block;
   margin-right: 2.35765%;
   width: 100%;
+  margin-top: 20px;
 }
 #main header:last-child {
   margin-right: 0;
+}
+#main header h1 {
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  font-size: 2.4em;
 }
 #main .department {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
 }
 #main .department:last-child {
   margin-right: 0;
@@ -146,6 +155,7 @@ body > header nav ul a:focus {
   display: block;
   margin-right: 2.35765%;
   width: 40.29137%;
+  padding-left: 10px;
 }
 #main .department .resources:last-child {
   margin-right: 0;
@@ -176,6 +186,79 @@ body > header nav ul a:focus {
 }
 #main .details .contact:last-child, #main .details .right:last-child {
   margin-right: 0;
+}
+#main .details header h2 {
+  font-size: 2em;
+}
+#main .resource_type, #main .contact_type {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin: 15px 0;
+}
+#main .resource_type:last-child, #main .contact_type:last-child {
+  margin-right: 0;
+}
+#main .resource_type .fa:before, #main .contact_type .fa:before {
+  font-size: 2em;
+}
+#main .resource_type .icon, #main .contact_type .icon {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 14.70196%;
+  font-size: 1em;
+}
+#main .resource_type .icon:last-child, #main .contact_type .icon:last-child {
+  margin-right: 0;
+}
+#main .resource_type .subdetails, #main .contact_type .subdetails {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 82.94039%;
+}
+#main .resource_type .subdetails:last-child, #main .contact_type .subdetails:last-child {
+  margin-right: 0;
+}
+#main .resource_type h3, #main .contact_type h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+#main .resource_type ul, #main .resource_type li, #main .contact_type ul, #main .contact_type li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main .details .offices ul, #main .details .offices li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main .resource_type h3 {
+  font-size: 1em;
+}
+#main .contact_type h3 {
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+#main .inaccurate {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .inaccurate:last-child {
+  margin-right: 0;
+}
+#main .inaccurate p {
+  font-size: 1em;
+  font-weight: bold;
 }
 
 form.request input.upto[type=text] {

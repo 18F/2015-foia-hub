@@ -88,10 +88,21 @@ body > header {
 
   header {
     @include span-columns(12);
+
+    margin-top: 20px;
+
+    h1 {
+      margin: 0; padding: 0;
+      margin-top: 10px;
+      font-size: 2.4em;
+    }
   }
 
   .department {
     @include span-columns(12);
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
@@ -100,6 +111,8 @@ body > header {
 
   .department .resources {
     @include span-columns(5);
+
+    padding-left: 10px;
   }
 
   .details {
@@ -112,6 +125,71 @@ body > header {
 
   .details .contact, .details .right {
     @include span-columns(5);
+  }
+
+  .details header h2 {
+    font-size: 2em;
+  }
+
+  .resource_type, .contact_type {
+    @include span-columns(12);
+
+    margin: 15px 0;
+
+    .fa:before {
+      font-size: 2em;
+    }
+
+    .icon {
+      @include span-columns(2);
+      font-size: 1em;
+    }
+
+    .subdetails {
+      @include span-columns(10);
+    }
+
+    h3 {
+      padding: 0; margin: 0;
+      font-weight: bold;
+    }
+
+    ul, li {
+      list-style-type: none;
+      list-style-position: outside;
+      margin: 0; padding: 0;
+    }
+  }
+
+  .details .offices {
+    ul, li {
+      list-style-type: none;
+      list-style-position: outside;
+      margin: 0; padding: 0;
+    }
+  }
+
+  .resource_type {
+    h3 {
+      font-size: 1em;
+    }
+  }
+
+  .contact_type {
+    h3 {
+      font-size: 1.6em;
+      font-weight: normal;
+      margin-bottom: 5px;
+    }
+  }
+
+  .inaccurate {
+    @include span-columns(12);
+
+    p {
+      font-size: 1em;
+      font-weight: bold;
+    }
   }
 
 }
