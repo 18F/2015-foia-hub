@@ -25,6 +25,7 @@ class RequestFormTests(SimpleTestCase):
         self.office2.save()
 
         self.agency2 = Agency(name='Agency Without Offices', zip_code=20009, emails=self.emails)
+        self.agency2.save()
 
         self.requester = Requester.objects.create(
             first_name='Alice', last_name='Bobson', email='eve@example.com')
@@ -163,18 +164,30 @@ class RequestFormTests(SimpleTestCase):
     def test_contact_landing_success(self):
         """If loading an agency or a top-level office, we should see agency
         name. If an office, we should not see peer offices."""
+
+        list_fingerprint = "Make your FOIA request directly to the most relevant group or component"
+
         response = self.client.get(reverse(
             'contact_landing', kwargs={'slug': self.agency.slug}))
         self.assertContains(response, self.agency.name)
         self.assertContains(response, self.office.name)
         self.assertContains(response, self.office2.name)
+        self.assertContains(response, list_fingerprint)
 
-        slug = self.office.slug
         response = self.client.get(reverse(
-            'contact_landing', kwargs={'slug': slug}))
+            'contact_landing', kwargs={'slug': self.office.slug}))
         self.assertContains(response, self.agency.name)
         self.assertContains(response, self.office.name)
         self.assertNotContains(response, self.office2.name)
+        self.assertNotContains(response, list_fingerprint)
+
+        response = self.client.get(reverse(
+            'contact_landing', kwargs={'slug': self.agency2.slug}))
+        self.assertContains(response, self.agency2.name)
+        self.assertNotContains(response, self.office.name)
+        self.assertNotContains(response, self.office2.name)
+        self.assertNotContains(response, list_fingerprint)
+
 
     def test_learn(self):
         """The /learn/ page should load without errors."""
