@@ -40,61 +40,81 @@
 
     {% if profile.public_liaison_name %}
       <div class="liaison resource_type">
-        <h3>Public liaison</h3>
-        <ul>
-          <li>{{ profile.public_liaison_name }}</li>
-          {% if profile.public_liaison_phone %}
-            <li>{{ profile.public_liaison_phone }}</li>
-          {% endif %}
-          {% if profile.public_liaison_email %}
-            <li>{{ profile.public_liaison_email }}</li>
-          {% endif %}
-        </ul>
+        <div class="icon">
+          <span class="fa fa-question-circle"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Public liaison</h3>
+          <ul>
+            <li>{{ profile.public_liaison_name }}</li>
+            {% if profile.public_liaison_phone %}
+              <li>{{ profile.public_liaison_phone }}</li>
+            {% endif %}
+            {% if profile.public_liaison_email %}
+              <li>{{ profile.public_liaison_email }}</li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
     {% endif %}
 
     {% if profile.office_url %}
       <div class="website resource_type">
-        <h3>Website</h3>
-        <ul>
-          <li>
-            <a href="{{ profile.office_url }}">
-              {{ profile.office_url }}
-            </a>
-          </li>
-        </ul>
+        <div class="icon">
+          <span class="fa fa-laptop"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Website</h3>
+          <ul>
+            <li>
+              <a href="{{ profile.office_url }}">
+                {{ profile.office_url }}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     {% endif %}
 
     {% if profile.phone %}
       <div class="phone resource_type">
-        <h3>Phone</h3>
-        <ul>
-          <li><a href="tel:{{profile.phone }}">
-            {{ profile.phone }}
-          </a></li>
-        </ul>
+        <div class="icon">
+          <span class="fa fa-phone"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Phone</h3>
+          <ul>
+            <li><a href="tel:{{profile.phone }}">
+              {{ profile.phone }}
+            </a></li>
+          </ul>
+        </div>
       </div>
     {% endif %}
 
     {% if profile.simple_processing_time or profile.complex_processing_time %}
       <div class="processing resource_type">
-        <h3>Median processing time</h3>
-        <ul>
-          {% if profile.simple_processing_time %}
-            <li>
-              Simple requests:
-              {{ profile.simple_processing_time }} days
-            </li>
-          {% endif %}
+        <div class="icon">
+          <span class="fa fa-clock-o"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Median processing time</h3>
+          <ul>
+            {% if profile.simple_processing_time %}
+              <li>
+                Simple requests:
+                {{ profile.simple_processing_time }} days
+              </li>
+            {% endif %}
 
-          {% if profile.complex_processing_time %}
-            <li>
-              Complex requests:
-              {{ profile.complex_processing_time }} days
-            </li>
-          {% endif %}
-        </ul>
+            {% if profile.complex_processing_time %}
+              <li>
+                Complex requests:
+                {{ profile.complex_processing_time }} days
+              </li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
     {% endif %}
 
@@ -109,56 +129,76 @@
 
   <div class="left">
     <div class="webform contact_type">
-      <h3>Request online</h3>
-      <ul>
-        <li><a
-          {% if profile.request_form_url %}
-            href="{{ profile.request_form_url }}"
-          {% else %}
-            href="/request/{{ slug }}"
-          {% endif %}
-          >
-            Submit a request via web
-        </a></li>
-      </ul>
+      <div class="icon">
+        <span class="fa fa-desktop"></span>
+      </div>
+      <div class="subdetails">
+        <h3>Request online</h3>
+        <ul>
+          <li><a
+            {% if profile.request_form_url %}
+              href="{{ profile.request_form_url }}"
+            {% else %}
+              href="/request/{{ slug }}"
+            {% endif %}
+            >
+              Submit a request via web
+          </a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="address contact_type">
-      <h3>Request by mail</h3>
-      <p>
-        {% for line in profile.address_lines %}
-          {{ line }}<br/>
-        {% endfor %}
-        {{ profile.street }}<br/>
-        {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
-      </p>
+      <div class="icon">
+        <span class="fa fa-envelope-o"></span>
+      </div>
+      <div class="subdetails">
+        <h3>Request by mail</h3>
+        <p>
+          {% for line in profile.address_lines %}
+            {{ line }}<br/>
+          {% endfor %}
+          {{ profile.street }}<br/>
+          {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+        </p>
+      </div>
     </div>
   </div>
 
   <div class="right">
     {% if profile.emails %}
       <div class="email contact_type">
-        <h3>
-          Request by email
-        </h3>
-        <ul>
-          {% for email in profile.emails %}
-            <li>
-              <a href="mailto:{{ email }}">
-                {{ email }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
+        <div class="icon">
+          <span class="fa fa-at"></span>
+        </div>
+        <div class="subdetails">
+          <h3>
+            Request by email
+          </h3>
+          <ul>
+            {% for email in profile.emails %}
+              <li>
+                <a href="mailto:{{ email }}">
+                  {{ email }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     {% endif %}
 
     {% if profile.fax %}
       <div class="fax contact_type">
-        <h3>Request by FAX</h3>
-        <ul>
-          <li>{{ profile.fax }}</li>
-        </ul>
+        <div class="icon">
+          <span class="fa fa-fax"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Request by FAX</h3>
+          <ul>
+            <li>{{ profile.fax }}</li>
+          </ul>
+        </div>
       </div>
     {% endif %}
   </div>
