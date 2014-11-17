@@ -85,7 +85,8 @@ class AgencyResource(DjangoResource):
 
     def prepare_agency_contact(self, agency):
         offices = []
-        for o in agency.office_set.order_by('name').all():
+        components = agency.get_all_components()
+        for o in components:
             offices.append(self.office_preparer.prepare(o))
 
         simple = get_latest_stats(stat_type="S", agency = agency)

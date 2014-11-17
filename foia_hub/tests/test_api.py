@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from foia_hub.models import Agency
 
 from foia_hub.api import agency_preparer, contact_preparer
-
+from foia_hub.tests import helpers
 
 class PreparerTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
@@ -90,6 +90,21 @@ class AgencyAPITests(TestCase):
         self.assertEqual(37,content['complex_processing_time'])
         self.assertEqual(None,content['simple_processing_time'])
 
+    def test_detail_components(self):
+        """ Ensure the detail view for an agency includes the components. """
+
+        c = Client()
+        response = c.get('/api/agency/department-of-commerce/')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(content['name'], 'Department of Commerce')
+        self.assertEqual(2, len(content['offices']))
+        self.assertEqual(
+            content['offices'][0]['slug'],
+            'department-of-commerce--census-bureau')
+        self.assertEqual(
+            content['offices'][1]['slug'],
+            'us-patent-and-trademark-office')
 
 
 class OfficeAPITests(TestCase):
