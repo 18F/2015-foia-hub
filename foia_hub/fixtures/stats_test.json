@@ -1,0 +1,35 @@
+[
+    {
+        "pk": 25,
+        "fields": {
+            "agency": 15,
+            "year": 2013,
+            "office": null,
+            "median": null,
+            "stat_type": "S"
+        },
+        "model": "foia_hub.stats"
+    },
+    {
+        "pk": 26,
+        "fields": {
+            "agency": 15,
+            "year": 2013,
+            "office": null,
+            "median": 37.5,
+            "stat_type": "C"
+        },
+        "model": "foia_hub.stats"
+    },
+    {
+        "pk": 27,
+        "fields": {
+            "agency": 17,
+            "year": 2013,
+            "office": 33,
+            "median": 12.2,
+            "stat_type": "C"
+        },
+        "model": "foia_hub.stats"
+    }
+]

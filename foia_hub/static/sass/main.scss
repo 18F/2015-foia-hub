@@ -2,51 +2,74 @@
 @import "neat/neat";
 
 body {
-  @include outer-container();
+  @include outer-container;
   padding-bottom: 20px;
 }
 
-nav {
+body > header {
   @include shift(1.5);
   @include span-columns(9);
 
-  ul {
+  border-bottom: 1px solid #dedede;
+  padding-top: 20px;
+  height: 80px;
+
+  a:hover {text-decoration: none;}
+
+  h1 {
+    font-weight: normal;
+    font-size: 2em;
+
     margin: 0;
     padding: 0;
+
+    color: #18f;
+    a {color: #18f;}
+    strong {font-weight: normal;}
+    em { color: #cc2211; font-style: normal;}
+    @include span-columns(5);
   }
 
-  li {
-    display: inline-block;
-  }
+  nav {
+    @include span-columns(7);
 
-  a {
-    color: #333;
-    padding: 5px 12px;
-  }
-  a:hover {
-    background: none;
-    color: #777;
-    border-bottom: 0.3em solid #777;
-  }
-  a:focus {
-    background: #cc2211;
-    color:#fff;
+    position: relative;
+    height: 100%;
+
+    ul {
+      padding: 0; margin: 0;
+
+      position: absolute;
+      bottom: 0;
+      height: 50px;
+
+      li {
+        display: inline-block;
+        padding: 0px 12px;
+      }
+
+      a {
+        color: #333;
+        padding: 5px 12px 24px 12px;
+      }
+      a:hover, a.active {
+        border-bottom: 0.3em solid #777;
+      }
+      a:hover {
+        background: none;
+        color: #777;
+      }
+      a:focus {
+        background: #cc2211;
+        color:#fff;
+      }
+    }
   }
 }
 
 #main {
   @include shift(1.5);
   @include span-columns(9);
-
-  header, & > div, & > section {
-    @include span-columns(12);
-  }
-
-  #logo {
-    font-weight:200;
-    color: #18f;
-    em { color: #cc2211; font-style: normal;}
-  }
 
   section.search {
     margin-bottom: 30px
@@ -62,6 +85,119 @@ nav {
       padding: 0; margin: 0;
     }
   }
+
+  header {
+    @include span-columns(12);
+
+    margin-top: 20px;
+
+    h1 {
+      margin: 0; padding: 0;
+      margin-top: 10px;
+      font-size: 2.4em;
+    }
+  }
+
+  .department {
+    @include span-columns(12);
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .department .description {
+    @include span-columns(7);
+  }
+
+  .department .resources {
+    @include span-columns(5);
+
+    padding-left: 10px;
+  }
+
+  .details {
+    @include span-columns(12);
+  }
+
+  .details .offices, .details .left {
+    @include span-columns(7);
+  }
+
+  .details .contact, .details .right {
+    @include span-columns(5);
+  }
+
+  .details header h2 {
+    font-size: 2em;
+  }
+
+  .resource_type, .contact_type {
+    @include span-columns(12);
+
+    margin: 15px 0;
+
+    .fa:before {
+      font-size: 2em;
+    }
+
+    .icon {
+      @include span-columns(2);
+      font-size: 1em;
+    }
+
+    .subdetails {
+      @include span-columns(10);
+    }
+
+    h3 {
+      padding: 0; margin: 0;
+      font-weight: bold;
+    }
+
+    ul, li {
+      list-style-type: none;
+      list-style-position: outside;
+      margin: 0; padding: 0;
+    }
+  }
+
+  .details .offices {
+    ul, li {
+      list-style-type: none;
+      list-style-position: outside;
+      margin: 0; padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
+      font-size: 1.2em;
+      line-height: 30px;
+    }
+  }
+
+  .resource_type {
+    h3 {
+      font-size: 1em;
+    }
+  }
+
+  .contact_type {
+    h3 {
+      font-size: 1.6em;
+      font-weight: normal;
+      margin-bottom: 5px;
+    }
+  }
+
+  .inaccurate {
+    @include span-columns(12);
+
+    p {
+      font-size: 1em;
+      font-weight: bold;
+    }
+  }
+
 }
 
 form.request {
@@ -109,6 +245,7 @@ html, button, input, select, textarea {
 }
 h1,h2,h3,h4,h5,h6 { font-family: 'Raleway', sans-serif; }
 a { color: #18f; text-decoration: none;}
+a:hover {text-decoration: underline}
 p a:hover { text-decoration: underline; }
 
 

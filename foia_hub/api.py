@@ -32,7 +32,7 @@ def contact_preparer():
         'city': 'city',
         'state': 'state',
         'zip_code': 'zip_code'
-        })
+    })
 
 
 def agency_preparer():
@@ -55,6 +55,24 @@ def office_preparer():
     return preparer
 
 
+def get_latest_stats(stat_type, agency = None, office = None):
+    '''Gets the latest median stats for an agency/office.'''
+
+    if agency and not office:
+        stats = agency.stats_set \
+            .filter(office = None, stat_type = stat_type) \
+            .order_by('-year').first()
+    if office and not agency:
+        stats = office.stats_set \
+            .filter(stat_type = stat_type) \
+            .order_by('-year').first()
+
+    # TODO: figure out better way to handle decimals.
+    if stats and (stats.median is not None):
+        return int(stats.median)
+    else:
+        return None
+
 class AgencyResource(DjangoResource):
     """ The resource that represents the endpoint for an Agency """
 
@@ -70,13 +88,23 @@ class AgencyResource(DjangoResource):
         for o in agency.office_set.order_by('name').all():
             offices.append(self.office_preparer.prepare(o))
 
+        simple = get_latest_stats(stat_type="S", agency = agency)
+        comp = get_latest_stats(stat_type="C", agency = agency)
+
         data = {
             'offices': offices,
             'is_a': 'agency',
             'agency_slug': agency.slug,
             'agency_name': agency.name,
-            "no_records_about": agency.no_records_about
+            'no_records_about': agency.no_records_about,
+            'simple_processing_time': simple,
+            'complex_processing_time': comp,
         }
+
+        # some agencies have parents (e.g. FBI->DOJ)
+        if agency.parent:
+            data['parent'] = AgencyResource.preparer.prepare(agency.parent)
+
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
         return data
@@ -126,12 +154,17 @@ class OfficeResource(DjangoResource):
     def prepare_office_contact(self, office):
         office_data = self.office_preparer.prepare(office)
 
+        simple = get_latest_stats(stat_type="S", office = office)
+        comp = get_latest_stats(stat_type="C", office = office)
+
         data = {
             'agency_name': office.agency.name,
             'agency_slug': office.agency.slug,
             'office_slug': office.office_slug,
             'agency_description': office.agency.description,
-            'is_a': 'office'
+            'is_a': 'office',
+            'simple_processing_time': simple,
+            'complex_processing_time': comp,
         }
 
         data.update(office_data)

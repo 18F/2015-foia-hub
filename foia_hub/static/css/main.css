@@ -16,33 +16,80 @@ body:after {
   clear: both;
 }
 
-nav {
+body > header {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
+  border-bottom: 1px solid #dedede;
+  padding-top: 20px;
+  height: 80px;
 }
-nav:last-child {
+body > header:last-child {
   margin-right: 0;
 }
-nav ul {
+body > header a:hover {
+  text-decoration: none;
+}
+body > header h1 {
+  font-weight: normal;
+  font-size: 2em;
   margin: 0;
   padding: 0;
+  color: #18f;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
 }
-nav li {
+body > header h1 a {
+  color: #18f;
+}
+body > header h1 strong {
+  font-weight: normal;
+}
+body > header h1 em {
+  color: #cc2211;
+  font-style: normal;
+}
+body > header h1:last-child {
+  margin-right: 0;
+}
+body > header nav {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+  position: relative;
+  height: 100%;
+}
+body > header nav:last-child {
+  margin-right: 0;
+}
+body > header nav ul {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+}
+body > header nav ul li {
   display: inline-block;
+  padding: 0px 12px;
 }
-nav a {
+body > header nav ul a {
   color: #333;
-  padding: 5px 12px;
+  padding: 5px 12px 24px 12px;
 }
-nav a:hover {
-  background: none;
-  color: #777;
+body > header nav ul a:hover, body > header nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
-nav a:focus {
+body > header nav ul a:hover {
+  background: none;
+  color: #777;
+}
+body > header nav ul a:focus {
   background: #cc2211;
   color: #fff;
 }
@@ -57,23 +104,6 @@ nav a:focus {
 #main:last-child {
   margin-right: 0;
 }
-#main header, #main > div, #main > section {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
-}
-#main header:last-child, #main > div:last-child, #main > section:last-child {
-  margin-right: 0;
-}
-#main #logo {
-  font-weight: 200;
-  color: #18f;
-}
-#main #logo em {
-  color: #cc2211;
-  font-style: normal;
-}
 #main section.search {
   margin-bottom: 30px;
 }
@@ -86,6 +116,157 @@ nav a:focus {
   list-style-position: outside;
   padding: 0;
   margin: 0;
+}
+#main header {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin-top: 20px;
+}
+#main header:last-child {
+  margin-right: 0;
+}
+#main header h1 {
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  font-size: 2.4em;
+}
+#main .department {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+#main .department:last-child {
+  margin-right: 0;
+}
+#main .department .description {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main .department .description:last-child {
+  margin-right: 0;
+}
+#main .department .resources {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+  padding-left: 10px;
+}
+#main .department .resources:last-child {
+  margin-right: 0;
+}
+#main .details {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .details:last-child {
+  margin-right: 0;
+}
+#main .details .offices, #main .details .left {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main .details .offices:last-child, #main .details .left:last-child {
+  margin-right: 0;
+}
+#main .details .contact, #main .details .right {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+}
+#main .details .contact:last-child, #main .details .right:last-child {
+  margin-right: 0;
+}
+#main .details header h2 {
+  font-size: 2em;
+}
+#main .resource_type, #main .contact_type {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin: 15px 0;
+}
+#main .resource_type:last-child, #main .contact_type:last-child {
+  margin-right: 0;
+}
+#main .resource_type .fa:before, #main .contact_type .fa:before {
+  font-size: 2em;
+}
+#main .resource_type .icon, #main .contact_type .icon {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 14.70196%;
+  font-size: 1em;
+}
+#main .resource_type .icon:last-child, #main .contact_type .icon:last-child {
+  margin-right: 0;
+}
+#main .resource_type .subdetails, #main .contact_type .subdetails {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 82.94039%;
+}
+#main .resource_type .subdetails:last-child, #main .contact_type .subdetails:last-child {
+  margin-right: 0;
+}
+#main .resource_type h3, #main .contact_type h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+#main .resource_type ul, #main .resource_type li, #main .contact_type ul, #main .contact_type li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main .details .offices ul, #main .details .offices li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main .details .offices li {
+  margin: 10px 0;
+  font-size: 1.2em;
+  line-height: 30px;
+}
+#main .resource_type h3 {
+  font-size: 1em;
+}
+#main .contact_type h3 {
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+#main .inaccurate {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .inaccurate:last-child {
+  margin-right: 0;
+}
+#main .inaccurate p {
+  font-size: 1em;
+  font-weight: bold;
 }
 
 form.request input.upto[type=text] {
@@ -157,6 +338,10 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: #18f;
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 p a:hover {

@@ -11,7 +11,7 @@ from glob import iglob
 import django
 django.setup()
 
-from foia_hub.models import Agency, Office
+from foia_hub.models import Agency, Office, Stats
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +100,21 @@ def contactable_fields(agency, office_dict):
             agency.address_lines = address[0:-2]
 
 
+def add_stats(data, agency, office = None):
+    '''Load stats data about agencies into the database.'''
+    if not data.get('request_time_stats'):
+        return
+    if not data['request_time_stats'].get('2013'):
+        return
+    data = data['request_time_stats']['2013']
+
+    iterator = [('S','Simple'),('C','Complex')]
+    for arg in iterator:
+        stat, created = Stats.objects.get_or_create(
+            agency=agency, office=office, year=2013, stat_type=arg[0])
+        stat.median = data.get("%s-Median No. of Days" % arg[1])
+        stat.save()
+
 def process_yamls(folder):
 
     #only load yaml files
@@ -128,6 +143,8 @@ def process_yamls(folder):
 
         a.save()
 
+        add_stats(data, a)
+
         # Offices
         if len(data['departments']) > 1:
             for dept_rec in data['departments']:
@@ -153,6 +170,8 @@ def process_yamls(folder):
                         'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
+
+                    add_stats(dept_rec, sub_agency)
                 else:
                     # Just an office
                     office_name = dept_rec['name']
@@ -166,6 +185,7 @@ def process_yamls(folder):
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()
+                    add_stats(dept_rec, a, o)
 
 
 if __name__ == "__main__":

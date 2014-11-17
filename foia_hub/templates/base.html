@@ -9,22 +9,10 @@
 </head>
 <body>
 
-<!-- It worked! -->
-
 {% include "includes/nav.html" %}
 
 <div id="main">
-  <header>
-    <h1 id="logo">
-      <a href="/">
-        alpha.<em><strong>foia</strong>.gov</span></em>
-      </a>
-    </h1>
-  </header>
-
-  {% include "includes/search.html" %}
-
-  {% block body %}Body.{% endblock %}
+  {% block body %}This is not seen.{% endblock %}
 </div>
 
 <script>
