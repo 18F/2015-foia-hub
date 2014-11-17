@@ -14,6 +14,7 @@ env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 # Principal landing page for agencies and offices.
 ###
 
+
 def contact_landing(request, slug):
     """List contacts for an agency or office."""
     if '--' in slug:
@@ -49,12 +50,14 @@ def get_agency_list():
 def learn(request):
     return HttpResponse(env.get_template('learn.html').render(request=request))
 
+
 def about(request):
     return HttpResponse(env.get_template('about.html').render(request=request))
 
 ###
 # Webform for agencies/offices that lack one of their own.
 ###
+
 
 def request_form(request, slug=None):
     """Request form for an agency or office."""
@@ -95,4 +98,5 @@ def request_start(request):
     most_requested = Agency.objects.filter(slug__in=most_requested_slugs)
 
     template = env.get_template('request/index.html')
-    return HttpResponse(template.render(agencies=agency_list, most_requested=most_requested))
+    return HttpResponse(template.render(
+        agencies=agency_list, most_requested=most_requested))

@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 from foia_hub.models import Agency
 
 from foia_hub.api import agency_preparer, contact_preparer
+from foia_hub.tests import helpers
 
 
 class PreparerTests(TestCase):
@@ -54,8 +55,8 @@ class PreparerTests(TestCase):
 
 
 class AgencyAPITests(TestCase):
-    fixtures = ['agencies_test.json', 'offices_test.json',
-        'stats_test.json']
+    fixtures = [
+        'agencies_test.json', 'offices_test.json', 'stats_test.json']
 
     def test_list(self):
         """ Test that listing agencies work, and also ensure that the results
@@ -67,10 +68,12 @@ class AgencyAPITests(TestCase):
 
         content = response.content
         content = json.loads(content.decode('utf-8'))
-        self.assertEqual(2, len(content['objects']))
+        self.assertEqual(3, len(content['objects']))
         slugs = [a['slug'] for a in content['objects']]
-        self.assertEqual(
-            ['department-of-commerce', 'department-of-homeland-security'],
+        self.assertEqual([
+            'department-of-commerce',
+            'department-of-homeland-security',
+            'us-patent-and-trademark-office'],
             slugs)
 
     def test_detail(self):
@@ -87,14 +90,29 @@ class AgencyAPITests(TestCase):
             'department-of-homeland-security--federal-emergency-management-agency',
             content['offices'][0]['slug'])
         # test Stats models for both numbers and nulls
-        self.assertEqual(37,content['complex_processing_time'])
-        self.assertEqual(None,content['simple_processing_time'])
+        self.assertEqual(37, content['complex_processing_time'])
+        self.assertEqual(None, content['simple_processing_time'])
 
+    def test_detail_components(self):
+        """ Ensure the detail view for an agency includes the components. """
+
+        c = Client()
+        response = c.get('/api/agency/department-of-commerce/')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(content['name'], 'Department of Commerce')
+        self.assertEqual(2, len(content['offices']))
+        self.assertEqual(
+            content['offices'][0]['slug'],
+            'department-of-commerce--census-bureau')
+        self.assertEqual(
+            content['offices'][1]['slug'],
+            'us-patent-and-trademark-office')
 
 
 class OfficeAPITests(TestCase):
-    fixtures = ['agencies_test.json', 'offices_test.json',
-        'stats_test.json']
+    fixtures = [
+        'agencies_test.json', 'offices_test.json', 'stats_test.json']
 
     def test_detail(self):
         """ Check the detail view for an agency."""
@@ -112,5 +130,5 @@ class OfficeAPITests(TestCase):
             'department-of-commerce',
             content['agency_slug'])
         # test Stats models for both numbers and nulls
-        self.assertEqual(12,content['complex_processing_time'])
-        self.assertEqual(None,content['simple_processing_time'])
+        self.assertEqual(12, content['complex_processing_time'])
+        self.assertEqual(None, content['simple_processing_time'])
