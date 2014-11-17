@@ -11,10 +11,10 @@ body > header {
   @include span-columns(9);
 
   border-bottom: 1px solid #dedede;
-
   padding-top: 20px;
-
   height: 80px;
+
+  a:hover {text-decoration: none;}
 
   h1 {
     font-weight: normal;
@@ -167,6 +167,12 @@ body > header {
       list-style-position: outside;
       margin: 0; padding: 0;
     }
+
+    li {
+      margin: 10px 0;
+      font-size: 1.2em;
+      line-height: 30px;
+    }
   }
 
   .resource_type {
@@ -239,6 +245,7 @@ html, button, input, select, textarea {
 }
 h1,h2,h3,h4,h5,h6 { font-family: 'Raleway', sans-serif; }
 a { color: #18f; text-decoration: none;}
+a:hover {text-decoration: underline}
 p a:hover { text-decoration: underline; }
 
 

@@ -29,6 +29,9 @@ body > header {
 body > header:last-child {
   margin-right: 0;
 }
+body > header a:hover {
+  text-decoration: none;
+}
 body > header h1 {
   font-weight: normal;
   font-size: 2em;
@@ -239,6 +242,11 @@ body > header nav ul a:focus {
   margin: 0;
   padding: 0;
 }
+#main .details .offices li {
+  margin: 10px 0;
+  font-size: 1.2em;
+  line-height: 30px;
+}
 #main .resource_type h3 {
   font-size: 1em;
 }
@@ -330,6 +338,10 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: #18f;
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 p a:hover {
