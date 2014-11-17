@@ -1,4 +1,4 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
 from foia_hub.models import Agency, Office
 
@@ -34,3 +34,14 @@ class AgencyTests(SimpleTestCase):
 
         self.assertEqual(retrieved.office_slug, 'commerce-is-fundamental')
         self.assertEqual(retrieved.slug, 'department-of-commerce--commerce-is-fundamental')
+
+
+class MoreAgencyTests(TestCase):
+    fixtures = ['agencies_test.json', 'offices_test.json']
+
+    def test_get_all_offices(self):
+        agency = Agency.objects.get(slug='department-of-commerce')
+        all_offices = agency.get_all_offices()
+        names = [a.name for a in all_offices]
+        self.assertTrue('U.S. Patent and Trademark Office' in names)
+        self.assertTrue('Census Bureau' in names)

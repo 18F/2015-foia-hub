@@ -100,9 +100,19 @@ class Agency(Contactable):
             self.slug = Agency.slug_for(self.name)
             super(Agency, self).save(*args, **kwargs)
 
+    def get_all_offices(self):
+        """ Agencies have Offices. Agencies also have child Agencies that are
+        also offices. This returns the list of both Offices and Child agencies
+        (sorted by name). """
+        agencies = list(self.agency_set.all())
+        offices = list(self.office_set.all())
+        all_offices = agencies + offices
+        return sorted(all_offices, key=lambda x: x.name)
+
     def slug_for(text):
         """ Helper method for slugifying agency names."""
         return slugify(text)[:50]
+
 
 
 class Office(Contactable):

@@ -197,7 +197,11 @@ class MainPageTests(TestCase):
                 'slug': 'department-of-commerce'},
              {
                 'name': 'Department of Homeland Security',
-                'slug': 'department-of-homeland-security'}])
+                'slug': 'department-of-homeland-security'}, 
+             {
+                'name': 'U.S. Patent and Trademark Office', 
+                'slug': 'us-patent-and-trademark-office'
+             }])
 
     def test_main_page_most_requested(self):
         response = self.client.get(reverse('request'))

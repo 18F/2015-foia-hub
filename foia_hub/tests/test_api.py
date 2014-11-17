@@ -66,10 +66,10 @@ class AgencyAPITests(TestCase):
 
         content = response.content
         content = json.loads(content.decode('utf-8'))
-        self.assertEqual(2, len(content['objects']))
+        self.assertEqual(3, len(content['objects']))
         slugs = [a['slug'] for a in content['objects']]
         self.assertEqual(
-            ['department-of-commerce', 'department-of-homeland-security'],
+            ['department-of-commerce', 'department-of-homeland-security', 'us-patent-and-trademark-office'],
             slugs)
 
     def test_detail(self):
