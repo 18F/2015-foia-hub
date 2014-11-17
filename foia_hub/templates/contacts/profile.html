@@ -4,13 +4,20 @@
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <header>
-  {% if profile.parent %}
-    <div class="parent">
+  <div class="breadcrumbs">
+    <a href="/">
+      Search &gt;
+    </a>
+    {% if profile.parent %}
       <a href="/contacts/{{ profile.parent.slug }}">
-        {{ profile.parent.name }} &rarr;
+        {{ profile.parent.name }} &gt;
       </a>
-    </div>
-  {% endif %}
+    {% elif profile.is_a == "office" %}
+      <a href="/contacts/{{ profile.agency_slug }}">
+        {{ profile.agency_name }} &gt;
+      </a>
+    {% endif %}
+  </div>
 
   <h1>{{ profile.name }}</h1>
 </header>
@@ -18,11 +25,13 @@
 <section class="department">
 
   <section class="description">
-    {% if profile.description %}
-      <p>
+    <p>
+      {% if profile.description %}
         {{ profile.description }}
-      </p>
-    {% endif %}
+      {% else %}
+        Here you can find some resources and contact information to file a request with this office.
+      {% endif %}
+    </p>
   </section>
 
   <section class="resources">

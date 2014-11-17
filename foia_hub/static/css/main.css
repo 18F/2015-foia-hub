@@ -114,6 +114,69 @@ body > header nav ul a:focus {
   padding: 0;
   margin: 0;
 }
+#main header {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main header:last-child {
+  margin-right: 0;
+}
+#main .department {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .department:last-child {
+  margin-right: 0;
+}
+#main .department .description {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main .department .description:last-child {
+  margin-right: 0;
+}
+#main .department .resources {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+}
+#main .department .resources:last-child {
+  margin-right: 0;
+}
+#main .details {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .details:last-child {
+  margin-right: 0;
+}
+#main .details .offices, #main .details .left {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main .details .offices:last-child, #main .details .left:last-child {
+  margin-right: 0;
+}
+#main .details .contact, #main .details .right {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+}
+#main .details .contact:last-child, #main .details .right:last-child {
+  margin-right: 0;
+}
 
 form.request input.upto[type=text] {
   width: 80px;

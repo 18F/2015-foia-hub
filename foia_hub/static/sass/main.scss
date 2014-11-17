@@ -85,6 +85,35 @@ body > header {
       padding: 0; margin: 0;
     }
   }
+
+  header {
+    @include span-columns(12);
+  }
+
+  .department {
+    @include span-columns(12);
+  }
+
+  .department .description {
+    @include span-columns(7);
+  }
+
+  .department .resources {
+    @include span-columns(5);
+  }
+
+  .details {
+    @include span-columns(12);
+  }
+
+  .details .offices, .details .left {
+    @include span-columns(7);
+  }
+
+  .details .contact, .details .right {
+    @include span-columns(5);
+  }
+
 }
 
 form.request {
