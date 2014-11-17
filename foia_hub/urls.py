@@ -3,7 +3,7 @@ from django.conf import settings  # For debugging.
 from django.contrib import admin
 
 from foia_hub.views import (
-    contact_landing, learn,
+    contact_landing, learn, about,
     request_start, request_form, request_success)
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 
@@ -13,6 +13,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', request_start, name='request'),
     url(r'^learn/?$', learn, name='learn'),
+    url(r'^about/?$', about, name='about'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),

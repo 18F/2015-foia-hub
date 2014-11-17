@@ -16,33 +16,77 @@ body:after {
   clear: both;
 }
 
-nav {
+header {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
+  border-bottom: 1px solid #dedede;
+  padding-top: 20px;
+  height: 80px;
 }
-nav:last-child {
+header:last-child {
   margin-right: 0;
 }
-nav ul {
+header h1 {
+  font-weight: normal;
+  font-size: 2em;
   margin: 0;
   padding: 0;
+  color: #18f;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
 }
-nav li {
+header h1 a {
+  color: #18f;
+}
+header h1 strong {
+  font-weight: normal;
+}
+header h1 em {
+  color: #cc2211;
+  font-style: normal;
+}
+header h1:last-child {
+  margin-right: 0;
+}
+header nav {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+  position: relative;
+  height: 100%;
+}
+header nav:last-child {
+  margin-right: 0;
+}
+header nav ul {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+}
+header nav ul li {
   display: inline-block;
+  padding: 0px 12px;
 }
-nav a {
+header nav ul a {
   color: #333;
-  padding: 5px 12px;
+  padding: 5px 12px 24px 12px;
 }
-nav a:hover {
-  background: none;
-  color: #777;
+header nav ul a:hover, header nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
-nav a:focus {
+header nav ul a:hover {
+  background: none;
+  color: #777;
+}
+header nav ul a:focus {
   background: #cc2211;
   color: #fff;
 }
@@ -56,23 +100,6 @@ nav a:focus {
 }
 #main:last-child {
   margin-right: 0;
-}
-#main header, #main > div, #main > section {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
-}
-#main header:last-child, #main > div:last-child, #main > section:last-child {
-  margin-right: 0;
-}
-#main #logo {
-  font-weight: 200;
-  color: #18f;
-}
-#main #logo em {
-  color: #cc2211;
-  font-style: normal;
 }
 #main section.search {
   margin-bottom: 30px;
