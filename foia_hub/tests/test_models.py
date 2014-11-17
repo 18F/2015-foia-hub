@@ -33,7 +33,8 @@ class AgencyTests(SimpleTestCase):
         retrieved = Office.objects.get(pk=office.pk)
 
         self.assertEqual(retrieved.office_slug, 'commerce-is-fundamental')
-        self.assertEqual(retrieved.slug, 'department-of-commerce--commerce-is-fundamental')
+        self.assertEqual(
+            retrieved.slug, 'department-of-commerce--commerce-is-fundamental')
 
 
 class MoreAgencyTests(TestCase):
@@ -45,6 +46,7 @@ class MoreAgencyTests(TestCase):
         names = [a.name for a in all_offices]
         self.assertTrue('U.S. Patent and Trademark Office' in names)
         self.assertTrue('Census Bureau' in names)
+
 
 class StatsTest(SimpleTestCase):
     def test_statstest_save(self):
