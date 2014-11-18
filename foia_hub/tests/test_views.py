@@ -193,6 +193,11 @@ class RequestFormTests(SimpleTestCase):
         response = self.client.get(reverse('learn'))
         self.assertEqual(response.status_code, 200)
 
+    def test_about(self):
+        """The /about/ page should load without errors."""
+        response = self.client.get(reverse('about'))
+        self.assertEqual(response.status_code, 200)
+
 
 class MainPageTests(TestCase):
     fixtures = ['agencies_test.json']
