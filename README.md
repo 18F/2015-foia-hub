@@ -79,6 +79,12 @@ Create a `foia` database in Postgres:
 createdb foia
 ```
 
+Note, that the database encoding needs to be UTF8. If your default is set to something else, you can use: 
+
+```SQL
+create database foia with encoding 'UTF8' LC_COLLATE='en_US.UTF8' LC_CTYPE='en_US.UTF8' TEMPLATE=template0;
+```
+
 If you you get a `could not connect to server` error, you could be experiencing a number of issues. Check the following:
 * PGHOST is set to localhost. If not `export PGHOST=localhost` to your bash profile.
 * Postgres has been started.

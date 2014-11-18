@@ -58,5 +58,35 @@
         },
         "model": "foia_hub.agency",
         "pk": 17
+    },
+    {
+        "fields": {
+            "TTY_phone": null,
+            "abbreviation": "USPTO",
+            "address_lines": [],
+            "chief_name": null,
+            "city": "",
+            "description": "The U.S. Patent and Trademark Office is the agency responsible for granting U.S. patents and registering trademarks.",
+            "emails": [],
+            "fax": null,
+            "keywords": null,
+            "name": "U.S. Patent and Trademark Office",
+            "office_url": null,
+            "parent": 17,
+            "person_name": "Dahlia Rose",
+            "phone": "571-272-3000",
+            "public_liaison_email": null,
+            "public_liaison_name": null,
+            "public_liaison_phone": null,
+            "reading_room_url": null,
+            "request_form_url": null,
+            "slug": "us-patent-and-trademark-office",
+            "state": "",
+            "street": "P.O. Box 1450",
+            "toll_free_phone": null,
+            "zip_code": 22313
+        },
+        "model": "foia_hub.agency",
+        "pk": 18
     }
 ]

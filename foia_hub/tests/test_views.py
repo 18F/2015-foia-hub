@@ -2,29 +2,34 @@ import json
 from datetime import date
 
 from django.core.urlresolvers import reverse
-from django.test import SimpleTestCase, TestCase, Client
+from django.test import SimpleTestCase, TestCase
 from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.views import get_agency_list
 from foia_hub.tests import helpers
 
+
 class RequestFormTests(SimpleTestCase):
     def setUp(self):
         self.emails = ["foia1@example.com", "foia2@example.com"]
 
-        self.agency = Agency(name='Agency With Offices', zip_code=20404, emails=self.emails)
+        self.agency = Agency(
+            name='Agency With Offices', zip_code=20404, emails=self.emails)
         self.agency.save()
 
         self.office = Office(
-            agency=self.agency, name='Office 1', zip_code=20404, emails=self.emails)
+            agency=self.agency, name='Office 1', zip_code=20404,
+            emails=self.emails)
         self.office.save()
 
         self.office2 = Office(
-            agency=self.agency, name='Office 2', zip_code=20404, emails=self.emails)
+            agency=self.agency, name='Office 2', zip_code=20404,
+            emails=self.emails)
         self.office2.save()
 
-        self.agency2 = Agency(name='Agency Without Offices', zip_code=20009, emails=self.emails)
+        self.agency2 = Agency(
+            name='Agency Without Offices', zip_code=20009, emails=self.emails)
 
         self.requester = Requester.objects.create(
             first_name='Alice', last_name='Bobson', email='eve@example.com')
@@ -39,9 +44,11 @@ class RequestFormTests(SimpleTestCase):
 
     def test_submit_request_to_agency(self):
         requester_email = "requester@example.com"
-        self.assertEqual(0, len(Requester.objects.filter(email=requester_email)))
+        self.assertEqual(
+            0, len(Requester.objects.filter(email=requester_email)))
 
-        response = self.client.post("/api/request/",
+        response = self.client.post(
+            "/api/request/",
             content_type='application/json',
             data=json.dumps({
                 'agency': self.agency.slug,
@@ -63,14 +70,17 @@ class RequestFormTests(SimpleTestCase):
         foia_request = FOIARequest.objects.get(pk=request_id)
         self.assertTrue(foia_request is not None)
         self.assertEqual(foia_request.agency, self.agency)
-        self.assertEqual(1, len(Requester.objects.filter(email=requester_email)))
+        self.assertEqual(
+            1, len(Requester.objects.filter(email=requester_email)))
         self.assertEqual(requester_email, foia_request.requester.email)
 
     def test_submit_request_to_office(self):
         requester_email = "requester@example.com"
-        self.assertEqual(0, len(Requester.objects.filter(email=requester_email)))
+        self.assertEqual(
+            0, len(Requester.objects.filter(email=requester_email)))
 
-        response = self.client.post("/api/request/",
+        response = self.client.post(
+            "/api/request/",
             content_type='application/json',
             data=json.dumps({
                 'agency': self.office.agency.slug,
@@ -93,14 +103,17 @@ class RequestFormTests(SimpleTestCase):
         foia_request = FOIARequest.objects.get(pk=request_id)
         self.assertTrue(foia_request is not None)
         self.assertEqual(foia_request.office, self.office)
-        self.assertEqual(1, len(Requester.objects.filter(email=requester_email)))
+        self.assertEqual(
+            1, len(Requester.objects.filter(email=requester_email)))
         self.assertEqual(requester_email, foia_request.requester.email)
 
     def test_submit_invalid_request(self):
         requester_email = "requester@example.com"
-        self.assertEqual(0, len(Requester.objects.filter(email=requester_email)))
+        self.assertEqual(
+            0, len(Requester.objects.filter(email=requester_email)))
 
-        response = self.client.post("/api/request/",
+        response = self.client.post(
+            "/api/request/",
             content_type='application/json',
             data=json.dumps({
                 'agency': "not-a-valid-agency",
@@ -114,9 +127,8 @@ class RequestFormTests(SimpleTestCase):
         )
 
         self.assertEqual(404, response.status_code)
-        self.assertEqual(0, len(Requester.objects.filter(email=requester_email)))
-
-
+        self.assertEqual(
+            0, len(Requester.objects.filter(email=requester_email)))
 
     def test_request_form_successful(self):
         """The agency name should be present in the request form"""
@@ -196,13 +208,19 @@ class MainPageTests(TestCase):
 
     def test_get_agency_list(self):
         agencies = get_agency_list()
-        self.assertEqual(agencies,
-            [{
-                'name': 'Department of Commerce',
-                'slug': 'department-of-commerce'},
-             {
-                'name': 'Department of Homeland Security',
-                'slug': 'department-of-homeland-security'}])
+        self.assertEqual(
+            agencies, [
+                {
+                    'name': 'Department of Commerce',
+                    'slug': 'department-of-commerce'},
+                {
+                    'name': 'Department of Homeland Security',
+                    'slug': 'department-of-homeland-security'
+                },
+                {
+                    'name': 'U.S. Patent and Trademark Office',
+                    'slug': 'us-patent-and-trademark-office'
+                }])
 
     def test_main_page_most_requested(self):
         response = self.client.get(reverse('request'))
@@ -216,13 +234,15 @@ class MainPageTests(TestCase):
         self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Department of Homeland Security' in content)
 
+
 class ContactPageTests(TestCase):
     fixtures = ['agencies_test.json']
 
     def test_inaccurate_contact(self):
         response = self.client.get(
-            reverse('contact_landing',
-            args=['department-of-homeland-security']))
+            reverse(
+                'contact_landing',
+                args=['department-of-homeland-security']))
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
         self.assertTrue('Contact us so we can fix it' in content)

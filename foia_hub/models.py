@@ -17,6 +17,7 @@ FOIA_STATUS = (
     ('C', 'closed'),
 )
 
+
 def empty_list():
     """Thunk for returning a *new* empty list. Must be named so that it can be
     serialized by django migrations."""
@@ -100,6 +101,16 @@ class Agency(Contactable):
             self.slug = Agency.slug_for(self.name)
             super(Agency, self).save(*args, **kwargs)
 
+    def get_all_components(self):
+        """ Agencies have Offices. Agencies also have child Agencies that are
+        also offices. This returns the list of both Offices and Child agencies
+        (sorted by name). """
+
+        agencies = list(self.agency_set.all())
+        offices = list(self.office_set.all())
+        all_offices = agencies + offices
+        return sorted(all_offices, key=lambda x: x.name)
+
     def slug_for(text):
         """ Helper method for slugifying agency names."""
         return slugify(text)[:50]
@@ -129,6 +140,7 @@ class Office(Contactable):
         """ Helper method for slugifying office names."""
         return slugify(text)[:50]
 
+
 class Stats(models.Model):
     """The stats object to used to store stats pulled from reports."""
 
@@ -140,7 +152,7 @@ class Stats(models.Model):
     agency = models.ForeignKey(Agency)
     office = models.ForeignKey(Office, null=True, blank=True)
     year = models.PositiveSmallIntegerField()
-    stat_type =  models.CharField(max_length=1, choices=STAT_TYPE)
+    stat_type = models.CharField(max_length=1, choices=STAT_TYPE)
 
     median = models.FloatField(null=True, blank=True)
 
@@ -153,8 +165,8 @@ class Stats(models.Model):
         else:
             office_name = None
 
-        return '%s, %s, %s, %s' % (self.agency.name, office_name,
-            self.year, self.stat_type)
+        return '%s, %s, %s, %s' % (
+            self.agency.name, office_name, self.year, self.stat_type)
 
 
 class Requester(models.Model):
