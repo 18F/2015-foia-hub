@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 from django.utils.text import slugify
-import localflavor.us.models
 
 # These migrations uses `slugify(office.name)[:50]` instead of
 # calling `Office.slug_for(office.name)` so that their operation

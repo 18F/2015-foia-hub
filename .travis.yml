@@ -7,5 +7,12 @@ install:
   - pip install coveralls
 script:
   - coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
+
+  # ignore:
+  # * F403 - "import *"
+  # * E501 - line length limit
+  # * E302,E303 - too many blank lines (come on)
+  # * E123 - indentation on data structures (very restrictive)
+  - flake8 . --ignore=F403,E501,E302,E303,E123
 after_success:
   - coveralls
