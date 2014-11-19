@@ -52,8 +52,11 @@ class Contactable(USAddress):
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
 
-    reading_room_url = models.URLField(
-        null=True, help_text='Link to repository of documents')
+    #reading_room_url = models.URLField(
+    #    null=True, help_text='Link to repository of documents')
+
+    reading_room_urls = models.ManyToManyField(
+        ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
 
     request_form_url = models.URLField(
         null=True,
@@ -67,6 +70,19 @@ class Contactable(USAddress):
 
     class Meta:
         abstract = True
+
+class ReadingRoomUrls(models.Model):
+    """ Reading rooms are where agencies and offices put their disclosed
+    documents. """
+
+    link_text = models.CharField(
+        max_length=512,
+        help_text="This is the text associated with the reading room URL. ")
+    url = models.URLField(
+        null=True, help_text="The URL to an agency's reading room.")
+
+    class Meta:
+        unique_together = (("link_text", "url"),)
 
 
 class Agency(Contactable):
