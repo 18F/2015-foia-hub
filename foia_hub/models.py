@@ -36,6 +36,19 @@ class USAddress(models.Model):
     class Meta:
         abstract = True
 
+class ReadingRoomUrls(models.Model):
+    """ Reading rooms are where agencies and offices put their disclosed
+    documents. """
+
+    link_text = models.CharField(
+        max_length=512,
+        help_text="This is the text associated with the reading room URL. ")
+    url = models.URLField(
+        null=True, help_text="The URL to an agency's reading room.")
+
+    class Meta:
+        unique_together = (("link_text", "url"),)
+
 
 class Contactable(USAddress):
     """ An abstract class that represents all the contactable pieces of an
@@ -70,19 +83,6 @@ class Contactable(USAddress):
 
     class Meta:
         abstract = True
-
-class ReadingRoomUrls(models.Model):
-    """ Reading rooms are where agencies and offices put their disclosed
-    documents. """
-
-    link_text = models.CharField(
-        max_length=512,
-        help_text="This is the text associated with the reading room URL. ")
-    url = models.URLField(
-        null=True, help_text="The URL to an agency's reading room.")
-
-    class Meta:
-        unique_together = (("link_text", "url"),)
 
 
 class Agency(Contactable):
