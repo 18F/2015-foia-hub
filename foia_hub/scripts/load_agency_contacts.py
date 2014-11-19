@@ -57,7 +57,6 @@ def contactable_fields(agency, office_dict):
     agency.fax = clean_phone(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
 
-    # a.reading_room_url - not an explicit field in our data set
     agency.request_form_url = office_dict.get('request_form')
 
     service_center = office_dict.get('service_center', '')
@@ -100,7 +99,7 @@ def contactable_fields(agency, office_dict):
             agency.address_lines = address[0:-2]
 
 
-def add_stats(data, agency, office = None):
+def add_request_time_statistics(data, agency, office = None):
     '''Load stats data about agencies into the database.'''
     if not data.get('request_time_stats'):
         return
@@ -143,7 +142,7 @@ def process_yamls(folder):
 
         a.save()
 
-        add_stats(data, a)
+        add_request_time_statistics(data, a)
 
         # Offices
         if len(data['departments']) > 1:
@@ -171,7 +170,7 @@ def process_yamls(folder):
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
 
-                    add_stats(dept_rec, sub_agency)
+                    add_request_time_statistics(dept_rec, sub_agency)
                 else:
                     # Just an office
                     office_name = dept_rec['name']
