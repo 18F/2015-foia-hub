@@ -11,7 +11,7 @@ from glob import iglob
 import django
 django.setup()
 
-from foia_hub.models import Agency, Office, Stats
+from foia_hub.models import Agency, Office, Stats, ReadingRoomUrls
 
 logger = logging.getLogger(__name__)
 
@@ -114,6 +114,18 @@ def add_request_time_statistics(data, agency, office = None):
         stat.median = data.get("%s-Median No. of Days" % arg[1])
         stat.save()
 
+def add_reading_rooms(contactable, reading_rooms):
+    for link_text, url in reading_rooms:
+        existing_room = ReadingRoomUrls.objects.filter(
+            link_text=link_text, url=url)
+        if len(existing_room) > 0:
+            contactable.reading_room_urls.add(existing_room)
+        else:
+            r = ReadingRoomUrls(link_text=link_text, url=url)
+            r.save()
+            contactable.reading_room_urls.add(r)
+        return contactable
+
 def process_yamls(folder):
 
     #only load yaml files
@@ -134,6 +146,9 @@ def process_yamls(folder):
         a.keywords = data.get('keywords')
         a.common_requests = data.get('common_requests', [])
         a.no_records_about = data.get('no_records_about', [])
+
+        if 'reading_rooms' in data:
+            add_reading_rooms(a, data['reading_rooms'])
 
         #   Only has a single, main branch/office
         if len(data['departments']) == 1:

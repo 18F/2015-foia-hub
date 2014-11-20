@@ -46,6 +46,9 @@ class ReadingRoomUrls(models.Model):
     url = models.URLField(
         null=True, help_text="The URL to an agency's reading room.")
 
+    def __unicode__(self):
+        return '%s %s' % (link_text, url)
+        
     class Meta:
         unique_together = (("link_text", "url"),)
 
