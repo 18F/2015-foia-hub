@@ -215,7 +215,7 @@ def process_yamls(folder):
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()
-                    add_stats(dept_rec, a, o)
+                    add_request_time_statistics(dept_rec, a, o)
 
 
 if __name__ == "__main__":
