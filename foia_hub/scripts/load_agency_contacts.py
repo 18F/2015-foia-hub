@@ -97,6 +97,9 @@ def contactable_fields(agency, office_dict):
             agency.street = address[-2]
         if len(address) > 2:
             agency.address_lines = address[0:-2]
+    reading_rooms = office_dict.get('reading_rooms', [])
+    if reading_rooms:
+        add_reading_rooms(agency, reading_rooms)
 
 
 def add_request_time_statistics(data, agency, office = None):
@@ -126,6 +129,15 @@ def add_reading_rooms(contactable, reading_rooms):
             contactable.reading_room_urls.add(r)
         return contactable
 
+def build_abbreviation(agency_name):
+    """ Given an agency name, guess at an abbrevation. """
+    abbreviation = ''
+    for ch in agency_name:
+        if ch in string.ascii_uppercase:
+            abbreviation += ch
+    return abbreviation
+
+
 def process_yamls(folder):
 
     #only load yaml files
@@ -147,8 +159,6 @@ def process_yamls(folder):
         a.common_requests = data.get('common_requests', [])
         a.no_records_about = data.get('no_records_about', [])
 
-        if 'reading_rooms' in data:
-            add_reading_rooms(a, data['reading_rooms'])
 
         #   Only has a single, main branch/office
         if len(data['departments']) == 1:
@@ -170,11 +180,13 @@ def process_yamls(folder):
                     sub_agency, created = Agency.objects.get_or_create(
                         slug=sub_agency_slug, name=sub_agency_name)
                     sub_agency.parent = a
+
                     # Guessing at abbreviation
-                    abbreviation = ''
-                    for ch in sub_agency_name:
-                        if ch in string.ascii_uppercase:
-                            abbreviation += ch
+                    #abbreviation = ''
+                    #for ch in sub_agency_name:
+                    #    if ch in string.ascii_uppercase:
+                    #        abbreviation += ch
+                    abbreviation = build_abbreviation(sub_agency_name)
                     sub_agency.abbreviation = abbreviation
                     sub_agency.description = dept_rec.get('description')
                     sub_agency.keyword = dept_rec.get('keywords')
@@ -183,6 +195,8 @@ def process_yamls(folder):
                     sub_agency.no_records_about = dept_rec.get(
                         'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
+                    #add_reading_rooms(
+                    #    sub_agency, dept_rec.get('reading_rooms', []))
                     sub_agency.save()
 
                     add_request_time_statistics(dept_rec, sub_agency)
