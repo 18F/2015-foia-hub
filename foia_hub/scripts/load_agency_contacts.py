@@ -108,14 +108,15 @@ def add_stats(data, agency, office=None):
         return
     data = data['request_time_stats']['2013']
 
-    iterator = [('S', 'Simple'), ('C', 'Complex')]
+    iterator = [('S', 'simple'), ('C', 'complex')]
     for arg in iterator:
-        median = data.get("%s-Median No. of Days" % arg[1])
+        median = data.get("%s_median_days" % arg[1])
         if median:
             stat, created = Stats.objects.get_or_create(
                 agency=agency, office=office, year=2013, stat_type=arg[0])
             stat.median = median
             stat.save()
+
 
 def process_yamls(folder):
 
