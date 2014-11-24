@@ -112,10 +112,12 @@ class AgencyResource(DjangoResource):
             'complex_processing_time': comp,
         }
 
+
         # some agencies have parents (e.g. FBI->DOJ)
         if agency.parent:
             data['parent'] = AgencyResource.preparer.prepare(agency.parent)
 
+        data.update(reading_room_preparer(agency))
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
         return data
