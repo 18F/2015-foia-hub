@@ -61,7 +61,7 @@
             "state": "",
             "street": "",
             "toll_free_phone": null,
-            "zip_code": 0,
+            "zip_code": 0
         },
         "model": "foia_hub.agency",
         "pk": 17

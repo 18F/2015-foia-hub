@@ -129,6 +129,14 @@ class AgencyAPITests(TestCase):
             content['offices'][1]['slug'],
             'us-patent-and-trademark-office')
 
+    def test_reading_rooms(self):
+        c = Client()
+        response = c.get('/api/agency/department-of-commerce/')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual([{'link_text': 'The Electronic Reading Room', 'url': 'http://www.doc.gov/err/'}],
+            content['reading_rooms'])
+
 
 class OfficeAPITests(TestCase):
     fixtures = [
