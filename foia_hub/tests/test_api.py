@@ -1,8 +1,9 @@
 import json
 from django.test import TestCase, Client
-from foia_hub.models import Agency
+from foia_hub.models import Agency, ReadingRoomUrls, Office
 
 from foia_hub.api import agency_preparer, contact_preparer
+from foia_hub.api import reading_room_preparer
 from foia_hub.tests import helpers
 
 
@@ -53,6 +54,25 @@ class PreparerTests(TestCase):
         }
         self.assertEqual(ap, data)
 
+    def test_reading_room_preparer(self):
+        """ Ensure reading room urls are serialized correctly. """
+
+        rone = ReadingRoomUrls(link_text='Url One', url='http://urlone.gov')
+        rone.save()
+        rtwo = ReadingRoomUrls(link_text='Url Two', url='http://urltwo.gov')
+        rtwo.save()
+
+        census = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        census.reading_room_urls.add(rone, rtwo)
+        data = reading_room_preparer(census)
+
+        serialized_rooms = {'reading_rooms': [
+            {'link_text': 'Url One', 'url': 'http://urlone.gov'},
+            {'link_text': 'Url Two', 'url': 'http://urltwo.gov'}]}
+
+        self.assertEqual(serialized_rooms, data)
+
 
 class AgencyAPITests(TestCase):
     fixtures = [
@@ -86,9 +106,9 @@ class AgencyAPITests(TestCase):
         content = json.loads(content.decode('utf-8'))
         self.assertEqual(content['name'], 'Department of Homeland Security')
         self.assertEqual(1, len(content['offices']))
-        self.assertEqual(
-            'department-of-homeland-security--federal-emergency-management-agency',
-            content['offices'][0]['slug'])
+        slug = 'department-of-homeland-security'
+        slug += '--federal-emergency-management-agency'
+        self.assertEqual(slug, content['offices'][0]['slug'])
         # test Stats models for both numbers and nulls
         self.assertEqual(37, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
@@ -108,6 +128,16 @@ class AgencyAPITests(TestCase):
         self.assertEqual(
             content['offices'][1]['slug'],
             'us-patent-and-trademark-office')
+
+    def test_reading_rooms(self):
+        c = Client()
+        response = c.get('/api/agency/department-of-commerce/')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual([{
+            'link_text': 'The Electronic Reading Room',
+            'url': 'http://www.doc.gov/err/'}],
+            content['reading_rooms'])
 
 
 class OfficeAPITests(TestCase):
@@ -132,3 +162,17 @@ class OfficeAPITests(TestCase):
         # test Stats models for both numbers and nulls
         self.assertEqual(12, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
+
+    def test_reading_room(self):
+        """ Check that the detail view for an agency has the reading room
+        links"""
+        c = Client()
+        slug = 'department-of-homeland-security'
+        slug += '--federal-emergency-management-agency/'
+        response = c.get('/api/office/%s' % slug)
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual([{
+            'link_text': 'The Electronic Reading Room',
+            'url': 'http://www.usmint.gov/FOIA/?action=room'}],
+            content['reading_rooms'])

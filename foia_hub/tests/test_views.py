@@ -177,7 +177,8 @@ class RequestFormTests(SimpleTestCase):
         """If loading an agency or a top-level office, we should see agency
         name. If an office, we should not see peer offices."""
 
-        list_fingerprint = "Make your FOIA request directly to the most relevant group or component"
+        list_fingerprint = "Make your FOIA request directly"
+        list_fingerprint += " to the most relevant group or component"
 
         response = self.client.get(reverse(
             'contact_landing', kwargs={'slug': self.agency.slug}))
@@ -199,7 +200,6 @@ class RequestFormTests(SimpleTestCase):
         self.assertNotContains(response, self.office.name)
         self.assertNotContains(response, self.office2.name)
         self.assertNotContains(response, list_fingerprint)
-
 
     def test_learn(self):
         """The /learn/ page should load without errors."""

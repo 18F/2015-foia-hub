@@ -11,7 +11,7 @@ from glob import iglob
 import django
 django.setup()
 
-from foia_hub.models import Agency, Office, Stats
+from foia_hub.models import Agency, Office, Stats, ReadingRoomUrls
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,6 @@ def contactable_fields(agency, office_dict):
     agency.fax = clean_phone(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
 
-    # a.reading_room_url - not an explicit field in our data set
     agency.request_form_url = office_dict.get('request_form')
 
     service_center = office_dict.get('service_center', '')
@@ -98,9 +97,12 @@ def contactable_fields(agency, office_dict):
             agency.street = address[-2]
         if len(address) > 2:
             agency.address_lines = address[0:-2]
+    reading_rooms = office_dict.get('reading_rooms', [])
+    if reading_rooms:
+        add_reading_rooms(agency, reading_rooms)
 
 
-def add_stats(data, agency, office=None):
+def add_request_time_statistics(data, agency, office=None):
     '''Load stats data about agencies into the database.'''
     if not data.get('request_time_stats'):
         return
@@ -116,6 +118,28 @@ def add_stats(data, agency, office=None):
                 agency=agency, office=office, year=2013, stat_type=arg[0])
             stat.median = median
             stat.save()
+
+def add_reading_rooms(contactable, reading_rooms):
+    for link_text, url in reading_rooms:
+        existing_room = ReadingRoomUrls.objects.filter(
+            link_text=link_text, url=url)
+        existing_room = list(existing_room)
+        if len(existing_room) > 0:
+            contactable.reading_room_urls.add(*existing_room)
+        else:
+            r = ReadingRoomUrls(link_text=link_text, url=url)
+            r.save()
+            contactable.reading_room_urls.add(r)
+        return contactable
+
+def build_abbreviation(agency_name):
+    """ Given an agency name, guess at an abbrevation. """
+    abbreviation = ''
+    for ch in agency_name:
+        if ch in string.ascii_uppercase:
+            abbreviation += ch
+    return abbreviation
+
 
 def process_yamls(folder):
 
@@ -138,6 +162,7 @@ def process_yamls(folder):
         a.common_requests = data.get('common_requests', [])
         a.no_records_about = data.get('no_records_about', [])
 
+
         #   Only has a single, main branch/office
         if len(data['departments']) == 1:
             dept_rec = data['departments'][0]
@@ -145,7 +170,7 @@ def process_yamls(folder):
 
         a.save()
 
-        add_stats(data, a)
+        add_request_time_statistics(data, a)
 
         # Offices
         if len(data['departments']) > 1:
@@ -158,11 +183,8 @@ def process_yamls(folder):
                     sub_agency, created = Agency.objects.get_or_create(
                         slug=sub_agency_slug, name=sub_agency_name)
                     sub_agency.parent = a
-                    # Guessing at abbreviation
-                    abbreviation = ''
-                    for ch in sub_agency_name:
-                        if ch in string.ascii_uppercase:
-                            abbreviation += ch
+
+                    abbreviation = build_abbreviation(sub_agency_name)
                     sub_agency.abbreviation = abbreviation
                     sub_agency.description = dept_rec.get('description')
                     sub_agency.keyword = dept_rec.get('keywords')
@@ -173,7 +195,7 @@ def process_yamls(folder):
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
 
-                    add_stats(dept_rec, sub_agency)
+                    add_request_time_statistics(dept_rec, sub_agency)
                 else:
                     # Just an office
                     office_name = dept_rec['name']
@@ -187,7 +209,7 @@ def process_yamls(folder):
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()
-                    add_stats(dept_rec, a, o)
+                    add_request_time_statistics(dept_rec, a, o)
 
 
 if __name__ == "__main__":
@@ -213,15 +235,3 @@ if __name__ == "__main__":
 
     yaml_folder = sys.argv[1]
     process_yamls(yaml_folder)
-
-    # # Overlay csv file information on the yaml info
-    # try:
-    #     csv_folder = sys.argv[2]
-    # except IndexError:
-    #     csv_folder = "../../data/foia-contacts/full-foia-contacts/"
-    #     print('No csv folder passed as arg.')
-    #     print('Setting to default %s.' % csv_folder)
-
-    # for item in os.listdir(folder):
-    #     data_file = os.path.join(folder, item)
-    #     process_agency_csv(data_file)

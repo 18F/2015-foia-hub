@@ -18,7 +18,6 @@
             "public_liaison_email": "liaison@email.gov",
             "public_liaison_name": "Joe Liaison",
             "public_liaison_phone": "202-555-5555",
-            "reading_room_url": null,
             "request_form_url": "http://dhs.gov/xfoia/editorial_0579.html",
             "slug": "department-of-homeland-security",
             "state": "DC",
@@ -28,6 +27,14 @@
         },
         "model": "foia_hub.agency",
         "pk": 15
+    },
+    {
+        "fields": {
+            "link_text": "The Electronic Reading Room",
+            "url": "http://www.doc.gov/err/"
+        },
+        "model": "foia_hub.readingroomurls",
+        "pk": 175
     },
     {
         "fields": {
@@ -48,7 +55,7 @@
             "public_liaison_email": null,
             "public_liaison_name": null,
             "public_liaison_phone": null,
-            "reading_room_url": null,
+            "reading_room_urls": [175],
             "request_form_url": null,
             "slug": "department-of-commerce",
             "state": "",
@@ -78,7 +85,6 @@
             "public_liaison_email": null,
             "public_liaison_name": null,
             "public_liaison_phone": null,
-            "reading_room_url": null,
             "request_form_url": null,
             "slug": "us-patent-and-trademark-office",
             "state": "",

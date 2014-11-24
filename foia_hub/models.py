@@ -37,6 +37,26 @@ class USAddress(models.Model):
         abstract = True
 
 
+class ReadingRoomUrls(models.Model):
+    """ Reading rooms are where agencies and offices put their disclosed
+    documents. """
+
+    link_text = models.CharField(
+        max_length=512,
+        help_text="This is the text associated with the reading room URL. ")
+    url = models.URLField(
+        null=True, help_text="The URL to an agency's reading room.")
+
+    def __unicode__(self):
+        return '%s %s' % (self.link_text, self.url)
+
+    def __str__(self):
+        return self.__unicode__()
+
+    class Meta:
+        unique_together = (("link_text", "url"),)
+
+
 class Contactable(USAddress):
     """ An abstract class that represents all the contactable pieces of an
     office or agency. Agencies will certainly have almost all of these fields.
@@ -52,8 +72,8 @@ class Contactable(USAddress):
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
 
-    reading_room_url = models.URLField(
-        null=True, help_text='Link to repository of documents')
+    reading_room_urls = models.ManyToManyField(
+        ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
 
     request_form_url = models.URLField(
         null=True,

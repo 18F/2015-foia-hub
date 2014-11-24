@@ -31,7 +31,7 @@ def contact_preparer():
         'street': 'street',
         'city': 'city',
         'state': 'state',
-        'zip_code': 'zip_code'
+        'zip_code': 'zip_code',
     })
 
 
@@ -74,6 +74,15 @@ def get_latest_stats(stat_type, agency=None, office=None):
         return None
 
 
+def reading_room_preparer(contactable):
+    data = {}
+    reading_rooms = []
+    for rru in contactable.reading_room_urls.all():
+        reading_rooms.append({'link_text': rru.link_text, 'url': rru.url})
+    data['reading_rooms'] = reading_rooms
+    return data
+
+
 class AgencyResource(DjangoResource):
     """ The resource that represents the endpoint for an Agency """
 
@@ -103,10 +112,12 @@ class AgencyResource(DjangoResource):
             'complex_processing_time': comp,
         }
 
+
         # some agencies have parents (e.g. FBI->DOJ)
         if agency.parent:
             data['parent'] = AgencyResource.preparer.prepare(agency.parent)
 
+        data.update(reading_room_preparer(agency))
         data.update(AgencyResource.preparer.prepare(agency))
         data.update(self.contact_preparer.prepare(agency))
         return data
@@ -169,6 +180,7 @@ class OfficeResource(DjangoResource):
             'complex_processing_time': comp,
         }
 
+        data.update(reading_room_preparer(office))
         data.update(office_data)
         data.update(self.contact_preparer.prepare(office))
         return data

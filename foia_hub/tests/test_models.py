@@ -1,8 +1,8 @@
 from django.test import SimpleTestCase, TestCase
 
-from foia_hub.models import Agency, Office, Stats
+from foia_hub.models import Agency, Office, Stats, ReadingRoomUrls
 
-from foia_hub.scripts.load_agency_contacts import add_stats
+from foia_hub.scripts.load_agency_contacts import add_request_time_statistics
 
 
 class AgencyTests(SimpleTestCase):
@@ -78,7 +78,7 @@ class StatsTest(SimpleTestCase):
             .update({'Complex-Median No. of Days': None})
         test_yaml_data['request_time_stats']['2012'] = \
             {'Simple-Median No. of Days': '1'}
-        add_stats(test_yaml_data, agency)
+        add_request_time_statistics(test_yaml_data, agency)
 
         # Verify latest data is returned when it exists
         retrieved = agency.stats_set.filter(
@@ -92,3 +92,9 @@ class StatsTest(SimpleTestCase):
         with self.assertRaises(AttributeError) as error:
             retrieved.median
         self.assertEqual(type(error.exception), AttributeError)
+
+
+class ReadingRoomUrlsTest(TestCase):
+    def test_str_output(self):
+        r = ReadingRoomUrls(link_text='Link One', url='http://one.gov')
+        self.assertEqual(str(r), 'Link One http://one.gov')
