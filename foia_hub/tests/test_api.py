@@ -1,8 +1,9 @@
 import json
 from django.test import TestCase, Client
-from foia_hub.models import Agency
+from foia_hub.models import Agency, ReadingRoomUrls, Office
 
 from foia_hub.api import agency_preparer, contact_preparer
+from foia_hub.api import reading_room_preparer
 from foia_hub.tests import helpers
 
 
@@ -52,6 +53,25 @@ class PreparerTests(TestCase):
             'zip_code': '20528'
         }
         self.assertEqual(ap, data)
+
+    def test_reading_room_preparer(self):
+        """ Ensure reading room urls are serialized correctly. """
+
+        rone = ReadingRoomUrls(link_text='Url One', url='http://urlone.gov')
+        rone.save()
+        rtwo = ReadingRoomUrls(link_text='Url Two', url='http://urltwo.gov')
+        rtwo.save()
+
+        census = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        census.reading_room_urls.add(rone, rtwo)
+        data = reading_room_preparer(census)
+
+        serialized_rooms = {'reading_rooms': [
+            {'link_text': 'Url One', 'url': 'http://urlone.gov'},
+            {'link_text': 'Url Two', 'url': 'http://urltwo.gov'}]}
+
+        self.assertEqual(serialized_rooms, data)
 
 
 class AgencyAPITests(TestCase):
