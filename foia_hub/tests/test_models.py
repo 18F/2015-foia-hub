@@ -77,7 +77,7 @@ class StatsTest(SimpleTestCase):
         test_yaml_data['request_time_stats']['2013']\
             .update({'Complex-Median No. of Days': None})
         test_yaml_data['request_time_stats']['2012'] = \
-            {'Simple-Median No. of Days':'1'}
+            {'Simple-Median No. of Days': '1'}
         add_request_time_statistics(test_yaml_data, agency)
 
         # Verify latest data is returned when it exists

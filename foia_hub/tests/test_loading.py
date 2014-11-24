@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 
 from foia_hub.models import Agency
 from foia_hub.scripts.load_agency_contacts import add_reading_rooms
@@ -13,7 +13,7 @@ class LoadingTest(TestCase):
         agency = add_reading_rooms(agency, reading_room_links)
         agency.save()
 
-        #retrieve saved
+        # Retrieve saved
         dhs = Agency.objects.get(slug='department-of-homeland-security')
         self.assertEqual(
             'Electronic Reading Room',

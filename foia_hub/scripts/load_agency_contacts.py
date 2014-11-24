@@ -184,11 +184,6 @@ def process_yamls(folder):
                         slug=sub_agency_slug, name=sub_agency_name)
                     sub_agency.parent = a
 
-                    # Guessing at abbreviation
-                    #abbreviation = ''
-                    #for ch in sub_agency_name:
-                    #    if ch in string.ascii_uppercase:
-                    #        abbreviation += ch
                     abbreviation = build_abbreviation(sub_agency_name)
                     sub_agency.abbreviation = abbreviation
                     sub_agency.description = dept_rec.get('description')
@@ -198,8 +193,6 @@ def process_yamls(folder):
                     sub_agency.no_records_about = dept_rec.get(
                         'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
-                    #add_reading_rooms(
-                    #    sub_agency, dept_rec.get('reading_rooms', []))
                     sub_agency.save()
 
                     add_request_time_statistics(dept_rec, sub_agency)
