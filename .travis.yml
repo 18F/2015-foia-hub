@@ -4,8 +4,16 @@ python:
 install:
   - pip install -r requirements.txt --use-mirrors
   - pip install -r requirements-dev.txt --use-mirrors
-  - pip install coveralls
 script:
   - coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
+
+  # ignore:
+  # * E501 - line length limit
+  # * E302,E303 - too many blank lines (come on)
+  # * E123 - indentation on data structures (very restrictive)
+  - flake8 . --ignore=E501,E302,E303,E123 --exclude=foia_hub/settings,docs/source
+
+  # * F403 - "import *"
+  - flake8 foia_hub/settings --ignore=F403,E501,E302,E303,E123
 after_success:
   - coveralls

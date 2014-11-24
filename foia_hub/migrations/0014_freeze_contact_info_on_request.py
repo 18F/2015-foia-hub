@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import jsonfield.fields
 import foia_hub.models
-from foia_hub.models import FOIARequest, Office, Agency
+from foia_hub.models import FOIARequest
+
 
 # no need to do anything on the way up
 def nothing(apps, schema_editor):

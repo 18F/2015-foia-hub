@@ -102,7 +102,7 @@ def contactable_fields(agency, office_dict):
         add_reading_rooms(agency, reading_rooms)
 
 
-def add_request_time_statistics(data, agency, office = None):
+def add_request_time_statistics(data, agency, office=None):
     '''Load stats data about agencies into the database.'''
     if not data.get('request_time_stats'):
         return
@@ -110,7 +110,7 @@ def add_request_time_statistics(data, agency, office = None):
         return
     data = data['request_time_stats']['2013']
 
-    iterator = [('S','Simple'),('C','Complex')]
+    iterator = [('S', 'Simple'), ('C', 'Complex')]
     for arg in iterator:
         median = data.get("%s-Median No. of Days" % arg[1])
         if median:
@@ -143,7 +143,7 @@ def build_abbreviation(agency_name):
 
 def process_yamls(folder):
 
-    #only load yaml files
+    # only load yaml files
     for item in iglob(folder + "/*.yaml"):
 
         data_file = os.path.join(folder, item)
@@ -212,7 +212,7 @@ def process_yamls(folder):
                     o, created = Office.objects.get_or_create(
                         agency=a, slug=full_slug)
 
-                    o.office_slug=office_slug
+                    o.office_slug = office_slug
                     o.name = office_name
                     contactable_fields(o, dept_rec)
                     o.save()
