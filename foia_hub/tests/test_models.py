@@ -2,7 +2,7 @@ from django.test import SimpleTestCase, TestCase
 
 from foia_hub.models import Agency, Office, Stats
 
-from foia_hub.scripts.load_agency_contacts import add_stats
+from foia_hub.scripts.load_agency_contacts import add_request_time_statistics
 
 class AgencyTests(SimpleTestCase):
     def test_common_requests_field(self):
@@ -77,7 +77,7 @@ class StatsTest(SimpleTestCase):
             .update({'Complex-Median No. of Days':None})
         test_yaml_data['request_time_stats']['2012'] = \
             {'Simple-Median No. of Days':'1'}
-        add_stats(test_yaml_data, agency)
+        add_request_time_statistics(test_yaml_data, agency)
 
         #verify latest data is returned when it exists
         retrieved = agency.stats_set.filter(stat_type = 'S') \
