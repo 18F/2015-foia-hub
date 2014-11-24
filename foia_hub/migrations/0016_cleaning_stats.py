@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 from foia_hub.models import Stats
-import jsonfield.fields
 
 # one-way street
 def clear_empty_stats(apps, schema_editor):
