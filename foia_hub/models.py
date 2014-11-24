@@ -36,6 +36,7 @@ class USAddress(models.Model):
     class Meta:
         abstract = True
 
+
 class ReadingRoomUrls(models.Model):
     """ Reading rooms are where agencies and offices put their disclosed
     documents. """
@@ -47,8 +48,11 @@ class ReadingRoomUrls(models.Model):
         null=True, help_text="The URL to an agency's reading room.")
 
     def __unicode__(self):
-        return '%s %s' % (link_text, url)
-        
+        return '%s %s' % (self.link_text, self.url)
+
+    def __str__(self):
+        return self.__unicode__()
+
     class Meta:
         unique_together = (("link_text", "url"),)
 
@@ -67,9 +71,6 @@ class Contactable(USAddress):
     office_url = models.URLField(
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
-
-    #reading_room_url = models.URLField(
-    #    null=True, help_text='Link to repository of documents')
 
     reading_room_urls = models.ManyToManyField(
         ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
