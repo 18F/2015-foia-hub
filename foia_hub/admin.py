@@ -1,5 +1,5 @@
 from django.contrib import admin
-from foia_hub.models import *
+from foia_hub.models import Office, Agency
 
 
 class GenericAdmin(admin.ModelAdmin):

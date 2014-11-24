@@ -60,7 +60,7 @@ class StatsTest(SimpleTestCase):
             year=2014,
             stat_type='S',
             median=1.26,
-            )
+        )
         stats.save()
 
         retrieved = Stats.objects.get(pk=stats.pk)
