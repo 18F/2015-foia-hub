@@ -152,3 +152,17 @@ class OfficeAPITests(TestCase):
         # test Stats models for both numbers and nulls
         self.assertEqual(12, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
+
+    def test_reading_room(self):
+        """ Check that the detail view for an agency has the reading room
+        links"""
+        c = Client()
+        slug = 'department-of-homeland-security'
+        slug += '--federal-emergency-management-agency/'
+        response = c.get('/api/office/%s' % slug)
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual([{
+            'link_text': 'The Electronic Reading Room',
+            'url': 'http://www.usmint.gov/FOIA/?action=room'}],
+            content['reading_rooms'])

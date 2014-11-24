@@ -26,6 +26,14 @@
     },
     {
         "fields": {
+            "link_text": "The Electronic Reading Room",
+            "url": "http://www.usmint.gov/FOIA/?action=room"
+        },
+        "model": "foia_hub.readingroomurls",
+        "pk": 157
+    },
+    {
+        "fields": {
             "TTY_phone": null,
             "address_lines": [],
             "agency": 15,
@@ -39,6 +47,7 @@
             "public_liaison_email": null,
             "public_liaison_name": null,
             "public_liaison_phone": null,
+            "reading_room_urls": [157],
             "request_form_url": null,
             "slug": "department-of-homeland-security--federal-emergency-management-agency",
             "state": "",
