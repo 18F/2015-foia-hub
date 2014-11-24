@@ -123,8 +123,9 @@ def add_reading_rooms(contactable, reading_rooms):
     for link_text, url in reading_rooms:
         existing_room = ReadingRoomUrls.objects.filter(
             link_text=link_text, url=url)
+        existing_room = list(existing_room)
         if len(existing_room) > 0:
-            contactable.reading_room_urls.add(existing_room)
+            contactable.reading_room_urls.add(*existing_room)
         else:
             r = ReadingRoomUrls(link_text=link_text, url=url)
             r.save()
