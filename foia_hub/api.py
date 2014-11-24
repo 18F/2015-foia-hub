@@ -73,6 +73,7 @@ def get_latest_stats(stat_type, agency=None, office=None):
     else:
         return None
 
+
 def reading_room_preparer(contactable):
     data = {}
     reading_rooms = []
