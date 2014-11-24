@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase, TestCase
 
-from foia_hub.models import Agency, Office, Stats
+from foia_hub.models import Agency, Office, Stats, ReadingRoomUrls
 
 from foia_hub.scripts.load_agency_contacts import add_request_time_statistics
 
@@ -91,3 +91,9 @@ class StatsTest(SimpleTestCase):
         with self.assertRaises(AttributeError) as error:
             retrieved.median
         self.assertEqual(type(error.exception), AttributeError )
+
+
+class ReadingRoomUrlsTest(TestCase):
+    def test_str_output(self):
+        r = ReadingRoomUrls(link_text='Link One', url='http://one.gov')
+        self.assertEqual(str(r), 'Link One http://one.gov')
