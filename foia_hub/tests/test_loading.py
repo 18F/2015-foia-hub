@@ -3,6 +3,7 @@ from django.test import TestCase
 from foia_hub.models import Agency
 from foia_hub.scripts.load_agency_contacts import add_reading_rooms
 
+
 class LoadingTest(TestCase):
     fixtures = ['agencies_test.json']
 
@@ -21,6 +22,3 @@ class LoadingTest(TestCase):
         self.assertEqual(
             'http://agency.gov/err/',
             dhs.reading_room_urls.all()[0].url)
-
-        patent_office = Agency.objects.get(
-            slug='us-patent-and-trademark-office')

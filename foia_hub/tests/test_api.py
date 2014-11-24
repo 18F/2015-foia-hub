@@ -106,9 +106,9 @@ class AgencyAPITests(TestCase):
         content = json.loads(content.decode('utf-8'))
         self.assertEqual(content['name'], 'Department of Homeland Security')
         self.assertEqual(1, len(content['offices']))
-        self.assertEqual(
-            'department-of-homeland-security--federal-emergency-management-agency',
-            content['offices'][0]['slug'])
+        slug = 'department-of-homeland-security'
+        slug += '--federal-emergency-management-agency'
+        self.assertEqual(slug, content['offices'][0]['slug'])
         # test Stats models for both numbers and nulls
         self.assertEqual(37, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
@@ -134,7 +134,9 @@ class AgencyAPITests(TestCase):
         response = c.get('/api/agency/department-of-commerce/')
         self.assertEqual(200, response.status_code)
         content = helpers.json_from(response)
-        self.assertEqual([{'link_text': 'The Electronic Reading Room', 'url': 'http://www.doc.gov/err/'}],
+        self.assertEqual([{
+            'link_text': 'The Electronic Reading Room',
+            'url': 'http://www.doc.gov/err/'}],
             content['reading_rooms'])
 
 
