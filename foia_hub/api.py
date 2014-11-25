@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
 from restless.preparers import FieldsPreparer
+from restless.exceptions import BadRequest
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 
@@ -112,7 +113,6 @@ class AgencyResource(DjangoResource):
             'complex_processing_time': comp,
         }
 
-
         # some agencies have parents (e.g. FBI->DOJ)
         if agency.parent:
             data['parent'] = AgencyResource.preparer.prepare(agency.parent)
@@ -208,6 +208,11 @@ class FOIARequestResource(DjangoResource):
     def _convert_date(self, date):
         return datetime.datetime.strptime(date, '%B %d, %Y')
 
+    def check_submittable(self, email_list):
+        """ If there is """
+        if len(email_list) == 0:
+            raise BadRequest(msg="Agency has no email address for submission")
+
     # POST /
     def create(self):
 
@@ -233,6 +238,8 @@ class FOIARequestResource(DjangoResource):
             # restless docs could be better on this point.
             else:
                 raise Exception("No agency or office given.")
+
+            self.check_submittable(emails)
 
             requester = Requester.objects.create(
                 first_name=self.data['first_name'],
