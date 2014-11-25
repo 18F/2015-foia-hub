@@ -4,6 +4,7 @@ from foia_hub.models import Agency, Office, Stats
 
 from foia_hub.scripts.load_agency_contacts import add_stats
 
+
 class AgencyTests(SimpleTestCase):
     def test_common_requests_field(self):
         """Verify that we can treat a JSONField as a list"""
@@ -70,24 +71,24 @@ class StatsTest(SimpleTestCase):
         """ Confirms that records listed as `none` are not loaded """
         #load data
         agency = Agency.objects.get(name='Department of Transportation')
-        test_yaml_data = {'request_time_stats':{'2013':{}}}
+        test_yaml_data = {'request_time_stats': {'2013': {}}}
         test_yaml_data['request_time_stats']['2013']\
-            .update({'Simple-Median No. of Days':'21'})
+            .update({'simple_median_days': '21'})
         test_yaml_data['request_time_stats']['2013']\
-            .update({'Complex-Median No. of Days':None})
+            .update({'complex_median': None})
         test_yaml_data['request_time_stats']['2012'] = \
-            {'Simple-Median No. of Days':'1'}
+            {'simple_median_days': '1'}
         add_stats(test_yaml_data, agency)
 
         #verify latest data is returned when it exists
-        retrieved = agency.stats_set.filter(stat_type = 'S') \
+        retrieved = agency.stats_set.filter(stat_type='S') \
             .order_by('-year').first()
         self.assertEqual(retrieved.median, 21)
 
         #verify that any medians equal to `none` were not loaded
-        retrieved = agency.stats_set.filter(stat_type = 'C') \
+        retrieved = agency.stats_set.filter(stat_type='C') \
             .order_by('-year').first()
         self.assertEqual(retrieved, None)
         with self.assertRaises(AttributeError) as error:
             retrieved.median
-        self.assertEqual(type(error.exception), AttributeError )
+        self.assertEqual(type(error.exception), AttributeError)
