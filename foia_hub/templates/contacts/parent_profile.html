@@ -51,6 +51,7 @@
             <h3>FOIA Libraries</h3>
             {% else %}
             <h3>FOIA Library</h3>
+            {% endif %}
             {% for r in profile.reading_rooms%}
                 <ul> 
                     <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
