@@ -36,7 +36,8 @@ class LoadingTest(TestCase):
         self.assertEqual({'S': '3', 'C': '4'}, latest_stats)
 
     def test_add_stats(self):
-        """ Confirms that records listed as `none` are not loaded """
+        """ Confirms all latest records are loaded and no empty records
+        are created """
         # Load data
         agency = Agency.objects.get(slug='department-of-homeland-security')
         data = {'request_time_stats': {
@@ -49,7 +50,7 @@ class LoadingTest(TestCase):
             stat_type='S').order_by('-year').first()
         self.assertEqual(retrieved.median, 21)
 
-        # Verify that any medians equal to `none` were not loaded
+        # Verify that no empty records are created
         retrieved = agency.stats_set.filter(
             stat_type='C').order_by('-year').first()
         self.assertEqual(retrieved, None)

@@ -108,11 +108,10 @@ def get_latest_stats(data, iterator, latest_stats):
     years = sorted(data.get('request_time_stats').keys(), reverse=True)
     current_data = data['request_time_stats'].get(years[0])
     for arg in iterator:
-        if latest_stats.get(arg[0]):
-            continue
-        median = current_data.get("%s_median_days" % arg[1])
-        if median:
-            latest_stats[arg[0]] = median
+        if not latest_stats.get(arg[0]):
+            median = current_data.get("%s_median_days" % arg[1])
+            if median:
+                latest_stats[arg[0]] = median
     del data['request_time_stats'][years[0]]
     if latest_stats.get(iterator[0][0]) and latest_stats.get(iterator[1][0]):
         return latest_stats
