@@ -42,9 +42,13 @@
             <span class="fa fa-bookmark"></span>
         </div>
         <div class="subdetails">
-            <h3>Reading Rooms</h3>
+            {% if profile.reading_rooms|length > 1 %}
+            <h3>FOIA Libraries</h3>
+            {% else %}
+            <h3>FOIA Library</h3>
+            {% endif %}
             {% for r in profile.reading_rooms%}
-                <ul> 
+                <ul>
                     <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
                 </ul>
             {% endfor %}
