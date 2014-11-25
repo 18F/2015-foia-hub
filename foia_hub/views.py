@@ -28,7 +28,7 @@ def contact_landing(request, slug):
         template = env.get_template('contacts/parent_profile.html')
     else:
         template = env.get_template('contacts/profile.html')
-    return HttpResponse(template.render(profile=data, slug=slug))
+    return HttpResponse(template.render(profile=data, slug=slug, show_webform=settings.SHOW_WEBFORM))
 
 
 ###

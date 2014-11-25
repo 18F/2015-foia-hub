@@ -128,7 +128,7 @@
   </header>
 
   <div class="left">
-    {% if profile.request_form_url or profile.emails|length > 0 %}
+    {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
      <div class="webform contact_type">
         <div class="icon">
             <span class="fa fa-desktop"></span>

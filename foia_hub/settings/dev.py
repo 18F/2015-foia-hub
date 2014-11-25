@@ -3,6 +3,8 @@ from .base import *
 DEBUG = True
 TEMPLATE_DEBUG = True
 
+SHOW_WEBFORM = False
+
 INSTALLED_APPS = (
     'debug_toolbar',
 ) + INSTALLED_APPS
