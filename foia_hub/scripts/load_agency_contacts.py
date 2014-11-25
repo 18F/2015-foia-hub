@@ -102,22 +102,40 @@ def contactable_fields(agency, office_dict):
         add_reading_rooms(agency, reading_rooms)
 
 
+def get_latest_stats(data, iterator, latest_stats):
+    '''Collects the latest stats recursively'''
+
+    years = sorted(data.get('request_time_stats').keys(), reverse=True)
+    current_data = data['request_time_stats'].get(years[0])
+    for arg in iterator:
+        if latest_stats.get(arg[0]):
+            continue
+        median = current_data.get("%s_median_days" % arg[1])
+        if median:
+            latest_stats[arg[0]] = median
+    del data['request_time_stats'][years[0]]
+    if latest_stats.get(iterator[0][0]) and latest_stats.get(iterator[1][0]):
+        return latest_stats
+    elif not data['request_time_stats']:
+        return latest_stats
+    else:
+        return get_latest_stats(data, iterator, latest_stats)
+
+
 def add_request_time_statistics(data, agency, office=None):
     '''Load stats data about agencies into the database.'''
+
     if not data.get('request_time_stats'):
         return
-    if not data['request_time_stats'].get('2013'):
-        return
-    data = data['request_time_stats']['2013']
+    iterator = [('S', 'simple'), ('C', 'complex')]
+    latest_stats = {}
+    latest_stats = get_latest_stats(data, iterator, latest_stats)
+    for key in latest_stats.keys():
+        stat, created = Stats.objects.get_or_create(
+            agency=agency, office=office, year=2013, stat_type=key)
+        stat.median = latest_stats[key]
+        stat.save()
 
-    iterator = [('S', 'Simple'), ('C', 'Complex')]
-    for arg in iterator:
-        median = data.get("%s-Median No. of Days" % arg[1])
-        if median:
-            stat, created = Stats.objects.get_or_create(
-                agency=agency, office=office, year=2013, stat_type=arg[0])
-            stat.median = median
-            stat.save()
 
 def add_reading_rooms(contactable, reading_rooms):
     for link_text, url in reading_rooms:
@@ -131,6 +149,7 @@ def add_reading_rooms(contactable, reading_rooms):
             r.save()
             contactable.reading_room_urls.add(r)
         return contactable
+
 
 def build_abbreviation(agency_name):
     """ Given an agency name, guess at an abbrevation. """
@@ -161,7 +180,6 @@ def process_yamls(folder):
         a.keywords = data.get('keywords')
         a.common_requests = data.get('common_requests', [])
         a.no_records_about = data.get('no_records_about', [])
-
 
         #   Only has a single, main branch/office
         if len(data['departments']) == 1:
