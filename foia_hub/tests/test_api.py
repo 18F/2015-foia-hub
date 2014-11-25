@@ -87,7 +87,8 @@ class AgencyAPITests(TestCase):
         self.assertEqual(content['name'], 'Department of Homeland Security')
         self.assertEqual(1, len(content['offices']))
         self.assertEqual(
-            'department-of-homeland-security--federal-emergency-management-agency',
+            'department-of-homeland-security--' +
+            'federal-emergency-management-agency',
             content['offices'][0]['slug'])
         # test Stats models for both numbers and nulls
         self.assertEqual(37, content['complex_processing_time'])

@@ -134,7 +134,7 @@ class AgencyResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class OfficeResource(DjangoResource):
@@ -183,7 +183,7 @@ class OfficeResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class FOIARequestResource(DjangoResource):
