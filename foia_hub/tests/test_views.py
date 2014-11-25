@@ -261,3 +261,16 @@ class ContactPageTests(TestCase):
         content = response.content.decode('utf-8')
         self.assertTrue('Contact us so we can fix it' in content)
         self.assertTrue('18f-foia@gsa.gov' in content)
+
+    def test_no_email(self):
+        """ For agencies without their own request form, and without an email
+        address, do not display a FOIA request form. """
+
+        a = Agency(name="Broadcasting Board of Governors", slug="brodcasting")
+        a.save()
+
+        response = self.client.get(
+            reverse('contact_landing', args=['broadcasting']))
+        self.assertTrue(200, response.status_code)
+        content = response.content.decode('utf-8')
+        self.assertTrue('Request online' not in content)
