@@ -51,3 +51,13 @@ Additional Fields
 If you would like to attach a start and end date to the documents you are
 requesting, you can do that through documents_start and documents_end. Dates
 are represented as strings in the following format: January 01, 1979. 
+
+""""""""""""""""""""""""""""""
+POST /api/request/
+""""""""""""""""""""""""""""""
+
+This simply returns all the requests that have been created in the system. 
+
+This currently returns: 
+
+    {"objects": [{"tracking_id": 1, "status": "O"}, {"tracking_id": 2, "status": "O"}, {"tracking_id": 3, "status": "O"}, {"tracking_id": 4, "status": "O"}]}
