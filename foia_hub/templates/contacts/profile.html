@@ -128,25 +128,27 @@
   </header>
 
   <div class="left">
-    <div class="webform contact_type">
-      <div class="icon">
-        <span class="fa fa-desktop"></span>
-      </div>
-      <div class="subdetails">
-        <h3>Request online</h3>
-        <ul>
-          <li><a
-            {% if profile.request_form_url %}
-              href="{{ profile.request_form_url }}"
-            {% else %}
-              href="/request/{{ slug }}"
-            {% endif %}
-            >
-              Submit a request via web
-          </a></li>
-        </ul>
-      </div>
+    {% if profile.request_form_url or profile.emails|length > 0 %}
+     <div class="webform contact_type">
+        <div class="icon">
+            <span class="fa fa-desktop"></span>
+        </div>
+        <div class="subdetails">
+           <h3> Request online </h3>
+            <ul>
+              <li><a
+                {% if profile.request_form_url %}
+                  href="{{ profile.request_form_url }}"
+                {% elif profile.emails|length>0 %}
+                  href="/request/{{ slug }}"
+                {% endif %}
+                >
+                  Submit a request via web
+              </a></li>
+            </ul>
+        </div>
     </div>
+    {% endif %}
 
     <div class="address contact_type">
       <div class="icon">
