@@ -3,6 +3,7 @@ from .base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+# Flag to determine whether the FOIA request form gets shown.
 SHOW_WEBFORM = False
 
 ALLOWED_HOSTS = ['foia.18f.us']
