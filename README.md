@@ -79,7 +79,7 @@ Create a `foia` database in Postgres:
 createdb foia
 ```
 
-Note, that the database encoding needs to be UTF8. If your default is set to something else, you can use: 
+Note, that the database encoding needs to be UTF8. If your default is set to something else, you can use:
 
 ```SQL
 create database foia with encoding 'UTF8' LC_COLLATE='en_US.UTF8' LC_CTYPE='en_US.UTF8' TEMPLATE=template0;
@@ -222,3 +222,4 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 > All contributions to this project will be released under the CC0 dedication.
 > By submitting a pull request, you are agreeing to comply with this waiver of
 > copyright interest.
+
