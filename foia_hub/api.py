@@ -209,9 +209,12 @@ class FOIARequestResource(DjangoResource):
         return datetime.datetime.strptime(date, '%B %d, %Y')
 
     def check_submittable(self, email_list):
-        """ If there is """
+        """ If there is no email for this agency or office, we can not accept a
+        FOIA request. """
+
         if len(email_list) == 0:
-            raise BadRequest(msg="Agency has no email address for submission")
+            raise BadRequest(
+                msg="Agency or Office has no email address for submission")
 
     # POST /
     def create(self):
