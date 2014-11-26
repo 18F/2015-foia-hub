@@ -103,7 +103,8 @@ def contactable_fields(agency, office_dict):
 
 
 def get_latest_stats(data, iterator, latest_stats):
-    '''Collects the latest stats recursively'''
+    '''Helper function for add_request_time_statistics, which returns
+    the latest simple and complex median processing times'''
 
     years = sorted(data.get('request_time_stats').keys(), reverse=True)
     current_data = data['request_time_stats'].get(years[0])
