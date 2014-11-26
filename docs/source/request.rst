@@ -38,7 +38,7 @@ A JSON object with at least the following fields:
 | body      | The body of the FOIA request |
 +------------+---------------------------+
 
-Either agency or agency and office must be provided. 
+Either ``agency``, or ``agency`` and ``office``, must be provided. 
 
 Additional Fields
 
