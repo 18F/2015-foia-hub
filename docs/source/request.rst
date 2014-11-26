@@ -10,10 +10,9 @@ Making a FOIA request
 Caveat
 """"""""""""""""""""""""""""""
 
-The request API is still a work progress and does not actually submit FOIA
-requests. 
+The request API is still a work in progress and does not actually submit FOIA requests.
 
-This starts the process of documentating the API. 
+This starts the process of documenting the API.
 
 
 """"""""""""""""""""""""""""""
@@ -38,7 +37,7 @@ A JSON object with at least the following fields:
 | body      | The body of the FOIA request |
 +------------+---------------------------+
 
-Either agency or agency and office must be provided. 
+Either an agency, or an agency and an office, must be provided.
 
 Additional Fields
 
@@ -50,14 +49,14 @@ Additional Fields
 
 If you would like to attach a start and end date to the documents you are
 requesting, you can do that through documents_start and documents_end. Dates
-are represented as strings in the following format: January 01, 1979. 
+are represented as strings in the following format: January 01, 1979.
 
 """"""""""""""""""""""""""""""
 POST /api/request/
 """"""""""""""""""""""""""""""
 
-This simply returns all the requests that have been created in the system. 
+This simply returns all the requests that have been created in the system.
 
-This currently returns: 
+This currently returns:
 
     {"objects": [{"tracking_id": 1, "status": "O"}, {"tracking_id": 2, "status": "O"}, {"tracking_id": 3, "status": "O"}, {"tracking_id": 4, "status": "O"}]}
