@@ -30,7 +30,30 @@ The information returned for each entity is the following::
     "slug": "amtrak",
     "abbreviation": "NRPC",
     "common_requests": "on-time statistics",
+    "simple_processing_time": "3",
+    "complex_processing_time": "45",
     "keywords": ["trains"]}
+
+
+A note on processing times. 
+
+The response for each entity provides two statistics around the processing
+times for FOIA requests:
+
+1. simple_processing_time
+2. complex_processing_time
+
+Both values are presented in number of days. 
+
+'Simple' and 'Complex' requests are defined as the following by foia.gov:
+
+Complex request: "Complex requests are FOIA requests that an agency anticipates
+will involve a voluminous amount of material to review or will be time
+consuming to process."
+
+Simple request: "A FOIA request that an agency anticipates will involve a small
+volume of material or will be able to processed relatively quickly. 
+
 
 """"""""""""""""""""""""""""""""""
 GET /api/agency/{{slug}}
