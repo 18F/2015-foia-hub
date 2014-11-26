@@ -3,6 +3,7 @@ from .base import *
 DEBUG = True
 TEMPLATE_DEBUG = True
 
+# Flag to determine whether the FOIA request form gets shown.
 SHOW_WEBFORM = False
 
 INSTALLED_APPS = (

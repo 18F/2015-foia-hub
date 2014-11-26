@@ -41,6 +41,26 @@
   </section>
 
   <section class="contact">
+    {% if profile.reading_rooms %}
+    <div class="reading_room resource_type">
+        <div class="icon">
+            <span class="fa fa-bookmark"></span>
+        </div>
+        <div class="subdetails">
+            {% if profile.reading_rooms|length > 1 %}
+            <h3>FOIA Libraries</h3>
+            {% else %}
+            <h3>FOIA Library</h3>
+            {% endif %}
+            {% for r in profile.reading_rooms%}
+                <ul> 
+                    <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
 
     {% if profile.public_liaison_name %}
       <div class="liaison resource_type">
