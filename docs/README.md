@@ -1,6 +1,10 @@
 ## FOIA Docs
 
-This folder contains doc that can be build using [Sphinx](http://sphinx-doc.org/index.html).
+To read the docs, visit [FOIA Hub on Read the Docs](http://foia-hub.readthedocs.org/).
+
+To build the docs locally, follow the instructions below.
+
+This folder contains docs that are built using [Sphinx](http://sphinx-doc.org/index.html).
 
  To view the docs, run the following commands:
 ```
