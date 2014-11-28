@@ -2,9 +2,9 @@
 Request APIs
 ============
 
-----------------
+---------------------
 Making a FOIA request
-----------------
+---------------------
 
 """"""""""""""""""""""""""""""
 Caveat
@@ -23,29 +23,33 @@ Inputs
 
 A JSON object with at least the following fields:
 
-+-----------+---------------------------+
-| agency    | The slug for the Agency.  |
-+-----------+---------------------------+
-| office    | The slug for the Office.  |
-+-----------+---------------------------+
-| first_name    | The requester's first name|
-+-----------+---------------------------+
-| last_name | The requester's  last name|
-+-----------+---------------------------+
-| email     | The requester's email     |
-+------------+--------------------------+
-| body      | The body of the FOIA request |
-+------------+---------------------------+
++-----------+--------------------------------+
+| Field     | Description                    |
++===========+================================+
+| agency    | The slug for the Agency.       |
++-----------+--------------------------------+
+| office    | The slug for the Office.       |
++-----------+--------------------------------+
+| first_name    | The requester's first name |
++-----------+--------------------------------+
+| last_name | The requester's  last name     |
++-----------+--------------------------------+
+| email     | The requester's emailxxx       |
++-----------+--------------------------------+
+| body      | The body of the FOIA request   |
++-----------+--------------------------------+
 
 Either ``agency``, or ``agency`` and ``office``, must be provided. 
 
 Additional Fields
 
-+-----------+--------------------------------------------------------+
-| documents_start | The beginning date for the documents requested.  |
-+-----------+--------------------------------------------------------+
-| documents_end | The end date for the documents requested.  |
-+-----------+--------------------------------------------------------+
++-----------------+--------------------------------------------------------+
+| Field           | Description                                            |
++=================+========================================================+
+| documents_start | The beginning date for the documents requested.        |
++-----------------+--------------------------------------------------------+
+| documents_end   | The end date for the documents requested.              |
++-----------------+--------------------------------------------------------+
 
 If you would like to attach a start and end date to the documents you are
 requesting, you can do that through documents_start and documents_end. Dates
