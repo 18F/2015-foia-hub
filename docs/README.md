@@ -6,12 +6,13 @@ To build the docs locally, follow the instructions below.
 
 This folder contains docs that are built using [Sphinx](http://sphinx-doc.org/index.html).
 
- To view the docs, run the following commands:
+Sphinx is installed if you install the [dev-requirements.txt](https://github.com/18F/foia-hub/blob/master/requirements-dev.txt) or you can install it individually using the following command.
+
 ```
 pip install sphinx
 ```
 
-From inside the docs folder:
+To build the docsusing Sphinx, from inside the docs folder, run the following.
 ```
 make html
 ```
