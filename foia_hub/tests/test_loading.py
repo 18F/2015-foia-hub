@@ -10,19 +10,28 @@ class LoadingTest(TestCase):
 
     def test_add_reading_rooms(self):
         reading_room_links = [[
-            'Electronic Reading Room', 'http://agency.gov/err/']]
+            'Electronic Reading Room', 'http://agency.gov/err/'],
+            ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
         agency = Agency.objects.get(slug='department-of-homeland-security')
         agency = add_reading_rooms(agency, reading_room_links)
         agency.save()
 
         # Retrieve saved
         dhs = Agency.objects.get(slug='department-of-homeland-security')
+        self.assertEqual(2, len(dhs.reading_room_urls.all()))
         self.assertEqual(
             'Electronic Reading Room',
             dhs.reading_room_urls.all()[0].link_text)
         self.assertEqual(
             'http://agency.gov/err/',
             dhs.reading_room_urls.all()[0].url)
+
+        self.assertEqual(
+            'Pre-2000 Reading Room',
+            dhs.reading_room_urls.all()[1].link_text)
+        self.assertEqual(
+            'http://agency.gov/pre-2000/rooms',
+            dhs.reading_room_urls.all()[1].url)
 
     def test_get_latest_stats(self):
         """ Confirms that latest stats available are returned """

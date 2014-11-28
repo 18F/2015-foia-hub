@@ -137,6 +137,7 @@ def add_request_time_statistics(data, agency, office=None):
         stat.save()
 
 
+
 def add_reading_rooms(contactable, reading_rooms):
     for link_text, url in reading_rooms:
         existing_room = ReadingRoomUrls.objects.filter(
@@ -148,7 +149,8 @@ def add_reading_rooms(contactable, reading_rooms):
             r = ReadingRoomUrls(link_text=link_text, url=url)
             r.save()
             contactable.reading_room_urls.add(r)
-        return contactable
+    return contactable
+
 
 
 def build_abbreviation(agency_name):
@@ -164,9 +166,7 @@ def process_yamls(folder):
 
     # only load yaml files
     for item in iglob(folder + "/*.yaml"):
-
         data_file = os.path.join(folder, item)
-
         data = yaml.load(open(data_file))
 
         # Agencies
@@ -187,7 +187,6 @@ def process_yamls(folder):
             contactable_fields(a, dept_rec)
 
         a.save()
-
         add_request_time_statistics(data, a)
 
         # Offices
@@ -212,7 +211,6 @@ def process_yamls(folder):
                         'no_records_about', [])
                     contactable_fields(sub_agency, dept_rec)
                     sub_agency.save()
-
                     add_request_time_statistics(dept_rec, sub_agency)
                 else:
                     # Just an office
