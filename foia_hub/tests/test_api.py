@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from foia_hub.models import Agency, ReadingRoomUrls, Office
 
 from foia_hub.api import agency_preparer, contact_preparer
-from foia_hub.api import reading_room_preparer
+from foia_hub.api import foia_libraries_preparer
 from foia_hub.tests import helpers
 
 
@@ -65,9 +65,9 @@ class PreparerTests(TestCase):
         census = Office.objects.get(
             slug='department-of-commerce--census-bureau')
         census.reading_room_urls.add(rone, rtwo)
-        data = reading_room_preparer(census)
+        data = foia_libraries_preparer(census)
 
-        serialized_rooms = {'reading_rooms': [
+        serialized_rooms = {'foia_libraries': [
             {'link_text': 'Url One', 'url': 'http://urlone.gov'},
             {'link_text': 'Url Two', 'url': 'http://urltwo.gov'}]}
 
@@ -137,7 +137,7 @@ class AgencyAPITests(TestCase):
         self.assertEqual([{
             'link_text': 'The Electronic Reading Room',
             'url': 'http://www.doc.gov/err/'}],
-            content['reading_rooms'])
+            content['foia_libraries'])
 
 
 class OfficeAPITests(TestCase):
@@ -175,4 +175,4 @@ class OfficeAPITests(TestCase):
         self.assertEqual([{
             'link_text': 'The Electronic Reading Room',
             'url': 'http://www.usmint.gov/FOIA/?action=room'}],
-            content['reading_rooms'])
+            content['foia_libraries'])
