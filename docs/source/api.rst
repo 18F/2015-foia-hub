@@ -20,7 +20,7 @@ well known enough) to have their own FOIA system. Examples are such components a
 * Census Bureau
 * Federal Bureau of Investigation
 
-The information returned for each entity is the following::
+The information returned for each entity is like the following::
 
     {"name": "AMTRAK",
     "description": "The National Railroad Passenger Corporation,
@@ -32,10 +32,11 @@ The information returned for each entity is the following::
     "common_requests": "on-time statistics",
     "simple_processing_time": "3",
     "complex_processing_time": "45",
+    "foia_libraries": [{"url": "http://trains.gov/foia/library", "link_text": "FOIA Library"}],
     "keywords": ["trains"]}
 
 
-A note on processing times. 
+**Processing Times.**
 
 The response for each entity provides two statistics around the processing
 times for FOIA requests:
@@ -53,6 +54,16 @@ consuming to process."
 
 Simple request: "A FOIA request that an agency anticipates will involve a small
 volume of material or will be able to processed relatively quickly. 
+
+**FOIA Libaries**
+
+The response for each entity provides a foia_libraries list. A FOIA library is
+a URL to an online page that lists responsive documents an entity has decided
+to make available publically. This is a list because agencies/offices sometimes
+have multiple FOIA libraries. 
+
+* url: The URL of the online FOIA library
+* link_text: The link text that is associated with that library. This helps a human determine the difference between libraries. 
 
 
 """"""""""""""""""""""""""""""""""
