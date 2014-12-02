@@ -162,7 +162,11 @@ class Office(Contactable):
 
 
 class Stats(models.Model):
-    """The stats object to used to store stats pulled from reports."""
+    """
+    The Stats model stores request processing time data from foia.gov.
+    Currently this model only stores median processing times for
+    simple and complex FOIA requests.
+    """
 
     STAT_TYPE = (
         ('S', 'simple'),
@@ -175,6 +179,9 @@ class Stats(models.Model):
     stat_type = models.CharField(max_length=1, choices=STAT_TYPE)
 
     median = models.FloatField(null=True, blank=True)
+    less_than_one = models.BooleanField(
+        default=False, blank=True,
+        help_text="flags when the value is `less than 1`")
 
     class Meta:
         unique_together = (("agency", "office", "year", "stat_type"),)
