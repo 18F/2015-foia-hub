@@ -12,7 +12,7 @@ Listing Agencies
 GET /api/agency/
 """"""""""""""""""""""""""""""
 
-Lists all agencies for whom a FOIA request can be submitted. 
+Lists all agencies for whom a FOIA request can be submitted.
 
 It also includes components within those agencies that are large enough (and
 well known enough) to have their own FOIA system. Examples are such components are:
@@ -44,7 +44,7 @@ times for FOIA requests:
 1. simple_processing_time
 2. complex_processing_time
 
-Both values are presented in number of days. 
+Both values are presented in number of days.
 
 'Simple' and 'Complex' requests are defined as the following by foia.gov:
 
@@ -53,24 +53,24 @@ will involve a voluminous amount of material to review or will be time
 consuming to process."
 
 Simple request: "A FOIA request that an agency anticipates will involve a small
-volume of material or will be able to processed relatively quickly. 
+volume of material or will be able to processed relatively quickly.
 
 **FOIA Libaries**
 
 The response for each entity provides a foia_libraries list. A FOIA library is
 a URL to an online page that lists responsive documents an entity has decided
-to make available publically. This is a list because agencies/offices sometimes
-have multiple FOIA libraries. 
+to make available publicly. This is a list because agencies/offices sometimes
+have multiple FOIA libraries.
 
 * url: The URL of the online FOIA library
-* link_text: The link text that is associated with that library. This helps a human determine the difference between libraries. 
+* link_text: The link text that is associated with that library. This helps a human determine the difference between libraries.
 
 
 """"""""""""""""""""""""""""""""""
 GET /api/agency/{{slug}}
 """"""""""""""""""""""""""""""""""
 
-where {{slug}} is a slug that identifies an agency. 
+where {{slug}} is a slug that identifies an agency.
 
 This returns something like the following::
 
@@ -110,7 +110,7 @@ This returns something like the following::
 GET /api/office/{{slug}}
 """"""""""""""""""""""""""""""""""
 
-where {{slug}} is a slug that identifies an office (a component of an Agency). 
+where {{slug}} is a slug that identifies an office (a component of an Agency).
 
 This returns something like the following::
 
