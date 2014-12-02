@@ -6,7 +6,7 @@
 <header>
   <div class="breadcrumbs">
     <a href="/">
-      Search &gt;
+      Home &gt;
     </a>
     {% if profile.parent %}
       <a href="/contacts/{{ profile.parent.slug }}">
@@ -35,80 +35,7 @@
   </section>
 
   <section class="resources">
-
-    {% if profile.reading_rooms %}
-    <div class="reading_room resource_type">
-        <div class="icon">
-            <span class="fa fa-bookmark"></span>
-        </div>
-        <div class="subdetails">
-            {% if profile.reading_rooms|length > 1 %}
-            <h3>FOIA Libraries</h3>
-            {% else %}
-            <h3>FOIA Library</h3>
-            {% endif %}
-            {% for r in profile.reading_rooms%}
-                <ul>
-                    <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
-                </ul>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if profile.public_liaison_name %}
-      <div class="liaison resource_type">
-        <div class="icon">
-          <span class="fa fa-question-circle"></span>
-        </div>
-        <div class="subdetails">
-          <h3>Public liaison</h3>
-          <ul>
-            <li>{{ profile.public_liaison_name }}</li>
-            {% if profile.public_liaison_phone %}
-              <li>{{ profile.public_liaison_phone }}</li>
-            {% endif %}
-            {% if profile.public_liaison_email %}
-              <li>{{ profile.public_liaison_email }}</li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    {% endif %}
-
-    {% if profile.office_url %}
-      <div class="website resource_type">
-        <div class="icon">
-          <span class="fa fa-laptop"></span>
-        </div>
-        <div class="subdetails">
-          <h3>Website</h3>
-          <ul>
-            <li>
-              <a href="{{ profile.office_url }}">
-                {{ profile.office_url }}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    {% endif %}
-
-    {% if profile.phone %}
-      <div class="phone resource_type">
-        <div class="icon">
-          <span class="fa fa-phone"></span>
-        </div>
-        <div class="subdetails">
-          <h3>Phone</h3>
-          <ul>
-            <li><a href="tel:{{profile.phone }}">
-              {{ profile.phone }}
-            </a></li>
-          </ul>
-        </div>
-      </div>
-    {% endif %}
+    {% include 'contacts/contact.html' %}
 
     {% if profile.simple_processing_time or profile.complex_processing_time %}
       <div class="processing resource_type">
@@ -135,7 +62,6 @@
         </div>
       </div>
     {% endif %}
-
   </section>
 </section>
 
