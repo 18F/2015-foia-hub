@@ -106,17 +106,26 @@ def add_request_time_statistics(data, agency, office=None):
     '''Load stats data about agencies into the database.'''
     if not data.get('request_time_stats'):
         return
-    if not data['request_time_stats'].get('2013'):
+    latest_year = sorted(
+        data.get('request_time_stats').keys(), reverse=True)[0]
+    data = data['request_time_stats'].get(latest_year)
+    if not data:
         return
-    data = data['request_time_stats']['2013']
-
-    iterator = [('S', 'Simple'), ('C', 'Complex')]
+    iterator = [('S', 'simple'), ('C', 'complex')]
     for arg in iterator:
-        median = data.get("%s-Median No. of Days" % arg[1])
+        median = data.get("%s_median_days" % arg[1])
         if median:
             stat, created = Stats.objects.get_or_create(
-                agency=agency, office=office, year=2013, stat_type=arg[0])
-            stat.median = median
+                agency=agency,
+                office=office,
+                year=int(latest_year),
+                stat_type=arg[0])
+
+            if median == 'less than 1':
+                stat.median = 0
+                stat.less_than_one = True
+            else:
+                stat.median = median
             stat.save()
 
 
