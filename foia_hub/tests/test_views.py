@@ -1,4 +1,3 @@
-import json
 from datetime import date
 
 from django.core.urlresolvers import reverse
@@ -7,7 +6,6 @@ from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.views import get_agency_list
-from foia_hub.tests import helpers
 
 
 class RequestFormTests(SimpleTestCase):
@@ -42,94 +40,6 @@ class RequestFormTests(SimpleTestCase):
     def tearDown(self):
         for model in [FOIARequest, Requester, Office, Agency]:
             model.objects.all().delete()
-
-    def test_submit_request_to_agency(self):
-        requester_email = "requester@example.com"
-        self.assertEqual(
-            0, len(Requester.objects.filter(email=requester_email)))
-
-        response = self.client.post(
-            "/api/request/",
-            content_type='application/json',
-            data=json.dumps({
-                'agency': self.agency.slug,
-
-                'email': requester_email,
-                'first_name': "FOIA",
-                'last_name': "Requester",
-
-                'body': "A new request",
-            })
-        )
-
-        self.assertEqual(201, response.status_code, response.content)
-        data = helpers.json_from(response)
-        self.assertTrue(data.get('tracking_id') is not None)
-        self.assertEqual('O', data.get('status'))
-
-        request_id = data['tracking_id']
-        foia_request = FOIARequest.objects.get(pk=request_id)
-        self.assertTrue(foia_request is not None)
-        self.assertEqual(foia_request.agency, self.agency)
-        self.assertEqual(
-            1, len(Requester.objects.filter(email=requester_email)))
-        self.assertEqual(requester_email, foia_request.requester.email)
-
-    def test_submit_request_to_office(self):
-        requester_email = "requester@example.com"
-        self.assertEqual(
-            0, len(Requester.objects.filter(email=requester_email)))
-
-        response = self.client.post(
-            "/api/request/",
-            content_type='application/json',
-            data=json.dumps({
-                'agency': self.office.agency.slug,
-                'office': self.office.office_slug,
-
-                'email': requester_email,
-                'first_name': "FOIA",
-                'last_name': "Requester",
-
-                'body': "A new request",
-            })
-        )
-
-        self.assertEqual(201, response.status_code, response.content)
-        data = helpers.json_from(response)
-        self.assertTrue(data.get('tracking_id') is not None)
-        self.assertEqual('O', data.get('status'))
-
-        request_id = data['tracking_id']
-        foia_request = FOIARequest.objects.get(pk=request_id)
-        self.assertTrue(foia_request is not None)
-        self.assertEqual(foia_request.office, self.office)
-        self.assertEqual(
-            1, len(Requester.objects.filter(email=requester_email)))
-        self.assertEqual(requester_email, foia_request.requester.email)
-
-    def test_submit_invalid_request(self):
-        requester_email = "requester@example.com"
-        self.assertEqual(
-            0, len(Requester.objects.filter(email=requester_email)))
-
-        response = self.client.post(
-            "/api/request/",
-            content_type='application/json',
-            data=json.dumps({
-                'agency': "not-a-valid-agency",
-
-                'email': requester_email,
-                'first_name': "FOIA",
-                'last_name': "Requester",
-
-                'body': "A new request",
-            })
-        )
-
-        self.assertEqual(404, response.status_code)
-        self.assertEqual(
-            0, len(Requester.objects.filter(email=requester_email)))
 
     def test_request_form_successful(self):
         """The agency name should be present in the request form"""
