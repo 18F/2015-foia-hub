@@ -169,7 +169,6 @@ class ContactPageTests(TestCase):
                 args=['department-of-homeland-security']))
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
-        self.assertTrue('Contact us so we can fix it' in content)
         self.assertTrue('18f-foia@gsa.gov' in content)
 
     def test_no_email(self):
