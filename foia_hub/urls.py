@@ -25,8 +25,12 @@ urlpatterns += patterns(
     '',
     url(r'^api/agency/', include(AgencyResource.urls())),
     url(r'^api/office/', include(OfficeResource.urls())),
-    url(r'^api/request/', include(FOIARequestResource.urls())),
 )
+
+if settings.SHOW_WEBFORM:
+    urlpatterns += patterns(
+        '',
+        url(r'^api/request/', include(FOIARequestResource.urls())))
 
 # Admin
 admin.autodiscover()
