@@ -55,6 +55,11 @@ def learn(request):
 def about(request):
     return HttpResponse(env.get_template('about.html').render(request=request))
 
+
+def developers(request):
+    return HttpResponse(
+        env.get_template('developers.html').render(request=request))
+
 ###
 # Webform for agencies/offices that lack one of their own.
 ###
