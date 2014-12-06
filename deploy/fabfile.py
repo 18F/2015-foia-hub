@@ -1,5 +1,5 @@
-import time
-from fabric.api import run, execute, env
+
+from fabric.api import run, env
 
 """
 Manage auto-deploy webhooks remotely.
@@ -14,7 +14,7 @@ Staging hook:
 environment = env.get('env', 'staging')
 
 port = {
-  "staging": 3000
+    "staging": 3000
 }[environment]
 
 env.use_ssh_config = True
@@ -32,19 +32,19 @@ command = "bash %s/bin/deploy-site.sh >> %s" % (home, log)
 
 # needs to be run out of $HOME, because this will run as a daemon across deploys
 def start():
-  run(
-    "cd %s && forever start -l %s -a %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
-    % (home, log, current, port, branch, command)
-  )
+    run(
+        "cd %s && forever start -l %s -a %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
+        % (home, log, current, port, branch, command)
+    )
 
 def stop():
-  run(
-    "cd %s && forever stop %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
-    % (home, current, port, branch, command)
-  )
+    run(
+        "cd %s && forever stop %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
+        % (home, current, port, branch, command)
+    )
 
 def restart():
-  run(
-    "cd %s && forever restart %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
-    % (home, current, port, branch, command)
-  )
+    run(
+        "cd %s && forever restart %s/deploy/hookshot.js -p %i -b %s -c \"%s\""
+        % (home, current, port, branch, command)
+    )
