@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+
+{% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
+
+{% if profile.description %}
+{% block description %}
+{{ profile.description }}
+{% endblock %}
+{% endif %}
+
 {% block body %}
 
 {# 'profile' here is known to be an agency with sub-offices. #}
