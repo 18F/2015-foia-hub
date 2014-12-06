@@ -6,6 +6,24 @@ Quick file overview:
 * [`fabfile.py`](fabfile.py) - Fabric deployment script to start/stop/restart our webhook processes.
 * [`hookshot.js`](hookshot.js) - Tiny webhook app, runs a command when a branch is updated. Uses [`hookshot`](https://github.com/coreh/hookshot) to do the heavy lifting. Daemonized on our server using [`forever`](https://github.com/nodejitsu/forever).
 
+### Automatic deployment
+
+On the staging server, this project uses [Node](http://nodejs.org) and [`hookshot`](https://github.com/coreh/hookshot) to receive GitHub post-receive webhooks and update the project.
+
+Ideally, these webhooks just run forever and never need to be maintained!
+
+But just in case, this project includes [fabric tasks](http://www.fabfile.org/) for easy remote stop/start/restart of the hook processes on the FOIA web server.
+
+The fabric tasks can start, stop, and restart the staging hook like so:
+
+```
+fab stop
+fab start
+fab restart
+```
+
+They expect a hostname called `foia` in your `$HOME/.ssh/config`.
+
 #### Setting it up yourself
 
 These instructions can be applied locally (for development) or on the server (for deployment).
@@ -54,3 +72,4 @@ fab -H localhost deploy
 This loads in the `foia` user's environment, navigates to the project root, activates the Fabric (Python 2.x) virtualenv, `fab`, and then runs the deploy script against itself.
 
 Fabric is able to deploy to itself because the `foia` user's public key is also on the `foia` user's `.ssh/authorized_keys` list. It has been previously authorized as a known host and should run without warnings.
+
