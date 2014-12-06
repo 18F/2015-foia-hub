@@ -27,7 +27,7 @@ log = "%s/log/hookshot.log" % shared
 
 # principal command to run when the main branch is updated
 branch = "master"
-command = "bash %s/bin/deploy-site.sh >> %s" % (current, log)
+command = "bash %s/deploy/bin/deploy-site.sh >> %s" % (current, log)
 
 
 # needs to be run out of $HOME, because this will run as a daemon across deploys
