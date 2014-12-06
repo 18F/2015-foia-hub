@@ -6,9 +6,9 @@ Manage auto-deploy webhooks remotely.
 
 Staging hook:
 
-  forever start -l $HOME/hub/shared/log/hookshot.log -a $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
-  forever restart $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
-  forever stop $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
+  forever start -l $HOME/hub/shared/log/hookshot.log -a $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/hub/current/deploy/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
+  forever restart $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/hub/current/deploy/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
+  forever stop $HOME/hub/current/deploy/hookshot.js -p 3000 -b master -c "bash $HOME/hub/current/deploy/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
 """
 
 environment = env.get('env', 'staging')
@@ -27,7 +27,7 @@ log = "%s/log/hookshot.log" % shared
 
 # principal command to run when the main branch is updated
 branch = "master"
-command = "bash %s/bin/deploy-site.sh >> %s" % (home, log)
+command = "bash %s/bin/deploy-site.sh >> %s" % (current, log)
 
 
 # needs to be run out of $HOME, because this will run as a daemon across deploys
