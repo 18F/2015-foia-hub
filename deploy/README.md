@@ -5,6 +5,7 @@ Quick file overview:
 * [`hub.conf`](hub.conf) - Our nginx config for the staging site. Not synced to version control automatically, but we'll try to keep them in sync.
 * [`fabfile.py`](fabfile.py) - Fabric deployment script to start/stop/restart our webhook processes.
 * [`hookshot.js`](hookshot.js) - Tiny webhook app, runs a command when a branch is updated. Uses [`hookshot`](https://github.com/coreh/hookshot) to do the heavy lifting. Daemonized on our server using [`forever`](https://github.com/nodejitsu/forever).
+* [`bin/deploy-site.sh`](bin/deploy-site.sh) - The script run by the webhook every time a commit is pushed to `master`.
 
 ### Automatic deployment
 
@@ -21,6 +22,8 @@ fab stop
 fab start
 fab restart
 ```
+
+They expect a hostname called `foia` in your `$HOME/.ssh/config`.
 
 #### Setting it up yourself
 
@@ -53,7 +56,7 @@ You may wish to use [ngrok](https://ngrok.com/) or [localtunnel](https://localtu
 On the staging server, this hookshot daemon is run:
 
 ```
-forever start -l $HOME/hub/shared/log/hookshot.log -a deploy/hookshot.js -p 3000 -b master -c "bash $HOME/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
+forever start -l $HOME/hub/shared/log/hookshot.log -a deploy/hookshot.js -p 3000 -b master -c "bash $HOME/hub/current/deploy/bin/deploy-site.sh >> $HOME/hub/shared/log/hookshot.log"
 ```
 
 It should be run from the project root (the `current` dir/symlink). Both the hook and the output log to the same file, and when it's hit it will execute a small bash script:
