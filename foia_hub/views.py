@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from jinja2 import Environment, PackageLoader
 
-from foia_hub.models import Agency, FOIARequest
+from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
 
 
