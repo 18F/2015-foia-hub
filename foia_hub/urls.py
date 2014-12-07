@@ -4,14 +4,14 @@ from django.contrib import admin
 
 from foia_hub.views import (
     contact_landing, learn, about, agencies,
-    request_start, request_form, request_success)
+    home, request_form, request_success)
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 
 
 # Front-end
 urlpatterns = patterns(
     '',
-    url(r'^$', request_start, name='request'),
+    url(r'^$', home, name='home'),
     url(r'^learn/?$', learn, name='learn'),
     url(r'^about/?$', about, name='about'),
     url(r'^agencies/?$', agencies, name='agencies'),
