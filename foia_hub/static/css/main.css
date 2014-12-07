@@ -105,83 +105,84 @@ body > .bordered > header .inner nav ul a:focus {
   color: #fff;
 }
 
-body > #main section {
+#main section {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
 }
-body > #main section:after {
+#main section:after {
   content: "";
   display: table;
   clear: both;
 }
-body > #main .inner {
+#main .inner {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-body > #main .inner:last-child {
+#main .inner:last-child {
   margin-right: 0;
 }
-body > #main h2 {
+
+#main.home h2 {
   text-align: center;
   font-weight: normal;
   font-size: 28pt;
   margin: 0;
   padding: 0;
 }
-body > #main section.intro {
+#main.home section.intro {
   padding: 70px 0 50px 0;
 }
-body > #main section.intro p {
+#main.home section.intro p {
   margin-top: 30px;
   font-size: 21pt;
   line-height: 40px;
 }
-body > #main section.search {
+#main.home section.search {
   padding: 70px 0 70px 0;
 }
-body > #main section.search p {
+#main.home section.search p {
   margin-top: 30px;
   font-size: 18pt;
   line-height: 36px;
 }
-body > #main section.search .search-box {
+#main.home section.search .search-box {
   margin-top: 30px;
 }
-body > #main section.search p.browse {
+#main.home section.search p.browse {
   margin-top: 15px;
   font-size: 10pt;
   line-height: 20px;
   text-align: center;
 }
-body > #main section.search hr {
+#main.home section.search hr {
   margin-top: 80px;
 }
-body > #main section.process .inner {
+#main.home section.process .inner {
   margin-left: 4.2649%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 91.4702%;
 }
-body > #main section.process .inner:last-child {
+#main.home section.process .inner:last-child {
   margin-right: 0;
 }
-body > #main section.process ul {
+#main.home section.process ul {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
 }
-body > #main section.process ul:after {
+#main.home section.process ul:after {
   content: "";
   display: table;
   clear: both;
 }
-body > #main section.process ul figure {
+#main.home section.process ul figure {
   float: left;
   display: block;
   margin-right: 2.35765%;
@@ -190,174 +191,170 @@ body > #main section.process ul figure {
   margin: 0;
   padding: 10px;
 }
-body > #main section.process ul figure:last-child {
+#main.home section.process ul figure:last-child {
   margin-right: 0;
 }
-body > #main section.process ul figure img {
+#main.home section.process ul figure img {
   width: 100%;
 }
-body > #main section.process ul figure figcaption {
+#main.home section.process ul figure figcaption {
   font-size: 11pt;
   line-height: 24px;
 }
-body > #main section.contact h3 {
+
+#main.landing .contact h3 {
   margin-top: 30px;
   margin-bottom: 10px;
 }
-body > #main section.contact ul, body > #main section.contact li {
+#main.landing .contact ul, #main.landing .contact li {
   list-style-type: none;
   list-style-position: outside;
   padding: 0;
   margin: 0;
 }
-body > #main header {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
+#main.landing .header {
   margin-top: 20px;
 }
-body > #main header:last-child {
-  margin-right: 0;
-}
-body > #main header h1 {
+#main.landing .header h1 {
   margin: 0;
   padding: 0;
   margin-top: 10px;
   font-size: 2.4em;
 }
-body > #main .department {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
+#main.landing .department {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
-body > #main .department:last-child {
-  margin-right: 0;
+#main.landing .department:after {
+  content: "";
+  display: table;
+  clear: both;
 }
-body > #main .department .description {
+#main.landing .department .description {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
 }
-body > #main .department .description:last-child {
+#main.landing .department .description:last-child {
   margin-right: 0;
 }
-body > #main .department .resources {
+#main.landing .department .resources {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 40.29137%;
   padding-left: 10px;
 }
-body > #main .department .resources:last-child {
+#main.landing .department .resources:last-child {
   margin-right: 0;
 }
-body > #main .details {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
+#main.landing .details {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 25px;
 }
-body > #main .details:last-child {
-  margin-right: 0;
+#main.landing .details:after {
+  content: "";
+  display: table;
+  clear: both;
 }
-body > #main .details .offices, body > #main .details .left {
+#main.landing .details .offices, #main.landing .details .left {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
 }
-body > #main .details .offices:last-child, body > #main .details .left:last-child {
+#main.landing .details .offices:last-child, #main.landing .details .left:last-child {
   margin-right: 0;
 }
-body > #main .details .contact, body > #main .details .right {
+#main.landing .details .contact, #main.landing .details .right {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 40.29137%;
 }
-body > #main .details .contact:last-child, body > #main .details .right:last-child {
+#main.landing .details .contact:last-child, #main.landing .details .right:last-child {
   margin-right: 0;
 }
-body > #main .details header h2 {
+#main.landing .details header h2 {
   font-size: 2em;
 }
-body > #main .resource_type, body > #main .contact_type {
+#main.landing .resource_type, #main.landing .contact_type {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
   margin: 15px 0;
 }
-body > #main .resource_type:last-child, body > #main .contact_type:last-child {
+#main.landing .resource_type:after, #main.landing .contact_type:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.landing .resource_type:last-child, #main.landing .contact_type:last-child {
   margin-right: 0;
 }
-body > #main .resource_type .fa:before, body > #main .contact_type .fa:before {
+#main.landing .resource_type .fa:before, #main.landing .contact_type .fa:before {
   font-size: 2em;
 }
-body > #main .resource_type .icon, body > #main .contact_type .icon {
+#main.landing .resource_type .icon, #main.landing .contact_type .icon {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 14.70196%;
   font-size: 1em;
 }
-body > #main .resource_type .icon:last-child, body > #main .contact_type .icon:last-child {
+#main.landing .resource_type .icon:last-child, #main.landing .contact_type .icon:last-child {
   margin-right: 0;
 }
-body > #main .resource_type .subdetails, body > #main .contact_type .subdetails {
+#main.landing .resource_type .subdetails, #main.landing .contact_type .subdetails {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 82.94039%;
 }
-body > #main .resource_type .subdetails:last-child, body > #main .contact_type .subdetails:last-child {
+#main.landing .resource_type .subdetails:last-child, #main.landing .contact_type .subdetails:last-child {
   margin-right: 0;
 }
-body > #main .resource_type h3, body > #main .contact_type h3 {
+#main.landing .resource_type h3, #main.landing .contact_type h3 {
   padding: 0;
   margin: 0;
   font-weight: bold;
 }
-body > #main .resource_type ul, body > #main .resource_type li, body > #main .contact_type ul, body > #main .contact_type li {
+#main.landing .resource_type ul, #main.landing .resource_type li, #main.landing .contact_type ul, #main.landing .contact_type li {
   list-style-type: none;
   list-style-position: outside;
   margin: 0;
   padding: 0;
 }
-body > #main .details .offices ul, body > #main .details .offices li {
+#main.landing .details .offices ul, #main.landing .details .offices li {
   list-style-type: none;
   list-style-position: outside;
   margin: 0;
   padding: 0;
 }
-body > #main .details .offices li {
+#main.landing .details .offices li {
   margin: 10px 0;
   font-size: 1.2em;
   line-height: 30px;
 }
-body > #main .resource_type h3 {
+#main.landing .resource_type h3 {
   font-size: 1em;
 }
-body > #main .contact_type h3 {
+#main.landing .contact_type h3 {
   font-size: 1.6em;
   font-weight: normal;
   margin-bottom: 5px;
 }
-body > #main .inaccurate {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
-}
-body > #main .inaccurate:last-child {
-  margin-right: 0;
-}
-body > #main .inaccurate p {
+#main.landing .inaccurate p {
   font-size: 1em;
   font-weight: bold;
 }

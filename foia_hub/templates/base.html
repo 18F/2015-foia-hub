@@ -11,7 +11,7 @@
 
 {% include "includes/nav.html" %}
 
-<div id="main">
+<div id="main" class="{% block class %}{% endblock %}">
   {% block body %}This is not seen.{% endblock %}
 </div>
 
