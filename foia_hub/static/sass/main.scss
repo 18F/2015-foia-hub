@@ -6,11 +6,21 @@ body {
   padding-bottom: 20px;
 }
 
+/* a couple things that stand outside the normal hierarchy, because
+   they extend the full width, beyond the normal outer-container */
 
-body > header {
+div.blue {
+  background-color: #f1f8ff;
+}
+
+div.bordered {
+  border-bottom: 1px solid #dedede;
+}
+
+
+body > .bordered > header {
   @include outer-container;
 
-  border-bottom: 1px solid #dedede;
   padding-top: 20px;
   height: 80px;
 
@@ -54,7 +64,7 @@ body > header {
 
         a {
           color: #333;
-          padding: 5px 12px 24px 12px;
+          padding: 5px 12px 25px 12px;
         }
         a:hover, a.active {
           border-bottom: 0.3em solid #777;
@@ -72,8 +82,7 @@ body > header {
   }
 }
 
-#main {
-  @include span-columns(12);
+body > #main {
 
   section {
     @include outer-container;
@@ -93,7 +102,6 @@ body > header {
 
   section.intro {
     padding: 70px 0 50px 0;
-    background-color: #f1f8ff;
 
     p {
       margin-top: 30px;
@@ -103,12 +111,7 @@ body > header {
   }
 
   section.search {
-    padding: 50px 0;
-
-
-    h2 {
-
-    }
+    padding: 70px 0 70px 0;
 
     p {
       margin-top: 30px;
@@ -117,7 +120,7 @@ body > header {
     }
 
     .search-box {
-
+      margin-top: 30px;
     }
 
     p.browse {
@@ -129,6 +132,32 @@ body > header {
 
     hr {
       margin-top: 80px;
+    }
+  }
+
+  section.process {
+    .inner {
+      @include shift(0.5);
+      @include span-columns(11);
+    }
+
+    ul {
+      @include outer-container;
+
+      margin-top: 30px;
+
+      figure {
+        @include span-columns(3);
+
+        padding: 0; margin: 0;
+        padding: 10px;
+
+        img {width: 100%;}
+        figcaption {
+          font-size: 11pt;
+          line-height: 24px;
+        }
+      }
     }
   }
 

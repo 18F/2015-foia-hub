@@ -10,33 +10,42 @@ body {
   padding-bottom: 20px;
 }
 
-body > header {
+/* a couple things that stand outside the normal hierarchy, because
+   they extend the full width, beyond the normal outer-container */
+div.blue {
+  background-color: #f1f8ff;
+}
+
+div.bordered {
+  border-bottom: 1px solid #dedede;
+}
+
+body > .bordered > header {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  border-bottom: 1px solid #dedede;
   padding-top: 20px;
   height: 80px;
 }
-body > header:after {
+body > .bordered > header:after {
   content: "";
   display: table;
   clear: both;
 }
-body > header .inner {
+body > .bordered > header .inner {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-body > header .inner:last-child {
+body > .bordered > header .inner:last-child {
   margin-right: 0;
 }
-body > header .inner a:hover {
+body > .bordered > header .inner a:hover {
   text-decoration: none;
 }
-body > header .inner h1 {
+body > .bordered > header .inner h1 {
   float: left;
   display: block;
   margin-right: 2.35765%;
@@ -47,144 +56,177 @@ body > header .inner h1 {
   padding: 0;
   color: #18f;
 }
-body > header .inner h1:last-child {
+body > .bordered > header .inner h1:last-child {
   margin-right: 0;
 }
-body > header .inner h1 a {
+body > .bordered > header .inner h1 a {
   color: #18f;
 }
-body > header .inner h1 strong {
+body > .bordered > header .inner h1 strong {
   font-weight: normal;
 }
-body > header .inner h1 em {
+body > .bordered > header .inner h1 em {
   color: #cc2211;
   font-style: normal;
 }
-body > header .inner nav {
+body > .bordered > header .inner nav {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
   height: 100%;
 }
-body > header .inner nav:last-child {
+body > .bordered > header .inner nav:last-child {
   margin-right: 0;
 }
-body > header .inner nav ul {
+body > .bordered > header .inner nav ul {
   padding: 0;
   margin: 0;
   bottom: 0;
   height: 50px;
 }
-body > header .inner nav ul li {
+body > .bordered > header .inner nav ul li {
   display: inline-block;
   padding: 9px 12px 0 12px;
 }
-body > header .inner nav ul a {
+body > .bordered > header .inner nav ul a {
   color: #333;
-  padding: 5px 12px 24px 12px;
+  padding: 5px 12px 25px 12px;
 }
-body > header .inner nav ul a:hover, body > header .inner nav ul a.active {
+body > .bordered > header .inner nav ul a:hover, body > .bordered > header .inner nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
-body > header .inner nav ul a:hover {
+body > .bordered > header .inner nav ul a:hover {
   background: none;
   color: #777;
 }
-body > header .inner nav ul a:focus {
+body > .bordered > header .inner nav ul a:focus {
   background: #cc2211;
   color: #fff;
 }
 
-#main {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
-}
-#main:last-child {
-  margin-right: 0;
-}
-#main section {
+body > #main section {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
 }
-#main section:after {
+body > #main section:after {
   content: "";
   display: table;
   clear: both;
 }
-#main .inner {
+body > #main .inner {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-#main .inner:last-child {
+body > #main .inner:last-child {
   margin-right: 0;
 }
-#main h2 {
+body > #main h2 {
   text-align: center;
   font-weight: normal;
   font-size: 28pt;
   margin: 0;
   padding: 0;
 }
-#main section.intro {
+body > #main section.intro {
   padding: 70px 0 50px 0;
-  background-color: #f1f8ff;
 }
-#main section.intro p {
+body > #main section.intro p {
   margin-top: 30px;
   font-size: 21pt;
   line-height: 40px;
 }
-#main section.search {
-  padding: 50px 0;
+body > #main section.search {
+  padding: 70px 0 70px 0;
 }
-#main section.search p {
+body > #main section.search p {
   margin-top: 30px;
   font-size: 18pt;
   line-height: 36px;
 }
-#main section.search p.browse {
+body > #main section.search .search-box {
+  margin-top: 30px;
+}
+body > #main section.search p.browse {
   margin-top: 15px;
   font-size: 10pt;
   line-height: 20px;
   text-align: center;
 }
-#main section.search hr {
+body > #main section.search hr {
   margin-top: 80px;
 }
-#main section.contact h3 {
+body > #main section.process .inner {
+  margin-left: 4.2649%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 91.4702%;
+}
+body > #main section.process .inner:last-child {
+  margin-right: 0;
+}
+body > #main section.process ul {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+body > #main section.process ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body > #main section.process ul figure {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 23.23176%;
+  padding: 0;
+  margin: 0;
+  padding: 10px;
+}
+body > #main section.process ul figure:last-child {
+  margin-right: 0;
+}
+body > #main section.process ul figure img {
+  width: 100%;
+}
+body > #main section.process ul figure figcaption {
+  font-size: 11pt;
+  line-height: 24px;
+}
+body > #main section.contact h3 {
   margin-top: 30px;
   margin-bottom: 10px;
 }
-#main section.contact ul, #main section.contact li {
+body > #main section.contact ul, body > #main section.contact li {
   list-style-type: none;
   list-style-position: outside;
   padding: 0;
   margin: 0;
 }
-#main header {
+body > #main header {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
   margin-top: 20px;
 }
-#main header:last-child {
+body > #main header:last-child {
   margin-right: 0;
 }
-#main header h1 {
+body > #main header h1 {
   margin: 0;
   padding: 0;
   margin-top: 10px;
   font-size: 2.4em;
 }
-#main .department {
+body > #main .department {
   float: left;
   display: block;
   margin-right: 2.35765%;
@@ -192,130 +234,130 @@ body > header .inner nav ul a:focus {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
-#main .department:last-child {
+body > #main .department:last-child {
   margin-right: 0;
 }
-#main .department .description {
+body > #main .department .description {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
 }
-#main .department .description:last-child {
+body > #main .department .description:last-child {
   margin-right: 0;
 }
-#main .department .resources {
+body > #main .department .resources {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 40.29137%;
   padding-left: 10px;
 }
-#main .department .resources:last-child {
+body > #main .department .resources:last-child {
   margin-right: 0;
 }
-#main .details {
+body > #main .details {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
 }
-#main .details:last-child {
+body > #main .details:last-child {
   margin-right: 0;
 }
-#main .details .offices, #main .details .left {
+body > #main .details .offices, body > #main .details .left {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
 }
-#main .details .offices:last-child, #main .details .left:last-child {
+body > #main .details .offices:last-child, body > #main .details .left:last-child {
   margin-right: 0;
 }
-#main .details .contact, #main .details .right {
+body > #main .details .contact, body > #main .details .right {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 40.29137%;
 }
-#main .details .contact:last-child, #main .details .right:last-child {
+body > #main .details .contact:last-child, body > #main .details .right:last-child {
   margin-right: 0;
 }
-#main .details header h2 {
+body > #main .details header h2 {
   font-size: 2em;
 }
-#main .resource_type, #main .contact_type {
+body > #main .resource_type, body > #main .contact_type {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
   margin: 15px 0;
 }
-#main .resource_type:last-child, #main .contact_type:last-child {
+body > #main .resource_type:last-child, body > #main .contact_type:last-child {
   margin-right: 0;
 }
-#main .resource_type .fa:before, #main .contact_type .fa:before {
+body > #main .resource_type .fa:before, body > #main .contact_type .fa:before {
   font-size: 2em;
 }
-#main .resource_type .icon, #main .contact_type .icon {
+body > #main .resource_type .icon, body > #main .contact_type .icon {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 14.70196%;
   font-size: 1em;
 }
-#main .resource_type .icon:last-child, #main .contact_type .icon:last-child {
+body > #main .resource_type .icon:last-child, body > #main .contact_type .icon:last-child {
   margin-right: 0;
 }
-#main .resource_type .subdetails, #main .contact_type .subdetails {
+body > #main .resource_type .subdetails, body > #main .contact_type .subdetails {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 82.94039%;
 }
-#main .resource_type .subdetails:last-child, #main .contact_type .subdetails:last-child {
+body > #main .resource_type .subdetails:last-child, body > #main .contact_type .subdetails:last-child {
   margin-right: 0;
 }
-#main .resource_type h3, #main .contact_type h3 {
+body > #main .resource_type h3, body > #main .contact_type h3 {
   padding: 0;
   margin: 0;
   font-weight: bold;
 }
-#main .resource_type ul, #main .resource_type li, #main .contact_type ul, #main .contact_type li {
+body > #main .resource_type ul, body > #main .resource_type li, body > #main .contact_type ul, body > #main .contact_type li {
   list-style-type: none;
   list-style-position: outside;
   margin: 0;
   padding: 0;
 }
-#main .details .offices ul, #main .details .offices li {
+body > #main .details .offices ul, body > #main .details .offices li {
   list-style-type: none;
   list-style-position: outside;
   margin: 0;
   padding: 0;
 }
-#main .details .offices li {
+body > #main .details .offices li {
   margin: 10px 0;
   font-size: 1.2em;
   line-height: 30px;
 }
-#main .resource_type h3 {
+body > #main .resource_type h3 {
   font-size: 1em;
 }
-#main .contact_type h3 {
+body > #main .contact_type h3 {
   font-size: 1.6em;
   font-weight: normal;
   margin-bottom: 5px;
 }
-#main .inaccurate {
+body > #main .inaccurate {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 100%;
 }
-#main .inaccurate:last-child {
+body > #main .inaccurate:last-child {
   margin-right: 0;
 }
-#main .inaccurate p {
+body > #main .inaccurate p {
   font-size: 1em;
   font-weight: bold;
 }

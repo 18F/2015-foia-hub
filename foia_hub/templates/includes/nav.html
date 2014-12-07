@@ -1,20 +1,22 @@
-<header><div class="inner">
-  <h1 id="logo">
-    <a href="/">
-      FOIA <em><strong>Hub</strong></span></em>
-    </a>
-  </h1>
+<div class="bordered">
+  <header><div class="inner">
+    <h1 id="logo">
+      <a href="/">
+        FOIA <em><strong>Hub</strong></span></em>
+      </a>
+    </h1>
 
-  <nav>
-    <ul>
-      <li><a
-          {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
-          href="/learn/">Understanding FOIA
+    <nav>
+      <ul>
+        <li><a
+            {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
+            href="/learn/">Understanding FOIA
+          </a></li>
+        <li><a
+          {% if request and ('/about/' == request.path) %}class="active"{% endif %}
+          href="/about/">About this Project
         </a></li>
-      <li><a
-        {% if request and ('/about/' == request.path) %}class="active"{% endif %}
-        href="/about/">About this Project
-      </a></li>
-    </ul>
-  </nav>
-</div></header>
+      </ul>
+    </nav>
+  </div></header>
+</div>
