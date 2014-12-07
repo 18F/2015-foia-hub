@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block class %}agencies{% endblock %}
+
+{% block body %}
+
+{% include "includes/search.html" %}
+
+<section class="listing"><div class="inner">
+
+<ul>
+  {% for agency in agencies %}
+    <a href="/contacts/{{agency.slug }}">
+      <li>
+        <div class="left">
+          <h3>{{ agency.name }}</h3>
+        </div>
+        <div class="right">
+          <p>
+            {% if agency.description %}
+              {{ agency.description }}
+            {% else %}
+              Click to find out more about this agency.
+            {% endif %}
+          </p>
+        </div>
+      </li>
+    </a>
+  {% endfor %}
+</ul>
+
+</div></section>
+
+{% endblock %}

@@ -11,6 +11,14 @@ env = Environment(loader=PackageLoader('foia_hub', 'templates'))
 env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 ###
+# Full agency listing.
+###
+
+def agencies(request):
+    agencies = AgencyResource().list()
+    return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies))
+
+###
 # Principal landing page for agencies and offices.
 ###
 
