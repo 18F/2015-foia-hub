@@ -5,107 +5,158 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 20px;
+}
+
+body > header {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 20px;
+  border-bottom: 1px solid #dedede;
+  padding-top: 20px;
+  height: 80px;
 }
-body:after {
+body > header:after {
   content: "";
   display: table;
   clear: both;
 }
-
-body > header {
+body > header .inner {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
-  border-bottom: 1px solid #dedede;
-  padding-top: 20px;
-  height: 80px;
 }
-body > header:last-child {
+body > header .inner:last-child {
   margin-right: 0;
 }
-body > header a:hover {
+body > header .inner a:hover {
   text-decoration: none;
 }
-body > header h1 {
+body > header .inner h1 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
   font-weight: normal;
   font-size: 2em;
   margin: 0;
   padding: 0;
   color: #18f;
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 40.29137%;
 }
-body > header h1 a {
+body > header .inner h1:last-child {
+  margin-right: 0;
+}
+body > header .inner h1 a {
   color: #18f;
 }
-body > header h1 strong {
+body > header .inner h1 strong {
   font-weight: normal;
 }
-body > header h1 em {
+body > header .inner h1 em {
   color: #cc2211;
   font-style: normal;
 }
-body > header h1:last-child {
-  margin-right: 0;
-}
-body > header nav {
+body > header .inner nav {
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 57.35098%;
-  position: relative;
   height: 100%;
 }
-body > header nav:last-child {
+body > header .inner nav:last-child {
   margin-right: 0;
 }
-body > header nav ul {
+body > header .inner nav ul {
   padding: 0;
   margin: 0;
-  position: absolute;
   bottom: 0;
   height: 50px;
 }
-body > header nav ul li {
+body > header .inner nav ul li {
   display: inline-block;
-  padding: 0px 12px;
+  padding: 9px 12px 0 12px;
 }
-body > header nav ul a {
+body > header .inner nav ul a {
   color: #333;
   padding: 5px 12px 24px 12px;
 }
-body > header nav ul a:hover, body > header nav ul a.active {
+body > header .inner nav ul a:hover, body > header .inner nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
-body > header nav ul a:hover {
+body > header .inner nav ul a:hover {
   background: none;
   color: #777;
 }
-body > header nav ul a:focus {
+body > header .inner nav ul a:focus {
   background: #cc2211;
   color: #fff;
 }
 
 #main {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main:last-child {
+  margin-right: 0;
+}
+#main section {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+}
+#main section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main .inner {
   margin-left: 12.79471%;
   float: left;
   display: block;
   margin-right: 2.35765%;
   width: 74.41059%;
 }
-#main:last-child {
+#main .inner:last-child {
   margin-right: 0;
 }
+#main h2 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 28pt;
+  margin: 0;
+  padding: 0;
+}
+#main section.intro {
+  padding: 70px 0 50px 0;
+  background-color: #f1f8ff;
+}
+#main section.intro p {
+  margin-top: 30px;
+  font-size: 21pt;
+  line-height: 40px;
+}
 #main section.search {
-  margin-bottom: 30px;
+  padding: 50px 0;
+}
+#main section.search p {
+  margin-top: 30px;
+  font-size: 18pt;
+  line-height: 36px;
+}
+#main section.search p.browse {
+  margin-top: 15px;
+  font-size: 10pt;
+  line-height: 20px;
+  text-align: center;
+}
+#main section.search hr {
+  margin-top: 80px;
 }
 #main section.contact h3 {
   margin-top: 30px;

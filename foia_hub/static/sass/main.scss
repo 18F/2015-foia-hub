@@ -2,77 +2,134 @@
 @import "neat/neat";
 
 body {
-  @include outer-container;
+  margin: 0; padding: 0;
   padding-bottom: 20px;
 }
 
+
 body > header {
-  @include shift(1.5);
-  @include span-columns(9);
+  @include outer-container;
 
   border-bottom: 1px solid #dedede;
   padding-top: 20px;
   height: 80px;
 
-  a:hover {text-decoration: none;}
+  .inner {
+    @include shift(1.5);
+    @include span-columns(9);
 
-  h1 {
-    font-weight: normal;
-    font-size: 2em;
 
-    margin: 0;
-    padding: 0;
+    a:hover {text-decoration: none;}
 
-    color: #18f;
-    a {color: #18f;}
-    strong {font-weight: normal;}
-    em { color: #cc2211; font-style: normal;}
-    @include span-columns(5);
-  }
+    h1 {
+      @include span-columns(5);
 
-  nav {
-    @include span-columns(7);
+      font-weight: normal;
+      font-size: 2em;
 
-    position: relative;
-    height: 100%;
+      margin: 0;
+      padding: 0;
 
-    ul {
-      padding: 0; margin: 0;
+      color: #18f;
+      a {color: #18f;}
+      strong {font-weight: normal;}
+      em { color: #cc2211; font-style: normal;}
+    }
 
-      position: absolute;
-      bottom: 0;
-      height: 50px;
+    nav {
+      @include span-columns(7);
 
-      li {
-        display: inline-block;
-        padding: 0px 12px;
-      }
+      height: 100%;
 
-      a {
-        color: #333;
-        padding: 5px 12px 24px 12px;
-      }
-      a:hover, a.active {
-        border-bottom: 0.3em solid #777;
-      }
-      a:hover {
-        background: none;
-        color: #777;
-      }
-      a:focus {
-        background: #cc2211;
-        color:#fff;
+      ul {
+        padding: 0; margin: 0;
+
+        bottom: 0;
+        height: 50px;
+
+        li {
+          display: inline-block;
+          padding: 9px 12px 0 12px;
+        }
+
+        a {
+          color: #333;
+          padding: 5px 12px 24px 12px;
+        }
+        a:hover, a.active {
+          border-bottom: 0.3em solid #777;
+        }
+        a:hover {
+          background: none;
+          color: #777;
+        }
+        a:focus {
+          background: #cc2211;
+          color:#fff;
+        }
       }
     }
   }
 }
 
 #main {
-  @include shift(1.5);
-  @include span-columns(9);
+  @include span-columns(12);
+
+  section {
+    @include outer-container;
+  }
+
+  .inner {
+    @include shift(1.5);
+    @include span-columns(9);
+  }
+
+  h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 28pt;
+    margin: 0; padding: 0;
+  }
+
+  section.intro {
+    padding: 70px 0 50px 0;
+    background-color: #f1f8ff;
+
+    p {
+      margin-top: 30px;
+      font-size: 21pt;
+      line-height: 40px;
+    }
+  }
 
   section.search {
-    margin-bottom: 30px
+    padding: 50px 0;
+
+
+    h2 {
+
+    }
+
+    p {
+      margin-top: 30px;
+      font-size: 18pt;
+      line-height: 36px;
+    }
+
+    .search-box {
+
+    }
+
+    p.browse {
+      margin-top: 15px;
+      font-size: 10pt;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    hr {
+      margin-top: 80px;
+    }
   }
 
   section.contact {
