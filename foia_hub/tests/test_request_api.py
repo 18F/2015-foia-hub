@@ -1,5 +1,9 @@
 import json
+import sys
 from django.test import TestCase, Client
+from django.conf import settings
+from imp import reload
+from importlib import import_module
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 from foia_hub.tests import helpers
@@ -146,3 +150,49 @@ class FOIARequestTests(TestCase):
         self.assertEqual(404, response.status_code)
         self.assertEqual(
             0, len(Requester.objects.filter(email=requester_email)))
+
+
+class RequestSwitchTests(TestCase):
+    fixtures = ['agencies_test.json', 'offices_test.json']
+
+    def reload_urls(self):
+        """ The flag the turns of the requests API is in urls.py, so we have to
+        reload the URLs in Django to make tests. This reloads those tests. """
+
+        if settings.ROOT_URLCONF in sys.modules:
+            reload(sys.modules[settings.ROOT_URLCONF])
+            import_module(settings.ROOT_URLCONF)
+
+    def setUp(self):
+        self.emails = ["foia1@example.com", "foia2@example.com"]
+        self.agency = Agency(
+            name='Agency With Offices', zip_code=20404, emails=self.emails)
+        self.agency.save()
+        self.office = Office(
+            agency=self.agency, name='Office 1', zip_code=20404,
+            emails=self.emails)
+        self.office.save()
+
+        # Turn off SHOW_WEBFORM
+        settings.SHOW_WEBFORM = False
+        self.reload_urls()
+
+    def tearDown(self):
+        # Turn on SHOW_WEBFORM
+        settings.SHOW_WEBFORM = True
+        self.reload_urls()
+
+    def test_api_off(self):
+        """ The request API should not the available. """
+
+        requester_email = "requester@example.com"
+        response = self.client.post(
+            "/api/request/",
+            content_type='application/json',
+            data=json.dumps({
+                'agency': self.agency.slug,
+                'email': requester_email,
+                'first_name': "FOIA",
+                'last_name': "Requester",
+                'body': "A new request"}))
+        self.assertEqual(404, response.status_code)
