@@ -44,6 +44,7 @@ body > header {
     @include span-columns(7);
     @include media($mobile) {
       @include span-columns(4);
+      display:none;
     }
 
     position: relative;

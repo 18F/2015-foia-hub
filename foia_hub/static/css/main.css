@@ -104,6 +104,7 @@ body > header nav:last-child {
     display: block;
     margin-right: 7.42297%;
     width: 100%;
+    display: none;
   }
   body > header nav:last-child {
     margin-right: 0;
