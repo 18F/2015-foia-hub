@@ -1,14 +1,15 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
+$mobile: new-breakpoint(max-width 480px 4);
+
 body {
-  @include outer-container;
   padding-bottom: 20px;
 }
 
 body > header {
-  @include shift(1.5);
-  @include span-columns(9);
+  @include shift(2);
+  @include span-columns(8);
 
   border-bottom: 1px solid #dedede;
   padding-top: 20px;
@@ -68,8 +69,11 @@ body > header {
 }
 
 #main {
-  @include shift(1.5);
-  @include span-columns(9);
+  @include outer-container;
+  @include shift(2);
+  @include media($mobile) {
+    @include shift(0);
+  }
 
   section.search {
     margin-bottom: 30px
@@ -99,32 +103,46 @@ body > header {
   }
 
   .department {
-    @include span-columns(12);
-
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
-    @include span-columns(7);
+    @include span-columns(8);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
   }
 
   .department .resources {
-    @include span-columns(5);
-
-    padding-left: 10px;
+    @include span-columns(4);
+//    padding-left: 10px;
+    @include media($mobile) {
+      @include span-columns(4);
+    }
   }
 
   .details {
     @include span-columns(12);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
+
   }
 
   .details .offices, .details .left {
     @include span-columns(7);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
+
   }
 
   .details .contact, .details .right {
     @include span-columns(5);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
   }
 
   .details header h2 {
@@ -143,10 +161,20 @@ body > header {
     .icon {
       @include span-columns(2);
       font-size: 1em;
+      @include media($mobile) {
+        @include span-columns(1);
+        float:left;
+        font-size:1.25em;
+        text-align:center;
+      }
+
     }
 
     .subdetails {
       @include span-columns(10);
+      @include media($mobile) {
+        @include span-columns(3);
+      }
     }
 
     h3 {

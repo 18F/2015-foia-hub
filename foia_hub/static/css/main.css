@@ -1,27 +1,49 @@
-* {
+/* Neat 1.7.0
+ * http://neat.bourbon.io
+ * Copyright 2012-2014 thoughtbot, inc.
+ * MIT License */
+html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-body {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 20px;
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
-body:after {
-  content: "";
-  display: table;
-  clear: both;
+
+body:before {
+  content: '';
+  display: inline-block;
+  background-image: -webkit-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
+  background-image: -moz-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
+  background-image: -ms-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
+  background-image: -o-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
+  background-image: linear-gradient(to left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
+  height: 100%;
+  left: 0;
+  margin: 0 auto;
+  max-width: 68em;
+  opacity: 0.4;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body {
+  padding-bottom: 20px;
 }
 
 body > header {
-  margin-left: 12.79471%;
+  margin-left: 17.05961%;
   float: left;
   display: block;
   margin-right: 2.35765%;
-  width: 74.41059%;
+  width: 65.88078%;
   border-bottom: 1px solid #dedede;
   padding-top: 20px;
   height: 80px;
@@ -95,14 +117,20 @@ body > header nav ul a:focus {
 }
 
 #main {
-  margin-left: 12.79471%;
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 74.41059%;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: 17.05961%;
 }
-#main:last-child {
-  margin-right: 0;
+#main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 480px) {
+  #main {
+    margin-left: 0%;
+  }
 }
 #main section.search {
   margin-bottom: 30px;
@@ -134,34 +162,48 @@ body > header nav ul a:focus {
   font-size: 2.4em;
 }
 #main .department {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
-}
-#main .department:last-child {
-  margin-right: 0;
 }
 #main .department .description {
   float: left;
   display: block;
   margin-right: 2.35765%;
-  width: 57.35098%;
+  width: 65.88078%;
 }
 #main .department .description:last-child {
   margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  #main .department .description {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .department .description:last-child {
+    margin-right: 0;
+  }
 }
 #main .department .resources {
   float: left;
   display: block;
   margin-right: 2.35765%;
-  width: 40.29137%;
-  padding-left: 10px;
+  width: 31.76157%;
 }
 #main .department .resources:last-child {
   margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  #main .department .resources {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .department .resources:last-child {
+    margin-right: 0;
+  }
 }
 #main .details {
   float: left;
@@ -172,6 +214,17 @@ body > header nav ul a:focus {
 #main .details:last-child {
   margin-right: 0;
 }
+@media screen and (max-width: 480px) {
+  #main .details {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .details:last-child {
+    margin-right: 0;
+  }
+}
 #main .details .offices, #main .details .left {
   float: left;
   display: block;
@@ -181,6 +234,17 @@ body > header nav ul a:focus {
 #main .details .offices:last-child, #main .details .left:last-child {
   margin-right: 0;
 }
+@media screen and (max-width: 480px) {
+  #main .details .offices, #main .details .left {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .details .offices:last-child, #main .details .left:last-child {
+    margin-right: 0;
+  }
+}
 #main .details .contact, #main .details .right {
   float: left;
   display: block;
@@ -189,6 +253,17 @@ body > header nav ul a:focus {
 }
 #main .details .contact:last-child, #main .details .right:last-child {
   margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  #main .details .contact, #main .details .right {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .details .contact:last-child, #main .details .right:last-child {
+    margin-right: 0;
+  }
 }
 #main .details header h2 {
   font-size: 2em;
@@ -216,6 +291,20 @@ body > header nav ul a:focus {
 #main .resource_type .icon:last-child, #main .contact_type .icon:last-child {
   margin-right: 0;
 }
+@media screen and (max-width: 480px) {
+  #main .resource_type .icon, #main .contact_type .icon {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 19.43277%;
+    float: left;
+    font-size: 1.25em;
+    text-align: center;
+  }
+  #main .resource_type .icon:last-child, #main .contact_type .icon:last-child {
+    margin-right: 0;
+  }
+}
 #main .resource_type .subdetails, #main .contact_type .subdetails {
   float: left;
   display: block;
@@ -224,6 +313,17 @@ body > header nav ul a:focus {
 }
 #main .resource_type .subdetails:last-child, #main .contact_type .subdetails:last-child {
   margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  #main .resource_type .subdetails, #main .contact_type .subdetails {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 73.14426%;
+  }
+  #main .resource_type .subdetails:last-child, #main .contact_type .subdetails:last-child {
+    margin-right: 0;
+  }
 }
 #main .resource_type h3, #main .contact_type h3 {
   padding: 0;
