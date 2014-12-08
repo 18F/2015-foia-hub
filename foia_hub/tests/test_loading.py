@@ -48,7 +48,7 @@ class LoadingTest(TestCase):
         # Verify latest data is returned when it exists
         retrieved = agency.stats_set.filter(
             stat_type='S').order_by('-year').first()
-        self.assertEqual(retrieved.median, 0)
+        self.assertEqual(retrieved.median, 1)
 
         # Verify that `less than one` records are flagged
         retrieved = agency.stats_set.filter(
