@@ -25,10 +25,14 @@ repo = "git@github.com:18f/foia-hub.git"
 #   shared/
 #      log/
 #      settings.py
+
+# always UTC datestamp, so it doesn't matter what computer does the deploy
+datestamp = time.strftime("%Y%m%d%H%M%S", time.gmtime(time.mktime(time.localtime())))
+
 home = "/home/foia/hub"
 shared_path = "%s/shared" % home
 versions_path = "%s/versions" % home
-version_path = "%s/%s" % (versions_path, time.strftime("%Y%m%d%H%M%S"))
+version_path = "%s/%s" % (versions_path, datestamp)
 current_path = "%s/current" % home
 logs = "%s/log" % shared_path
 
