@@ -14,56 +14,68 @@ html {
   box-sizing: inherit;
 }
 
-body:before {
-  content: '';
-  display: inline-block;
-  background-image: -webkit-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
-  background-image: -moz-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
-  background-image: -ms-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
-  background-image: -o-linear-gradient(left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
-  background-image: linear-gradient(to left, transparent 0, #EEE 0, #EEE 6.17215%, transparent 6.17215%, transparent 8.5298%, #EEE 8.5298%, #EEE 14.70196%, transparent 14.70196%, transparent 17.05961%, #EEE 17.05961%, #EEE 23.23176%, transparent 23.23176%, transparent 25.58941%, #EEE 25.58941%, #EEE 31.76157%, transparent 31.76157%, transparent 34.11922%, #EEE 34.11922%, #EEE 40.29137%, transparent 40.29137%, transparent 42.64902%, #EEE 42.64902%, #EEE 48.82117%, transparent 48.82117%, transparent 51.17883%, #EEE 51.17883%, #EEE 57.35098%, transparent 57.35098%, transparent 59.70863%, #EEE 59.70863%, #EEE 65.88078%, transparent 65.88078%, transparent 68.23843%, #EEE 68.23843%, #EEE 74.41059%, transparent 74.41059%, transparent 76.76824%, #EEE 76.76824%, #EEE 82.94039%, transparent 82.94039%, transparent 85.29804%, #EEE 85.29804%, #EEE 91.4702%, transparent 91.4702%, transparent 93.82785%, #EEE 93.82785%, #EEE 100.0%, transparent 100.0%);
-  height: 100%;
-  left: 0;
-  margin: 0 auto;
-  max-width: 68em;
-  opacity: 0.4;
-  position: fixed;
-  right: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
 body {
   padding-bottom: 20px;
 }
 
 body > header {
-  margin-left: 17.05961%;
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 65.88078%;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
   border-bottom: 1px solid #dedede;
   padding-top: 20px;
   height: 80px;
 }
-body > header:last-child {
-  margin-right: 0;
+body > header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 480px) {
+  body > header {
+    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+    text-align: center;
+  }
+  body > header:last-child {
+    margin-right: 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  body > header {
+    border-bottom: none;
+  }
 }
 body > header a:hover {
   text-decoration: none;
 }
 body > header h1 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
   font-weight: normal;
   font-size: 2em;
   margin: 0;
   padding: 0;
   color: #18f;
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 40.29137%;
+}
+body > header h1:last-child {
+  margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  body > header h1 {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  body > header h1:last-child {
+    margin-right: 0;
+  }
 }
 body > header h1 a {
   color: #18f;
@@ -75,9 +87,6 @@ body > header h1 em {
   color: #cc2211;
   font-style: normal;
 }
-body > header h1:last-child {
-  margin-right: 0;
-}
 body > header nav {
   float: left;
   display: block;
@@ -88,6 +97,17 @@ body > header nav {
 }
 body > header nav:last-child {
   margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  body > header nav {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  body > header nav:last-child {
+    margin-right: 0;
+  }
 }
 body > header nav ul {
   padding: 0;
@@ -107,6 +127,11 @@ body > header nav ul a {
 body > header nav ul a:hover, body > header nav ul a.active {
   border-bottom: 0.3em solid #777;
 }
+@media screen and (max-width: 480px) {
+  body > header nav ul a:hover, body > header nav ul a.active {
+    border-bottom: none;
+  }
+}
 body > header nav ul a:hover {
   background: none;
   color: #777;
@@ -120,7 +145,6 @@ body > header nav ul a:focus {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  margin-left: 17.05961%;
 }
 #main:after {
   content: "";
@@ -129,7 +153,13 @@ body > header nav ul a:focus {
 }
 @media screen and (max-width: 480px) {
   #main {
-    margin-left: 0%;
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main:last-child {
+    margin-right: 0;
   }
 }
 #main section.search {
@@ -164,6 +194,24 @@ body > header nav ul a:focus {
 #main .department {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+#main .department:last-child {
+  margin-right: 0;
+}
+@media screen and (max-width: 480px) {
+  #main .department {
+    float: left;
+    display: block;
+    margin-right: 7.42297%;
+    width: 100%;
+  }
+  #main .department:last-child {
+    margin-right: 0;
+  }
 }
 #main .department .description {
   float: left;

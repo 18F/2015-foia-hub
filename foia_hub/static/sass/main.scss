@@ -1,23 +1,33 @@
 @import "bourbon/bourbon";
+@import "grid-settings";
 @import "neat/neat";
-
-$mobile: new-breakpoint(max-width 480px 4);
 
 body {
   padding-bottom: 20px;
 }
 
 body > header {
-  @include shift(2);
-  @include span-columns(8);
+  @include outer-container;
+  @include media($mobile) {
+    @include shift(0);
+    @include span-columns(4);
+    text-align: center;
+  }
 
   border-bottom: 1px solid #dedede;
+  @include media($mobile) {
+    border-bottom: none;
+  }
   padding-top: 20px;
   height: 80px;
 
   a:hover {text-decoration: none;}
 
   h1 {
+    @include span-columns(5);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
     font-weight: normal;
     font-size: 2em;
 
@@ -28,11 +38,13 @@ body > header {
     a {color: #18f;}
     strong {font-weight: normal;}
     em { color: #cc2211; font-style: normal;}
-    @include span-columns(5);
   }
 
   nav {
     @include span-columns(7);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
 
     position: relative;
     height: 100%;
@@ -55,6 +67,9 @@ body > header {
       }
       a:hover, a.active {
         border-bottom: 0.3em solid #777;
+        @include media($mobile) {
+          border-bottom: none;
+        }
       }
       a:hover {
         background: none;
@@ -70,9 +85,8 @@ body > header {
 
 #main {
   @include outer-container;
-  @include shift(2);
   @include media($mobile) {
-    @include shift(0);
+    @include span-columns(4);
   }
 
   section.search {
@@ -105,10 +119,14 @@ body > header {
   .department {
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
+    @include span-columns(12);
+    @include media($mobile) {
+      @include span-columns(4);
+    }
   }
 
   .department .description {
-    @include span-columns(8);
+    @include span-columns(8 of 12);
     @include media($mobile) {
       @include span-columns(4);
     }
