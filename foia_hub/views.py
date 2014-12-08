@@ -11,28 +11,20 @@ env = Environment(loader=PackageLoader('foia_hub', 'templates'))
 env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 ###
-# App home page.
+# Finding agencies and their contact information.
 ###
 
 def home(request):
+    """App home page."""
     return HttpResponse(env.get_template('index.html').render())
 
-
-###
-# Full agency listing.
-###
-
 def agencies(request):
+    """Full agency listing."""
     agencies = AgencyResource().list()
     return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies))
 
-###
-# Principal landing page for agencies and offices.
-###
-
-
 def contact_landing(request, slug):
-    """List contacts for an agency or office."""
+    """Principal landing page for agencies and offices."""
     if '--' in slug:
         resource = OfficeResource()
     else:
@@ -71,8 +63,9 @@ def learn(request):
 def about(request):
     return HttpResponse(env.get_template('about.html').render(request=request))
 
+
 ###
-# Webform for agencies/offices that lack one of their own.
+# Contacting agencies/offices that lack a webform of their own.
 ###
 
 
