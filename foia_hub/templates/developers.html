@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block body %}
+<section class="content"><div class="inner">
+
+<h1> Developers </h1>
+
+<p>
+Hello!
+</p>
+
+<p>
+This effort is a work in progress by <a href=https://18f.gsa.gov/"">18F</a>.
+However, we welcome contributions, suggestions and comments by everyone.
+</p>
+
+<h2> Technology </h2>
+
+<p>
+FOIA Hub is a Python/Django application. Many of the scripts written to collect
+data are also written in Python.
+</p>
+
+
+<h2> API </h2>
+
+All of the information presented is available through an API.
+
+<ul>
+    <li> <a href="http://foia-hub.readthedocs.org/en/latest/">API documentation</a> </li>
+</ul>
+
+<h2> Bulk Data </h2>
+
+<p>
+The data source for the API and the tool is a set of YAML files that contain
+all the data. These files are the canonical source for our data and are updated
+through a combination of automated and manual processes.
+</p>
+
+<ul>
+<li> <a href="https://github.com/18F/foia/tree/master/contacts/data">YAML data files</a> </li>
+</ul>
+
+<h2> Repositories </h2>
+
+<ul>
+    <li>
+    <span class="fa fa-github"></span> <a href="https://github.com/18F/foia">foia</a>
+    Our main repository (also contains the bulk data)
+    </li>
+
+    <li>
+    <span class="fa fa-github"></span> <a href="https://github.com/18F/foia-hub">foia-hub</a>
+    The repository for FOIA Hub.
+    </li>
+</ul>
+
+<h2> Open Source and Contributing  </h2>
+
+This project is open source and we welcome contributions from the public. We
+work in an agile fashion in two-week sprints. Our project backlog is <a
+href="https://github.com/18F/foia-hub/milestones/Backlog">here</a>.
+
+<h3> License </h3>
+
+<p>
+This project is in the public domain within the United States, and copyright
+and related rights in the work worldwide are waived through CC0 1.0 Universal
+public domain dedication.
+</p>
+
+<p>
+All contributions to any repositories of this project will be released under
+the CC0 dedication. By submitting a pull request, you are agreeing to comply
+with this waiver of copyright interest.
+</p>
+
+</div></section>
+{% endblock %}

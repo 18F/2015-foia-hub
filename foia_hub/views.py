@@ -64,6 +64,10 @@ def about(request):
     return HttpResponse(env.get_template('about.html').render(request=request))
 
 
+def developers(request):
+    return HttpResponse(
+        env.get_template('developers.html').render(request=request))
+
 ###
 # Contacting agencies/offices that lack a webform of their own.
 ###
