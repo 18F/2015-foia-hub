@@ -1,21 +1,24 @@
-<section class="search">
-  <h3>
-    What agency are you submitting a request to?
+<section class="search"><div class="inner">
+  <h2>
+    Which agency do you want to contact?
   </h3>
 
   <p>
-    The United States government is made up of many different <strong>federal
-    agencies</strong>. To file a FOIA request, you need to choose the agency
-    that has the information you're looking for and request it directly from
-    them.
+    Each U.S. federal agency processes its own requests. Contact the agency that is directly responsible for the information that you seek.
   </p>
 
   <form class="agency">
-    <div class="scrollable-dropdown-menu">
-      <input class="typeahead agency" type="text" placeholder="Agency name">
+    <div class="search-box scrollable-dropdown-menu">
+      <input class="typeahead agency" type="search" />
     </div>
   </form>
-</section>
+
+  <p class="browse">
+    <a href="/agencies/">or browse a list of federal agencies</a>
+  </p>
+
+  <hr />
+</div></section>
 
 <script src="/static/js/typeahead.bundle.js"></script>
 <script src="/static/js/handlebars-v1.2.0.js"></script>

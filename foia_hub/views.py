@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from jinja2 import Environment, PackageLoader
 
-from foia_hub.models import Agency, FOIARequest
+from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
 
 
@@ -11,12 +11,20 @@ env = Environment(loader=PackageLoader('foia_hub', 'templates'))
 env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 ###
-# Principal landing page for agencies and offices.
+# Finding agencies and their contact information.
 ###
 
+def home(request):
+    """App home page."""
+    return HttpResponse(env.get_template('index.html').render())
+
+def agencies(request):
+    """Full agency listing."""
+    agencies = AgencyResource().list()
+    return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies))
 
 def contact_landing(request, slug):
-    """List contacts for an agency or office."""
+    """Principal landing page for agencies and offices."""
     if '--' in slug:
         resource = OfficeResource()
     else:
@@ -61,7 +69,7 @@ def developers(request):
         env.get_template('developers.html').render(request=request))
 
 ###
-# Webform for agencies/offices that lack one of their own.
+# Contacting agencies/offices that lack a webform of their own.
 ###
 
 
@@ -89,20 +97,3 @@ def request_success(request, id):
     return HttpResponse(template.render(
         foia_request=foia_request, requester=requester, office=office,
         agency=agency))
-
-
-def request_start(request):
-    """ Starting a request. """
-    agency_list = get_agency_list()
-    most_requested_slugs = [
-        'department-of-homeland-security',
-        'department-of-justice',
-        'department-of-defense',
-        'department-of-health-and-human-services',
-        'social-security-administration'
-    ]
-    most_requested = Agency.objects.filter(slug__in=most_requested_slugs)
-
-    template = env.get_template('request/index.html')
-    return HttpResponse(template.render(
-        agencies=agency_list, most_requested=most_requested))

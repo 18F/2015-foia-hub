@@ -2,80 +2,216 @@
 @import "neat/neat";
 
 body {
-  @include outer-container;
+  margin: 0; padding: 0;
   padding-bottom: 20px;
 }
 
-body > header {
-  @include shift(1.5);
-  @include span-columns(9);
+/* a couple things that stand outside the normal hierarchy, because
+   they extend the full width, beyond the normal outer-container */
 
+div.blue {
+  background-color: #f1f8ff;
+}
+
+div.bordered {
   border-bottom: 1px solid #dedede;
+}
+
+
+body > .bordered > header {
+  @include outer-container;
+
   padding-top: 20px;
   height: 80px;
 
-  a:hover {text-decoration: none;}
+  .inner {
+    @include shift(1.5);
+    @include span-columns(9);
 
-  h1 {
-    font-weight: normal;
-    font-size: 2em;
+    a:hover {text-decoration: none;}
 
-    margin: 0;
-    padding: 0;
+    h1 {
+      @include span-columns(5);
 
-    color: #18f;
-    a {color: #18f;}
-    strong {font-weight: normal;}
-    em { color: #cc2211; font-style: normal;}
-    @include span-columns(5);
-  }
+      font-weight: normal;
+      font-size: 2em;
 
-  nav {
-    @include span-columns(7);
+      margin: 0;
+      padding: 0;
 
-    position: relative;
-    height: 100%;
+      color: #18f;
+      a {color: #18f;}
+      strong {font-weight: normal;}
+      em { color: #cc2211; font-style: normal;}
+    }
 
-    ul {
-      padding: 0; margin: 0;
+    nav {
+      @include span-columns(7);
 
-      position: absolute;
-      bottom: 0;
-      height: 50px;
+      height: 100%;
 
-      li {
-        display: inline-block;
-        padding: 0px 12px;
-      }
+      ul {
+        padding: 0; margin: 0;
 
-      a {
-        color: #333;
-        padding: 5px 12px 24px 12px;
-      }
-      a:hover, a.active {
-        border-bottom: 0.3em solid #777;
-      }
-      a:hover {
-        background: none;
-        color: #777;
-      }
-      a:focus {
-        background: #cc2211;
-        color:#fff;
+        bottom: 0;
+        height: 50px;
+
+        li {
+          display: inline-block;
+          padding: 9px 12px 0 12px;
+        }
+
+        a {
+          color: #333;
+          padding: 5px 12px 25px 12px;
+        }
+        a:hover, a.active {
+          border-bottom: 0.3em solid #777;
+        }
+        a:hover {
+          background: none;
+          color: #777;
+        }
+        a:focus {
+          background: #cc2211;
+          color:#fff;
+        }
       }
     }
   }
 }
 
 #main {
-  @include shift(1.5);
-  @include span-columns(9);
-
-  section.search {
-    margin-bottom: 30px
+  section {
+    @include outer-container;
   }
 
-  section.contact {
+  .inner {
+    @include shift(1.5);
+    @include span-columns(9);
+  }
+
+  /* /about and /learn */
+  .content {
+    padding-top: 20px;
+  }
+
+  section.search {
+    padding: 70px 0 70px 0;
+
+    h2 {
+      text-align: center;
+      font-weight: normal;
+      font-size: 28pt;
+      margin: 0; padding: 0;
+    }
+
+    p {
+      margin-top: 30px;
+      font-size: 18pt;
+      line-height: 36px;
+    }
+
+    .search-box {
+      margin-top: 30px;
+    }
+
+    p.browse {
+      margin-top: 15px;
+      font-size: 10pt;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    hr {
+      margin-top: 80px;
+    }
+  }
+}
+
+#main.home {
+
+  h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 28pt;
+    margin: 0; padding: 0;
+  }
+
+  section.intro {
+    padding: 70px 0 50px 0;
+
+    p {
+      margin-top: 30px;
+      font-size: 21pt;
+      line-height: 40px;
+    }
+  }
+
+  section.process {
+    .inner {
+      @include shift(0.5);
+      @include span-columns(11);
+    }
+
+    ul {
+      @include outer-container;
+
+      margin-top: 30px;
+
+      figure {
+        @include span-columns(3);
+
+        padding: 0; margin: 0;
+        padding: 10px;
+
+        img {width: 100%;}
+        figcaption {
+          font-size: 11pt;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}
+
+#main.agencies {
+  .listing .inner {
+    @include shift(0.5);
+    @include span-columns(11);
+  }
+
+  ul {
+    a {
+      color: black;
+      text-decoration: none;
+    }
+    li {
+      @include outer-container;
+
+      list-style-type: none;
+      margin: 0; padding: 0;
+      margin-bottom: 50px;
+
+      .left {
+        @include span-columns(5);
+        h3 {
+          padding: 0; margin: 0;
+          font-size: 12pt;
+        }
+      }
+
+      .right {
+        @include span-columns(7);
+        p {margin: 0; padding: 0;}
+      }
+    }
+  }
+}
+
+#main.landing {
+
+  .contact {
     h3 {
       margin-top: 30px; margin-bottom: 10px;
     }
@@ -86,9 +222,7 @@ body > header {
     }
   }
 
-  header {
-    @include span-columns(12);
-
+  .header {
     margin-top: 20px;
 
     h1 {
@@ -99,7 +233,7 @@ body > header {
   }
 
   .department {
-    @include span-columns(12);
+    @include outer-container;
 
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
@@ -116,7 +250,8 @@ body > header {
   }
 
   .details {
-    @include span-columns(12);
+    @include outer-container;
+    padding-top: 25px;
   }
 
   .details .offices, .details .left {
@@ -132,6 +267,7 @@ body > header {
   }
 
   .resource_type, .contact_type {
+    @include outer-container;
     @include span-columns(12);
 
     margin: 15px 0;
@@ -190,8 +326,6 @@ body > header {
   }
 
   .inaccurate {
-    @include span-columns(12);
-
     p {
       font-size: 1em;
       font-weight: bold;
