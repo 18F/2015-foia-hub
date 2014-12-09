@@ -44,7 +44,7 @@ body > header {
     @include span-columns(7);
     @include media($mobile) {
       @include span-columns(4);
-      display:none;
+//      display:none;
     }
 
     position: relative;
@@ -88,6 +88,7 @@ body > header {
   @include outer-container;
   @include media($mobile) {
     @include span-columns(4);
+    padding-top:2em;
   }
 
   section.search {
