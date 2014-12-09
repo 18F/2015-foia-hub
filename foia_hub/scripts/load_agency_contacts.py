@@ -122,7 +122,7 @@ def add_request_time_statistics(data, agency, office=None):
                 stat_type=arg[0])
 
             if median == 'less than 1':
-                stat.median = 0
+                stat.median = 1
                 stat.less_than_one = True
             else:
                 stat.median = median
