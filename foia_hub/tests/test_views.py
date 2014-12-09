@@ -161,6 +161,17 @@ class AgenciesPageTests(TestCase):
         content = response.content.decode('utf-8')
         self.assertTrue('Department of Homeland Security' in content)
 
+    def test_agencies_search(self):
+        """ The /agencies/ page should filter agencies by a search term. """
+        # first test acronym
+        query = "dhs"
+        response = self.client.get(reverse('agencies') + "?query=" + query)
+        self.assertEqual(response.status_code, 200)
+
+        content = response.content.decode('utf-8')
+        self.assertTrue('Department of Homeland Security' in content)
+        self.assertTrue('Patent and Trademark Office' not in content)
+
 
 class ContactPageTests(TestCase):
     fixtures = ['agencies_test.json']

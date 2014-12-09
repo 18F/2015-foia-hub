@@ -20,8 +20,10 @@ def home(request):
 
 def agencies(request):
     """Full agency listing."""
-    agencies = AgencyResource().list()
-    return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies))
+    query = request.GET.get("query")
+
+    agencies = AgencyResource().list(query)
+    return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies, query=query))
 
 def contact_landing(request, slug):
     """Principal landing page for agencies and offices."""
