@@ -2,7 +2,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from jinja2 import Environment, PackageLoader
-from django.core.urlresolvers import reverse
 
 from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
