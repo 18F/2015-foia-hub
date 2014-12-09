@@ -183,7 +183,6 @@ body > header {
       font-size: 1em;
       @include media($mobile) {
         @include span-columns(1);
-        float:left;
         font-size:1.25em;
         text-align:center;
       }
