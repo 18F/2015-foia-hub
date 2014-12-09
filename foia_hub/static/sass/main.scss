@@ -1,25 +1,66 @@
 @import "bourbon/bourbon";
 @import "grid-settings";
 @import "neat/neat";
+@import "normalize"; 
 
 body {
   padding-bottom: 20px;
 }
 
+body > aside.usa {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  text-align: center;
+  //height: 20px;
+  line-height:1em;
+  font-size: 0.75em;
+  color: #DDD;
+  padding-top: 1.5px;
+  margin-bottom: 2em;
+  p {
+    margin: 0px 0px 0.75em;
+    display: inline;
+    @include media($mobile) {
+      display: block;
+    }      
+
+    &.official {
+      float:left;
+      margin-left:1em;
+      @include media($mobile) {
+        float:none;
+        text-align:center;
+      }      
+      }
+    &.alpha {
+      float:right;
+      margin-right:1em;
+      @include media($mobile) {
+        float:none;
+        text-align:center;
+      }      
+    }
+  }
+}
 body > header {
   @include outer-container;
   @include media($mobile) {
     @include shift(0);
     @include span-columns(4);
     text-align: center;
+    padding-top: 0;
+    height: 80px;
   }
 
   border-bottom: 1px solid #dedede;
   @include media($mobile) {
     border-bottom: none;
   }
-  padding-top: 20px;
-  height: 80px;
+  padding-top: 40px;
+  height: 100px;
 
   a:hover {text-decoration: none;}
 
