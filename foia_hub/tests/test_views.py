@@ -161,17 +161,29 @@ class AgenciesPageTests(TestCase):
         content = response.content.decode('utf-8')
         self.assertTrue('Department of Homeland Security' in content)
 
-    def test_agencies_search(self):
+    def test_agencies_search_list(self):
         """ The /agencies/ page should filter agencies by a search term. """
-        # first test acronym
-        query = "dhs"
+        query = "department"
         response = self.client.get(reverse('agencies') + "?query=" + query)
         self.assertEqual(response.status_code, 200)
 
         content = response.content.decode('utf-8')
         self.assertTrue('Department of Homeland Security' in content)
+        self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Patent and Trademark Office' not in content)
 
+    def test_agencies_search_one(self):
+        """ The /agencies/ page should redirect to an agency if there's only one result. """
+        query = "dhs"
+        dhs = Agency.objects.filter(abbreviation='DHS')[0]
+        response = self.client.get(reverse('agencies') + "?query=" + query)
+        self.assertEqual(response.status_code, 302)
+
+        #self.assertEqual( + /contacts/department-of-homeland-security')
+        self.assertEqual(
+            "http://testserver" + reverse('contact_landing', kwargs={'slug': dhs.slug}),
+            response['Location']
+        )
 
 class ContactPageTests(TestCase):
     fixtures = ['agencies_test.json']

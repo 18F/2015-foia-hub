@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from jinja2 import Environment, PackageLoader
+from django.core.urlresolvers import reverse
 
 from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
@@ -23,7 +24,10 @@ def agencies(request):
     query = request.GET.get("query")
 
     agencies = AgencyResource().list(query)
-    return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies, query=query))
+    if len(agencies) == 1:
+        return redirect('contact_landing', slug=agencies[0].slug)
+    else:
+        return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies, query=query))
 
 def contact_landing(request, slug):
     """Principal landing page for agencies and offices."""
