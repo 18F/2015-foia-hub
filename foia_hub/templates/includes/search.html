@@ -8,11 +8,13 @@
   </p>
 
   <form class="agency" method="get" action="/agencies/">
-    <input name="query" type="search"
-      {% if query %}
-        value="{{ query }}"
-      {% endif %}
-      />
+    <div class="search-box scrollable-dropdown-menu">
+      <input class="typeahead agency" name="query" type="search"
+        {% if query %}
+          value="{{ query }}"
+        {% endif %}
+        />
+    </div>
   </form>
 
   <p class="browse">
@@ -21,3 +23,7 @@
 
   <hr />
 </div></section>
+
+<script src="/static/js/typeahead.bundle.js"></script>
+<script src="/static/js/handlebars-v1.2.0.js"></script>
+<script src="/static/js/requests/index.js"></script>
