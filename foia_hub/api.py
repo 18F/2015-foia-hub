@@ -124,9 +124,10 @@ class AgencyResource(DjangoResource):
         return data
 
     def list(self, q=None):
-        """ This lists all the Agency objects. It doesn't provide every field
-        for every object, instead limiting the output to useful fields. To see
-        the detail for each object, use the detail endpoint. """
+        """ This lists all Agency objects, optionally filtered by a given
+        query parameter. It doesn't provide every field for every object,
+        instead limiting the output to useful fields. To see the detail for
+        each object, use the detail endpoint. """
         if q:
             agencies = Agency.objects.filter(
                 Q(abbreviation__icontains=q) |
