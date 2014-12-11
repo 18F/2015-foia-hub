@@ -1,51 +1,626 @@
-/*
-Error: Invalid CSS after "...ng-bottom: 20px": expected "{", was ";"
-        on line 8 of foia_hub/static/sass/main.scss
+/* Neat 1.7.0
+ * http://neat.bourbon.io
+ * Copyright 2012-2014 thoughtbot, inc.
+ * MIT License */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
-3: @import "neat/neat";
-4: @import "normalize"; 
-5: 
-6: body {
-7: <<<<<<< HEAD
-8:   padding-bottom: 20px;
-9: }
-10: 
-11: body > aside.usa {
-12:   float: left;
-13:   display: block;
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
 
-Backtrace:
-foia_hub/static/sass/main.scss:8
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:1165:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:1101:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:1096:in `tok!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:641:in `block'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:711:in `declaration_or_ruleset'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:661:in `block_child'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:650:in `block_contents'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:642:in `block'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:635:in `ruleset'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:660:in `block_child'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:653:in `block_contents'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:117:in `stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/scss/parser.rb:42:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/engine.rb:393:in `_to_tree'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/engine.rb:368:in `_render_with_sourcemap'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/engine.rb:285:in `render_with_sourcemap'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `each'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:328:in `block in watch'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:276:in `call'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:276:in `_process_changes'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:233:in `block in _wait_for_changes'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:216:in `loop'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:216:in `_wait_for_changes'
-/Library/Ruby/Gems/2.0.0/gems/listen-2.7.9/lib/listen/listener.rb:312:in `block in _start_wait_thread'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid CSS after \"...ng-bottom: 20px\": expected \"{\", was \";\"\A         on line 8 of foia_hub/static/sass/main.scss\A \A 3: @import \"neat/neat\";\A 4: @import \"normalize\"; \A 5: \A 6: body {\A 7: <<<<<<< HEAD\A 8:   padding-bottom: 20px;\A 9: }\A 10: \A 11: body > aside.usa {\A 12:   float: left;\A 13:   display: block;"; }
+body {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 20px;
+}
+
+/* a couple things that stand outside the normal hierarchy, because
+   they extend the full width, beyond the normal outer-container */
+div.blue {
+  background-color: #f1f8ff;
+}
+
+div.bordered {
+  border-bottom: 1px solid #dedede;
+}
+
+body > .bordered > header {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  height: 80px;
+}
+body > .bordered > header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body > .bordered > header .inner {
+  margin-left: 12.79471%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+}
+body > .bordered > header .inner:last-child {
+  margin-right: 0;
+}
+body > .bordered > header .inner a:hover {
+  text-decoration: none;
+}
+body > .bordered > header .inner h1 {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+  font-weight: normal;
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+  color: #18f;
+}
+body > .bordered > header .inner h1:last-child {
+  margin-right: 0;
+}
+body > .bordered > header .inner h1 a {
+  color: #18f;
+}
+body > .bordered > header .inner h1 strong {
+  font-weight: normal;
+}
+body > .bordered > header .inner h1 em {
+  color: #cc2211;
+  font-style: normal;
+}
+body > .bordered > header .inner nav {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+  height: 100%;
+}
+body > .bordered > header .inner nav:last-child {
+  margin-right: 0;
+}
+body > .bordered > header .inner nav ul {
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  height: 50px;
+}
+body > .bordered > header .inner nav ul li {
+  display: inline-block;
+  padding: 9px 12px 0 12px;
+}
+body > .bordered > header .inner nav ul a {
+  color: #333;
+  padding: 5px 12px 25px 12px;
+}
+body > .bordered > header .inner nav ul a:hover, body > .bordered > header .inner nav ul a.active {
+  border-bottom: 0.3em solid #777;
+}
+body > .bordered > header .inner nav ul a:hover {
+  background: none;
+  color: #777;
+}
+body > .bordered > header .inner nav ul a:focus {
+  background: #cc2211;
+  color: #fff;
+}
+
+#main {
+  /* /about and /learn */
+}
+#main section {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+}
+#main section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main .inner {
+  margin-left: 12.79471%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 74.41059%;
+}
+#main .inner:last-child {
+  margin-right: 0;
+}
+#main .content {
+  padding-top: 20px;
+}
+#main section.search {
+  padding: 70px 0 70px 0;
+}
+#main section.search h2 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 28pt;
+  margin: 0;
+  padding: 0;
+}
+#main section.search p {
+  margin-top: 30px;
+  font-size: 18pt;
+  line-height: 36px;
+}
+#main section.search .search-box {
+  margin-top: 30px;
+}
+#main section.search p.browse {
+  margin-top: 15px;
+  font-size: 10pt;
+  line-height: 20px;
+  text-align: center;
+}
+#main section.search hr {
+  margin-top: 80px;
+}
+
+#main.home h2 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 28pt;
+  margin: 0;
+  padding: 0;
+}
+#main.home section.intro {
+  padding: 70px 0 50px 0;
+}
+#main.home section.intro p {
+  margin-top: 30px;
+  font-size: 21pt;
+  line-height: 40px;
+}
+#main.home section.process .inner {
+  margin-left: 4.2649%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 91.4702%;
+}
+#main.home section.process .inner:last-child {
+  margin-right: 0;
+}
+#main.home section.process ul {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+#main.home section.process ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.home section.process ul figure {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 23.23176%;
+  padding: 0;
+  margin: 0;
+  padding: 10px;
+}
+#main.home section.process ul figure:last-child {
+  margin-right: 0;
+}
+#main.home section.process ul figure img {
+  width: 100%;
+}
+#main.home section.process ul figure figcaption {
+  font-size: 11pt;
+  line-height: 24px;
+}
+
+#main.agencies .listing .inner {
+  margin-left: 4.2649%;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 91.4702%;
+}
+#main.agencies .listing .inner:last-child {
+  margin-right: 0;
+}
+#main.agencies ul a {
+  color: black;
+  text-decoration: none;
+}
+#main.agencies ul li {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 50px;
+}
+#main.agencies ul li:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.agencies ul li .left {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+}
+#main.agencies ul li .left:last-child {
+  margin-right: 0;
+}
+#main.agencies ul li .left h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 12pt;
+}
+#main.agencies ul li .right {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main.agencies ul li .right:last-child {
+  margin-right: 0;
+}
+#main.agencies ul li .right p {
+  margin: 0;
+  padding: 0;
+}
+
+#main.landing .contact h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+#main.landing .contact ul, #main.landing .contact li {
+  list-style-type: none;
+  list-style-position: outside;
+  padding: 0;
+  margin: 0;
+}
+#main.landing .header {
+  margin-top: 20px;
+}
+#main.landing .header h1 {
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  font-size: 2.4em;
+}
+#main.landing .department {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+#main.landing .department:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.landing .department .description {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main.landing .department .description:last-child {
+  margin-right: 0;
+}
+#main.landing .department .resources {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+  padding-left: 10px;
+}
+#main.landing .department .resources:last-child {
+  margin-right: 0;
+}
+#main.landing .details {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 25px;
+}
+#main.landing .details:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.landing .details .offices, #main.landing .details .left {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 57.35098%;
+}
+#main.landing .details .offices:last-child, #main.landing .details .left:last-child {
+  margin-right: 0;
+}
+#main.landing .details .contact, #main.landing .details .right {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 40.29137%;
+}
+#main.landing .details .contact:last-child, #main.landing .details .right:last-child {
+  margin-right: 0;
+}
+#main.landing .details header h2 {
+  font-size: 2em;
+}
+#main.landing .resource_type, #main.landing .contact_type {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin: 15px 0;
+}
+#main.landing .resource_type:after, #main.landing .contact_type:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main.landing .resource_type:last-child, #main.landing .contact_type:last-child {
+  margin-right: 0;
+}
+#main.landing .resource_type .fa:before, #main.landing .contact_type .fa:before {
+  font-size: 2em;
+}
+#main.landing .resource_type .icon, #main.landing .contact_type .icon {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 14.70196%;
+  font-size: 1em;
+}
+#main.landing .resource_type .icon:last-child, #main.landing .contact_type .icon:last-child {
+  margin-right: 0;
+}
+#main.landing .resource_type .subdetails, #main.landing .contact_type .subdetails {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 82.94039%;
+}
+#main.landing .resource_type .subdetails:last-child, #main.landing .contact_type .subdetails:last-child {
+  margin-right: 0;
+}
+#main.landing .resource_type h3, #main.landing .contact_type h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+#main.landing .resource_type ul, #main.landing .resource_type li, #main.landing .contact_type ul, #main.landing .contact_type li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main.landing .details .offices ul, #main.landing .details .offices li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+#main.landing .details .offices li {
+  margin: 10px 0;
+  font-size: 1.2em;
+  line-height: 30px;
+}
+#main.landing .resource_type h3 {
+  font-size: 1em;
+}
+#main.landing .contact_type h3 {
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+#main.landing .inaccurate p {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+form.request input.upto[type=text] {
+  width: 80px;
+  display: inline;
+}
+form.request fieldset {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  border: 0;
+}
+form.request fieldset:last-child {
+  margin-right: 0;
+}
+form.request fieldset input {
+  font-size: 100%;
+  padding: 10px;
+}
+form.request fieldset legend {
+  display: block;
+  width: 100%;
+  padding: .3em 0;
+  margin-bottom: .3em;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+}
+form.request #name-email input {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+  margin: 0;
+}
+form.request #name-email input:last-child {
+  margin-right: 0;
+}
+form.request textarea.request {
+  height: 9em;
+  width: 100%;
+}
+form.request textarea.fee-waiver-justification {
+  height: 4em;
+}
+form.request span.fee-amount {
+  font-weight: bold;
+}
+form.request label.fee-waiver {
+  display: inline;
+}
+form.request input[type=submit] {
+  font-size: 100%;
+  padding: .5em 1em;
+  color: #fff;
+  border: 0;
+  background-color: #0078e7;
+  border-radius: 2px;
+}
+
+html, button, input, select, textarea {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}
+
+a {
+  color: #18f;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+input.search, input.agency {
+  width: 100%;
+}
+
+.pure-menu .pure-menu-selected a {
+  border-bottom: 0.3em solid #333;
+}
+
+/* todo: error/success states still need styling */
+/* error message next to submit button */
+div.request.error {
+  display: none;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #f00;
+}
+
+#tracking-number {
+  font-weight: bold;
+}
+
+#requester-email {
+  font-weight: bold;
+}
+
+#fee-waiver-justification {
+  display: none;
+  margin: 10px 0;
+}
+
+/* agency autocomplete */
+.twitter-typeahead {
+  width: 100%;
+}
+
+.scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 396px;
+  height: 50px;
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999;
+}
+
+.tt-dropdown-menu {
+  width: 422px;
+  margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tt-suggestion {
+  padding: 8px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion p,
+.tt-suggestion h5 {
+  margin: 0;
+}
+
+/*# sourceMappingURL=main.css.map */

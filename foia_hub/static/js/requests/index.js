@@ -11,6 +11,7 @@ $(document).ready(function() {
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     // prefetch: '/api/agency/',
+    limit: 500, // infinity
     prefetch: {url: "/api/agency/", filter: function(response) {return response.objects; }},
     datumTokenizer: function(d) {
       return []
@@ -66,7 +67,4 @@ $(document).ready(function() {
       minLength: 1
     }, agencyAdaptor
   ).on('keyup', onUserStroke).on('typeahead:selected', onAgencySelection);
-
-  // disable form submission
-  $('form').submit(function() { return false; });
 });
