@@ -3,6 +3,7 @@ import datetime
 from django.db import transaction
 from django.conf.urls import patterns, url
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
@@ -122,11 +123,22 @@ class AgencyResource(DjangoResource):
         data.update(self.contact_preparer.prepare(agency))
         return data
 
-    def list(self):
-        """ This lists all the Agency objects. It doesn't provide every field
-        for every object, instead limiting the output to useful fields. To see
-        the detail for each object, use the detail endpoint. """
-        return Agency.objects.all().order_by('name')
+    def list(self, q=None):
+        """ This lists all Agency objects, optionally filtered by a given
+        query parameter. It doesn't provide every field for every object,
+        instead limiting the output to useful fields. To see the detail for
+        each object, use the detail endpoint. """
+        if q:
+            agencies = Agency.objects.filter(
+                Q(abbreviation__icontains=q) |
+                Q(name__icontains=q) |
+                Q(slug__icontains=q) |
+                Q(description__icontains=q)
+            )
+        else:
+            agencies = Agency.objects.all()
+
+        return agencies.order_by('name')
 
     @skip_prepare
     def detail(self, slug):

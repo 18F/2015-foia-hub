@@ -7,9 +7,13 @@
     Each U.S. federal agency processes its own requests. Contact the agency that is directly responsible for the information that you seek.
   </p>
 
-  <form class="agency">
+  <form class="agency" method="get" action="/agencies/">
     <div class="search-box scrollable-dropdown-menu">
-      <input class="typeahead agency" type="search" />
+      <input class="typeahead agency" name="query" type="search"
+        {% if query %}
+          value="{{ query }}"
+        {% endif %}
+        />
     </div>
   </form>
 

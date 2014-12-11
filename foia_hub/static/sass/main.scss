@@ -403,15 +403,16 @@ div.request.error {
 
 
 /* agency autocomplete */
-.twitter-typeahead {width: 100%;}
+.twitter-typeahead {
+  width: 100%;
+}
+
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
   width: 100%;
   margin-bottom: 100px;
 }
-
-
 
 .typeahead,
 .tt-query,
@@ -423,8 +424,8 @@ div.request.error {
   line-height: 30px;
   border: 2px solid #ccc;
   -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
   outline: none;
 }
 
@@ -438,8 +439,8 @@ div.request.error {
 
 .tt-query {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 .tt-hint {
@@ -454,11 +455,11 @@ div.request.error {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tt-suggestion {
@@ -476,4 +477,3 @@ div.request.error {
 .tt-suggestion h5 {
   margin: 0;
 }
-
