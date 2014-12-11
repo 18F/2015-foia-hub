@@ -1,8 +1,9 @@
+@import "normalize";
 @import "bourbon/bourbon";
+@import "grid-settings";
 @import "neat/neat";
 
 body {
-  margin: 0; padding: 0;
   padding-bottom: 20px;
 }
 
