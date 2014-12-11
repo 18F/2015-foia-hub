@@ -1,7 +1,7 @@
-@import "normalize";
 @import "bourbon/bourbon";
 @import "grid-settings";
 @import "neat/neat";
+@import "normalize";
 
 body {
   padding-bottom: 20px;
@@ -18,7 +18,6 @@ div.bordered {
   border-bottom: 1px solid #dedede;
 }
 
-
 body > .bordered > header {
   @include outer-container;
 
@@ -26,8 +25,8 @@ body > .bordered > header {
   height: 80px;
 
   .inner {
-    @include shift(1.5);
-    @include span-columns(9);
+    //@include shift(1.5);
+    @include span-columns(10);
 
     a:hover {text-decoration: none;}
 
@@ -82,14 +81,52 @@ body > .bordered > header {
   }
 }
 
+aside.usa {
+  float: left;
+  display: block;
+  // margin-right: 2.35765%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  text-align: center;
+  line-height:1em;
+  font-size: 0.75em;
+  color: #DDD;
+  padding-top: 0.25em;
+  margin-bottom: 2em;
+  p {
+//    margin: 0px 0px 0.75em;
+    display: inline;
+    @include media($mobile) {
+      display: block;
+    }      
+
+    &.official {
+      float:left;
+      margin-left:1em;
+      @include media($mobile) {
+        float:none;
+        text-align:center;
+      }      
+      }
+    &.alpha {
+      float:right;
+      margin-right:1em;
+      @include media($mobile) {
+        float:none;
+        text-align:center;
+      }      
+    }
+  }
+}
+
 #main {
   section {
     @include outer-container;
   }
 
   .inner {
-    @include shift(1.5);
-    @include span-columns(9);
+    @include shift(2);
+    @include span-columns(8);
   }
 
   /* /about and /learn */
@@ -151,8 +188,8 @@ body > .bordered > header {
 
   section.process {
     .inner {
-      @include shift(0.5);
-      @include span-columns(11);
+//      @include shift(0);
+      @include span-columns(12);
     }
 
     ul {
