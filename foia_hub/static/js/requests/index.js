@@ -69,6 +69,4 @@ $(document).ready(function() {
 
   // disable form submission
   $('form').submit(function() { return false; });
-
-  $('input.agency').focus();
 });

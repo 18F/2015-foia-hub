@@ -67,12 +67,6 @@ class RequestFormTests(SimpleTestCase):
             'success', kwargs={'id': 9999999999}))
         self.assertEqual(404, response.status_code)
 
-    @patch.dict('foia_hub.views.env.globals',
-                {'ANALYTICS_ID': 'MyAwesomeAnalyticsCode'})
-    def test_analytics_id(self):
-        """Verify that the analytics id appears *somewhere* on the page"""
-        response = self.client.get(reverse('request'))
-        self.assertContains(response, 'MyAwesomeAnalyticsCode')
 
     def test_contact_landing_404(self):
         """Verify that non-existing agency/offices cause 404s"""
@@ -127,8 +121,18 @@ class MainPageTests(TestCase):
 
     def test_main_page(self):
         """ The main page should load without errors. """
-        response = self.client.get(reverse('request'))
+        response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
+
+        content = response.content.decode('utf-8')
+        self.assertTrue('What is FOIA?' in content)
+
+    @patch.dict('foia_hub.views.env.globals',
+                {'ANALYTICS_ID': 'MyAwesomeAnalyticsCode'})
+    def test_analytics_id(self):
+        """Verify that the analytics id appears *somewhere* on the page"""
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, 'MyAwesomeAnalyticsCode')
 
     def test_get_agency_list(self):
         agencies = get_agency_list()
@@ -146,16 +150,15 @@ class MainPageTests(TestCase):
                     'slug': 'us-patent-and-trademark-office'
                 }])
 
-    def test_main_page_most_requested(self):
-        response = self.client.get(reverse('request'))
-        content = response.content.decode('utf-8')
-        self.assertTrue('Most requests received' in content)
+class AgenciesPageTests(TestCase):
+    fixtures = ['agencies_test.json']
 
-    def test_main_page_browse_all(self):
-        response = self.client.get(reverse('request'))
+    def test_agencies_page(self):
+        """ The /agencies/ page should load without errors. """
+        response = self.client.get(reverse('agencies'))
+        self.assertEqual(response.status_code, 200)
+
         content = response.content.decode('utf-8')
-        self.assertTrue('Browse all agencies' in content)
-        self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Department of Homeland Security' in content)
 
 

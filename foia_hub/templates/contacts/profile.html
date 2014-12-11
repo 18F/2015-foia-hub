@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block class %}landing{% endblock %}
 
 {% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
 
@@ -12,7 +13,7 @@
 
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
-<header>
+<section class="header"><div class="inner">
   <div class="breadcrumbs">
     <a href="/">
       Home &gt;
@@ -29,11 +30,11 @@
   </div>
 
   <h1>{{ profile.name }}</h1>
-</header>
+</div></section>
 
-<section class="department">
+<section class="department"><div class="inner">
 
-  <section class="description">
+  <div class="description">
     <p>
       {% if profile.description %}
         {{ profile.description }}
@@ -41,9 +42,9 @@
         Here you can find some resources and contact information to file a request with this office.
       {% endif %}
     </p>
-  </section>
+  </div>
 
-  <section class="resources">
+  <div class="resources">
     {% include 'contacts/contact.html' %}
 
     {% if profile.simple_processing_time or profile.complex_processing_time %}
@@ -71,10 +72,10 @@
         </div>
       </div>
     {% endif %}
-  </section>
-</section>
+  </div>
+</div></section>
 
-<section class="details">
+<section class="details"><div class="inner">
 
   <header>
     <h2>Submitting a request</h2>
@@ -157,12 +158,12 @@
       </div>
     {% endif %}
   </div>
-</section>
+</div></section>
 
-<section class="inaccurate">
+<section class="inaccurate"><div class="inner">
   <p>
     Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
   </p>
-</section>
+</div></section>
 
 {% endblock %}
