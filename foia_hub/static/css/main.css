@@ -408,7 +408,7 @@ body {
 
 /* a couple things that stand outside the normal hierarchy, because
    they extend the full width, beyond the normal outer-container */
-div.blue {
+div.hero {
   background-color: #f1f8ff; }
 
 div.bordered {
