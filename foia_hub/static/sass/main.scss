@@ -26,7 +26,7 @@ body > .bordered > header {
 
   .inner {
     //@include shift(1.5);
-    @include span-columns(10);
+    //@include span-columns(10);
 
     a:hover {text-decoration: none;}
 
@@ -96,14 +96,14 @@ aside.usa {
   p {
 //    margin: 0px 0px 0.75em;
     display: inline;
-    @include media($mobile) {
+    @include media($small) {
       display: block;
     }      
 
     &.official {
       float:left;
       margin-left:1em;
-      @include media($mobile) {
+      @include media($small) {
         float:none;
         text-align:center;
       }      
@@ -111,7 +111,7 @@ aside.usa {
     &.alpha {
       float:right;
       margin-right:1em;
-      @include media($mobile) {
+      @include media($small) {
         float:none;
         text-align:center;
       }      
