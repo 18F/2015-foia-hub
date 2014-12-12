@@ -58,14 +58,14 @@
             {% if profile.simple_processing_time %}
               <li>
                 Simple requests:
-                {{ profile.simple_processing_time }} days
+                {{ profile.simple_processing_time|int }} days
               </li>
             {% endif %}
 
             {% if profile.complex_processing_time %}
               <li>
                 Complex requests:
-                {{ profile.complex_processing_time }} days
+                {{ profile.complex_processing_time|int }} days
               </li>
             {% endif %}
           </ul>
