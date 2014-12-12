@@ -163,9 +163,23 @@ class Office(Contactable):
 
 class Stats(models.Model):
     """
-    The Stats model stores request processing time data from foia.gov.
-    Currently this model only stores median processing times for
-    simple and complex FOIA requests.
+    The Stats model stores request processing time data scraped from foia.gov.
+    Currently this model only stores the median number of days
+    simple and complex requests take to complete.
+
+    Simple Request – A FOIA request that an agency anticipates will
+    involve a small volume of material or which will be able to be
+    processed relatively quickly. (http://www.foia.gov/glossary.html)
+
+    Complex Request – A FOIA request that an agency anticipates will
+    involve a voluminous amount of material to review or will be
+    time-consuming to process. (http://www.foia.gov/glossary.html)
+
+    Occasionally, simple requests processing times are longer than
+    complex requests processing times. These instances are also present
+    on foia.gov and can be traced to the reports agencies and offices
+    submit to the Department of Justice.
+
     """
 
     STAT_TYPE = (
