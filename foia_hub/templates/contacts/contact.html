@@ -1,16 +1,16 @@
 
-{% if profile.reading_rooms %}
+{% if profile.foia_libraries %}
     <div class="reading_room resource_type">
         <div class="icon">
             <span class="fa fa-bookmark"></span>
         </div>
         <div class="subdetails">
-            {% if profile.reading_rooms|length > 1 %}
+            {% if profile.foia_libraries|length > 1 %}
             <h3>FOIA Libraries</h3>
             {% else %}
             <h3>FOIA Library</h3>
             {% endif %}
-            {% for r in profile.reading_rooms%}
+            {% for r in profile.foia_libraries %}
                 <ul>
                     <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
                 </ul>

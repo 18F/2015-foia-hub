@@ -5,6 +5,7 @@ from django.test import SimpleTestCase, TestCase
 from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
+from foia_hub.models import ReadingRoomUrls
 from foia_hub.views import get_agency_list
 
 
@@ -66,7 +67,6 @@ class RequestFormTests(SimpleTestCase):
         response = self.client.get(reverse(
             'success', kwargs={'id': 9999999999}))
         self.assertEqual(404, response.status_code)
-
 
     def test_contact_landing_404(self):
         """Verify that non-existing agency/offices cause 404s"""
@@ -150,7 +150,9 @@ class MainPageTests(TestCase):
                     'slug': 'us-patent-and-trademark-office'
                 }])
 
+
 class AgenciesPageTests(TestCase):
+
     fixtures = ['agencies_test.json']
 
     def test_agencies_page(self):
@@ -173,19 +175,24 @@ class AgenciesPageTests(TestCase):
         self.assertTrue('Patent and Trademark Office' not in content)
 
     def test_agencies_search_one(self):
-        """ The /agencies/ page should redirect to an agency if there's only one result. """
+        """ The /agencies/ page should redirect to an agency if there's only
+        one result. """
+
         query = "dhs"
         dhs = Agency.objects.filter(abbreviation='DHS')[0]
         response = self.client.get(reverse('agencies') + "?query=" + query)
         self.assertEqual(response.status_code, 302)
 
         self.assertEqual(
-            "http://testserver" + reverse('contact_landing', kwargs={'slug': dhs.slug}),
+            "http://testserver" + reverse(
+                'contact_landing', kwargs={'slug': dhs.slug}),
             response['Location']
         )
 
     def test_agencies_search_none(self):
-        """ The /agencies/ page should display a message if there are no results. """
+        """ The /agencies/ page should display a message if there are no
+        results. """
+
         query = "kjlasdhfjhsdfljsdhflkasdjh"
         response = self.client.get(reverse('agencies') + "?query=" + query)
         self.assertEqual(response.status_code, 200)
@@ -196,14 +203,15 @@ class AgenciesPageTests(TestCase):
         self.assertTrue('Patent and Trademark Office' not in content)
         self.assertTrue('no agencies matching your search' in content)
 
+
 class ContactPageTests(TestCase):
-    fixtures = ['agencies_test.json']
+    fixtures = ['agencies_test.json', 'offices_test.json']
 
     def test_inaccurate_contact(self):
         response = self.client.get(
             reverse(
                 'contact_landing',
-                args=['department-of-homeland-security']))
+                args=['department-of-commerce--census-bureau']))
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
         self.assertTrue('18f-foia@gsa.gov' in content)
@@ -220,3 +228,23 @@ class ContactPageTests(TestCase):
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
         self.assertTrue('Request online' not in content)
+
+    def test_reading_rooms(self):
+        rone = ReadingRoomUrls(link_text='Url One', url='http://urlone.gov')
+        rone.save()
+        rtwo = ReadingRoomUrls(link_text='Url Two', url='http://urltwo.gov')
+        rtwo.save()
+
+        census = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        census.reading_room_urls.add(rone, rtwo)
+
+        response = self.client.get(
+            reverse(
+                'contact_landing',
+                args=['department-of-commerce--census-bureau']))
+        self.assertTrue(200, response.status_code)
+        content = response.content.decode('utf-8')
+        self.assertTrue('FOIA Libraries' in content)
+        self.assertTrue('Url One' in content)
+        self.assertTrue('Url Two' in content)
