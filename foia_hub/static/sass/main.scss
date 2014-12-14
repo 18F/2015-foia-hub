@@ -1,7 +1,7 @@
+@import "normalize";
 @import "bourbon/bourbon";
 @import "grid-settings";
 @import "neat/neat";
-@import "normalize";
 
 body {
   padding-bottom: 20px;
@@ -21,64 +21,54 @@ div.bordered {
 body > .bordered > header {
   @include outer-container;
 
-  padding-top: 20px;
-  height: 80px;
+  a:hover {text-decoration: none;}
 
-  .inner {
-    //@include shift(1.5);
-    //@include span-columns(10);
+  h1 {
+    @include span-columns(8);
 
-    a:hover {text-decoration: none;}
+    font-weight: normal;
+    font-size: 2em;
+  
+    color: #18f;
+    a {color: #18f;}
+    strong {font-weight: 800;}
+    em { color: #cc2211; font-style: normal;}
+  }
 
-    h1 {
-      @include span-columns(5);
+  nav {
+    ul {
+      li {
+        display: inline-block;
+        padding: 9px 12px 0 12px;
+      }
 
-      font-weight: normal;
-      font-size: 2em;
-
-      margin: 0;
-      padding: 0;
-
-      color: #18f;
-      a {color: #18f;}
-      strong {font-weight: normal;}
-      em { color: #cc2211; font-style: normal;}
-    }
-
-    nav {
-      @include span-columns(7);
-
-      height: 100%;
-
-      ul {
-        padding: 0; margin: 0;
-
-        bottom: 0;
-        height: 50px;
-
-        li {
-          display: inline-block;
-          padding: 9px 12px 0 12px;
-        }
-
-        a {
-          color: #333;
-          padding: 5px 12px 25px 12px;
-        }
-        a:hover, a.active {
-          border-bottom: 0.3em solid #777;
-        }
-        a:hover {
-          background: none;
-          color: #777;
-        }
-        a:focus {
-          background: #cc2211;
-          color:#fff;
-        }
+      a {
+        color: #333;
+        padding: 5px 0px 25px 0px;
+      }
+      a:hover, a.active {
+        border-bottom: 0.3em solid #777;
+      }
+      a:hover {
+        background: none;
+        color: #777;
+      }
+      a:focus {
+        background: #cc2211;
+        color:#fff;
       }
     }
   }
+}
+
+/* $columns should always be an even number */
+@mixin inner($columns) {
+  @include shift( ( 24 - $columns )/ 2 of 24);
+  @include span-columns( $columns of 24 );
+  @include media($small) {
+    @include shift(0);
+    @include span-columns(4 of 4);
+  }  
 }
 
 aside.usa {
@@ -91,7 +81,7 @@ aside.usa {
   line-height:1em;
   font-size: 0.75em;
   color: #DDD;
-  padding-top: 0.25em;
+  margin-top: 0.25em;
   margin-bottom: 2em;
   p {
 //    margin: 0px 0px 0.75em;
@@ -124,17 +114,15 @@ aside.usa {
     @include outer-container;
   }
 
-  .inner {
-    @include shift(2);
-    @include span-columns(8);
-  }
-
   /* /about and /learn */
   .content {
     padding-top: 20px;
   }
 
   section.search {
+/*    @include shift(4 of 24);
+    @include span-columns(16 of 24);*/
+    @include inner(16);
     padding: 70px 0 70px 0;
 
     h2 {
@@ -169,27 +157,26 @@ aside.usa {
 
 #main.home {
 
-  h2 {
-    text-align: center;
-    font-weight: normal;
-    font-size: 28pt;
-    margin: 0; padding: 0;
-  }
-
-  section.intro {
-    padding: 70px 0 50px 0;
-
+  section.hero__content {
+    @include inner(16);
+    h2 {
+      text-align: center;
+      font-weight: normal;
+      font-size: 28pt;
+      margin: 0; padding: 0;
+    }
     p {
+      /* VZ: This should be moved to a variable. Prob powered by Bitters. */
       margin-top: 30px;
       font-size: 21pt;
       line-height: 40px;
     }
   }
 
+/* VZ: .process is going to need be corrected for 24 col grid */
   section.process {
     .inner {
-//      @include shift(0);
-      @include span-columns(12);
+      @include span-columns(20);
     }
 
     ul {
@@ -215,8 +202,8 @@ aside.usa {
 
 #main.agencies {
   .listing .inner {
-    @include shift(0.5);
-    @include span-columns(11);
+//    @include shift(0.5);
+//    @include span-columns(24);
   }
 
   ul {
@@ -232,7 +219,7 @@ aside.usa {
       margin-bottom: 50px;
 
       .left {
-        @include span-columns(5);
+        @include span-columns(10);
         h3 {
           padding: 0; margin: 0;
           font-size: 12pt;
@@ -240,7 +227,7 @@ aside.usa {
       }
 
       .right {
-        @include span-columns(7);
+        @include span-columns(14);
         p {margin: 0; padding: 0;}
       }
     }
