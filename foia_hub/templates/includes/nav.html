@@ -1,23 +1,23 @@
-<aside class="usa"><p class="official">An official website of the United States Government <img alt="US flag
-signifying that this is a United States Federal Government website" src="/static/images/us_flag_small.png"></p><p class="alpha">This site is in alpha. <a href="http://github.com/18f/foia-hub">Learn more.</a></p></aside>
-
 <header>
-  <h1 id="logo">
-    <a href="/">
-      FOIA<em><strong>Hub</strong></em>
-    </a>
-  </h1>
+  <aside class="usa"><div class="container"><p class="official">An official website of the United States Government <img alt="US flag signifying that this is a United States Federal Government website" src="/static/images/us_flag_small.png"></p><p class="alpha">This site is in alpha. <a href="http://github.com/18f/foia-hub">Learn more.</a></p></div></aside>
+  <div class="container">
+    <h1 id="logo">
+      <a href="/">
+        FOIA<em><strong>Hub</strong></em>
+      </a>
+    </h1>
 
-  <nav>
-    <ul>
-      <li><a
-          {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
-          href="/learn/">Understanding FOIA
+    <nav>
+      <ul>
+        <li><a
+            {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
+            href="/learn/">Understanding FOIA
+          </a></li>
+        <li><a
+          {% if request and ('/about/' == request.path) %}class="active"{% endif %}
+          href="/about/">About this Project
         </a></li>
-      <li><a
-        {% if request and ('/about/' == request.path) %}class="active"{% endif %}
-        href="/about/">About this Project
-      </a></li>
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>

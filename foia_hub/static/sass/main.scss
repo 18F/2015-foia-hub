@@ -10,16 +10,16 @@ body {
 /* a couple things that stand outside the normal hierarchy, because
    they extend the full width, beyond the normal outer-container */
 
-div.hero {
+section.hero {
   background-color: #f1f8ff;
-  border: 1px solid red;
 }
 
 body > header {
-  @include outer-container;
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
-
+  .container {
+    @include outer-container;
+  }
   h1 {
     @include span-columns(8);
 
@@ -51,8 +51,9 @@ body > header {
         color: #777;
       }
       a:focus {
-        background: #cc2211;
-        color:#fff;
+        // background: #cc2211;
+        background: #fff;
+        color:#1188ff;
       }
     }
   }
@@ -72,36 +73,37 @@ body > header {
 }
 
 aside.usa {
-  float: left;
-  display: block;
-  // margin-right: 2.35765%;
+//  float: left;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  text-align: center;
-  line-height:1em;
   font-size: 0.75em;
   color: #DDD;
-  margin-top: 0.25em;
-  margin-bottom: 2em;
+  .container {
+    @include outer-container;
+  }
   p {
 //    margin: 0px 0px 0.75em;
     display: inline;
     @include media($small) {
       display: block;
-    }      
+    }
 
     &.official {
       float:left;
-      margin-left:1em;
+      text-align:left;
+      @include span-columns(16 of 24);
       @include media($small) {
+        @include span-columns(4);
         float:none;
         text-align:center;
       }      
-      }
+    }
     &.alpha {
       float:right;
-      margin-right:1em;
+      text-align:right;
+      @include span-columns(8 of 24);
       @include media($small) {
+        @include span-columns(4);
         float:none;
         text-align:center;
       }      
@@ -157,8 +159,9 @@ aside.usa {
 
 #main.home {
 
-  section.hero__content {
+  .hero > .container {
     @include inner(16);
+    margin-top: 1em;
     h2 {
       text-align: center;
       font-weight: normal;
