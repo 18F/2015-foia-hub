@@ -110,7 +110,7 @@ class AgencyAPITests(TestCase):
         slug += '--federal-emergency-management-agency'
         self.assertEqual(slug, content['offices'][0]['slug'])
         # test Stats models for both numbers and nulls
-        self.assertEqual(37, content['complex_processing_time'])
+        self.assertEqual(37.5, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
 
     def test_detail_components(self):
@@ -160,7 +160,7 @@ class OfficeAPITests(TestCase):
             'department-of-commerce',
             content['agency_slug'])
         # test Stats models for both numbers and nulls
-        self.assertEqual(12, content['complex_processing_time'])
+        self.assertEqual(12.2, content['complex_processing_time'])
         self.assertEqual(None, content['simple_processing_time'])
 
     def test_reading_room(self):

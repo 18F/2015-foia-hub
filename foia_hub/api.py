@@ -58,7 +58,8 @@ def office_preparer():
 
 
 def get_latest_stats(stat_type, agency=None, office=None):
-    '''Gets the latest median stats for an agency/office.'''
+    """Gets the latest median processing time stats for an agency/office.
+    """
 
     if agency and not office:
         stats = agency.stats_set \
@@ -69,9 +70,8 @@ def get_latest_stats(stat_type, agency=None, office=None):
             .filter(stat_type=stat_type) \
             .order_by('-year').first()
 
-    # TODO: figure out better way to handle decimals.
-    if stats and (stats.median is not None):
-        return int(stats.median)
+    if stats:
+        return stats.median
     else:
         return None
 
