@@ -14,9 +14,11 @@ env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 # Finding agencies and their contact information.
 ###
 
+
 def home(request):
     """App home page."""
     return HttpResponse(env.get_template('index.html').render())
+
 
 def agencies(request):
     """Full agency listing."""
@@ -26,7 +28,9 @@ def agencies(request):
     if len(agencies) == 1:
         return redirect('contact_landing', slug=agencies[0].slug)
     else:
-        return HttpResponse(env.get_template('contacts/index.html').render(agencies=agencies, query=query))
+        return HttpResponse(env.get_template('contacts/index.html').render(
+            agencies=agencies, query=query))
+
 
 def contact_landing(request, slug):
     """Principal landing page for agencies and offices."""
