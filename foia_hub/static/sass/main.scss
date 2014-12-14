@@ -12,15 +12,12 @@ body {
 
 div.hero {
   background-color: #f1f8ff;
+  border: 1px solid red;
 }
 
-div.bordered {
-  border-bottom: 1px solid #dedede;
-}
-
-body > .bordered > header {
+body > header {
   @include outer-container;
-
+  border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
 
   h1 {
@@ -61,7 +58,10 @@ body > .bordered > header {
   }
 }
 
-/* $columns should always be an even number */
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
 @mixin inner($columns) {
   @include shift( ( 24 - $columns )/ 2 of 24);
   @include span-columns( $columns of 24 );
@@ -201,12 +201,9 @@ aside.usa {
 }
 
 #main.agencies {
-  .listing .inner {
-//    @include shift(0.5);
-//    @include span-columns(24);
-  }
 
   ul {
+    padding: 0;
     a {
       color: black;
       text-decoration: none;
@@ -218,16 +215,26 @@ aside.usa {
       margin: 0; padding: 0;
       margin-bottom: 50px;
 
-      .left {
+      .agencies--name {
         @include span-columns(10);
+        @include media($small) {
+          @include span-columns(4 of 4);
+          // text-align: center;
+        }  
         h3 {
-          padding: 0; margin: 0;
-          font-size: 12pt;
+          padding: 0 0 0.5em 0; margin: 0;
+          font-size: 1em;
+          @include media($small) {
+            font-size: 1.5em;
+          }
         }
       }
 
-      .right {
+      .agencies--description {
         @include span-columns(14);
+        @include media($small) {
+          @include span-columns(4 of 4);
+        }  
         p {margin: 0; padding: 0;}
       }
     }
