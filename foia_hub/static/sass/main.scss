@@ -10,10 +10,6 @@ body {
 /* a couple things that stand outside the normal hierarchy, because
    they extend the full width, beyond the normal outer-container */
 
-section.hero {
-  background-color: #f1f8ff;
-}
-
 body > header {
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
@@ -66,10 +62,19 @@ body > header {
 @mixin inner($columns) {
   @include shift( ( 24 - $columns )/ 2 of 24);
   @include span-columns( $columns of 24 );
+
   @include media($small) {
     @include shift(0);
     @include span-columns(4 of 4);
   }  
+}
+
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+@mixin fullbleed($columns) {
+ // vz: TO BE IMPLEMENTED
 }
 
 aside.usa {
@@ -112,9 +117,6 @@ aside.usa {
 }
 
 #main {
-  section {
-    @include outer-container;
-  }
 
   /* /about and /learn */
   .content {
@@ -122,10 +124,8 @@ aside.usa {
   }
 
   section.search {
-/*    @include shift(4 of 24);
-    @include span-columns(16 of 24);*/
     @include inner(16);
-    padding: 70px 0 70px 0;
+    padding: 70px 0;
 
     h2 {
       text-align: center;
@@ -157,11 +157,45 @@ aside.usa {
   }
 }
 
-#main.home {
+.container {
+  @include outer-container();
+}
 
-  .hero > .container {
+.row {
+  @include span-columns(24);
+  @include clearfix();
+}
+
+.clearfix {
+  @include clearfix();
+}
+
+@include media($medium) {
+  .container {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+.hero {
+  background-color: #f1f8ff;
+  padding: 2em 0;
+  background-size: contain;
+}
+
+@include media($small) {
+  .hero {
+    padding: 2em 0;
+  }
+}
+
+.hero > .container {
+//    border: 1px solid blue;
+    /*@include span-columns(18 of 24);
+    @include shift(3 of 24);*/
     @include inner(16);
-    margin-top: 1em;
+//    float:none;
+//    width: 66.66%; /* Need to figure out how to replace this with a span-column */
     h2 {
       text-align: center;
       font-weight: normal;
@@ -174,9 +208,9 @@ aside.usa {
       font-size: 21pt;
       line-height: 40px;
     }
-  }
+}
 
-/* VZ: .process is going to need be corrected for 24 col grid */
+#main.home {
   section.process {
     .inner {
       @include span-columns(20);
@@ -188,7 +222,7 @@ aside.usa {
       margin-top: 30px;
 
       figure {
-        @include span-columns(3);
+        @include span-columns(6);
 
         padding: 0; margin: 0;
         padding: 10px;

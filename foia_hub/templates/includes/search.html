@@ -1,28 +1,31 @@
-<section class="search">
-  <h2>
-    Which agency do you want to contact?
-  </h3>
+<div class="container">
+  <section class="search">
+    <h2>
+      Which agency do you want to contact?
+    </h2>
 
-  <p>
-    Each U.S. federal agency processes its own requests. Contact the agency that is directly responsible for the information that you seek.
-  </p>
+    <p>
+      Each U.S. federal agency processes its own requests. Contact the agency that is directly responsible for the information that you seek.
+    </p>
 
-  <form class="agency" method="get" action="/agencies/">
-    <div class="search-box scrollable-dropdown-menu">
-      <input class="typeahead agency" name="query" type="search"
-        {% if query %}
-          value="{{ query }}"
-        {% endif %}
-        />
-    </div>
-  </form>
+    <form class="agency" method="get" action="/agencies/">
+      <div class="search-box scrollable-dropdown-menu">
+        <input class="typeahead agency" name="query" type="search"
+          {% if query %}
+            value="{{ query }}"
+          {% endif %}
+          />
+      </div>
+    </form>
 
-  <p class="browse">
-    <a href="/agencies/">or browse a list of federal agencies</a>
-  </p>
+    <p class="browse">
+      <a href="/agencies/">or browse a list of federal agencies</a>
+    </p>
 
-  <hr />
-</section>
+    <hr />
+  </section>
+</div>
+
 
 <script src="/static/js/typeahead.bundle.js"></script>
 <script src="/static/js/handlebars-v1.2.0.js"></script>
