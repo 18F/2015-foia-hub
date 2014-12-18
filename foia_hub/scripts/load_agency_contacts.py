@@ -194,7 +194,7 @@ def process_yamls(folder):
                     abbreviation = build_abbreviation(sub_agency_name)
                     sub_agency.abbreviation = abbreviation
                     sub_agency.description = dept_rec.get('description')
-                    sub_agency.keywords = dept_rec.get('keywords')
+                    sub_agency.keyword = dept_rec.get('keywords')
                     sub_agency.common_requests = dept_rec.get(
                         'common_requests', [])
                     sub_agency.no_records_about = dept_rec.get(
