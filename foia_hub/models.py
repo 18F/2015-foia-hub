@@ -164,7 +164,7 @@ class Office(Contactable):
 class Stats(models.Model):
     """
     The Stats model stores request processing time data scraped from foia.gov.
-    Currently this model only stores the median number of days
+    Currently this model only stores the median number of working days
     simple and complex requests take to complete.
 
     Simple Request – A FOIA request that an agency anticipates will
