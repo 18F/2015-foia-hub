@@ -82,7 +82,7 @@ body > .bordered > header {
 }
 
 #main {
-  section {
+  section, footer {
     @include outer-container;
   }
 
@@ -126,6 +126,26 @@ body > .bordered > header {
     hr {
       margin-top: 80px;
     }
+  }
+
+  footer {
+    div.left {
+      @include span-columns(2);
+      img {
+        width: 100px; height: 100px;
+        margin: 10px 0;
+        vertical-align: top;
+      }
+    }
+
+    div.right {
+      @include span-columns(10);
+
+      p {
+
+      }
+    }
+
   }
 }
 
