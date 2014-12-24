@@ -108,12 +108,12 @@ body > .bordered > header .inner nav ul a:focus {
 #main {
   /* /about and /learn */
 }
-#main section {
+#main section, #main footer {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
 }
-#main section:after {
+#main section:after, #main footer:after {
   content: "";
   display: table;
   clear: both;
@@ -157,6 +157,30 @@ body > .bordered > header .inner nav ul a:focus {
 }
 #main section.search hr {
   margin-top: 80px;
+}
+#main footer div.left {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 14.70196%;
+}
+#main footer div.left:last-child {
+  margin-right: 0;
+}
+#main footer div.left img {
+  width: 100px;
+  height: 100px;
+  margin: 10px 0;
+  vertical-align: top;
+}
+#main footer div.right {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 82.94039%;
+}
+#main footer div.right:last-child {
+  margin-right: 0;
 }
 
 #main.home h2 {
