@@ -60,12 +60,12 @@ body > header {
  * $columns should always be an even number 
  */
 @mixin inner($columns) {
-  @include shift( ( 24 - $columns )/ 2 of 24);
-  @include span-columns( $columns of 24 );
+  @include shift( ( 24 - $columns )/ 2 );
+  @include span-columns( $columns );
 
   @include media($small) {
     @include shift(0);
-    @include span-columns(4 of 4);
+    @include span-columns(4);
   }  
 }
 
@@ -79,40 +79,13 @@ body > header {
 
 aside.usa {
 //  float: left;
-  width: 100%;
+//  width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 0.75em;
   color: #DDD;
-  .container {
-    @include outer-container;
-  }
+  text-align:center;
   p {
-//    margin: 0px 0px 0.75em;
-    display: inline;
-    @include media($small) {
-      display: block;
-    }
-
-    &.official {
-      float:left;
-      text-align:left;
-      @include span-columns(16 of 24);
-      @include media($small) {
-        @include span-columns(4);
-        float:none;
-        text-align:center;
-      }      
-    }
-    &.alpha {
-      float:right;
-      text-align:right;
-      @include span-columns(8 of 24);
-      @include media($small) {
-        @include span-columns(4);
-        float:none;
-        text-align:center;
-      }      
-    }
+    margin: none; padding: none;
   }
 }
 
@@ -189,13 +162,11 @@ aside.usa {
   }
 }
 
-.hero > .container {
+.hero > .container > .hero--content {
 //    border: 1px solid blue;
     /*@include span-columns(18 of 24);
     @include shift(3 of 24);*/
     @include inner(16);
-//    float:none;
-//    width: 66.66%; /* Need to figure out how to replace this with a span-column */
     h2 {
       text-align: center;
       font-weight: normal;

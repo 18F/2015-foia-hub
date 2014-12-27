@@ -475,61 +475,13 @@ body > header {
  * $columns should always be an even number 
  */
 aside.usa {
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   font-size: 0.75em;
-  color: #DDD; }
-  aside.usa .container {
-    max-width: 68em;
-    margin-left: auto;
-    margin-right: auto; }
-    aside.usa .container:after {
-      content: "";
-      display: table;
-      clear: both; }
+  color: #DDD;
+  text-align: center; }
   aside.usa p {
-    display: inline; }
-    @media screen and (max-width: 30em) {
-      aside.usa p {
-        display: block; } }
-    aside.usa p.official {
-      float: left;
-      text-align: left;
-      float: left;
-      display: block;
-      margin-right: 1.165091401%;
-      width: 66.2783028663%; }
-      aside.usa p.official:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 30em) {
-        aside.usa p.official {
-          float: left;
-          display: block;
-          margin-right: 7.4229703521%;
-          width: 100%;
-          float: none;
-          text-align: center; }
-          aside.usa p.official:last-child {
-            margin-right: 0; } }
-    aside.usa p.alpha {
-      float: right;
-      text-align: right;
-      float: left;
-      display: block;
-      margin-right: 1.165091401%;
-      width: 32.5566057327%; }
-      aside.usa p.alpha:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 30em) {
-        aside.usa p.alpha {
-          float: left;
-          display: block;
-          margin-right: 7.4229703521%;
-          width: 100%;
-          float: none;
-          text-align: center; }
-          aside.usa p.alpha:last-child {
-            margin-right: 0; } }
+    margin: none;
+    padding: none; }
 
 #main {
   /* /about and /learn */ }
@@ -611,7 +563,7 @@ aside.usa {
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
-.hero > .container {
+.hero > .container > .hero--content {
   /*@include span-columns(18 of 24);
   @include shift(3 of 24);*/
   margin-left: 16.8608485668%;
@@ -619,24 +571,24 @@ aside.usa {
   display: block;
   margin-right: 1.165091401%;
   width: 66.2783028663%; }
-  .hero > .container:last-child {
+  .hero > .container > .hero--content:last-child {
     margin-right: 0; }
   @media screen and (max-width: 30em) {
-    .hero > .container {
+    .hero > .container > .hero--content {
       margin-left: 0%;
       float: left;
       display: block;
       margin-right: 7.4229703521%;
       width: 100%; }
-      .hero > .container:last-child {
+      .hero > .container > .hero--content:last-child {
         margin-right: 0; } }
-  .hero > .container h2 {
+  .hero > .container > .hero--content h2 {
     text-align: center;
     font-weight: normal;
     font-size: 28pt;
     margin: 0;
     padding: 0; }
-  .hero > .container p {
+  .hero > .container > .hero--content p {
     /* VZ: This should be moved to a variable. Prob powered by Bitters. */
     margin-top: 30px;
     font-size: 21pt;
