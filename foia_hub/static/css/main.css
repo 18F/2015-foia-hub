@@ -485,22 +485,6 @@ aside.usa {
 
 #main {
   /* /about and /learn */ }
-  #main section, #main footer {
-    max-width: 68em;
-    margin-left: auto;
-    margin-right: auto; }
-    #main section:after, #main footer:after {
-      content: "";
-      display: table;
-      clear: both; }
-  #main .inner {
-    margin-left: 6.3228182126%;
-    float: left;
-    display: block;
-    margin-right: 1.165091401%;
-    width: 36.7718178744%; }
-    #main .inner:last-child {
-      margin-right: 0; }
   #main .content {
     padding-top: 20px; }
   #main section.search {
@@ -544,7 +528,7 @@ aside.usa {
     float: left;
     display: block;
     margin-right: 1.165091401%;
-    width: 7.2653328825%; }
+    width: 11.4805450242%; }
     #main footer div.left:last-child {
       margin-right: 0; }
     #main footer div.left img {
@@ -556,7 +540,7 @@ aside.usa {
     float: left;
     display: block;
     margin-right: 1.165091401%;
-    width: 40.9870300161%; }
+    width: 87.3543635749%; }
     #main footer div.right:last-child {
       margin-right: 0; }
 
@@ -588,8 +572,7 @@ aside.usa {
 
 @media screen and (max-width: 48em) {
   .container {
-    padding-left: 1em;
-    padding-right: 1em; } }
+    padding: 0 1em; } }
 .hero {
   background-color: #f1f8ff;
   padding: 2em 0;
@@ -599,13 +582,22 @@ aside.usa {
   .hero {
     padding: 2em 0; } }
 .hero > .container > .hero--content {
-  margin-left: 33.7216971337%;
+  margin-left: 16.8608485668%;
   float: left;
   display: block;
   margin-right: 1.165091401%;
   width: 66.2783028663%; }
   .hero > .container > .hero--content:last-child {
     margin-right: 0; }
+  @media screen and (max-width: 30em) {
+    .hero > .container > .hero--content {
+      margin-left: 0%;
+      float: left;
+      display: block;
+      margin-right: 7.4229703521%;
+      width: 100%; }
+      .hero > .container > .hero--content:last-child {
+        margin-right: 0; } }
   .hero > .container > .hero--content h2 {
     text-align: center;
     font-weight: normal;
@@ -618,22 +610,8 @@ aside.usa {
     font-size: 21pt;
     line-height: 40px; }
 
-#main.home section.process .inner {
-  float: left;
-  display: block;
-  margin-right: 1.165091401%;
-  width: 83.1391514332%; }
-  #main.home section.process .inner:last-child {
-    margin-right: 0; }
 #main.home section.process ul {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 30px; }
-  #main.home section.process ul:after {
-    content: "";
-    display: table;
-    clear: both; }
   #main.home section.process ul figure {
     float: left;
     display: block;
@@ -656,17 +634,10 @@ aside.usa {
     color: black;
     text-decoration: none; }
   #main.agencies ul li {
-    max-width: 68em;
-    margin-left: auto;
-    margin-right: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
     margin-bottom: 50px; }
-    #main.agencies ul li:after {
-      content: "";
-      display: table;
-      clear: both; }
     #main.agencies ul li .agencies--name {
       float: left;
       display: block;
@@ -724,15 +695,8 @@ aside.usa {
     margin-top: 10px;
     font-size: 2.4em; }
 #main.landing .department {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5; }
-  #main.landing .department:after {
-    content: "";
-    display: table;
-    clear: both; }
 #main.landing .department .description {
   float: left;
   display: block;
