@@ -33,7 +33,7 @@ All of the information presented is available through an API.
 <h2> Bulk Data </h2>
 
 <p>
-The data source for the API and the tool is a set of YAML files that contain
+The data source for the API and the tool is a set of YAML files that contains
 all the data. These files are the canonical source for our data and are updated
 through a combination of automated and manual processes.
 </p>
@@ -55,6 +55,25 @@ through a combination of automated and manual processes.
     The repository for FOIA Hub.
     </li>
 </ul>
+
+<h2> Data Sources </h2>
+
+<p> We use multiple sources for the information we display about each
+government component.  </p>
+
+<p> Our contact and processing times data come from both <a
+href="http://foia.gov">foia.gov</a> and manually culling government FOIA web pages.
+Descriptions and acronyms come from the <a href="http://www.usa.gov/api/USAGovAPI/contacts.json">USAGOV Contacts API</a>.
+We populate keyword search terms using the <a
+href="https://www.federalregister.gov/">Federal Register</a> API. Finally, the
+FOIA library links are scraped from each agency's FOIA web page where relevant.
+</p>
+
+<p> Our <a
+href="https://github.com/18F/foia/blob/master/contacts/README.md">source
+code</a> provides more information and details on how each data source is
+processed.  </p>
+
 
 <h2> Open Source and Contributing  </h2>
 

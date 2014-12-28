@@ -90,6 +90,14 @@ aside.usa {
 }
 
 #main {
+  section, footer {
+    @include outer-container;
+  }
+
+  .inner {
+    @include shift(1.5);
+    @include span-columns(9);
+  }
 
   /* /about and /learn */
   .content {
@@ -128,6 +136,26 @@ aside.usa {
       margin-top: 80px;
     }
   }
+
+  footer {
+    div.left {
+      @include span-columns(2);
+      img {
+        width: 100px; height: 100px;
+        margin: 10px 0;
+        vertical-align: top;
+      }
+    }
+
+    div.right {
+      @include span-columns(10);
+
+      p {
+
+      }
+    }
+
+  }
 }
 
 .container {
@@ -164,9 +192,11 @@ aside.usa {
 
 .hero > .container > .hero--content {
 //    border: 1px solid blue;
-    /*@include span-columns(18 of 24);
-    @include shift(3 of 24);*/
-    @include inner(16);
+    //@include span-columns(18 of 24);
+    //@include shift(3 of 24);
+    @include shift(8);
+    @include span-columns(16);
+    //@include inner(16);
     h2 {
       text-align: center;
       font-weight: normal;
