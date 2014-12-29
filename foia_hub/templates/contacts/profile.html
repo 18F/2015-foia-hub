@@ -60,7 +60,7 @@
                 Simple requests:
                 {{ profile.simple_processing_time|int }} working day
               </li>
-              {% elif profile.simple_processing_time > 1 %}
+              {% else %}
                <li>
                 Simple requests:
                 {{ profile.simple_processing_time|int }} working days
@@ -72,7 +72,7 @@
                 Complex requests:
                 {{ profile.complex_processing_time|int }} working day
               </li>
-              {% elif profile.complex_processing_time|int > 1 %}
+              {% else %}
               <li>
                 Complex requests:
                 {{ profile.complex_processing_time|int }} working days
