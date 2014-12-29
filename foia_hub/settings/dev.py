@@ -1,4 +1,5 @@
 from .base import *
+import imp
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -7,7 +8,7 @@ TEMPLATE_DEBUG = True
 SHOW_WEBFORM = False
 
 try:
-    import debug_toolbar
+    imp.find_module('debug_toolbar')
     INSTALLED_APPS = (
         'debug_toolbar',
     ) + INSTALLED_APPS
