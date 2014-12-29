@@ -55,14 +55,24 @@
         <div class="subdetails">
           <h3>Median processing time</h3>
           <ul>
-            {% if profile.simple_processing_time %}
+            {% if profile.simple_processing_time == 1 %}
               <li>
                 Simple requests:
-                {{ profile.simple_processing_time|int }} working days
+                {{ profile.simple_processing_time|int }} working day
               </li>
+              {% elif profile.simple_processing_time > 1 %}
+               <li>
+                Simple requests:
+                {{ profile.simple_processing_time|int }} working days
+              </li>   
             {% endif %}
 
-            {% if profile.complex_processing_time %}
+            {% if profile.complex_processing_time == 1 %}
+              <li>
+                Complex requests:
+                {{ profile.complex_processing_time|int }} working day
+              </li>
+              {% elif profile.complex_processing_time|int > 1 %}
               <li>
                 Complex requests:
                 {{ profile.complex_processing_time|int }} working days
