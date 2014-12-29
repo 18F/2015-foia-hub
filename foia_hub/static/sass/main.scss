@@ -17,7 +17,7 @@ body > header {
     @include outer-container;
   }
   h1 {
-    @include span-columns(8);
+    @include span-columns(6);
 
     font-weight: normal;
     font-size: 2em;
@@ -29,6 +29,8 @@ body > header {
   }
 
   nav {
+    @include span-columns(10);
+    @include shift(8);
     ul {
       li {
         display: inline-block;
@@ -77,15 +79,13 @@ body > header {
  // vz: TO BE IMPLEMENTED
 }
 
-aside.usa {
-//  float: left;
-//  width: 100%;
+div#usa {
   background-color: rgba(0, 0, 0, 0.75);
-  font-size: 0.75em;
-  color: #DDD;
-  text-align:center;
-  p {
-    margin: none; padding: none;
+  .usa--content {
+    h4 { font-size: 0.75em; font-weight: 500;}
+    padding-top: 0.75em;
+    color: #ddd;
+    text-align:center;
   }
 }
 
@@ -172,15 +172,8 @@ aside.usa {
   background-color: #f1f8ff;
   padding: 2em 0;
   background-size: contain;
-}
 
-@include media($small) {
-  .hero {
-    padding: 2em 0;
-  }
-}
-
-.hero > .container > .hero--content {
+  & > .container > .hero--content {
     @include inner(16);
     h2 {
       text-align: center;
@@ -194,6 +187,14 @@ aside.usa {
       font-size: 21pt;
       line-height: 40px;
     }
+}
+
+}
+
+@include media($small) {
+  .hero {
+    padding: 2em 0;
+  }
 }
 
 #main.home {

@@ -438,7 +438,7 @@ body > header {
     float: left;
     display: block;
     margin-right: 1.165091401%;
-    width: 32.5566057327%;
+    width: 24.1261814493%;
     font-weight: normal;
     font-size: 2em;
     color: #18f; }
@@ -451,20 +451,28 @@ body > header {
     body > header h1 em {
       color: #cc2211;
       font-style: normal; }
-  body > header nav ul li {
-    display: inline-block;
-    padding: 9px 12px 0 12px; }
-  body > header nav ul a {
-    color: #333;
-    padding: 5px 0px 25px 0px; }
-  body > header nav ul a:hover, body > header nav ul a.active {
-    border-bottom: 0.3em solid #777; }
-  body > header nav ul a:hover {
-    background: none;
-    color: #777; }
-  body > header nav ul a:focus {
-    background: #fff;
-    color: #1188ff; }
+  body > header nav {
+    float: left;
+    display: block;
+    margin-right: 1.165091401%;
+    width: 40.9870300161%;
+    margin-left: 33.7216971337%; }
+    body > header nav:last-child {
+      margin-right: 0; }
+    body > header nav ul li {
+      display: inline-block;
+      padding: 9px 12px 0 12px; }
+    body > header nav ul a {
+      color: #333;
+      padding: 5px 0px 25px 0px; }
+    body > header nav ul a:hover, body > header nav ul a.active {
+      border-bottom: 0.3em solid #777; }
+    body > header nav ul a:hover {
+      background: none;
+      color: #777; }
+    body > header nav ul a:focus {
+      background: #fff;
+      color: #1188ff; }
 
 /* 
  * Mixin: inner 
@@ -474,14 +482,15 @@ body > header {
  * Mixin: fullbleed
  * $columns should always be an even number 
  */
-aside.usa {
-  background-color: rgba(0, 0, 0, 0.75);
-  font-size: 0.75em;
-  color: #DDD;
-  text-align: center; }
-  aside.usa p {
-    margin: none;
-    padding: none; }
+div#usa {
+  background-color: rgba(0, 0, 0, 0.75); }
+  div#usa .usa--content {
+    padding-top: 0.75em;
+    color: #ddd;
+    text-align: center; }
+    div#usa .usa--content h4 {
+      font-size: 0.75em;
+      font-weight: 500; }
 
 #main {
   /* /about and /learn */ }
@@ -577,39 +586,38 @@ aside.usa {
   background-color: #f1f8ff;
   padding: 2em 0;
   background-size: contain; }
+  .hero > .container > .hero--content {
+    margin-left: 16.8608485668%;
+    float: left;
+    display: block;
+    margin-right: 1.165091401%;
+    width: 66.2783028663%; }
+    .hero > .container > .hero--content:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 30em) {
+      .hero > .container > .hero--content {
+        margin-left: 0%;
+        float: left;
+        display: block;
+        margin-right: 7.4229703521%;
+        width: 100%; }
+        .hero > .container > .hero--content:last-child {
+          margin-right: 0; } }
+    .hero > .container > .hero--content h2 {
+      text-align: center;
+      font-weight: normal;
+      font-size: 28pt;
+      margin: 0;
+      padding: 0; }
+    .hero > .container > .hero--content p {
+      /* VZ: This should be moved to a variable. Prob powered by Bitters. */
+      margin-top: 30px;
+      font-size: 21pt;
+      line-height: 40px; }
 
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
-.hero > .container > .hero--content {
-  margin-left: 16.8608485668%;
-  float: left;
-  display: block;
-  margin-right: 1.165091401%;
-  width: 66.2783028663%; }
-  .hero > .container > .hero--content:last-child {
-    margin-right: 0; }
-  @media screen and (max-width: 30em) {
-    .hero > .container > .hero--content {
-      margin-left: 0%;
-      float: left;
-      display: block;
-      margin-right: 7.4229703521%;
-      width: 100%; }
-      .hero > .container > .hero--content:last-child {
-        margin-right: 0; } }
-  .hero > .container > .hero--content h2 {
-    text-align: center;
-    font-weight: normal;
-    font-size: 28pt;
-    margin: 0;
-    padding: 0; }
-  .hero > .container > .hero--content p {
-    /* VZ: This should be moved to a variable. Prob powered by Bitters. */
-    margin-top: 30px;
-    font-size: 21pt;
-    line-height: 40px; }
-
 #main.home section.process ul {
   margin-top: 30px; }
   #main.home section.process ul figure {
