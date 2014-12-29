@@ -1,4 +1,5 @@
 from .base import *
+import imp
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -6,9 +7,13 @@ TEMPLATE_DEBUG = True
 # Flag to determine whether the FOIA request form gets shown.
 SHOW_WEBFORM = False
 
-INSTALLED_APPS = (
-    'debug_toolbar',
-) + INSTALLED_APPS
+try:
+    imp.find_module('debug_toolbar')
+    INSTALLED_APPS = (
+        'debug_toolbar',
+    ) + INSTALLED_APPS
+except ImportError:
+    pass
 
 DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r"^(?!debug_toolbar/).*"
 
