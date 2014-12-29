@@ -15,3 +15,6 @@ gunicorn
 dj-static
 
 django-localflavor
+
+# only used in development, but app crashes in dev without it
+django-debug-toolbar

@@ -1,7 +1,6 @@
 #Requirements for development.
 
 flake8
-django-debug-toolbar
 ipython
 mock
 sphinx
