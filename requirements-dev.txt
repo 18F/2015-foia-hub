@@ -5,3 +5,4 @@ ipython
 mock
 sphinx
 coveralls
+django-debug-toolbar
