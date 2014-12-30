@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from jinja2 import Environment, PackageLoader
+from urllib.parse import urlparse
 
 from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
@@ -106,3 +107,9 @@ def request_success(request, id):
     return HttpResponse(template.render(
         foia_request=foia_request, requester=requester, office=office,
         agency=agency))
+
+
+def get_domain(url):
+    return "%s/..." % urlparse(url).netloc
+
+env.filters['get_domain'] = get_domain
