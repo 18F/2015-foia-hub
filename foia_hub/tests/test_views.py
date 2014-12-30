@@ -6,7 +6,7 @@ from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.models import ReadingRoomUrls
-from foia_hub.views import get_agency_list
+from foia_hub.views import get_agency_list, get_domain
 
 
 class RequestFormTests(SimpleTestCase):
@@ -248,3 +248,7 @@ class ContactPageTests(TestCase):
         self.assertTrue('FOIA Libraries' in content)
         self.assertTrue('Url One' in content)
         self.assertTrue('Url Two' in content)
+
+    def test_get_domain(self):
+        test_url = 'http://www.google.com/testtesttestest'
+        self.assertEqual('www.google.com/...', get_domain(test_url))
