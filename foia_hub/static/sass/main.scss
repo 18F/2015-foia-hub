@@ -80,8 +80,9 @@ body > header {
 div#usa {
   background-color: rgba(0, 0, 0, 0.75);
   .usa--content {
-    h4 { font-size: 0.75em; font-weight: 500;}
+    h4 { font-size: 0.75em; font-weight: 500; margin: 0.4em 0;}
     padding-top: 0.75em;
+    margin-bottom:0.8em;
     color: #ddd;
     text-align:center;
   }
