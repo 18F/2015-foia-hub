@@ -733,7 +733,9 @@ div#usa {
     margin-top: 10px;
     font-size: 2.4em; }
 #main.landing .department {
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  display: inline-block;
+  border-bottom: 1px solid #e5e5e5; }
 #main.landing .department .description {
   float: left;
   display: block;

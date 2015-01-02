@@ -294,7 +294,8 @@ div#usa {
 
   .department {
     padding-bottom: 20px;
-//    border-bottom: 1px solid #e5e5e5;
+    display:inline-block;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
