@@ -241,9 +241,9 @@ div#usa {
       list-style-type: none;
       margin: 0; padding: 0;
       margin-bottom: 50px;
-
+      @include span-columns(24);
       .agencies--name {
-        @include span-columns(10);
+        @include span-columns(6);
         @include media($small) {
           @include span-columns(4 of 4);
           // text-align: center;
@@ -258,7 +258,8 @@ div#usa {
       }
 
       .agencies--description {
-        @include span-columns(14);
+        @include span-columns(18);
+        //@include shift(2);
         @include media($small) {
           @include span-columns(4 of 4);
         }  
