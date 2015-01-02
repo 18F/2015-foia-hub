@@ -294,17 +294,23 @@ div#usa {
 
   .department {
     padding-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
+//    border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
     @include span-columns(14);
+      @include media($small) {
+        @include span-columns(4);
+      }
   }
 
   .department .resources {
     @include span-columns(10);
-
     padding-left: 10px;
+    @include media($small) {
+      @include span-columns(4);
+      padding-left: none;
+    }    
   }
 
   .details {
@@ -314,10 +320,16 @@ div#usa {
 
   .details .offices, .details .left {
     @include span-columns(14);
+      @include media($small) {
+        @include span-columns(4);
+      }    
   }
 
   .details .contact, .details .right {
     @include span-columns(10);
+        @include media($small) {
+        @include span-columns(4);
+      }
   }
 
   .details header h2 {
@@ -334,11 +346,14 @@ div#usa {
 
     .icon {
       @include span-columns(2 of 24);
-      font-size: 1em;
+      font-size: 0.95em;
+      text-align:center;
+      margin-right:1em;
     }
 
     .subdetails {
-//      @include span-columns(8);
+//      @include span-columns(6 of 24);
+      display:inline-block;
     }
 
     h3 {
@@ -382,6 +397,8 @@ div#usa {
   }
 
   .inaccurate {
+    //@include clearfix();
+    clear:both;
     p {
       font-size: 1em;
       font-weight: bold;
