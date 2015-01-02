@@ -426,14 +426,6 @@ body > header {
   border-bottom: 1px solid #dedede; }
   body > header a:hover {
     text-decoration: none; }
-  body > header .container {
-    max-width: 68em;
-    margin-left: auto;
-    margin-right: auto; }
-    body > header .container:after {
-      content: "";
-      display: table;
-      clear: both; }
   body > header h1 {
     float: left;
     display: block;
@@ -540,6 +532,22 @@ div#usa {
     width: 11.4805450242%; }
     #main footer div.left:last-child {
       margin-right: 0; }
+    @media screen and (max-width: 48em) {
+      #main footer div.left {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 23.2317613015%; }
+        #main footer div.left:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 30em) {
+      #main footer div.left {
+        float: left;
+        display: block;
+        margin-right: 7.4229703521%;
+        width: 19.432772236%; }
+        #main footer div.left:last-child {
+          margin-right: 0; } }
     #main footer div.left img {
       width: 100px;
       height: 100px;
@@ -552,6 +560,22 @@ div#usa {
     width: 87.3543635749%; }
     #main footer div.right:last-child {
       margin-right: 0; }
+    @media screen and (max-width: 48em) {
+      #main footer div.right {
+        float: left;
+        display: block;
+        margin-right: 2.3576515979%;
+        width: 74.4105871005%; }
+        #main footer div.right:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 30em) {
+      #main footer div.right {
+        float: left;
+        display: block;
+        margin-right: 7.4229703521%;
+        width: 73.144257412%; }
+        #main footer div.right:last-child {
+          margin-right: 0; } }
 
 .container {
   max-width: 68em;
@@ -709,57 +733,37 @@ div#usa {
   float: left;
   display: block;
   margin-right: 1.165091401%;
-  width: 28.341393591%; }
+  width: 57.8478785829%; }
   #main.landing .department .description:last-child {
     margin-right: 0; }
 #main.landing .department .resources {
   float: left;
   display: block;
   margin-right: 1.165091401%;
-  width: 19.9109693076%;
+  width: 40.9870300161%;
   padding-left: 10px; }
   #main.landing .department .resources:last-child {
     margin-right: 0; }
 #main.landing .details {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
   padding-top: 25px; }
-  #main.landing .details:after {
-    content: "";
-    display: table;
-    clear: both; }
 #main.landing .details .offices, #main.landing .details .left {
   float: left;
   display: block;
   margin-right: 1.165091401%;
-  width: 28.341393591%; }
+  width: 57.8478785829%; }
   #main.landing .details .offices:last-child, #main.landing .details .left:last-child {
     margin-right: 0; }
 #main.landing .details .contact, #main.landing .details .right {
   float: left;
   display: block;
   margin-right: 1.165091401%;
-  width: 19.9109693076%; }
+  width: 40.9870300161%; }
   #main.landing .details .contact:last-child, #main.landing .details .right:last-child {
     margin-right: 0; }
 #main.landing .details header h2 {
   font-size: 2em; }
 #main.landing .resource_type, #main.landing .contact_type {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
-  float: left;
-  display: block;
-  margin-right: 1.165091401%;
-  width: 49.4174542995%;
   margin: 15px 0; }
-  #main.landing .resource_type:after, #main.landing .contact_type:after {
-    content: "";
-    display: table;
-    clear: both; }
-  #main.landing .resource_type:last-child, #main.landing .contact_type:last-child {
-    margin-right: 0; }
   #main.landing .resource_type .fa:before, #main.landing .contact_type .fa:before {
     font-size: 2em; }
   #main.landing .resource_type .icon, #main.landing .contact_type .icon {
@@ -769,13 +773,6 @@ div#usa {
     width: 7.2653328825%;
     font-size: 1em; }
     #main.landing .resource_type .icon:last-child, #main.landing .contact_type .icon:last-child {
-      margin-right: 0; }
-  #main.landing .resource_type .subdetails, #main.landing .contact_type .subdetails {
-    float: left;
-    display: block;
-    margin-right: 1.165091401%;
-    width: 40.9870300161%; }
-    #main.landing .resource_type .subdetails:last-child, #main.landing .contact_type .subdetails:last-child {
       margin-right: 0; }
   #main.landing .resource_type h3, #main.landing .contact_type h3 {
     padding: 0;

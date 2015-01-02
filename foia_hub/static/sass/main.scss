@@ -13,9 +13,6 @@ body {
 body > header {
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
-  .container {
-    @include outer-container;
-  }
   h1 {
     @include span-columns(6);
 
@@ -31,6 +28,7 @@ body > header {
   nav {
     @include span-columns(10);
     @include shift(8);
+
     ul {
       li {
         display: inline-block;
@@ -131,6 +129,13 @@ div#usa {
   footer {
     div.left {
       @include span-columns(3);
+      @include media($medium) {
+        @include span-columns(3);
+      }
+      @include media($small) {
+        @include span-columns(1);
+      }
+
       img {
         width: 100px; height: 100px;
         margin: 10px 0;
@@ -140,7 +145,12 @@ div#usa {
 
     div.right {
       @include span-columns(21);
-
+      @include media($medium) {
+        @include span-columns(9 of 12);
+      }
+      @include media($small) {
+        @include span-columns(3);
+      }
       p {
 
       }
@@ -287,26 +297,26 @@ div#usa {
   }
 
   .department .description {
-    @include span-columns(7);
+    @include span-columns(14);
   }
 
   .department .resources {
-    @include span-columns(5);
+    @include span-columns(10);
 
     padding-left: 10px;
   }
 
   .details {
-    @include outer-container;
+//    @include outer-container;
     padding-top: 25px;
   }
 
   .details .offices, .details .left {
-    @include span-columns(7);
+    @include span-columns(14);
   }
 
   .details .contact, .details .right {
-    @include span-columns(5);
+    @include span-columns(10);
   }
 
   .details header h2 {
@@ -314,8 +324,6 @@ div#usa {
   }
 
   .resource_type, .contact_type {
-    @include outer-container;
-    @include span-columns(12);
 
     margin: 15px 0;
 
@@ -324,12 +332,12 @@ div#usa {
     }
 
     .icon {
-      @include span-columns(2);
+      @include span-columns(2 of 24);
       font-size: 1em;
     }
 
     .subdetails {
-      @include span-columns(10);
+//      @include span-columns(8);
     }
 
     h3 {
