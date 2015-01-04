@@ -427,6 +427,10 @@ body > header {
  * Mixin: fullbleed
  * $columns should always be an even number 
  */
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
 div#usa {
   background-color: rgba(0, 0, 0, 0.75); }
   div#usa .usa--content {
@@ -535,7 +539,8 @@ div#usa {
 .container {
   max-width: 64em;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  padding: 0 1.5em; }
   .container:after {
     content: "";
     display: table;
@@ -558,9 +563,6 @@ div#usa {
   display: table;
   clear: both; }
 
-@media screen and (max-width: 48em) {
-  .container {
-    padding: 0 1em; } }
 .hero {
   background-color: #f1f8ff;
   padding: 2em 0;
@@ -689,8 +691,11 @@ div#usa {
     font-size: 2.4em; }
 #main.landing .department {
   padding-bottom: 20px;
-  display: inline-block;
   border-bottom: 1px solid #e5e5e5; }
+  #main.landing .department:after {
+    content: "";
+    display: table;
+    clear: both; }
 #main.landing .department .description {
   float: left;
   display: block;
@@ -710,8 +715,7 @@ div#usa {
   float: left;
   display: block;
   margin-right: 1.165091401%;
-  width: 40.9870300161%;
-  padding-left: 10px; }
+  width: 40.9870300161%; }
   #main.landing .department .resources:last-child {
     margin-right: 0; }
   @media screen and (max-width: 30em) {
@@ -725,6 +729,10 @@ div#usa {
         margin-right: 0; } }
 #main.landing .details {
   padding-top: 25px; }
+  #main.landing .details:after {
+    content: "";
+    display: table;
+    clear: both; }
 #main.landing .details .offices, #main.landing .details .left {
   float: left;
   display: block;
@@ -772,7 +780,8 @@ div#usa {
     #main.landing .resource_type .icon:last-child, #main.landing .contact_type .icon:last-child {
       margin-right: 0; }
   #main.landing .resource_type .subdetails, #main.landing .contact_type .subdetails {
-    display: inline-block; }
+    display: inline-block;
+    overflow: hidden; }
   #main.landing .resource_type h3, #main.landing .contact_type h3 {
     padding: 0;
     margin: 0;
@@ -797,11 +806,9 @@ div#usa {
   font-size: 1.6em;
   font-weight: normal;
   margin-bottom: 5px; }
-#main.landing .inaccurate {
-  clear: both; }
-  #main.landing .inaccurate p {
-    font-size: 1em;
-    font-weight: bold; }
+#main.landing .inaccurate p {
+  font-size: 1em;
+  font-weight: bold; }
 
 form.request input.upto[type=text] {
   width: 80px;

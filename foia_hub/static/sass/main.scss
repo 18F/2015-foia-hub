@@ -77,6 +77,16 @@ body > header {
  // vz: TO BE IMPLEMENTED
 }
 
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
+@mixin small($columns) {
+      @include media($small) {
+        @include span-columns($columns);
+      }
+}
+
 div#usa {
   background-color: rgba(0, 0, 0, 0.75);
   .usa--content {
@@ -162,6 +172,7 @@ div#usa {
 
 .container {
   @include outer-container();
+  padding: 0 1.5em;
 }
 
 .row {
@@ -171,12 +182,6 @@ div#usa {
 
 .clearfix {
   @include clearfix();
-}
-
-@include media($medium) {
-  .container {
-    padding: 0 1em;
-  }
 }
 
 .hero {
@@ -295,20 +300,21 @@ div#usa {
 
   .department {
     padding-bottom: 20px;
-    display:inline-block;
+    // display:inline-block;
+    @include clearfix();
     border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
-    @include span-columns(14);
+    @include span-columns(14 of 24);
       @include media($small) {
         @include span-columns(4);
       }
   }
 
   .department .resources {
-    @include span-columns(10);
-    padding-left: 10px;
+    @include span-columns(10 of 24);
+    //padding-left: 10px;
     @include media($small) {
       @include span-columns(4);
       padding-left: none;
@@ -316,8 +322,8 @@ div#usa {
   }
 
   .details {
-//    @include outer-container;
     padding-top: 25px;
+    @include clearfix();
   }
 
   .details .offices, .details .left {
@@ -354,8 +360,8 @@ div#usa {
     }
 
     .subdetails {
-//      @include span-columns(6 of 24);
       display:inline-block;
+      overflow:hidden;
     }
 
     h3 {
@@ -400,7 +406,8 @@ div#usa {
 
   .inaccurate {
     //@include clearfix();
-    clear:both;
+    //clear:both;
+    //@include clearfix();
     p {
       font-size: 1em;
       font-weight: bold;
