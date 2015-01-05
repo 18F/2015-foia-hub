@@ -23,12 +23,10 @@ Instead, our tool will focus on a small, US-focused user experience, and API-dri
 
 This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
 
-**Installing Python 3**:
-There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
+**Installing Python 3**: There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
 
-One option is to [pyenv](https://github.com/yyuu/pyenv) to manage downloading Python 3 or you can install them directly.
-
-For OS X, install Homebrew](http://brew.sh) (OS X), then run `brew install Python3`. For Ubuntu, install using `apt-get install Python3`.
+1. You can use [`pyenv`](https://github.com/yyuu/pyenv) to download and install any version of Python to your home directory, and to switch easily between them. This separates your system Pythons from your development Pythons.
+2. You can install Python 3 to your system. On OS X, install [Homebrew](http://brew.sh), then run `brew install Python3`. On Ubuntu, install using `apt-get install python3`.
 
 **Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
 
@@ -38,12 +36,13 @@ The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest
 
 Create an environment to install Python dependencies, with virtualenvwrapper.
 
+* If you're using `pyenv`, activate Python 3 and run `mkvirtualenv foia-hub`.
+
+* If you're using a system Python, specify the path to Python like so:
+
 ```bash
 mkvirtualenv --python=/path/to/python3 foia-hub
 ```
-
-Note: You don't need to explicitly specify the Python version, especially if you use pyenv + virtualenvwrapper. Running mkvirtualenv in that scenario will 'freeze' the currently active version of Python.
-
 
 * Install project requirements.
 
@@ -60,7 +59,7 @@ sudo apt-get install libpq-dev python3-dev
 * Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
 
 ```bash
-export PYTHONPATH=/path/to/hub:PYTHONPATH
+export PYTHONPATH=/path/to/hub:$PYTHONPATH
 ```
 
 * Create a `local_settings.py` file inside `foia-hub/settings`. Start by copying the example:
@@ -69,11 +68,17 @@ export PYTHONPATH=/path/to/hub:PYTHONPATH
 cp foia_hub/settings/local_settings.py.example foia_hub/settings/local_settings.py
 ```
 
-* In development, you may not need to update anything. It assumes a local Postgres database named `foia` with a username of `foia` and a password of `foia`. Change this if need be.
+* In development, you may only need to update the password from `CHANGETHIS` to something else.
 
 ### Database setup
 
-Create a `foia` database in Postgres:
+* Switch to the `postgres` user:
+
+```bash
+sudo su - postgres
+```
+
+* Create a `foia` database in Postgres:
 
 ```bash
 createdb foia
@@ -85,31 +90,27 @@ Note, that the database encoding needs to be UTF8. If your default is set to som
 create database foia with encoding 'UTF8' LC_COLLATE='en_US.UTF8' LC_CTYPE='en_US.UTF8' TEMPLATE=template0;
 ```
 
-If you you get a `could not connect to server` error, you could be experiencing a number of issues. Check the following:
-* PGHOST is set to localhost. If not `export PGHOST=localhost` to your bash profile.
-* Postgres has been started.
+If you you get a `could not connect to server` error, you could be experiencing a number of issues. Ensure that `$PGHOST` is set to `localhost`, and that the Postgres service has been started.
 
-Next, create user `foia` with password <<PASSWORD>>:
+* Next, create user `foia` with some password:
 
 ```bash
 psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-where <<PASSWORD>> is a password of your choosing.
-
-Initialize your database schema:
+* Initialize your database schema:
 
 ```bash
 django-admin.py syncdb
 ```
 
-Finally, launch the server locally:
+* Finally, launch the server locally:
 
 ```
 django-admin.py runserver
 ```
 
-The site should be running at [`http://localhost:8000`](http://localhost:8000).
+* The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 ### Loading Data
 
@@ -126,6 +127,8 @@ Then run the data loading script:
 ```bash
 cd foia-hub
 python manage.py load_agency_contacts <<path to foia repository>>/foia/contacts/data/
+cd foia_hub
+python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
 
 Note that the data repository is your local clone of:
