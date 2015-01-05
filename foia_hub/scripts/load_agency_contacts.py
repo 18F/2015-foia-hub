@@ -38,9 +38,16 @@ ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
 def clean_phone(number_str):
     """Cut down the phone number string as much as possible. If multiple
     numbers are present, take the first only"""
+
     number_str = number_str or ''
-    number_str = number_str.replace('(', '').replace(')', '')
-    number_str = number_str.replace('ext. ', 'x').replace('ext ', 'x')
+
+    if '+' in number_str:
+        return number_str
+
+    number_str = number_str.replace('(', '')
+    number_str = re.sub('[)][- ]?', '-', number_str)
+    number_str = number_str.replace(' ', '')
+    number_str = re.sub('[, ]*ext[. ]*', ' x', number_str)
     number_str = number_str.split(',')[0].strip()
 
     if number_str:
@@ -52,6 +59,7 @@ def contactable_fields(agency, office_dict):
     in the office dictionary. This will be called for both parent and child
     agencies/offices (as written in our current data set)"""
     agency.phone = clean_phone(office_dict.get('phone'))
+
     # a.toll_free_phone - not an explicit field in our data set
     agency.emails = office_dict.get('emails', [])
     agency.fax = clean_phone(office_dict.get('fax'))
