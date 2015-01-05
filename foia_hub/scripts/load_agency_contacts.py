@@ -35,7 +35,7 @@ TTY_RE = re.compile('\(?\d{3}\)? \d{3}-\d{4} \(TTY\)')
 ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
 
 
-def clean_phone(number_str):
+def clean_phone_number(number_str):
     """Cut down the phone number string as much as possible. If multiple
     numbers are present, take the first only"""
 
@@ -58,11 +58,11 @@ def contactable_fields(agency, office_dict):
     """Add the Contactable and USAddress fields to the agency based on values
     in the office dictionary. This will be called for both parent and child
     agencies/offices (as written in our current data set)"""
-    agency.phone = clean_phone(office_dict.get('phone'))
+    agency.phone = clean_phone_number(office_dict.get('phone'))
 
     # a.toll_free_phone - not an explicit field in our data set
     agency.emails = office_dict.get('emails', [])
-    agency.fax = clean_phone(office_dict.get('fax'))
+    agency.fax = clean_phone_number(office_dict.get('fax'))
     agency.office_url = office_dict.get('website')
 
     agency.request_form_url = office_dict.get('request_form')
@@ -88,7 +88,7 @@ def contactable_fields(agency, office_dict):
         match = TTY_RE.search(phone)
         if match:
             phone = phone[:match.start()].strip()
-        agency.public_liaison_phone = clean_phone(phone)
+        agency.public_liaison_phone = clean_phone_number(phone)
     else:
         name = public_liaison
     agency.public_liaison_name = name or None

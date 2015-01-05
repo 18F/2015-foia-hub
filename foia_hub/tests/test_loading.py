@@ -2,7 +2,8 @@ from django.test import TestCase
 
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import \
-    add_reading_rooms, add_request_time_statistics, load_data, clean_phone
+    add_reading_rooms, add_request_time_statistics, load_data, \
+    clean_phone_number
 
 
 example_office1 = {
@@ -166,31 +167,31 @@ class LoadingTest(TestCase):
         """ Verify that phone numbers are correctly formatted """
 
         test_number = '555-555-5555'
-        self.assertEqual('555-555-5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555', clean_phone_number(test_number))
 
         test_number = '(555) 555-5555'
-        self.assertEqual('555-555-5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555', clean_phone_number(test_number))
 
         test_number = '(555)-555-5555'
-        self.assertEqual('555-555-5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555', clean_phone_number(test_number))
 
         test_number = '(555)555-5555'
-        self.assertEqual('555-555-5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555', clean_phone_number(test_number))
 
         test_number = '(555) 555-5555 ext. 5555'
-        self.assertEqual('555-555-5555 x5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555 x5555', clean_phone_number(test_number))
 
         test_number = '(555) 555-5555, ext 5555'
-        self.assertEqual('555-555-5555 x5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555 x5555', clean_phone_number(test_number))
 
         test_number = '(555) 555-5555, ext. 5555'
-        self.assertEqual('555-555-5555 x5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555 x5555', clean_phone_number(test_number))
 
         test_number = '555-555-5555, (555) 555-5555, ext. 5555'
-        self.assertEqual('555-555-5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555', clean_phone_number(test_number))
 
         test_number = '(555) 555-5555, ext. 5555,  555-555-5555'
-        self.assertEqual('555-555-5555 x5555', clean_phone(test_number))
+        self.assertEqual('555-555-5555 x5555', clean_phone_number(test_number))
 
         test_number = '+011 555-555-5555'
-        self.assertEqual('+011 555-555-5555', clean_phone(test_number))
+        self.assertEqual('+011 555-555-5555', clean_phone_number(test_number))
