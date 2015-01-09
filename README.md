@@ -125,8 +125,6 @@ git clone git@github.com:18F/foia.git
 Then run the data loading script:
 
 ```bash
-cd foia-hub
-python manage.py load_agency_contacts <<path to foia repository>>/foia/contacts/data/
 cd foia_hub
 python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
