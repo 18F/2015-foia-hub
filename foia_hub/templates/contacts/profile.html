@@ -13,163 +13,157 @@
 
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
-<section class="header"><div class="inner">
-  <div class="breadcrumbs">
-    <a href="/">
-      Home &gt;
-    </a>
-    {% if profile.parent %}
-      <a href="/contacts/{{ profile.parent.slug }}">
-        {{ profile.parent.name }} &gt;
+<div class="container">
+  <section class="header">
+    <div class="breadcrumbs">
+      <a href="/">
+        Home &gt;
       </a>
-    {% elif profile.is_a == "office" %}
-      <a href="/contacts/{{ profile.agency_slug }}">
-        {{ profile.agency_name }} &gt;
-      </a>
-    {% endif %}
-  </div>
-
-  <h1>{{ profile.name }}</h1>
-</div></section>
-
-<section class="department"><div class="inner">
-
-  <div class="description">
-    <p>
-      {% if profile.description %}
-        {{ profile.description }}
-      {% else %}
-        Here you can find some resources and contact information to file a request with this office.
+      {% if profile.parent %}
+        <a href="/contacts/{{ profile.parent.slug }}">
+          {{ profile.parent.name }} &gt;
+        </a>
+      {% elif profile.is_a == "office" %}
+        <a href="/contacts/{{ profile.agency_slug }}">
+          {{ profile.agency_name }} &gt;
+        </a>
       {% endif %}
-    </p>
-  </div>
+    </div>
 
-  <div class="resources">
-    {% include 'contacts/contact.html' %}
+    <h1>{{ profile.name }}</h1>
+  </section>
 
-    {% if profile.simple_processing_time or profile.complex_processing_time %}
-      <div class="processing resource_type">
-        <div class="icon">
-          <span class="fa fa-clock-o"></span>
-        </div>
-        <div class="subdetails">
-          <h3>Median processing time</h3>
-          <ul>
-              <li>
-              {% if profile.simple_processing_time == 1 %}
-                Simple requests:
-                {{ profile.simple_processing_time|int }} working day
-              {% else %}
-                Simple requests:
-                {{ profile.simple_processing_time|int }} working days
-              {% endif %}
-              </li>   
-            
-              <li>
-              {% if profile.complex_processing_time == 1 %}
-                Complex requests:
-                {{ profile.complex_processing_time|int }} working day
-              {% else %}
-                Complex requests:
-                {{ profile.complex_processing_time|int }} working days
-              {% endif %}
-              </li>
-          </ul>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-</div></section>
+  <section class="department">
+    <div class="description">
+      <p>
+        {% if profile.description %}
+          {{ profile.description }}
+        {% else %}
+          Here you can find some resources and contact information to file a request with this office.
+        {% endif %}
+      </p>
+    </div>
 
-<section class="details"><div class="inner">
+    <div class="resources">
+      {% include 'contacts/contact.html' %}
 
-  <header>
-    <h2>Submitting a request</h2>
-  </header>
-
-  <div class="left">
-    {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
-     <div class="webform contact_type">
-        <div class="icon">
-            <span class="fa fa-desktop"></span>
-        </div>
-        <div class="subdetails">
-           <h3> Request online </h3>
+      {% if profile.simple_processing_time or profile.complex_processing_time %}
+        <div class="processing resource_type">
+          <div class="icon">
+            <span class="fa fa-clock-o"></span>
+          </div>
+          <div class="subdetails">
+            <h3>Median processing time</h3>
             <ul>
-              <li><a
-                {% if profile.request_form_url %}
-                  href="{{ profile.request_form_url }}"
-                {% elif profile.emails|length>0 %}
-                  href="/request/{{ slug }}"
-                {% endif %}
-                >
-                  Submit a request via web
-              </a></li>
+              {% if profile.simple_processing_time %}
+                <li>
+                  Simple requests:
+                  {{ profile.simple_processing_time|int }} working days
+                </li>
+              {% endif %}
+
+              {% if profile.complex_processing_time %}
+                <li>
+                  Complex requests:
+                  {{ profile.complex_processing_time|int }} working days
+                </li>
+              {% endif %}
             </ul>
+          </div>
         </div>
+      {% endif %}
     </div>
-    {% endif %}
+  </section>
 
-    <div class="address contact_type">
-      <div class="icon">
-        <span class="fa fa-envelope-o"></span>
-      </div>
-      <div class="subdetails">
-        <h3>Request by mail</h3>
-        <p>
-          {% for line in profile.address_lines %}
-            {{ line }}<br/>
-          {% endfor %}
-          {{ profile.street }}<br/>
-          {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
-        </p>
-      </div>
-    </div>
-  </div>
+  <section class="details">
 
-  <div class="right">
-    {% if profile.emails %}
-      <div class="email contact_type">
+    <header>
+      <h2>Submitting a request</h2>
+    </header>
+
+    <div class="left">
+      {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
+       <div class="webform contact_type">
+          <div class="icon">
+              <span class="fa fa-desktop"></span>
+          </div>
+          <div class="subdetails">
+             <h3> Request online </h3>
+              <ul>
+                <li><a
+                  {% if profile.request_form_url %}
+                    href="{{ profile.request_form_url }}"
+                  {% elif profile.emails|length>0 %}
+                    href="/request/{{ slug }}"
+                  {% endif %}
+                  >
+                    Submit a request via web
+                </a></li>
+              </ul>
+          </div>
+      </div>
+      {% endif %}
+
+      <div class="address contact_type">
         <div class="icon">
-          <span class="fa fa-at"></span>
+          <span class="fa fa-envelope-o"></span>
         </div>
         <div class="subdetails">
-          <h3>
-            Request by email
-          </h3>
-          <ul>
-            {% for email in profile.emails %}
-              <li>
-                <a href="mailto:{{ email }}">
-                  {{ email }}
-                </a>
-              </li>
+          <h3>Request by mail</h3>
+          <p>
+            {% for line in profile.address_lines %}
+              {{ line }}<br/>
             {% endfor %}
-          </ul>
+            {{ profile.street }}<br/>
+            {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+          </p>
         </div>
       </div>
-    {% endif %}
+    </div>
 
-    {% if profile.fax %}
-      <div class="fax contact_type">
-        <div class="icon">
-          <span class="fa fa-fax"></span>
+    <div class="right">
+      {% if profile.emails %}
+        <div class="email contact_type">
+          <div class="icon">
+            <span class="fa fa-at"></span>
+          </div>
+          <div class="subdetails">
+            <h3>
+              Request by email
+            </h3>
+            <ul>
+              {% for email in profile.emails %}
+                <li>
+                  <a href="mailto:{{ email }}">
+                    {{ email }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
-        <div class="subdetails">
-          <h3>Request by FAX</h3>
-          <ul>
-            <li>{{ profile.fax }}</li>
-          </ul>
+      {% endif %}
+
+      {% if profile.fax %}
+        <div class="fax contact_type">
+          <div class="icon">
+            <span class="fa fa-fax"></span>
+          </div>
+          <div class="subdetails">
+            <h3>Request by FAX</h3>
+            <ul>
+              <li>{{ profile.fax }}</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    {% endif %}
-  </div>
-</div></section>
+      {% endif %}
+    </div>
+  </section>
 
-<section class="inaccurate"><div class="inner">
-  <p>
-    Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
-  </p>
-</div></section>
-
+  <section class="inaccurate">
+    <p>
+      Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
+    </p>
+  </section>
+</div>
 {% endblock %}

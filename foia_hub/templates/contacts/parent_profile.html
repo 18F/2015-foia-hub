@@ -13,46 +13,47 @@
 
 {# 'profile' here is known to be an agency with sub-offices. #}
 
-<section class="header"><div class="inner">
-  <div class="breadcrumbs">
-    <a href="/">
-      Home &gt;
-    </a>
-  </div>
-  <h1>{{ profile.name }}</h1>
-</div></section>
+<div class="container">
+  <section class="header">
+    <div class="breadcrumbs">
+      <a href="/">
+        Home &gt;
+      </a>
+    </div>
+    <h1>{{ profile.name }}</h1>
+  </section>
 
-<section class="department"><div class="inner">
-  <div class="description">
-    {% if profile.description %}
-      <p>
-        {{ profile.description }}
-      </p>
-    {% endif %}
-  </div>
-</div></section>
+  <section class="department">
+    <div class="description">
+      {% if profile.description %}
+        <p>
+          {{ profile.description }}
+        </p>
+      {% endif %}
+    </div>
+  </section>
 
-<section class="details"><div class="inner">
+  <section class="details">
 
-  <div class="offices">
-    <h2>
-      Make your FOIA request directly to the most relevant group or component:
-    </h2>
+    <div class="offices">
+      <h2>
+        Make your FOIA request directly to the most relevant group or component:
+      </h2>
 
-    <ul>
-      {% for office in profile.offices %}
-        <li>
-          <a href="/contacts/{{ office.slug }}">
-            {{ office.name }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+      <ul>
+        {% for office in profile.offices %}
+          <li>
+            <a href="/contacts/{{ office.slug }}">
+              {{ office.name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
 
-  <div class="contact">
-    {% include 'contacts/contact.html' %}
-  </div>
-</div></section>
+    <div class="contact">
+      {% include 'contacts/contact.html' %}
+    </div>
+  </section>
+</div>
 
 {% endblock %}

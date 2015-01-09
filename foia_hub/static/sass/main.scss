@@ -1,103 +1,112 @@
+@import "normalize";
 @import "bourbon/bourbon";
+@import "grid-settings";
 @import "neat/neat";
 
 body {
-  margin: 0; padding: 0;
   padding-bottom: 20px;
 }
 
 /* a couple things that stand outside the normal hierarchy, because
    they extend the full width, beyond the normal outer-container */
 
-div.blue {
-  background-color: #f1f8ff;
-}
-
-div.bordered {
+body > header {
   border-bottom: 1px solid #dedede;
-}
+  a:hover {text-decoration: none;}
+  h1 {
+    @include span-columns(6);
 
+    font-weight: normal;
+    font-size: 2em;
+  
+    color: #18f;
+    a {color: #18f;}
+    strong {font-weight: 800;}
+    em { color: #cc2211; font-style: normal;}
+  }
 
-body > .bordered > header {
-  @include outer-container;
+  nav {
+    @include span-columns(10);
+    @include shift(8);
 
-  padding-top: 20px;
-  height: 80px;
+    ul {
+      li {
+        display: inline-block;
+        padding: 9px 12px 0 12px;
+      }
 
-  .inner {
-    @include shift(1.5);
-    @include span-columns(9);
-
-    a:hover {text-decoration: none;}
-
-    h1 {
-      @include span-columns(5);
-
-      font-weight: normal;
-      font-size: 2em;
-
-      margin: 0;
-      padding: 0;
-
-      color: #18f;
-      a {color: #18f;}
-      strong {font-weight: normal;}
-      em { color: #cc2211; font-style: normal;}
-    }
-
-    nav {
-      @include span-columns(7);
-
-      height: 100%;
-
-      ul {
-        padding: 0; margin: 0;
-
-        bottom: 0;
-        height: 50px;
-
-        li {
-          display: inline-block;
-          padding: 9px 12px 0 12px;
-        }
-
-        a {
-          color: #333;
-          padding: 5px 12px 25px 12px;
-        }
-        a:hover, a.active {
-          border-bottom: 0.3em solid #777;
-        }
-        a:hover {
-          background: none;
-          color: #777;
-        }
-        a:focus {
-          background: #cc2211;
-          color:#fff;
-        }
+      a {
+        color: #333;
+        padding: 5px 0px 25px 0px;
+      }
+      a:hover, a.active {
+        border-bottom: 0.3em solid #777;
+      }
+      a:hover {
+        background: none;
+        color: #777;
+      }
+      a:focus {
+        // background: #cc2211;
+        background: #fff;
+        color:#1188ff;
       }
     }
   }
 }
 
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
+@mixin inner($columns) {
+  @include shift( ( 24 - $columns )/ 2 );
+  @include span-columns( $columns );
+
+  @include media($small) {
+    @include shift(0);
+    @include span-columns(4);
+  }  
+}
+
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+@mixin fullbleed($columns) {
+ // vz: TO BE IMPLEMENTED
+}
+
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
+@mixin small($columns) {
+      @include media($small) {
+        @include span-columns($columns);
+      }
+}
+
+div#usa {
+  background-color: rgba(0, 0, 0, 0.75);
+  .usa--content {
+    h4 { font-size: 0.75em; font-weight: 500; margin: 0.4em 0;}
+    padding-top: 0.75em;
+    margin-bottom:0.8em;
+    color: #ddd;
+    text-align:center;
+  }
+}
+
 #main {
-  section, footer {
-    @include outer-container;
-  }
-
-  .inner {
-    @include shift(1.5);
-    @include span-columns(9);
-  }
-
   /* /about and /learn */
   .content {
     padding-top: 20px;
   }
 
   section.search {
-    padding: 70px 0 70px 0;
+    @include inner(16);
+    padding: 70px 0;
 
     h2 {
       text-align: center;
@@ -130,7 +139,14 @@ body > .bordered > header {
 
   footer {
     div.left {
-      @include span-columns(2);
+      @include span-columns(3);
+      @include media($medium) {
+        @include span-columns(3);
+      }
+      @include media($small) {
+        @include span-columns(1);
+      }
+
       img {
         width: 100px; height: 100px;
         margin: 10px 0;
@@ -139,8 +155,13 @@ body > .bordered > header {
     }
 
     div.right {
-      @include span-columns(10);
-
+      @include span-columns(21);
+      @include media($medium) {
+        @include span-columns(9 of 12);
+      }
+      @include media($small) {
+        @include span-columns(3);
+      }
       p {
 
       }
@@ -149,38 +170,57 @@ body > .bordered > header {
   }
 }
 
-#main.home {
+.container {
+  @include outer-container();
+  padding: 0 1.5em;
+}
 
-  h2 {
-    text-align: center;
-    font-weight: normal;
-    font-size: 28pt;
-    margin: 0; padding: 0;
-  }
+.row {
+  @include span-columns(24);
+  @include clearfix();
+}
 
-  section.intro {
-    padding: 70px 0 50px 0;
+.clearfix {
+  @include clearfix();
+}
 
+.hero {
+  background-color: #f1f8ff;
+  padding: 2em 0;
+  background-size: contain;
+
+  & > .container > .hero--content {
+    @include inner(16);
+    h2 {
+      text-align: center;
+      font-weight: normal;
+      font-size: 28pt;
+      margin: 0; padding: 0;
+    }
     p {
+      /* VZ: This should be moved to a variable. Prob powered by Bitters. */
       margin-top: 30px;
       font-size: 21pt;
       line-height: 40px;
     }
-  }
+}
 
+}
+
+@include media($small) {
+  .hero {
+    padding: 2em 0;
+  }
+}
+
+#main.home {
   section.process {
-    .inner {
-      @include shift(0.5);
-      @include span-columns(11);
-    }
 
     ul {
-      @include outer-container;
-
       margin-top: 30px;
 
       figure {
-        @include span-columns(3);
+        @include span-columns(6);
 
         padding: 0; margin: 0;
         padding: 10px;
@@ -196,33 +236,39 @@ body > .bordered > header {
 }
 
 #main.agencies {
-  .listing .inner {
-    @include shift(0.5);
-    @include span-columns(11);
-  }
 
   ul {
+    padding: 0;
     a {
       color: black;
       text-decoration: none;
     }
     li {
-      @include outer-container;
-
       list-style-type: none;
       margin: 0; padding: 0;
       margin-bottom: 50px;
-
-      .left {
-        @include span-columns(5);
+      @include span-columns(24);
+      .agencies--name {
+        @include span-columns(8);
+        @include media($small) {
+          @include span-columns(4 of 4);
+          // text-align: center;
+        }  
         h3 {
-          padding: 0; margin: 0;
-          font-size: 12pt;
+          padding: 0 0 0.5em 0; margin: 0;
+          font-size: 1em;
+          @include media($small) {
+            font-size: 1.5em;
+          }
         }
       }
 
-      .right {
-        @include span-columns(7);
+      .agencies--description {
+        @include span-columns(16);
+        //@include shift(2);
+        @include media($small) {
+          @include span-columns(4 of 4);
+        }  
         p {margin: 0; padding: 0;}
       }
     }
@@ -253,33 +299,45 @@ body > .bordered > header {
   }
 
   .department {
-    @include outer-container;
-
     padding-bottom: 20px;
+    // display:inline-block;
+    @include clearfix();
     border-bottom: 1px solid #e5e5e5;
   }
 
   .department .description {
-    @include span-columns(7);
+    @include span-columns(14 of 24);
+      @include media($small) {
+        @include span-columns(4);
+      }
   }
 
   .department .resources {
-    @include span-columns(5);
-
-    padding-left: 10px;
+    @include span-columns(10 of 24);
+    //padding-left: 10px;
+    @include media($small) {
+      @include span-columns(4);
+      padding-left: none;
+    }    
   }
 
   .details {
-    @include outer-container;
     padding-top: 25px;
+    @include clearfix();
   }
 
   .details .offices, .details .left {
-    @include span-columns(7);
+    @include span-columns(14);
+      @include media($small) {
+        @include span-columns(4);
+      }    
   }
 
   .details .contact, .details .right {
-    @include span-columns(5);
+    @include span-columns(10);
+        @include media($small) {
+        @include span-columns(4);
+      }
   }
 
   .details header h2 {
@@ -287,8 +345,6 @@ body > .bordered > header {
   }
 
   .resource_type, .contact_type {
-    @include outer-container;
-    @include span-columns(12);
 
     margin: 15px 0;
 
@@ -297,12 +353,15 @@ body > .bordered > header {
     }
 
     .icon {
-      @include span-columns(2);
-      font-size: 1em;
+      @include span-columns(2 of 24);
+      font-size: 0.95em;
+      text-align:center;
+      margin-right:1em;
     }
 
     .subdetails {
-      @include span-columns(10);
+      display:inline-block;
+      overflow:hidden;
     }
 
     h3 {
@@ -346,6 +405,9 @@ body > .bordered > header {
   }
 
   .inaccurate {
+    //@include clearfix();
+    //clear:both;
+    //@include clearfix();
     p {
       font-size: 1em;
       font-weight: bold;

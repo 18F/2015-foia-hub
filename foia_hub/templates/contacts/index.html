@@ -5,35 +5,36 @@
 
 {% include "includes/search.html" %}
 
-<section class="listing"><div class="inner">
+<div class="container">
+  <section class="listing">
 
-{% if agencies %}
-  <ul>
-    {% for agency in agencies %}
-      <a href="/contacts/{{agency.slug }}">
-        <li>
-          <div class="left">
-            <h3>{{ agency.name }}</h3>
-          </div>
-          <div class="right">
-            <p>
-              {% if agency.description %}
-                {{ agency.description }}
-              {% else %}
-                Click to find out more about this agency.
-              {% endif %}
-            </p>
-          </div>
-        </li>
-      </a>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>
-    There are no agencies matching your search.
-  </p>
-{% endif %}
+  {% if agencies %}
+    <ul>
+      {% for agency in agencies %}
+        <a href="/contacts/{{agency.slug }}">
+          <li>
+            <div class="agencies--name">
+              <h3>{{ agency.name }}</h3>
+            </div>
+            <div class="agencies--description">
+              <p>
+                {% if agency.description %}
+                  {{ agency.description }}
+                {% else %}
+                  Click to find out more about this agency.
+                {% endif %}
+              </p>
+            </div>
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>
+      There are no agencies matching your search.
+    </p>
+  {% endif %}
 
-</div></section>
-
+  </section>
+</div>
 {% endblock %}
