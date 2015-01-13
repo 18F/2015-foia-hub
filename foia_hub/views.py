@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from jinja2 import Environment, PackageLoader
 from urllib.parse import urlparse
 
@@ -18,7 +18,7 @@ env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 def home(request):
     """App home page."""
-    return HttpResponse(env.get_template('index.html').render())
+    return render(request, 'index.html', {})
 
 
 def agencies(request):
@@ -43,11 +43,21 @@ def contact_landing(request, slug):
     data = resource.detail(slug).value
 
     if (data['is_a'] == 'agency') and (len(data.get("offices", [])) > 0):
-        template = env.get_template('contacts/parent_profile.html')
+        return render(
+            request,
+            'contacts/parent_profile.html',
+            {
+                'profile': data,
+                'slug': slug,
+                'show_webform': settings.SHOW_WEBFORM})
     else:
-        template = env.get_template('contacts/profile.html')
-    return HttpResponse(template.render(
-        profile=data, slug=slug, show_webform=settings.SHOW_WEBFORM))
+        return render(
+            request,
+            'contacts/profile.html', 
+            {
+                'profile': data,
+                'slug': slug,
+                'show_webform': settings.SHOW_WEBFORM})
 
 
 ###
