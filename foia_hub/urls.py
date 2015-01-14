@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from foia_hub.views import (
     contact_landing, learn, about, agencies, developers,
-    home, request_form, request_success)
+    home, request_form, request_success, request_noop)
 
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 
@@ -19,8 +19,9 @@ urlpatterns = patterns(
     url(r'^developers/?$', developers, name='developers'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
+    url(r'^request/noop/$', request_noop, name='noop'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
-    url(r'^request/success/(?P<id>[\d]+)/$', request_success, name='success')
+    url(r'^request/success/(?P<id>[\d]+)/$', request_success, name='success'),
 )
 
 # APIs

@@ -49,7 +49,8 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM})
+                'show_webform': settings.SHOW_WEBFORM
+             })
     else:
         return render(
             request,
@@ -57,7 +58,8 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM})
+                'show_webform': settings.SHOW_WEBFORM
+            })
 
 
 ###
@@ -77,16 +79,15 @@ def get_agency_list():
 ###
 
 def learn(request):
-    return HttpResponse(env.get_template('learn.html').render(request=request))
+    return render(request, 'learn.html', {'request': request})
 
 
 def about(request):
-    return HttpResponse(env.get_template('about.html').render(request=request))
+    return render(request, 'about.html', {'request': request})
 
 
 def developers(request):
-    return HttpResponse(
-        env.get_template('developers.html').render(request=request))
+    return render(request, 'developers.html', {'request': request})
 
 ###
 # Contacting agencies/offices that lack a webform of their own.
@@ -102,8 +103,17 @@ def request_form(request, slug=None):
 
     data = resource.detail(slug).value
     template = env.get_template('request/form.html')
-    return HttpResponse(template.render(profile=data, slug=slug))
+    return render(
+        request,
+        'request/form.html',
+        {'profile': data, 'slug': slug})
 
+
+def request_noop(request):
+    """ We have a request form that does nothing. Let's ensure the user knows
+    that in the slim chance the form gets turned on in an environment it
+    shouldn't be on in. """
+    return render(request, 'request/noop.html', {})
 
 def request_success(request, id):
     #   @todo: this makes it easy for an attacker to harvest email addresses
@@ -112,14 +122,13 @@ def request_success(request, id):
     requester = foia_request.requester
     office = foia_request.office
     agency = foia_request.agency or office.agency
+    return render(
+        request,
+        'request/success.html',
+        {
+            'foia_request':foia_request,
+            'requester':requester, 
+            'office': office,
+            'agency': agency
+        })
 
-    template = env.get_template('request/success.html')
-    return HttpResponse(template.render(
-        foia_request=foia_request, requester=requester, office=office,
-        agency=agency))
-
-
-def get_domain(url):
-    return "%s/..." % urlparse(url).netloc
-
-env.filters['get_domain'] = get_domain
