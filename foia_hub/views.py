@@ -114,21 +114,3 @@ def request_noop(request):
     that in the slim chance the form gets turned on in an environment it
     shouldn't be on in. """
     return render(request, 'request/noop.html', {})
-
-def request_success(request, id):
-    #   @todo: this makes it easy for an attacker to harvest email addresses
-    #   -- just look at all of the /success/##s in sequential order
-    foia_request = get_object_or_404(FOIARequest, pk=id)
-    requester = foia_request.requester
-    office = foia_request.office
-    agency = foia_request.agency or office.agency
-    return render(
-        request,
-        'request/success.html',
-        {
-            'foia_request':foia_request,
-            'requester':requester, 
-            'office': office,
-            'agency': agency
-        })
-
