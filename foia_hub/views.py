@@ -1,10 +1,8 @@
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from jinja2 import Environment, PackageLoader
-from urllib.parse import urlparse
 
-from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
 
 
@@ -50,11 +48,11 @@ def contact_landing(request, slug):
                 'profile': data,
                 'slug': slug,
                 'show_webform': settings.SHOW_WEBFORM
-             })
+            })
     else:
         return render(
             request,
-            'contacts/profile.html', 
+            'contacts/profile.html',
             {
                 'profile': data,
                 'slug': slug,
@@ -102,7 +100,6 @@ def request_form(request, slug=None):
         resource = AgencyResource()
 
     data = resource.detail(slug).value
-    template = env.get_template('request/form.html')
     return render(
         request,
         'request/form.html',
