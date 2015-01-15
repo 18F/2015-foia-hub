@@ -52,6 +52,18 @@ TEMPLATE_LOADERS = (
     'django_jinja.loaders.FileSystemLoader',
 )
 
+
+# We have to add the default processors
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages", 
+    "foia_hub.context_processors.google_analytics.google_analytics")
+
 INSTALLED_APPS += ('django_jinja',)
 
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
