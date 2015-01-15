@@ -2,7 +2,6 @@ from datetime import date
 
 from django.core.urlresolvers import reverse
 from django.test import SimpleTestCase, TestCase
-from mock import patch
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.models import ReadingRoomUrls
