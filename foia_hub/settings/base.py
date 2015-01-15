@@ -61,7 +61,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages", 
+    "django.contrib.messages.context_processors.messages",
     "foia_hub.context_processors.google_analytics.google_analytics")
 
 INSTALLED_APPS += ('django_jinja',)
