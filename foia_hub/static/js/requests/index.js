@@ -3,14 +3,14 @@ $(document).ready(function() {
   var currentText = '',
       longestText = '',
       onUserStroke,
-      onAgencySelection,
+      onSelection,
       agencyDatasource,
-      agencyAdaptor;
+      agencyAdaptor,
+      footerAdaptor;
 
   //  Set up the agency data source
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    // prefetch: '/api/agency/',
     limit: 500, // infinity
     prefetch: {url: '/api/agency/', filter: function(response) {
       return response.objects; }},
@@ -33,6 +33,18 @@ $(document).ready(function() {
       suggestion: Handlebars.compile('<h5 class="agency-name">{{name}}</h5>')
     }
   };
+  //  Set up the footer link adaptor
+  footerAdaptor = {
+    name: 'footer',
+    source: function(query, callback) {
+      if (query.length > 0) {
+        callback([{'query': query, 'isFooter': true}]);
+      }
+    },
+    templates: {
+      suggestion: Handlebars.compile('<h5>Search for "{{query}}" in keyterms and descriptions</h5>')
+    }
+  };
 
   //  Track the text as the user types
   onUserStroke = function(ev) {
@@ -46,13 +58,18 @@ $(document).ready(function() {
     }
   };
 
-  //  An agency was selected; notify analytics and redirect
-  onAgencySelection = function(ev, suggestion) {
-    var callback = function() {
-      window.location = '/contacts/' + suggestion.slug + '/';
-    };
-    ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
-       currentText, {'hitCallback': callback});
+  //  If an agency was selected, notify analytics and redirect
+  //  If the footer was selected, submit the form to redirect
+  onSelection = function(ev, suggestion) {
+    if (suggestion.isFooter) {
+      $(ev.target).val(suggestion.query).closest('form').submit();
+    } else {
+      var callback = function() {
+        window.location = '/contacts/' + suggestion.slug + '/';
+      };
+      ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
+         currentText, {'hitCallback': callback});
+    }
   };
 
   //  Initialize typeahead
@@ -60,6 +77,6 @@ $(document).ready(function() {
       hint: false,
       highlight: true,
       minLength: 1
-    }, agencyAdaptor
-  ).on('keyup', onUserStroke).on('typeahead:selected', onAgencySelection);
+    }, agencyAdaptor, footerAdaptor
+  ).on('keyup', onUserStroke).on('typeahead:selected', onSelection);
 });
