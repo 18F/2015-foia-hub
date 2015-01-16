@@ -51,8 +51,9 @@ $(document).ready(function() {
     currentText = $(ev.target).val();
     if (currentText.length > longestText.length) {
       longestText = currentText;
+    }
     //  blanked out the text after initially typing something
-    } else if (currentText.length === 0 && longestText.length > 0) {
+    else if (currentText.length === 0 && longestText.length > 0) {
       ga('send', 'event', 'contacts', 'did-not-want', longestText);
       longestText = '';
     }
@@ -63,7 +64,8 @@ $(document).ready(function() {
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
       $(ev.target).val(suggestion.query).closest('form').submit();
-    } else {
+    }
+    else {
       var callback = function() {
         window.location = '/contacts/' + suggestion.slug + '/';
       };
