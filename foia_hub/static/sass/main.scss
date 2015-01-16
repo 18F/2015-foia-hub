@@ -1,15 +1,14 @@
 @import "normalize";
-@import "bourbon/bourbon";
-@import "grid-settings";
-@import "neat/neat";
+@import "bourbon";
+// @import "grid-settings";
+@import "base/grid-settings";
 @import "base/base";
+@import "neat";
+
 
 body {
   padding-bottom: 20px;
 }
-
-/* a couple things that stand outside the normal hierarchy, because
-   they extend the full width, beyond the normal outer-container */
 
 body > header {
   border-bottom: 1px solid #dedede;
@@ -63,7 +62,14 @@ body > header {
 @mixin inner($columns) {
   @include shift( ( 24 - $columns )/ 2 );
   @include span-columns( $columns );
-
+  @include media($large) {
+    @include shift(2);
+    @include span-columns(20)
+  }
+  @include media($medium) {
+    @include shift(1);
+    @include span-columns(10);
+  }
   @include media($small) {
     @include shift(0);
     @include span-columns(4);
