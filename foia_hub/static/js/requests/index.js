@@ -12,14 +12,12 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     // prefetch: '/api/agency/',
     limit: 500, // infinity
-    prefetch: {url: "/api/agency/", filter: function(response) {return response.objects; }},
+    prefetch: {url: '/api/agency/', filter: function(response) {
+      return response.objects; }},
     datumTokenizer: function(d) {
       return []
         .concat(Bloodhound.tokenizers.whitespace(d.name))
-        .concat(Bloodhound.tokenizers.whitespace(d.description))
-        .concat(Bloodhound.tokenizers.whitespace(d.abbreviation))
-        .concat(Bloodhound.tokenizers.whitespace(
-          d.keywords ? d.keywords.join(' ') : []));
+        .concat(Bloodhound.tokenizers.whitespace(d.abbreviation));
     }
   });
   // always clear local storage for new requests, at least in dev
@@ -32,10 +30,7 @@ $(document).ready(function() {
     displayKey: 'value',
     source: agencyDatasource.ttAdapter(),
     templates: {
-      suggestion: Handlebars.compile(
-        ['<h5 class="agency-name">{{name}}</h5>',
-         '<p class="agency-description">{{description}}</p>'].join('')
-      )
+      suggestion: Handlebars.compile('<h5 class="agency-name">{{name}}</h5>')
     }
   };
 
