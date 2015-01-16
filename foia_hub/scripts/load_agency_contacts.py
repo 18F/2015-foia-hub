@@ -35,25 +35,6 @@ TTY_RE = re.compile('\(?\d{3}\)? \d{3}-\d{4} \(TTY\)')
 ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
 
 
-def clean_phone_number(number_str):
-    """Cut down the phone number string as much as possible. If multiple
-    numbers are present, take the first only"""
-
-    number_str = number_str or ''
-
-    if '+' in number_str:
-        return number_str
-
-    number_str = number_str.replace('(', '')
-    number_str = re.sub('[)][- ]?', '-', number_str)
-    number_str = number_str.replace(' ', '')
-    number_str = re.sub('[, ]*ext[. ]*', ' x', number_str)
-    number_str = number_str.split(',')[0].strip()
-
-    if number_str:
-        return number_str
-
-
 def extract_tty_phone(service_center):
     """ Extract a TTY phone number if one exists from the service_center
     entry in the YAML. """
