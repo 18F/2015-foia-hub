@@ -7,24 +7,26 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <h1 id="logo">
-      <a href="/">
-        FOIA<em><strong>Hub</strong></em>
-      </a>
-    </h1>
+  <div id="topnav">
+    <div class="container">
+      <div id="logo">
+        <a href="/">
+          FOIA<em><strong>HUB</strong></em>
+        </a>
+      </div>
 
-    <nav>
-      <ul>
-        <li><a
-            {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
-            href="/learn/">Understanding FOIA
+      <nav>
+        <ul>
+          <li><a
+              {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
+              href="/learn/">Understanding FOIA
+            </a></li>
+          <li><a
+            {% if request and ('/about/' == request.path) %}class="active"{% endif %}
+            href="/about/">About this Project
           </a></li>
-        <li><a
-          {% if request and ('/about/' == request.path) %}class="active"{% endif %}
-          href="/about/">About this Project
-        </a></li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>

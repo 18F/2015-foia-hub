@@ -13,27 +13,29 @@ body {
 body > header {
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
-  h1 {
+  #topnav {
+    margin: 1em 0 0.8em;
+  }
+  #logo {
     float:left;
-    font-weight: normal;
-    font-size: 2em;
-  
+    // font-weight: normal;
+    // font-size: 2em;
     color: $blue;
     a { color: $blue; }
     strong {font-weight: 800;}
     em { color: #cc2211; font-style: normal;}
-  } /* Wordmark */
+  }
 
   nav {
     ul {
       li {
         display: inline-block;
-        padding: 9px 10px 0 10px;
+        padding: 0 10px 0 10px;
       }
 
       a {
         color: #333;
-        padding: 0 0px 6px 0;
+        padding-bottom:12px;
       }
       a:hover, a.active {
         border-bottom: 0.3em solid $aqua-blue;
@@ -129,8 +131,9 @@ div#usa {
       border-bottom: none;
     }
 
-    p {
-      margin-top: 30px;
+    a {
+      color: $aqua-blue;
+      font-weight: 800;
     }
 
     .search-box {
@@ -138,8 +141,7 @@ div#usa {
     }
 
     p.browse {
-      margin-top: 15px;
-      text-align: center;
+//      margin-top: 15px;
     }
 
   }
