@@ -3,18 +3,26 @@
 
 {% block body %}
 
+{% include "includes/search.html" %}
+
 <div class="hero">
     <div class="container">
         <section class="hero--content">
             <h2>What is FOIA?</h2>
-            <p>
-                The Freedom of Information Act (FOIA) provides you the right to request access to government records. Under FOIA, government agencies are <strong><em>required</em></strong> to disclose any records requested, unless they fall under a specific set of exemptions or exclusions.
-                <a class="more" href="/learn/">Learn more about FOIA.</a>
-            </p>
+            <p>The Freedom of Information Act, or FOIA, provides you the right to request access to government records. Under FOIA, government agencies are required to disclose any information requested unless it falls under a specific set of exemptions or exclusions.</p>
+			<p><a class="more" href="/learn/">Learn more about FOIA.</a></p>
+
+			<hr>
+
+			<h2>How does the process work?</h2>
+			<ol>
+				<li>Submit a FOIA request directly to the agency you believe holds the information you seek.</li>
+				<li>The FOIA officials at that agency will (usually) email receipt of your request and begin looking for the requested records or point you to a public space where the records may already be accessed.</li>
+				<li>As the records are collected, they will be assessed to determine what can be provided to the requestor.</li>
+				<li>FOIA officials at the agency send the requester their "determination. The records may be in full, partial or redacted or denied as a request.</li>
+			</ol>
         </section>
     </div>
 </div>
-
-{% include "includes/search.html" %}
 
 {% endblock %}

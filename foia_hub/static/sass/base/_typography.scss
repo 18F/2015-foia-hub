@@ -17,6 +17,7 @@ h6 {
   line-height: $header-line-height;
   margin: 0;
   text-rendering: optimizeLegibility; // Fix the character spacing for headings
+  display: inline-block;
 }
 
 h1 {
@@ -25,6 +26,7 @@ h1 {
 
 h2 {
   font-size: $h2-font-size;
+  border-bottom: 0.2em solid $aqua-blue;
 }
 
 h3 {

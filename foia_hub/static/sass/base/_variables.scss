@@ -1,6 +1,6 @@
 // Typography
 $sans-serif: "proxima-nova", "open sans", arial, sans-serif;
-$serif: $georgia;
+// $serif: $georgia;
 $base-font-family: $sans-serif;
 $header-font-family: $base-font-family;
 
@@ -31,6 +31,16 @@ $light-red: #FBE3E4;
 $light-yellow: #FFF6BF;
 $light-green: #E6EFC2;
 
+// FOIA Hub Colors
+$dark-gray: #323A45; // Text/Rules
+$gray: #777777; // Text 2
+$blue: #0067BA; // Links
+$aqua-blue: #00BFE7; // Graphics
+$blue: #0096B5; //Rollover
+$light-blue: #CDEAF0; // Highlight
+$light-gray: #EAEDF1; // Background
+$medium-gray: #CCCCCC; // Rules 2
+
 // Background Color
 $base-background-color: white;
 
@@ -51,7 +61,7 @@ $notice-color: lighten($base-accent-color, 40);
 $success-color: $light-green;
 
 // Border color
-$base-border-color: $light-gray;
+$base-border-color: $dark-gray;
 $base-border: 1px solid $base-border-color;
 
 // Forms
