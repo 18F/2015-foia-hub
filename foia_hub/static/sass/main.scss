@@ -263,14 +263,16 @@ div#usa {
         @include media($small) {
           @include span-columns(4 of 4);
         }  
-        p {margin: 0; padding: 0;}
       }
     }
   }
 }
 
-#main.landing {
+.fa {
+  color: $aqua-blue;
+}
 
+#main.landing {
   .contact {
     h3 {
       margin-top: 30px; margin-bottom: 10px;
@@ -283,8 +285,7 @@ div#usa {
   }
 
   .header {
-    margin-top: 20px;
-
+    margin: 1em 0;
     h1 {
       margin: 0; padding: 0;
       margin-top: 10px;
@@ -293,104 +294,103 @@ div#usa {
   }
 
   .department {
-    padding-bottom: 20px;
-    // display:inline-block;
-    @include clearfix();
-    border-bottom: 1px solid #e5e5e5;
-  }
 
-  .department .description {
+    .department--container {
     @include span-columns(14 of 24);
-      @include media($small) {
-        @include span-columns(4);
+    @include media($medium) {
+        @include span-columns(12);
       }
-  }
+    }
 
-  .department .resources {
-    @include span-columns(10 of 24);
-    //padding-left: 10px;
-    @include media($small) {
-      @include span-columns(4);
-      padding-left: none;
-    }    
-  }
+    h2 {
+      font-size: $h2-font-size * 0.8;
+    }
 
-  .details {
-    padding-top: 25px;
-    @include clearfix();
-  }
+    h3 {
+      font-size: $h3-font-size * 0.6;
+    }
 
-  .details .offices, .details .left {
-    @include span-columns(14);
+    hr {
+      border-bottom: 1px solid $dark-gray;
+    }
+
+    .resources {
+      @include span-columns(9 of 24);
+      @include shift(1);
+      padding: 1em;
+      //padding-left: 10px;
+      background-color: white;
+      @include media($medium) {
+          @include span-columns(12);
+          @include shift(0);
+        }
       @include media($small) {
         @include span-columns(4);
+        @include shift(0);
       }    
-  }
+    }
 
-  .details .contact, .details .right {
-    @include span-columns(10);
-        @include media($small) {
-        @include span-columns(4);
+    .description p {
+      margin: 1.2em 0;
+      font-size: $base-font-size * 1.2;
+    }
+    .details {
+     .offices {
+        ul, li {
+          list-style-type: none;
+          list-style-position: outside;
+          margin: 0; padding: 0;
+        }
+
+        li {
+          margin: 10px 0;
+          font-size: 1.2em;
+          line-height: 30px;
+        }
       }
-  }
 
-  .details header h2 {
-    font-size: 2em;
-  }
-
-  .resource_type, .contact_type {
-
-    margin: 15px 0;
-
-    .fa:before {
-      font-size: 2em;
     }
 
-    .icon {
-      @include span-columns(2 of 24);
-      font-size: 0.95em;
-      text-align:center;
-      margin-right:1em;
+    .resource_type, .contact_type {
+
+      margin: 15px 0;
+
+      .icon {
+        .fa {
+          font-size: 1.8em;
+        }
+        // @include span-columns(2 of 24);
+        float:left;
+        text-align:center;
+        margin-right:2em;
+        // position:absolute;
+        width:24px;
+      }
+
+      .subdetails {
+        // display:inline-block;
+        overflow:hidden;
+      }
+
+      ul, li {
+        list-style-type: none;
+        list-style-position: outside;
+        margin: 0; padding: 0;
+      }
     }
 
-    .subdetails {
-      display:inline-block;
-      overflow:hidden;
+    .resource_type {
+      h3 {
+        font-size: 1em;
+      }
     }
 
-    ul, li {
-      list-style-type: none;
-      list-style-position: outside;
-      margin: 0; padding: 0;
+    .contact_type {
+      h3 {
+        margin-bottom: 5px;
+      }
     }
-  }
-
-  .details .offices {
-    ul, li {
-      list-style-type: none;
-      list-style-position: outside;
-      margin: 0; padding: 0;
-    }
-
-    li {
-      margin: 10px 0;
-      font-size: 1.2em;
-      line-height: 30px;
-    }
-  }
-
-  .resource_type {
-    h3 {
-      font-size: 1em;
-    }
-  }
-
-  .contact_type {
-    h3 {
-      margin-bottom: 5px;
-    }
-  }
-
+}
   .inaccurate {
     //@include clearfix();
     //clear:both;

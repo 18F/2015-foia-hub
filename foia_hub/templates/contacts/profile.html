@@ -29,12 +29,12 @@
         </a>
       {% endif %}
     </div>
-
-    <h1>{{ profile.name }}</h1>
   </section>
 
   <section class="department">
+  <div class="department--container">
     <div class="description">
+      <h1><em>{{ profile.name }}</em></h1>
       <p>
         {% if profile.description %}
           {{ profile.description }}
@@ -44,44 +44,12 @@
       </p>
     </div>
 
-    <div class="resources">
-      {% include 'contacts/contact.html' %}
+    <section class="details">
 
-      {% if profile.simple_processing_time or profile.complex_processing_time %}
-        <div class="processing resource_type">
-          <div class="icon">
-            <span class="fa fa-clock-o"></span>
-          </div>
-          <div class="subdetails">
-            <h3>Median processing time</h3>
-            <ul>
-              {% if profile.simple_processing_time %}
-                <li>
-                  Simple requests:
-                  {{ profile.simple_processing_time|int }} working days
-                </li>
-              {% endif %}
+      <h2>Submit a request</h2>
 
-              {% if profile.complex_processing_time %}
-                <li>
-                  Complex requests:
-                  {{ profile.complex_processing_time|int }} working days
-                </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-  </section>
+      <hr>
 
-  <section class="details">
-
-    <header>
-      <h2>Submitting a request</h2>
-    </header>
-
-    <div class="left">
       {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
        <div class="webform contact_type">
           <div class="icon">
@@ -119,9 +87,7 @@
           </p>
         </div>
       </div>
-    </div>
 
-    <div class="right">
       {% if profile.emails %}
         <div class="email contact_type">
           <div class="icon">
@@ -157,8 +123,38 @@
           </div>
         </div>
       {% endif %}
-    </div>
-  </section>
+    </section><!--/details-->
+  </div><!--/department--container-->
+  <div class="resources">
+    {% include 'contacts/contact.html' %}
+
+    {% if profile.simple_processing_time or profile.complex_processing_time %}
+      <div class="processing resource_type">
+        <div class="icon">
+          <span class="fa fa-clock-o"></span>
+        </div>
+        <div class="subdetails">
+          <h3>Median processing time</h3>
+          <ul>
+            {% if profile.simple_processing_time %}
+              <li>
+                Simple requests:
+                {{ profile.simple_processing_time|int }} working days
+              </li>
+            {% endif %}
+
+            {% if profile.complex_processing_time %}
+              <li>
+                Complex requests:
+                {{ profile.complex_processing_time|int }} working days
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  </section><!--/department-->
 
   <section class="inaccurate">
     <p>
