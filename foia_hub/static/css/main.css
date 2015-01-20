@@ -384,7 +384,7 @@ input[type="submit"] {
 
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: white;
+  background-color: #EAEDF1;
   color: #323A45;
   font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
   font-size: 1em;
@@ -608,10 +608,8 @@ html {
   -moz-box-sizing: inherit;
   box-sizing: inherit; }
 
-body {
-  padding-bottom: 20px; }
-
 body > header {
+  background-color: white;
   border-bottom: 1px solid #dedede; }
   body > header a:hover {
     text-decoration: none; }
@@ -723,7 +721,8 @@ div#usa {
   #main .search--content .search--box {
     margin: 30px 0; }
 #main footer {
-  margin-top: 1em; }
+  background-color: white;
+  padding-top: 1em; }
   #main footer div.left {
     float: left;
     display: block;

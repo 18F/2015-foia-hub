@@ -6,11 +6,8 @@
 @import "neat";
 
 
-body {
-  padding-bottom: 20px;
-}
-
 body > header {
+  background-color: white;
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
   #topnav {
@@ -149,7 +146,8 @@ div#usa {
   }
 
   footer {
-    margin-top: 1em;
+    background-color: white;
+    padding-top: 1em;
     div.left {
       @include span-columns(2);
       @include media($medium) {
