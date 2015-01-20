@@ -176,6 +176,9 @@ class LoadingTest(TestCase):
         self.assertEqual(type(error.exception), AttributeError)
 
     def test_extract_tty_phone(self):
+        """ Test: from a service center entry, extract the TTY phone if it
+        exists. """
+
         service_center = {
             'phone': ['202-555-5555 (TTY)', '202-555-5551']
         }
@@ -193,6 +196,9 @@ class LoadingTest(TestCase):
         self.assertEqual('202-555-5555 (TTY)', tty_phone)
 
     def test_extract_non_tty_phone(self):
+        """ Test that extract non-tty phone numbers from a list works. If there
+        aren't any, this defaults to TTY numbers (and tests that)"""
+
         public_liaison = {
             'phone': ['202-555-5551', '202-555-5555 (TTY)']
         }
