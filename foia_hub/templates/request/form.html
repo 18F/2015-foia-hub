@@ -18,7 +18,7 @@
 <section class="request form">
 
   <form class="request" method="POST" action="/request/noop/">
-    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"/>
+    {% csrf_token %}
     <input type="hidden" class="agency_agency" name="agency" value="{{ profile.agency_slug }}" />
 
     {% if profile.is_a == "office" %}
