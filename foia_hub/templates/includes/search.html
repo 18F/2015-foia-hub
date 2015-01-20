@@ -4,12 +4,15 @@
       <h2>Want to make a FOIA request?</h2>
 
       <form class="agency" method="get" action="/agencies/">
-        <div class="search-box scrollable-dropdown-menu">
-          <input class="typeahead agency" name="query" type="search"
-            {% if query %}
-              value="{{ query }}"
-            {% endif %}
-            />
+        <div class="search--box scrollable-dropdown-menu">
+          <form id="search">
+            <input class="typeahead agency" name="query" type="search" placeholder="Search for a topic or the agency you want to contact"
+              {% if query %}
+                value="{{ query }}"
+              {% endif %}
+              />
+<!--            <button form="search" type="submit" name="submit">Search</button>-->
+          </form>
         </div>
       </form>
 

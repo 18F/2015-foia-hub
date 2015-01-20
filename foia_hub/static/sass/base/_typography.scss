@@ -21,14 +21,27 @@ h6 {
   display: inline-block;
 }
 
+.hero--content {
+  h1, h2, h3, h4, h5, h6
+   {
+      padding-bottom:0.8em; // Krang
+   }
+}
+
 h1 {
   font-size: $h1-font-size;
 }
 
 h2 {
   font-size: $h2-font-size;
-  border-bottom: 0.15em solid $aqua-blue;
-  padding-bottom: 0.2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  em {
+    border-bottom: 0.15em solid $aqua-blue;
+    line-height: $header-line-height * 1.25;
+    font-style: normal;
+  }
 }
 
 h3 {

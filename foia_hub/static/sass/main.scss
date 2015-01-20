@@ -26,20 +26,29 @@ body > header {
     em { color: #cc2211; font-style: normal;}
   }
 
-  nav {
+#topnav nav {
     ul {
+      @include media($small) {
+        @include span-columns(3);
+      }
       li {
         display: inline-block;
-        padding: 0 10px 0 10px;
+        padding: 0 10px;
       }
 
       a {
         color: $gray;
         padding-bottom:12px;
+        @include media($small) {
+            padding-bottom: 0;
+          }
       }
       a:hover, a.active {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray;
+        @include media($small) {
+          border-bottom: 1px solid $aqua-blue;
+        }
       }
       a:focus {
         // background: #cc2211;
@@ -110,7 +119,6 @@ div#usa {
 }
 
 #main {
-  /* /about and /learn */
   .content {
     padding-top: 20px;
   }
@@ -134,21 +142,17 @@ div#usa {
       font-weight: 800;
     }
 
-    .search-box {
-      margin-top: 30px;
+    .search--box {
+      margin: 30px 0;
     }
-
-    p.browse {
-//      margin-top: 15px;
-    }
-
   }
 
   footer {
+    margin-top: 1em;
     div.left {
-      @include span-columns(2 of 24);
+      @include span-columns(2);
       @include media($medium) {
-        @include span-columns(2);
+        @include span-columns(1);
       }
       @include media($small) {
         @include span-columns(1);
@@ -157,8 +161,6 @@ div#usa {
       img {
         width: 100%;
         height: 100%;
-        // margin: 10px 0;
-        vertical-align: top;
       }
     }
 
@@ -197,11 +199,12 @@ div#usa {
 .hero {
   background-color: $light-gray;
   padding: 2em 0;
+
 //  background-size: contain;
 
   & > .container > .hero--content {
     @include inner(16);
-    p {
+    p.big {
       font-size: $h2-font-size;
       line-height: $header-line-height;
       font-weight: $header-font-weight;
@@ -223,23 +226,7 @@ div#usa {
 
 #main.home {
   section.process {
-
-    ul {
-      margin-top: 30px;
-
-      figure {
-        @include span-columns(6);
-
-        padding: 0; margin: 0;
-        padding: 10px;
-
-        img {width: 100%;}
-        figcaption {
-          font-size: 11pt;
-          line-height: 24px;
-        }
-      }
-    }
+    ol { @extend %default-ol; }
   }
 }
 
@@ -456,12 +443,25 @@ form.request {
   }
 }
 
-a { color: #18f; text-decoration: none;}
 a:hover {text-decoration: underline}
 p a:hover { text-decoration: underline; }
 
 
-input.search, input.agency { width: 100% }
+input.agency { width: 100% }
+
+.search input {
+  color: $dark-gray;
+  width: 100%;
+  background-color: white;
+  display:inline-block;
+}
+.search button {
+  background-color: $aqua-blue;
+  color: $dark-gray;
+  display:inline-block;
+  width: 5%;
+  min-width: 6em;
+}
 
 .pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
 
@@ -541,6 +541,7 @@ div.request.error {
 }
 
 .tt-suggestion {
+  color: $dark-gray;
   padding: 8px 20px;
   font-size: 18px;
   line-height: 24px;
