@@ -3,7 +3,7 @@ from django.test import TestCase
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import (
     load_data, add_reading_rooms, add_request_time_statistics,
-    extract_tty_phone)
+    extract_tty_phone, extract_non_tty_phone)
 
 example_office1 = {
     'address': {
@@ -177,7 +177,7 @@ class LoadingTest(TestCase):
 
     def test_extract_tty_phone(self):
         service_center = {
-            'phone':  ['202-555-5555 (TTY)', '202-555-5551']
+            'phone': ['202-555-5555 (TTY)', '202-555-5551']
         }
 
         tty_phone = extract_tty_phone(service_center)
@@ -191,3 +191,20 @@ class LoadingTest(TestCase):
             '202-555-5555 (TTY)', '202-555-5552 (TTY)', '202-555-5551']
         tty_phone = extract_tty_phone(service_center)
         self.assertEqual('202-555-5555 (TTY)', tty_phone)
+
+    def test_extract_non_tty_phone(self):
+        public_liaison = {
+            'phone': ['202-555-5551', '202-555-5555 (TTY)']
+        }
+
+        phone = extract_non_tty_phone(public_liaison)
+        self.assertEqual('202-555-5551', phone)
+
+        # No non-tty number
+        public_liaison['phone'] = ['202-555-5552 (TTY)']
+        phone = extract_non_tty_phone(public_liaison)
+        self.assertEqual('202-555-5552 (TTY)', phone)
+
+        public_liaison['phone'] = []
+        phone = extract_non_tty_phone(public_liaison)
+        self.assertEqual(None, phone)

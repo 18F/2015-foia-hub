@@ -56,8 +56,8 @@ def extract_non_tty_phone(public_liaison):
         non_tty = [p for p in public_liaison['phone'] if 'TTY' not in p]
         if len(non_tty) > 0:
             return non_tty[0]
-        elif len(non_tty) > 0:
-            return non_tty[0]
+        elif len(public_liaison['phone']) > 0:
+            return public_liaison['phone'][0]
 
 
 def contactable_fields(agency, office_dict):
