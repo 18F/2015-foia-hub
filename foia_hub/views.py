@@ -1,22 +1,12 @@
 from django.conf import settings
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from jinja2 import Environment, PackageLoader
 
 from foia_hub.api import AgencyResource, OfficeResource
 
 
-env = Environment(loader=PackageLoader('foia_hub', 'templates'))
-env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
-
 ###
 # Finding agencies and their contact information.
 ###
-
-
-def home(request):
-    """App home page."""
-    return render(request, 'index.html', {})
 
 
 def agencies(request):
@@ -27,8 +17,13 @@ def agencies(request):
     if len(agencies) == 1:
         return redirect('contact_landing', slug=agencies[0].slug)
     else:
-        return HttpResponse(env.get_template('contacts/index.html').render(
-            agencies=agencies, query=query))
+        return render(
+            request,
+            'contacts/index.html',
+            {
+                'agencies': agencies,
+                'query': query
+            })
 
 
 def contact_landing(request, slug):
@@ -71,21 +66,6 @@ def get_agency_list():
         {'name': agency.name, 'slug': agency.slug} for agency in agencies]
     return agency_list
 
-
-###
-# Flat pages
-###
-
-def learn(request):
-    return render(request, 'learn.html', {'request': request})
-
-
-def about(request):
-    return render(request, 'about.html', {'request': request})
-
-
-def developers(request):
-    return render(request, 'developers.html', {'request': request})
 
 ###
 # Contacting agencies/offices that lack a webform of their own.
