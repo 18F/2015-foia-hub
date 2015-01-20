@@ -17,7 +17,7 @@
 
 <section class="request form">
 
-  <form class="request" method="POST" action="/request/noop/">
+  <form class="request" method="POST" action="{{ url('noop') }}">
     {% csrf_token %}
     <input type="hidden" class="agency_agency" name="agency" value="{{ profile.agency_slug }}" />
 
