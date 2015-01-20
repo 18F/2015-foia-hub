@@ -31,7 +31,7 @@ def check_urls(agency_url, row, field):
         return row_url
 
 
-TTY_RE = re.compile('\(?\d{3}\)? \d{3}-\d{4} \(TTY\)')
+TTY_RE = re.compile('\d{3}-\d{3}-\d{4} \(TTY\)')
 ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
 
 
