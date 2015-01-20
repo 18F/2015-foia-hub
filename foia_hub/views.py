@@ -1,24 +1,12 @@
 from django.conf import settings
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
-from jinja2 import Environment, PackageLoader
-from urllib.parse import urlparse
+from django.shortcuts import redirect, render
 
-from foia_hub.models import FOIARequest
 from foia_hub.api import AgencyResource, OfficeResource
 
-
-env = Environment(loader=PackageLoader('foia_hub', 'templates'))
-env.globals['ANALYTICS_ID'] = settings.ANALYTICS_ID
 
 ###
 # Finding agencies and their contact information.
 ###
-
-
-def home(request):
-    """App home page."""
-    return HttpResponse(env.get_template('index.html').render())
 
 
 def agencies(request):
@@ -29,8 +17,13 @@ def agencies(request):
     if len(agencies) == 1:
         return redirect('contact_landing', slug=agencies[0].slug)
     else:
-        return HttpResponse(env.get_template('contacts/index.html').render(
-            agencies=agencies, query=query))
+        return render(
+            request,
+            'contacts/index.html',
+            {
+                'agencies': agencies,
+                'query': query
+            })
 
 
 def contact_landing(request, slug):
@@ -43,11 +36,23 @@ def contact_landing(request, slug):
     data = resource.detail(slug).value
 
     if (data['is_a'] == 'agency') and (len(data.get("offices", [])) > 0):
-        template = env.get_template('contacts/parent_profile.html')
+        return render(
+            request,
+            'contacts/parent_profile.html',
+            {
+                'profile': data,
+                'slug': slug,
+                'show_webform': settings.SHOW_WEBFORM
+            })
     else:
-        template = env.get_template('contacts/profile.html')
-    return HttpResponse(template.render(
-        profile=data, slug=slug, show_webform=settings.SHOW_WEBFORM))
+        return render(
+            request,
+            'contacts/profile.html',
+            {
+                'profile': data,
+                'slug': slug,
+                'show_webform': settings.SHOW_WEBFORM
+            })
 
 
 ###
@@ -63,22 +68,6 @@ def get_agency_list():
 
 
 ###
-# Flat pages
-###
-
-def learn(request):
-    return HttpResponse(env.get_template('learn.html').render(request=request))
-
-
-def about(request):
-    return HttpResponse(env.get_template('about.html').render(request=request))
-
-
-def developers(request):
-    return HttpResponse(
-        env.get_template('developers.html').render(request=request))
-
-###
 # Contacting agencies/offices that lack a webform of their own.
 ###
 
@@ -91,25 +80,14 @@ def request_form(request, slug=None):
         resource = AgencyResource()
 
     data = resource.detail(slug).value
-    template = env.get_template('request/form.html')
-    return HttpResponse(template.render(profile=data, slug=slug))
+    return render(
+        request,
+        'request/form.html',
+        {'profile': data, 'slug': slug})
 
 
-def request_success(request, id):
-    #   @todo: this makes it easy for an attacker to harvest email addresses
-    #   -- just look at all of the /success/##s in sequential order
-    foia_request = get_object_or_404(FOIARequest, pk=id)
-    requester = foia_request.requester
-    office = foia_request.office
-    agency = foia_request.agency or office.agency
-
-    template = env.get_template('request/success.html')
-    return HttpResponse(template.render(
-        foia_request=foia_request, requester=requester, office=office,
-        agency=agency))
-
-
-def get_domain(url):
-    return "%s/..." % urlparse(url).netloc
-
-env.filters['get_domain'] = get_domain
+def request_noop(request):
+    """ We have a request form that does nothing. Let's ensure the user knows
+    that in the slim chance the form gets turned on in an environment it
+    shouldn't be on in. """
+    return render(request, 'request/noop.html', {})
