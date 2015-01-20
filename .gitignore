@@ -5,6 +5,7 @@ debug.log
 *.pyo
 *.DS_Store
 *.swp
+*.codekit
 
 # SCSS/SASS
 .sass-cache
