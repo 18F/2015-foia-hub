@@ -627,14 +627,6 @@ body > header {
     body > header #logo em {
       color: #cc2211;
       font-style: normal; }
-  @media screen and (max-width: 30em) {
-    body > header #topnav nav ul {
-      float: left;
-      display: block;
-      margin-right: 6.6666666667%;
-      width: 73.3333333333%; }
-      body > header #topnav nav ul:last-child {
-        margin-right: 0; } }
   body > header #topnav nav ul li {
     display: inline-block;
     padding: 0 10px; }
@@ -671,7 +663,8 @@ div#usa {
   color: #EAEDF1;
   padding: 0.25em 0; }
   div#usa .usa--content {
-    font-size: 0.8em; }
+    font-size: 0.8em;
+    font-weight: 800; }
   div#usa .official {
     float: left; }
   div#usa .alpha {
@@ -693,22 +686,17 @@ div#usa {
   color: #EAEDF1;
   padding: 3.4em 0; }
 #main .search--content {
-  margin-left: 106.6666666667%;
+  margin-left: 16.8421052632%;
   float: left;
   display: block;
   margin-right: 1.0526315789%;
-  width: 66.3157894737%; }
+  width: 66.3157894737%;
+  /*  @include media($large) {
+      @include shift(2);
+      @include span-columns(20)
+    }*/ }
   #main .search--content:last-child {
     margin-right: 0; }
-  @media screen and (max-width: 61.25em) {
-    #main .search--content {
-      margin-left: 8.4210526316%;
-      float: left;
-      display: block;
-      margin-right: 1.0526315789%;
-      width: 83.1578947368%; }
-      #main .search--content:last-child {
-        margin-right: 0; } }
   @media screen and (max-width: 48em) {
     #main .search--content {
       margin-left: 4.2105263158%;
@@ -823,18 +811,13 @@ div#usa {
     float: left;
     display: block;
     margin-right: 1.0526315789%;
-    width: 66.3157894737%; }
+    width: 66.3157894737%;
+    /*  @include media($large) {
+        @include shift(2);
+        @include span-columns(20)
+      }*/ }
     .hero > .container > .hero--content:last-child {
       margin-right: 0; }
-    @media screen and (max-width: 61.25em) {
-      .hero > .container > .hero--content {
-        margin-left: 8.4210526316%;
-        float: left;
-        display: block;
-        margin-right: 1.0526315789%;
-        width: 83.1578947368%; }
-        .hero > .container > .hero--content:last-child {
-          margin-right: 0; } }
     @media screen and (max-width: 48em) {
       .hero > .container > .hero--content {
         margin-left: 4.2105263158%;
