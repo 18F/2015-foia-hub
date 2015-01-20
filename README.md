@@ -9,7 +9,6 @@ This project is currently working on getting people to the right place in the go
 Some related repos:
 
 * [foia](https://github.com/18F/foia) - Discussion forum and miscellaneous resources and scrapers.
-* [foia-search](https://github.com/18F/foia-search) - Experimental full text search API over FOIA materials.
 
 ## How is this different from other stuff?
 
