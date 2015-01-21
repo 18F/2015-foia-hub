@@ -25,9 +25,6 @@ body > header {
 
 #topnav nav {
     ul {
-      @include media($small) {
-//        @include span-columns(3);
-      }
       li {
         display: inline-block;
         padding: 0 10px;
@@ -40,7 +37,7 @@ body > header {
             padding-bottom: 0;
           }
       }
-      a:hover, a.active {
+      a:hover, a.active, #logo:hover {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray;
         @include media($small) {
@@ -61,8 +58,8 @@ body > header {
  * $columns should always be an even number 
  */
 @mixin inner($columns) {
-  @include shift( ( 24 - $columns )/ 2 );
   @include span-columns( $columns );
+  @include shift( ( 24 - $columns ) / 2 );
 /*  @include media($large) {
     @include shift(2);
     @include span-columns(20)
@@ -117,6 +114,8 @@ div#usa {
 }
 
 #main {
+  min-height: 99%;
+  position: relative;
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -222,53 +221,28 @@ div#usa {
   }
 }
 
-#main.agencies {
-
-  ul {
-    padding: 0;
-    a {
-      color: black;
-      text-decoration: none;
-    }
-    li {
-      list-style-type: none;
-      margin: 0; padding: 0;
-      margin-bottom: 50px;
-      @include span-columns(24);
-      .agencies--name {
-        @include span-columns(8);
-        @include media($small) {
-          @include span-columns(4 of 4);
-          // text-align: center;
-        }  
-        h3 {
-          padding: 0 0 0.5em 0; margin: 0;
-          font-size: 1em;
-          @include media($small) {
-            font-size: 1.5em;
-          }
-        }
-      }
-
-      .agencies--description {
-        @include span-columns(16);
-        //@include shift(2);
-        @include media($small) {
-          @include span-columns(4 of 4);
-        }  
-      }
-    }
-  }
-}
-
 .fa {
   color: $aqua-blue;
 }
 
-  .learn, .about {
-    @include span-columns(16);
-    @include shift(4);
+.content {
+  @include span-columns(16);
+  @include shift(4);
+}
+
+.searchresults {
+  @include inner(16);
+  h1 {
+    font-size: $h1-font-size * 0.8;
+    padding-top: 1em;
   }
+  h2 {
+    font-size: $h2-font-size * 0.6;
+  }
+  li {
+    padding: 0.5em 0;
+  }
+}
 
 #main.landing {
   .contact {
@@ -391,6 +365,7 @@ div#usa {
 }
   .inaccurate {
     clear:both;
+    padding-bottom:2em;
     //@include clearfix();
   }
 
@@ -458,8 +433,6 @@ input.agency { width: 100% }
 
 .pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
 
-
-/* todo: error/success states still need styling */
 
 /* error message next to submit button */
 div.request.error {

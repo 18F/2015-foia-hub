@@ -20,7 +20,7 @@
         Home &gt;
       </a>
     </div>
-    <h1>{{ profile.name }}</h1>
+    <h1><em>{{ profile.name }}</em></h1>
   </section>
 
   <section class="department">
@@ -31,28 +31,28 @@
         </p>
       {% endif %}
     </div>
-  </section>
 
-  <section class="details">
+    <section class="details">
 
-    <div class="offices">
-      <h2>
-        Make your FOIA request directly to the most relevant group or component:
-      </h2>
+      <div class="offices">
+        <h2>
+          Make your FOIA request directly to the most relevant group or component:
+        </h2>
 
-      <ul>
-        {% for office in profile.offices %}
-          <li>
-            <a href="/contacts/{{ office.slug }}">
-              {{ office.name }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+        <ul>
+          {% for office in profile.offices %}
+            <li>
+              <a href="/contacts/{{ office.slug }}">
+                {{ office.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
 
-    <div class="contact">
-      {% include 'contacts/contact.html' %}
-    </div>
+      <div class="contact">
+        {% include 'contacts/contact.html' %}
+      </div>
+    </section>
   </section>
 </div>
 

@@ -634,11 +634,11 @@ body > header {
     @media screen and (max-width: 30em) {
       body > header #topnav nav ul a {
         padding-bottom: 0; } }
-  body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active {
+  body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
     border-bottom: 0.3em solid #00BFE7;
     color: #323A45; }
     @media screen and (max-width: 30em) {
-      body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active {
+      body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
         border-bottom: 1px solid #00BFE7; } }
   body > header #topnav nav ul a:focus {
     background: #fff;
@@ -677,101 +677,104 @@ div#usa {
         display: block;
         text-align: center; } }
 
-#main .search {
-  background: #323A45;
-  color: #EAEDF1;
-  padding: 3.4em 0; }
-#main .search--content {
-  margin-left: 16.8421052632%;
-  float: left;
-  display: block;
-  margin-right: 1.0526315789%;
-  width: 66.3157894737%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/ }
-  #main .search--content:last-child {
-    margin-right: 0; }
-  @media screen and (max-width: 48em) {
-    #main .search--content {
-      margin-left: 4.2105263158%;
-      float: left;
-      display: block;
-      margin-right: 2.1276595745%;
-      width: 82.9787234043%; }
-      #main .search--content:last-child {
-        margin-right: 0; } }
-  @media screen and (max-width: 30em) {
-    #main .search--content {
-      margin-left: 0%;
-      float: left;
-      display: block;
-      margin-right: 6.6666666667%;
-      width: 100%; }
-      #main .search--content:last-child {
-        margin-right: 0; } }
-  #main .search--content h2 {
-    border-bottom: none; }
-  #main .search--content a {
-    color: #00BFE7;
-    font-weight: 800; }
-  #main .search--content .search--box {
-    margin: 30px 0; }
-#main footer {
-  background-color: white;
-  padding-top: 1em; }
-  #main footer div.left {
+#main {
+  min-height: 99%;
+  position: relative; }
+  #main .search {
+    background: #323A45;
+    color: #EAEDF1;
+    padding: 3.4em 0; }
+  #main .search--content {
     float: left;
     display: block;
     margin-right: 1.0526315789%;
-    width: 7.3684210526%; }
-    #main footer div.left:last-child {
+    width: 66.3157894737%;
+    margin-left: 16.8421052632%;
+    /*  @include media($large) {
+        @include shift(2);
+        @include span-columns(20)
+      }*/ }
+    #main .search--content:last-child {
       margin-right: 0; }
     @media screen and (max-width: 48em) {
-      #main footer div.left {
+      #main .search--content {
+        margin-left: 4.2105263158%;
         float: left;
         display: block;
         margin-right: 2.1276595745%;
-        width: 6.3829787234%; }
-        #main footer div.left:last-child {
+        width: 82.9787234043%; }
+        #main .search--content:last-child {
           margin-right: 0; } }
     @media screen and (max-width: 30em) {
-      #main footer div.left {
+      #main .search--content {
+        margin-left: 0%;
         float: left;
         display: block;
         margin-right: 6.6666666667%;
-        width: 20%; }
-        #main footer div.left:last-child {
+        width: 100%; }
+        #main .search--content:last-child {
           margin-right: 0; } }
-    #main footer div.left img {
-      width: 100%;
-      height: 100%; }
-  #main footer div.right {
-    float: left;
-    display: block;
-    margin-right: 1.0526315789%;
-    width: 87.3684210526%;
-    margin-left: 4.2105263158%; }
-    #main footer div.right:last-child {
-      margin-right: 0; }
-    @media screen and (max-width: 48em) {
-      #main footer div.right {
-        float: left;
-        display: block;
-        margin-right: 2.1276595745%;
-        width: 74.4680851064%;
-        margin-left: 0%; }
-        #main footer div.right:last-child {
-          margin-right: 0; } }
-    @media screen and (max-width: 30em) {
-      #main footer div.right {
-        float: left;
-        display: block;
-        margin-right: 6.6666666667%;
-        width: 73.3333333333%; }
-        #main footer div.right:last-child {
-          margin-right: 0; } }
+    #main .search--content h2 {
+      border-bottom: none; }
+    #main .search--content a {
+      color: #00BFE7;
+      font-weight: 800; }
+    #main .search--content .search--box {
+      margin: 30px 0; }
+  #main footer {
+    background-color: white;
+    padding-top: 1em; }
+    #main footer div.left {
+      float: left;
+      display: block;
+      margin-right: 1.0526315789%;
+      width: 7.3684210526%; }
+      #main footer div.left:last-child {
+        margin-right: 0; }
+      @media screen and (max-width: 48em) {
+        #main footer div.left {
+          float: left;
+          display: block;
+          margin-right: 2.1276595745%;
+          width: 6.3829787234%; }
+          #main footer div.left:last-child {
+            margin-right: 0; } }
+      @media screen and (max-width: 30em) {
+        #main footer div.left {
+          float: left;
+          display: block;
+          margin-right: 6.6666666667%;
+          width: 20%; }
+          #main footer div.left:last-child {
+            margin-right: 0; } }
+      #main footer div.left img {
+        width: 100%;
+        height: 100%; }
+    #main footer div.right {
+      float: left;
+      display: block;
+      margin-right: 1.0526315789%;
+      width: 87.3684210526%;
+      margin-left: 4.2105263158%; }
+      #main footer div.right:last-child {
+        margin-right: 0; }
+      @media screen and (max-width: 48em) {
+        #main footer div.right {
+          float: left;
+          display: block;
+          margin-right: 2.1276595745%;
+          width: 74.4680851064%;
+          margin-left: 0%; }
+          #main footer div.right:last-child {
+            margin-right: 0; } }
+      @media screen and (max-width: 30em) {
+        #main footer div.right {
+          float: left;
+          display: block;
+          margin-right: 6.6666666667%;
+          width: 73.3333333333%; }
+          #main footer div.right:last-child {
+            margin-right: 0; } }
 
 .container {
   max-width: 68em;
@@ -804,11 +807,11 @@ div#usa {
   background-color: #EAEDF1;
   padding: 2em 0; }
   .hero > .container > .hero--content {
-    margin-left: 16.8421052632%;
     float: left;
     display: block;
     margin-right: 1.0526315789%;
     width: 66.3157894737%;
+    margin-left: 16.8421052632%;
     /*  @include media($large) {
         @include shift(2);
         @include span-columns(20)
@@ -845,71 +848,55 @@ div#usa {
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
-#main.agencies ul {
-  padding: 0; }
-  #main.agencies ul a {
-    color: black;
-    text-decoration: none; }
-  #main.agencies ul li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 50px;
-    float: left;
-    display: block;
-    margin-right: 1.0526315789%;
-    width: 100%; }
-    #main.agencies ul li:last-child {
-      margin-right: 0; }
-    #main.agencies ul li .agencies--name {
-      float: left;
-      display: block;
-      margin-right: 1.0526315789%;
-      width: 32.6315789474%; }
-      #main.agencies ul li .agencies--name:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 30em) {
-        #main.agencies ul li .agencies--name {
-          float: left;
-          display: block;
-          margin-right: 6.6666666667%;
-          width: 100%; }
-          #main.agencies ul li .agencies--name:last-child {
-            margin-right: 0; } }
-      #main.agencies ul li .agencies--name h3 {
-        padding: 0 0 0.5em 0;
-        margin: 0;
-        font-size: 1em; }
-        @media screen and (max-width: 30em) {
-          #main.agencies ul li .agencies--name h3 {
-            font-size: 1.5em; } }
-    #main.agencies ul li .agencies--description {
-      float: left;
-      display: block;
-      margin-right: 1.0526315789%;
-      width: 66.3157894737%; }
-      #main.agencies ul li .agencies--description:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 30em) {
-        #main.agencies ul li .agencies--description {
-          float: left;
-          display: block;
-          margin-right: 6.6666666667%;
-          width: 100%; }
-          #main.agencies ul li .agencies--description:last-child {
-            margin-right: 0; } }
-
 .fa {
   color: #00BFE7; }
 
-.learn, .about {
+.content {
   float: left;
   display: block;
   margin-right: 1.0526315789%;
   width: 66.3157894737%;
   margin-left: 16.8421052632%; }
-  .learn:last-child, .about:last-child {
+  .content:last-child {
     margin-right: 0; }
+
+.searchresults {
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%;
+  /*  @include media($large) {
+      @include shift(2);
+      @include span-columns(20)
+    }*/ }
+  .searchresults:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 48em) {
+    .searchresults {
+      margin-left: 4.2105263158%;
+      float: left;
+      display: block;
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
+      .searchresults:last-child {
+        margin-right: 0; } }
+  @media screen and (max-width: 30em) {
+    .searchresults {
+      margin-left: 0%;
+      float: left;
+      display: block;
+      margin-right: 6.6666666667%;
+      width: 100%; }
+      .searchresults:last-child {
+        margin-right: 0; } }
+  .searchresults h1 {
+    font-size: 1.8em;
+    padding-top: 1em; }
+  .searchresults h2 {
+    font-size: 1.2em; }
+  .searchresults li {
+    padding: 0.5em 0; }
 
 #main.landing .contact h3 {
   margin-top: 30px;
@@ -1009,7 +996,8 @@ div#usa {
 #main.landing .department .contact_type h3 {
   margin-bottom: 5px; }
 #main.landing .inaccurate {
-  clear: both; }
+  clear: both;
+  padding-bottom: 2em; }
 
 form.request input.upto[type=text] {
   width: 80px;
@@ -1082,7 +1070,6 @@ input.agency {
 .pure-menu .pure-menu-selected a {
   border-bottom: 0.3em solid #333; }
 
-/* todo: error/success states still need styling */
 /* error message next to submit button */
 div.request.error {
   display: none;
