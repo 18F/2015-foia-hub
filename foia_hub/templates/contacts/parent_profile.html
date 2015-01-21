@@ -14,16 +14,14 @@
 {# 'profile' here is known to be an agency with sub-offices. #}
 
 <div class="container">
-  <section class="header">
     <div class="breadcrumbs">
       <a href="/">
         Home &gt;
       </a>
     </div>
-    <h1><em>{{ profile.name }}</em></h1>
-  </section>
 
-  <section class="department">
+  <section class="department department__decentralized">
+    <h1 class="department--name"><em>{{ profile.name }}</em></h1>
     <div class="description">
       {% if profile.description %}
         <p>

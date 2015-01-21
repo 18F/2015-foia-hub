@@ -726,55 +726,12 @@ div#usa {
     padding-top: 1em; }
     #main footer div.left {
       float: left;
-      display: block;
-      margin-right: 1.0526315789%;
-      width: 7.3684210526%; }
-      #main footer div.left:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 48em) {
-        #main footer div.left {
-          float: left;
-          display: block;
-          margin-right: 2.1276595745%;
-          width: 6.3829787234%; }
-          #main footer div.left:last-child {
-            margin-right: 0; } }
-      @media screen and (max-width: 30em) {
-        #main footer div.left {
-          float: left;
-          display: block;
-          margin-right: 6.6666666667%;
-          width: 20%; }
-          #main footer div.left:last-child {
-            margin-right: 0; } }
+      padding-right: 1em; }
       #main footer div.left img {
-        width: 100%;
-        height: 100%; }
+        width: 32px;
+        height: 32px; }
     #main footer div.right {
-      float: left;
-      display: block;
-      margin-right: 1.0526315789%;
-      width: 87.3684210526%;
-      margin-left: 4.2105263158%; }
-      #main footer div.right:last-child {
-        margin-right: 0; }
-      @media screen and (max-width: 48em) {
-        #main footer div.right {
-          float: left;
-          display: block;
-          margin-right: 2.1276595745%;
-          width: 74.4680851064%;
-          margin-left: 0%; }
-          #main footer div.right:last-child {
-            margin-right: 0; } }
-      @media screen and (max-width: 30em) {
-        #main footer div.right {
-          float: left;
-          display: block;
-          margin-right: 6.6666666667%;
-          width: 73.3333333333%; }
-          #main footer div.right:last-child {
-            margin-right: 0; } }
+      float: left; }
 
 .container {
   max-width: 68em;
@@ -892,11 +849,14 @@ div#usa {
         margin-right: 0; } }
   .searchresults h1 {
     font-size: 1.8em;
-    padding-top: 1em; }
+    padding: 1em 0; }
   .searchresults h2 {
     font-size: 1.2em; }
   .searchresults li {
     padding: 0.5em 0; }
+
+.breadcrumbs {
+  margin: 1em 0; }
 
 #main.landing .contact h3 {
   margin-top: 30px;
@@ -906,13 +866,6 @@ div#usa {
   list-style-position: outside;
   padding: 0;
   margin: 0; }
-#main.landing .header {
-  margin: 1em 0; }
-  #main.landing .header h1 {
-    margin: 0;
-    padding: 0;
-    margin-top: 10px;
-    font-size: 2.4em; }
 #main.landing .department .department--container {
   float: left;
   display: block;
@@ -998,6 +951,37 @@ div#usa {
 #main.landing .inaccurate {
   clear: both;
   padding-bottom: 2em; }
+
+.department__decentralized {
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%;
+  /*  @include media($large) {
+      @include shift(2);
+      @include span-columns(20)
+    }*/ }
+  .department__decentralized:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 48em) {
+    .department__decentralized {
+      margin-left: 4.2105263158%;
+      float: left;
+      display: block;
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
+      .department__decentralized:last-child {
+        margin-right: 0; } }
+  @media screen and (max-width: 30em) {
+    .department__decentralized {
+      margin-left: 0%;
+      float: left;
+      display: block;
+      margin-right: 6.6666666667%;
+      width: 100%; }
+      .department__decentralized:last-child {
+        margin-right: 0; } }
 
 form.request input.upto[type=text] {
   width: 80px;
