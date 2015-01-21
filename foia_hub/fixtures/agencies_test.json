@@ -46,7 +46,7 @@
             "description": "The historic mission of the Department of Commerce is \"to foster, promote, and develop the foreign and domestic commerce\" of the United States. This has evolved, as a result of legislative and administrative additions, to encompass broadly the responsibility to foster, serve, and promote the Nation's economic development and technological advancement.",
             "emails": ["foia@doc.gov"],
             "fax": null,
-            "keywords": null,
+            "keywords": ["business", "industry", "forests", "petroleum"],
             "name": "Department of Commerce",
             "office_url": null,
             "parent": null,
