@@ -2,7 +2,6 @@
 
 import logging
 import os
-import re
 import string
 import sys
 
@@ -31,80 +30,59 @@ def check_urls(agency_url, row, field):
         return row_url
 
 
-TTY_RE = re.compile('\(?\d{3}\)? \d{3}-\d{4} \(TTY\)')
-ADDY_RE = re.compile('(?P<city>.*), (?P<state>[A-Z]{2}) (?P<zip>[0-9-]+)')
+def extract_tty_phone(service_center):
+    """ Extract a TTY phone number if one exists from the service_center
+    entry in the YAML. """
+
+    tty_phones = [p for p in service_center['phone'] if 'TTY' in p]
+    if len(tty_phones) > 0:
+        return tty_phones[0]
 
 
-def clean_phone_number(number_str):
-    """Cut down the phone number string as much as possible. If multiple
-    numbers are present, take the first only"""
+def extract_non_tty_phone(public_liaison):
+    """ Extract a non-TTY number if one exists, otherwise use the TTY number.
+    If there are multiple options, for now pick the first one. Return None if
+    no phone number """
 
-    number_str = number_str or ''
-
-    if '+' in number_str:
-        return number_str
-
-    number_str = number_str.replace('(', '')
-    number_str = re.sub('[)][- ]?', '-', number_str)
-    number_str = number_str.replace(' ', '')
-    number_str = re.sub('[, ]*ext[. ]*', ' x', number_str)
-    number_str = number_str.split(',')[0].strip()
-
-    if number_str:
-        return number_str
+    if 'phone' in public_liaison:
+        non_tty = [p for p in public_liaison['phone'] if 'TTY' not in p]
+        if len(non_tty) > 0:
+            return non_tty[0]
+        elif len(public_liaison['phone']) > 0:
+            return public_liaison['phone'][0]
 
 
 def contactable_fields(agency, office_dict):
     """Add the Contactable and USAddress fields to the agency based on values
     in the office dictionary. This will be called for both parent and child
     agencies/offices (as written in our current data set)"""
-    agency.phone = clean_phone_number(office_dict.get('phone'))
-
-    # a.toll_free_phone - not an explicit field in our data set
+    agency.phone = office_dict.get('phone')
     agency.emails = office_dict.get('emails', [])
-    agency.fax = clean_phone_number(office_dict.get('fax'))
+    agency.fax = office_dict.get('fax')
     agency.office_url = office_dict.get('website')
-
     agency.request_form_url = office_dict.get('request_form')
 
-    service_center = office_dict.get('service_center', '')
-    match = TTY_RE.search(service_center)
-    if match:
-        agency.TTY_phone = match.group(0)
-    #   Hack until we fix the underlying data
-    if ', Phone:' in service_center:
-        name = service_center[:service_center.index(', Phone:')]
-    else:
-        name = service_center
-    agency.person_name = name or None
+    service_center = office_dict.get(
+        'service_center', {'name': None, 'phone': ['']})
+    agency.TTY_phone = extract_tty_phone(service_center)
+    if 'name' in service_center:
+        agency.person_name = service_center['name']
 
-    public_liaison = office_dict.get('public_liaison', '')
-    #   Hack until we fix the underlying data
-    if ', Phone:' in public_liaison:
-        name = public_liaison[:public_liaison.index(', Phone:')]
-        phone = public_liaison[public_liaison.index('Phone:'):]
-        phone = phone[len('Phone:'):].strip()
-        # Remove TTY, if present
-        match = TTY_RE.search(phone)
-        if match:
-            phone = phone[:match.start()].strip()
-        agency.public_liaison_phone = clean_phone_number(phone)
-    else:
-        name = public_liaison
-    agency.public_liaison_name = name or None
+    public_liaison = office_dict.get(
+        'public_liaison', {'name': None, 'phone': []})
+    agency.public_liaison_phone = extract_non_tty_phone(public_liaison)
+    if 'name' in public_liaison:
+        agency.public_liaison_name = public_liaison['name']
 
-    address = office_dict.get('address', [])
+    address = office_dict.get('address', {})
     if address:
-        match = ADDY_RE.match(address[-1])
-        if match:
-            agency.zip_code = match.group('zip')
-            agency.state = match.group('state')
-            agency.city = match.group('city')
+        agency.zip_code = address['zip']
+        agency.state = address['state']
+        agency.city = address['city']
+        agency.street = address['street']
+        if 'address_lines' in address:
+            agency.address_lines = address['address_lines']
 
-        if len(address) > 1:
-            agency.street = address[-2]
-        if len(address) > 2:
-            agency.address_lines = address[0:-2]
     reading_rooms = office_dict.get('reading_rooms', [])
     if reading_rooms:
         add_reading_rooms(agency, reading_rooms)
