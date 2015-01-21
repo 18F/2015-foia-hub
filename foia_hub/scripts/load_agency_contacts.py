@@ -2,7 +2,6 @@
 
 import logging
 import os
-import re
 import string
 import sys
 
@@ -31,19 +30,13 @@ def check_urls(agency_url, row, field):
         return row_url
 
 
-TTY_RE = re.compile('\d{3}-\d{3}-\d{4} \(TTY\)')
-
-
 def extract_tty_phone(service_center):
     """ Extract a TTY phone number if one exists from the service_center
     entry in the YAML. """
 
     tty_phones = [p for p in service_center['phone'] if 'TTY' in p]
     if len(tty_phones) > 0:
-        # Just pick the first one for now
-        match = TTY_RE.search(tty_phones[0])
-        if match:
-            return match.group(0)
+        return tty_phones[0]
 
 
 def extract_non_tty_phone(public_liaison):
