@@ -902,6 +902,15 @@ div#usa {
 .fa {
   color: #00BFE7; }
 
+.learn, .about {
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
+  .learn:last-child, .about:last-child {
+    margin-right: 0; }
+
 #main.landing .contact h3 {
   margin-top: 30px;
   margin-bottom: 10px; }

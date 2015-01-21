@@ -265,9 +265,11 @@ div#usa {
   color: $aqua-blue;
 }
 
-.content {
-//  @include inner(16);
-}
+  .learn, .about {
+    @include span-columns(16);
+    @include shift(4);
+  }
+
 #main.landing {
   .contact {
     h3 {
