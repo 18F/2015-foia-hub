@@ -677,8 +677,6 @@ div#usa {
         display: block;
         text-align: center; } }
 
-#main .content {
-  padding-top: 20px; }
 #main .search {
   background: #323A45;
   color: #EAEDF1;
@@ -923,7 +921,7 @@ div#usa {
   float: left;
   display: block;
   margin-right: 1.0526315789%;
-  width: 57.8947368421%; }
+  width: 62.1052631579%; }
   #main.landing .department .department--container:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
@@ -944,7 +942,7 @@ div#usa {
   float: left;
   display: block;
   margin-right: 1.0526315789%;
-  width: 36.8421052632%;
+  width: 32.6315789474%;
   margin-left: 4.2105263158%;
   padding: 1em;
   background-color: white;

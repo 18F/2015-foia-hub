@@ -117,10 +117,6 @@ div#usa {
 }
 
 #main {
-  .content {
-    padding-top: 20px;
-  }
-
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -172,9 +168,6 @@ div#usa {
       }
       @include media($small) {
         @include span-columns(3);
-      }
-      p {
-
       }
     }
 
@@ -272,6 +265,9 @@ div#usa {
   color: $aqua-blue;
 }
 
+.content {
+//  @include inner(16);
+}
 #main.landing {
   .contact {
     h3 {
@@ -296,7 +292,7 @@ div#usa {
   .department {
 
     .department--container {
-    @include span-columns(14 of 24);
+    @include span-columns(15 of 24);
     @include media($medium) {
         @include span-columns(12);
       }
@@ -315,7 +311,7 @@ div#usa {
     }
 
     .resources {
-      @include span-columns(9 of 24);
+      @include span-columns(8 of 24);
       @include shift(1);
       padding: 1em;
       background-color: white;
