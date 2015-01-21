@@ -938,7 +938,7 @@ div#usa {
   font-size: 1.6em; }
 #main.landing .department h3 {
   font-size: 1.05em; }
-#main.landing .department hr {
+#main.landing .department .details > hr {
   border-bottom: 1px solid #323A45; }
 #main.landing .department .resources {
   float: left;
@@ -947,7 +947,8 @@ div#usa {
   width: 36.8421052632%;
   margin-left: 4.2105263158%;
   padding: 1em;
-  background-color: white; }
+  background-color: white;
+  box-shadow: 4px 4px 8px #CCC; }
   #main.landing .department .resources:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
@@ -1000,8 +1001,8 @@ div#usa {
   font-size: 1em; }
 #main.landing .department .contact_type h3 {
   margin-bottom: 5px; }
-#main.landing .inaccurate p {
-  font-size: 1em; }
+#main.landing .inaccurate {
+  clear: both; }
 
 form.request input.upto[type=text] {
   width: 80px;

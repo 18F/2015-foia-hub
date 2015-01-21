@@ -310,7 +310,7 @@ div#usa {
       font-size: $h3-font-size * 0.6;
     }
 
-    hr {
+    .details > hr {
       border-bottom: 1px solid $dark-gray;
     }
 
@@ -318,8 +318,8 @@ div#usa {
       @include span-columns(9 of 24);
       @include shift(1);
       padding: 1em;
-      //padding-left: 10px;
       background-color: white;
+      box-shadow: 4px 4px 8px #CCC;
       @include media($medium) {
           @include span-columns(12);
           @include shift(0);
@@ -392,12 +392,8 @@ div#usa {
     }
 }
   .inaccurate {
+    clear:both;
     //@include clearfix();
-    //clear:both;
-    //@include clearfix();
-    p {
-      font-size: 1em;
-    }
   }
 
 }
