@@ -25,6 +25,10 @@
             {% if request and ('/about/' == request.path) %}class="active"{% endif %}
             href="/about/">About this Project
           </a></li>
+          <li><a
+            {% if request and ('/agencies/' == request.path) %}class="active"{% endif %}
+            href="/agencies/">Federal Agencies
+          </a></li>
         </ul>
       </nav>
     </div>

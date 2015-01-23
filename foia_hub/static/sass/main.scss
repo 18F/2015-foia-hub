@@ -98,7 +98,7 @@ div#usa {
   padding: 0.25em 0;
   .usa--content {
     font-size: 0.8em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .official { float:left; }
   .alpha {float:right; }
@@ -114,8 +114,6 @@ div#usa {
 }
 
 #main {
-  min-height: 99%;
-  position: relative;
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -211,8 +209,8 @@ div#usa {
 }
 
 .content {
-  @include span-columns(16);
   @include shift(4);
+  @include inner(16);
 }
 
 .searchresults {

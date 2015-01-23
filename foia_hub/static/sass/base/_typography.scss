@@ -28,20 +28,20 @@ h6 {
    }
 }
 
-h1 {
-  font-size: $h1-font-size;
-}
-
-h2 {
-  font-size: $h2-font-size;
-}
-
 h1, h2, h3, h4, h5, h6 {
   em {
     border-bottom: 0.15em solid $aqua-blue;
     line-height: $header-line-height * 1.25;
     font-style: normal;
   }
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  font-size: $h2-font-size;
 }
 
 h3 {
