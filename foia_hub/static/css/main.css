@@ -617,7 +617,8 @@ body > header {
     margin: 1em 0 0.8em; }
   body > header #logo {
     float: left;
-    color: #0067BA; }
+    color: #0067BA;
+    padding-right: 1em; }
     body > header #logo a {
       color: #0067BA; }
     body > header #logo strong {
