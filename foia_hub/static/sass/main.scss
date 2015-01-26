@@ -1,50 +1,54 @@
 @import "normalize";
-@import "bourbon/bourbon";
-@import "grid-settings";
-@import "neat/neat";
+@import "bourbon";
+// @import "grid-settings";
+@import "base/grid-settings";
+@import "base/base";
+@import "neat";
+
 
 body {
   padding-bottom: 20px;
 }
 
-/* a couple things that stand outside the normal hierarchy, because
-   they extend the full width, beyond the normal outer-container */
-
 body > header {
   border-bottom: 1px solid #dedede;
   a:hover {text-decoration: none;}
-  h1 {
-    @include span-columns(6);
-
-    font-weight: normal;
-    font-size: 2em;
-  
-    color: #18f;
-    a {color: #18f;}
+  #topnav {
+    margin: 1em 0 0.8em;
+  }
+  #logo {
+    float:left;
+    // font-weight: normal;
+    // font-size: 2em;
+    color: $blue;
+    a { color: $blue; }
     strong {font-weight: 800;}
     em { color: #cc2211; font-style: normal;}
   }
 
-  nav {
-    @include span-columns(10);
-    @include shift(8);
-
+#topnav nav {
     ul {
+      @include media($small) {
+//        @include span-columns(3);
+      }
       li {
         display: inline-block;
-        padding: 9px 12px 0 12px;
+        padding: 0 10px;
       }
 
       a {
-        color: #333;
-        padding: 5px 0px 25px 0px;
+        color: $gray;
+        padding-bottom:12px;
+        @include media($small) {
+            padding-bottom: 0;
+          }
       }
       a:hover, a.active {
-        border-bottom: 0.3em solid #777;
-      }
-      a:hover {
-        background: none;
-        color: #777;
+        border-bottom: 0.3em solid $aqua-blue;
+        color: $dark-gray;
+        @include media($small) {
+          border-bottom: 1px solid $aqua-blue;
+        }
       }
       a:focus {
         // background: #cc2211;
@@ -62,7 +66,14 @@ body > header {
 @mixin inner($columns) {
   @include shift( ( 24 - $columns )/ 2 );
   @include span-columns( $columns );
-
+/*  @include media($large) {
+    @include shift(2);
+    @include span-columns(20)
+  }*/
+  @include media($medium) {
+    @include shift(1);
+    @include span-columns(10);
+  }
   @include media($small) {
     @include shift(0);
     @include span-columns(4);
@@ -88,76 +99,78 @@ body > header {
 }
 
 div#usa {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: $dark-gray;
+  color: $light-gray;
+  padding: 0.25em 0;
   .usa--content {
-    h4 { font-size: 0.75em; font-weight: 500; margin: 0.4em 0;}
-    padding-top: 0.75em;
-    margin-bottom:0.8em;
-    color: #ddd;
-    text-align:center;
+    font-size: 0.8em;
+    font-weight: 800;
+  }
+  .official { float:left; }
+  .alpha {float:right; }
+  .official, .alpha {
+    display: inline-block;
+    a { color: $aqua-blue;}  
+    @include media($medium) {
+      float:none;
+      display: block;
+      text-align: center;
+    }
   }
 }
 
 #main {
-  /* /about and /learn */
   .content {
     padding-top: 20px;
   }
 
-  section.search {
+  .search {
+    background: $dark-gray;
+    color: $light-gray;
+    padding: 3.4em 0;
+  }
+
+  .search--content {
     @include inner(16);
-    padding: 70px 0;
+//    padding: 70px 0;
 
     h2 {
-      text-align: center;
-      font-weight: normal;
-      font-size: 28pt;
-      margin: 0; padding: 0;
+      border-bottom: none;
     }
 
-    p {
-      margin-top: 30px;
-      font-size: 18pt;
-      line-height: 36px;
+    a {
+      color: $aqua-blue;
+      font-weight: 800;
     }
 
-    .search-box {
-      margin-top: 30px;
-    }
-
-    p.browse {
-      margin-top: 15px;
-      font-size: 10pt;
-      line-height: 20px;
-      text-align: center;
-    }
-
-    hr {
-      margin-top: 80px;
+    .search--box {
+      margin: 30px 0;
     }
   }
 
   footer {
+    margin-top: 1em;
     div.left {
-      @include span-columns(3);
+      @include span-columns(2);
       @include media($medium) {
-        @include span-columns(3);
+        @include span-columns(1);
       }
       @include media($small) {
         @include span-columns(1);
       }
 
       img {
-        width: 100px; height: 100px;
-        margin: 10px 0;
-        vertical-align: top;
+        width: 100%;
+        height: 100%;
       }
     }
 
     div.right {
       @include span-columns(21);
+      @include shift(1);
       @include media($medium) {
         @include span-columns(9 of 12);
+        @include shift(0);
       }
       @include media($small) {
         @include span-columns(3);
@@ -185,23 +198,22 @@ div#usa {
 }
 
 .hero {
-  background-color: #f1f8ff;
+  background-color: $light-gray;
   padding: 2em 0;
-  background-size: contain;
+
+//  background-size: contain;
 
   & > .container > .hero--content {
     @include inner(16);
-    h2 {
-      text-align: center;
-      font-weight: normal;
-      font-size: 28pt;
-      margin: 0; padding: 0;
-    }
-    p {
-      /* VZ: This should be moved to a variable. Prob powered by Bitters. */
-      margin-top: 30px;
-      font-size: 21pt;
-      line-height: 40px;
+    p.big {
+      font-size: $h2-font-size;
+      line-height: $header-line-height;
+      font-weight: $header-font-weight;
+      margin: 1em 0;
+    } // VZ: Maybe create a pseudo-H2 class for this?
+    a.more {
+      font-size: 1em;
+      font-weight: $header-font-weight;
     }
 }
 
@@ -215,23 +227,7 @@ div#usa {
 
 #main.home {
   section.process {
-
-    ul {
-      margin-top: 30px;
-
-      figure {
-        @include span-columns(6);
-
-        padding: 0; margin: 0;
-        padding: 10px;
-
-        img {width: 100%;}
-        figcaption {
-          font-size: 11pt;
-          line-height: 24px;
-        }
-      }
-    }
+    ol { @extend %default-ol; }
   }
 }
 
@@ -364,11 +360,6 @@ div#usa {
       overflow:hidden;
     }
 
-    h3 {
-      padding: 0; margin: 0;
-      font-weight: bold;
-    }
-
     ul, li {
       list-style-type: none;
       list-style-position: outside;
@@ -398,8 +389,6 @@ div#usa {
 
   .contact_type {
     h3 {
-      font-size: 1.6em;
-      font-weight: normal;
       margin-bottom: 5px;
     }
   }
@@ -410,7 +399,6 @@ div#usa {
     //@include clearfix();
     p {
       font-size: 1em;
-      font-weight: bold;
     }
   }
 
@@ -456,16 +444,25 @@ form.request {
   }
 }
 
-html, button, input, select, textarea {
-  font-family: 'Open Sans', sans-serif;
-}
-h1,h2,h3,h4,h5,h6 { font-family: 'Raleway', sans-serif; }
-a { color: #18f; text-decoration: none;}
 a:hover {text-decoration: underline}
 p a:hover { text-decoration: underline; }
 
 
-input.search, input.agency { width: 100% }
+input.agency { width: 100% }
+
+.search input {
+  color: $dark-gray;
+  width: 100%;
+  background-color: white;
+  display:inline-block;
+}
+.search button {
+  background-color: $aqua-blue;
+  color: $dark-gray;
+  display:inline-block;
+  width: 5%;
+  min-width: 6em;
+}
 
 .pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
 
@@ -545,6 +542,7 @@ div.request.error {
 }
 
 .tt-suggestion {
+  color: $dark-gray;
   padding: 8px 20px;
   font-size: 18px;
   line-height: 24px;
