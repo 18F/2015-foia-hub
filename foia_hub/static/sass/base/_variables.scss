@@ -7,8 +7,10 @@ $header-font-family: $base-font-family;
 // Font Sizes
 $base-font-size: 1em;
 $h1-font-size: $base-font-size * 2.25;
-$h2-font-size: $base-font-size * 2;
-$h3-font-size: $base-font-size * 1.75;
+// $h2-font-size: $base-font-size * 2;
+$h2-font-size: $base-font-size * 1.5;
+// $h3-font-size: $base-font-size * 1.75;
+$h3-font-size: $base-font-size * 1.125;
 $h4-font-size: $base-font-size * 1.5;
 $h5-font-size: $base-font-size * 1.25;
 $h6-font-size: $base-font-size;
@@ -46,7 +48,7 @@ $light-gray: #EAEDF1; // Background
 $medium-gray: #CCCCCC; // Rules 2
 
 // Background Color
-$base-background-color: white;
+$base-background-color: $light-gray;
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -65,7 +67,7 @@ $notice-color: lighten($base-accent-color, 40);
 $success-color: $light-green;
 
 // Border color
-$base-border-color: $dark-gray;
+$base-border-color: $medium-gray;
 $base-border: 1px solid $base-border-color;
 
 // Forms

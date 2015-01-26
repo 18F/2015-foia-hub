@@ -6,15 +6,16 @@
 {% include "includes/search.html" %}
 
 <div class="container">
-  <section class="listing">
+  <section class="searchresults">
 
   {% if agencies %}
+  <h1><em>Search results</em></h1>
+  
     <ul>
       {% for agency in agencies %}
-        <a href="/contacts/{{agency.slug }}">
           <li>
             <div class="agencies--name">
-              <h3>{{ agency.name }}</h3>
+              <h2><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h2>
             </div>
             <div class="agencies--description">
               <p>
@@ -26,7 +27,6 @@
               </p>
             </div>
           </li>
-        </a>
       {% endfor %}
     </ul>
   {% else %}

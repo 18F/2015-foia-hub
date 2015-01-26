@@ -14,8 +14,7 @@
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <div class="container">
-  <section class="header">
-    <div class="breadcrumbs">
+    <section class="breadcrumbs">
       <a href="/">
         Home &gt;
       </a>
@@ -28,22 +27,107 @@
           {{ profile.agency_name }} &gt;
         </a>
       {% endif %}
-    </div>
-
-    <h1>{{ profile.name }}</h1>
-  </section>
+    </section>
 
   <section class="department">
-    <div class="description">
-      <p>
-        {% if profile.description %}
-          {{ profile.description }}
-        {% else %}
-          Here you can find some resources and contact information to file a request with this office.
-        {% endif %}
-      </p>
-    </div>
+    <div class="department--container">
+      <div class="description">
+        <h1><em>{{ profile.name }}</em></h1>
+        <p>
+          {% if profile.description %}
+            {{ profile.description }}
+          {% else %}
+            Here you can find some resources and contact information to file a request with this office.
+          {% endif %}
+        </p>
+      </div>
 
+      <section class="details">
+
+        <h2>Submit a request</h2>
+
+        <hr>
+
+        {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
+         <div class="webform contact_type">
+            <div class="icon">
+                <span class="fa fa-desktop"></span>
+            </div>
+            <div class="subdetails">
+               <h3> Request online </h3>
+                <ul>
+                  <li><a
+                    {% if profile.request_form_url %}
+                      href="{{ profile.request_form_url }}"
+                    {% elif profile.emails|length>0 %}
+                      href="/request/{{ slug }}"
+                    {% endif %}
+                    >
+                      Submit a request via web
+                  </a></li>
+                </ul>
+            </div>
+          <hr>
+        </div>
+        {% endif %}
+
+        <div class="address contact_type">
+          <div class="icon">
+            <span class="fa fa-envelope-o"></span>
+          </div>
+          <div class="subdetails">
+            <h3>Request by mail</h3>
+            <p>
+              {% for line in profile.address_lines %}
+                {{ line }}<br/>
+              {% endfor %}
+              {{ profile.street }}<br/>
+              {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+            </p>
+          </div>
+          <hr>
+        </div>
+
+
+        {% if profile.emails %}
+          <div class="email contact_type">
+            <div class="icon">
+              <span class="fa fa-at"></span>
+            </div>
+            <div class="subdetails">
+              <h3>
+                Request by email
+              </h3>
+              <ul>
+                {% for email in profile.emails %}
+                  <li>
+                    <a href="mailto:{{ email }}">
+                      {{ email }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          <hr>
+          </div>
+        {% endif %}
+
+        {% if profile.fax %}
+          <div class="fax contact_type">
+            <div class="icon">
+              <span class="fa fa-fax"></span>
+            </div>
+            <div class="subdetails">
+              <h3>Request by FAX</h3>
+              <ul>
+                <li>{{ profile.fax }}</li>
+              </ul>
+            </div>
+            <hr>
+          </div>
+        {% endif %}
+      </section><!--/details-->
+    </div><!--/department--container-->
     <div class="resources">
       {% include 'contacts/contact.html' %}
 
@@ -73,92 +157,7 @@
         </div>
       {% endif %}
     </div>
-  </section>
-
-  <section class="details">
-
-    <header>
-      <h2>Submitting a request</h2>
-    </header>
-
-    <div class="left">
-      {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
-       <div class="webform contact_type">
-          <div class="icon">
-              <span class="fa fa-desktop"></span>
-          </div>
-          <div class="subdetails">
-             <h3> Request online </h3>
-              <ul>
-                <li><a
-                  {% if profile.request_form_url %}
-                    href="{{ profile.request_form_url }}"
-                  {% elif profile.emails|length>0 %}
-                    href="/request/{{ slug }}"
-                  {% endif %}
-                  >
-                    Submit a request via web
-                </a></li>
-              </ul>
-          </div>
-      </div>
-      {% endif %}
-
-      <div class="address contact_type">
-        <div class="icon">
-          <span class="fa fa-envelope-o"></span>
-        </div>
-        <div class="subdetails">
-          <h3>Request by mail</h3>
-          <p>
-            {% for line in profile.address_lines %}
-              {{ line }}<br/>
-            {% endfor %}
-            {{ profile.street }}<br/>
-            {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="right">
-      {% if profile.emails %}
-        <div class="email contact_type">
-          <div class="icon">
-            <span class="fa fa-at"></span>
-          </div>
-          <div class="subdetails">
-            <h3>
-              Request by email
-            </h3>
-            <ul>
-              {% for email in profile.emails %}
-                <li>
-                  <a href="mailto:{{ email }}">
-                    {{ email }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      {% endif %}
-
-      {% if profile.fax %}
-        <div class="fax contact_type">
-          <div class="icon">
-            <span class="fa fa-fax"></span>
-          </div>
-          <div class="subdetails">
-            <h3>Request by FAX</h3>
-            <ul>
-              <li>{{ profile.fax }}</li>
-            </ul>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-  </section>
+  </section><!--/department-->
 
   <section class="inaccurate">
     <p>
