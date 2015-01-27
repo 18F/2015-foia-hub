@@ -216,13 +216,6 @@ div#usa {
 
 .searchresults {
   @include inner(16);
-  h1 {
-    font-size: $h1-font-size * 0.8;
-    padding: 1em 0;
-  }
-  h2 {
-    font-size: $h2-font-size * 0.6;
-  }
   li {
     padding: 0.5em 0;
   }

@@ -9,13 +9,13 @@
   <section class="searchresults">
 
   {% if agencies %}
-  <h1><em>Search results</em></h1>
+  <h2><em>Search results</em></h2>
   
     <ul>
       {% for agency in agencies %}
           <li>
             <div class="agencies--name">
-              <h2><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h2>
+              <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
             </div>
             <div class="agencies--description">
               <p>

@@ -868,11 +868,6 @@ div#usa {
       width: 100%; }
       .searchresults:last-child {
         margin-right: 0; } }
-  .searchresults h1 {
-    font-size: 1.8em;
-    padding: 1em 0; }
-  .searchresults h2 {
-    font-size: 0.9em; }
   .searchresults li {
     padding: 0.5em 0; }
 
