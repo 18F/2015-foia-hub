@@ -81,7 +81,9 @@
               {% for line in profile.address_lines %}
                 {{ line }}<br/>
               {% endfor %}
-              {{ profile.street }}<br/>
+              {% if profile.street %}
+                {{ profile.street }}<br/>
+              {% endif %}
               {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
             </p>
           </div>
