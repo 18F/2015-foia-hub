@@ -54,7 +54,7 @@ The information returned for each entity is like the following::
     }
 
 """"""""""""""""""""""""""""""
-GET /api/agency/query='privacy'
+GET /api/agency/?query=privacy
 """"""""""""""""""""""""""""""
 
 To search agencies, you can provide query parameter called 'query'. This will
