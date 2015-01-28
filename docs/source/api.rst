@@ -53,6 +53,15 @@ The information returned for each entity is like the following::
       ]
     }
 
+""""""""""""""""""""""""""""""
+GET /api/agency/?query=privacy
+""""""""""""""""""""""""""""""
+
+To search agencies, you can provide query parameter called 'query'. This will
+initiate a search for your query across the following Agency fields: name,
+abbreviation, slug, keywords, description.
+
+
 """"""""""""""""""""""""""""""""""
 GET /api/agency/{{slug}}
 """"""""""""""""""""""""""""""""""
