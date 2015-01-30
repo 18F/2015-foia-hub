@@ -123,8 +123,6 @@ div#usa {
 
   .search--content {
     @include inner(16);
-//    padding: 70px 0;
-
     h2 {
       border-bottom: none;
     }
@@ -132,10 +130,6 @@ div#usa {
     a {
       color: $aqua-blue;
       font-weight: 800;
-    }
-
-    .search--box {
-      margin: 30px 0;
     }
   }
 
@@ -179,14 +173,7 @@ div#usa {
 
   & > .container > .hero--content {
     @include inner(16);
-    p.big {
-      font-size: $h2-font-size;
-      line-height: $header-line-height;
-      font-weight: $header-font-weight;
-      margin: 1em 0;
-    } // VZ: Maybe create a pseudo-H2 class for this?
     a.more {
-      font-size: 1em;
       font-weight: $header-font-weight;
     }
 }
@@ -223,6 +210,28 @@ div#usa {
 
 .breadcrumbs {
     margin: 1em 0;
+}
+
+#main {
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom:0.8em;
+  }
+}
+
+#main .learn {
+  .toc {
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+  }
+  h2 {
+    border-bottom: 1px solid #323A45;
+    padding-bottom: 0.5em;
+    display: block;
+  }
+  .question {
+    margin-top: 2em;
+  }
 }
 
 #main.landing {

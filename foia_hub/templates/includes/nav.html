@@ -18,16 +18,16 @@
       <nav>
         <ul>
           <li><a
+            {% if request and ('/agencies/' == request.path) %}class="active"{% endif %}
+            href="/agencies/">Federal Agencies
+          </a></li>
+          <li><a
               {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
               href="/learn/">Understanding FOIA
             </a></li>
           <li><a
             {% if request and ('/about/' == request.path) %}class="active"{% endif %}
             href="/about/">About this Project
-          </a></li>
-          <li><a
-            {% if request and ('/agencies/' == request.path) %}class="active"{% endif %}
-            href="/agencies/">Federal Agencies
           </a></li>
         </ul>
       </nav>
