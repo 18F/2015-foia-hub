@@ -18,7 +18,6 @@ port = {
 }[environment]
 
 env.use_ssh_config = True
-env.hosts = ["foia"]
 
 home = "/home/foia"
 shared = "%s/hub/shared" % home
