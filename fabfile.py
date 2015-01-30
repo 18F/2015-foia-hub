@@ -45,6 +45,7 @@ def checkout():
 
 def dependencies():
     run('workon %s && cd %s && pip install -r requirements.txt' % (virtualenv, version_path))
+    run('cd %s/deploy && npm install' % version_path)
 
 def migrate():
     run('workon %s && cd %s && python manage.py migrate' % (virtualenv, version_path))
