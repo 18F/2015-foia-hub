@@ -218,7 +218,7 @@ div#usa {
   }
 }
 
-#main .learn {
+#main .learn, #main .about {
   .toc {
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
@@ -232,6 +232,23 @@ div#usa {
   .question {
     margin-top: 2em;
   }
+}
+
+#main .about ul {
+  .fa {
+    text-align:center;
+    position: absolute;
+    margin-left:-2.4rem;
+    padding-top:0.2em;
+    font-size:1.4em;
+  }
+  li {
+    @include columns(24 of 24);
+    //padding-left:100px;
+    @include shift(2 of 24);
+  }
+
+
 }
 
 #main.landing {
