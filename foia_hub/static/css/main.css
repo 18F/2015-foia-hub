@@ -422,10 +422,10 @@ h3 {
   font-size: 1.125em; }
 
 h4 {
-  font-size: 1.5em; }
+  font-size: 1em; }
 
 h5 {
-  font-size: 1.25em; }
+  font-size: 1em; }
 
 h6 {
   font-size: 1em; }
@@ -714,17 +714,19 @@ div#usa {
   #main .search--content a {
     color: #00BFE7;
     font-weight: 800; }
-#main footer {
+
+footer {
   background-color: white;
   padding-top: 1em; }
-  #main footer div.left {
-    float: left;
-    padding-right: 1em; }
-    #main footer div.left img {
-      width: 32px;
-      height: 32px; }
-  #main footer div.right {
-    float: left; }
+  footer img {
+    width: 32px;
+    height: 32px;
+    margin-right: 1em;
+    display: inline-block; }
+  footer h4 {
+    font-weight: 500;
+    vertical-align: top;
+    display: inline-block; }
 
 .container {
   max-width: 68em;
@@ -878,14 +880,11 @@ div#usa {
 #main .about ul .fa {
   text-align: center;
   position: absolute;
-  margin-left: -2.4rem;
-  padding-top: 0.2em;
+  width: 4rem;
+  margin-left: -4rem;
   font-size: 1.4em; }
 #main .about ul li {
-  -webkit-columns: 24 of 24;
-  -moz-columns: 24 of 24;
-  columns: 24 of 24;
-  margin-left: 8.4210526316%; }
+  padding-left: 4rem; }
 
 #main.landing .contact h3 {
   margin-top: 30px;

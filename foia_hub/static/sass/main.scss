@@ -132,24 +132,24 @@ div#usa {
       font-weight: 800;
     }
   }
+}
 
-  footer {
-    background-color: white;
-    padding-top: 1em;
-    div.left {
-      float:left;
-      padding-right: 1em;
-      img {
-        width: 32px;
-        height: 32px;
-      }
-    }
-
-    div.right {
-    float:left;
-    }
+footer {
+  background-color: white;
+  padding-top: 1em;
+  img {
+    width: 32px;
+    height: 32px;
+    margin-right:1em;
+    display:inline-block;
+  }
+  h4 {
+    font-weight: 500;
+    vertical-align: top;
+    display:inline-block;
   }
 }
+
 
 .container {
   @include outer-container();
@@ -238,14 +238,12 @@ div#usa {
   .fa {
     text-align:center;
     position: absolute;
-    margin-left:-2.4rem;
-    padding-top:0.2em;
+    width:4rem;
+    margin-left:-4rem;
     font-size:1.4em;
   }
   li {
-    @include columns(24 of 24);
-    //padding-left:100px;
-    @include shift(2 of 24);
+    padding-left:4rem;
   }
 
 
