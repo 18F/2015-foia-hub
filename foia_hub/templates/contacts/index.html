@@ -3,13 +3,17 @@
 
 {% block body %}
 
-{% include "includes/search.html" %}
-
 <div class="container">
   <section class="searchresults">
 
   {% if agencies %}
-  <h2><em>Search results</em></h2>
+    {% if query %}
+      <h3>Displaying results for</h3><br />
+      <h2>&ldquo;<em>{{ query }}</em>&rdquo;</h2>
+    {% endif %}
+    {% if not query %}
+      <h2><em>Federal Agencies</em></h2>
+    {% endif %}    
   
     <ul>
       {% for agency in agencies %}
