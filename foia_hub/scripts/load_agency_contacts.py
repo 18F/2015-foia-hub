@@ -175,8 +175,11 @@ def load_data(data):
                     slug=sub_agency_slug, name=sub_agency_name)
                 sub_agency.parent = a
 
-                abbreviation = build_abbreviation(sub_agency_name)
+                abbreviation = dept_rec.get('abbreviation')
+                if not abbreviation:
+                    abbreviation = build_abbreviation(sub_agency_name)
                 sub_agency.abbreviation = abbreviation
+
                 sub_agency.description = dept_rec.get('description')
                 sub_agency.keywords = dept_rec.get('keywords')
                 sub_agency.common_requests = dept_rec.get(

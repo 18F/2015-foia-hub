@@ -3,7 +3,7 @@ from django.test import TestCase
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import (
     load_data, add_reading_rooms, add_request_time_statistics,
-    extract_tty_phone, extract_non_tty_phone)
+    extract_tty_phone, extract_non_tty_phone, build_abbreviation)
 
 example_office1 = {
     'address': {
@@ -30,6 +30,7 @@ example_office1 = {
 }
 
 example_sub_office = {
+    'abbreviation': 'R9',
     'address': {
         'address_lines': [
             'Regional Freedom of Information Officer',
@@ -79,13 +80,9 @@ example_agency = {
 
 class LoaderTest(TestCase):
     def test_load_data(self):
+        """ Check that agency data is loaded correctly """
+
         load_data(example_agency)
-        a = Agency.objects.get(name='Environmental Protection Agency')
-        self.assertEqual('environmental-protection-agency', a.slug)
-        self.assertEqual('The mission of EPA is to protect', a.description)
-        self.assertEqual(['Acid Rain', 'Agriculture'], a.keywords)
-        self.assertEqual(['common request 1'], a.common_requests)
-        self.assertEqual(['no records about 1'], a.no_records_about)
 
         # Check that agency elements are loaded
         a = Agency.objects.get(name='Environmental Protection Agency')
@@ -95,14 +92,15 @@ class LoaderTest(TestCase):
         self.assertEqual(['common request 1'], a.common_requests)
         self.assertEqual(['no records about 1'], a.no_records_about)
 
-        # Check that elements from top-level offices loaded
+        # Check that elements from top-level (sub_agency) offices are loaded
         sub_a = Agency.objects.get(
             name='Region 10 (States: AK, ID, OR, WA)')
         self.assertEqual(
             'region-10-states-ak-id-or-wa', sub_a.slug)
         self.assertEqual(['keyword 1', 'keyword 2'], sub_a.keywords)
         self.assertEqual(a, sub_a.parent)
-        self.assertEqual('RSAKIDORWA', sub_a.abbreviation)
+        # Ensure that abbreviations are not overwritten
+        self.assertEqual('R9', sub_a.abbreviation)
         self.assertEqual(['common request 1'], sub_a.common_requests)
         self.assertEqual(['no records about 1'], sub_a.no_records_about)
         self.assertEqual(
@@ -214,3 +212,12 @@ class LoadingTest(TestCase):
         public_liaison['phone'] = []
         phone = extract_non_tty_phone(public_liaison)
         self.assertEqual(None, phone)
+
+    def test_build_abbreviation(self):
+        """ Test that abbreviations are built correctly """
+
+        sub_agency_name = "Administrative Conference of the United States"
+        self.assertEqual("ACUS", build_abbreviation(sub_agency_name))
+
+        sub_agency_name = "U.S. Customs & Border Protection"
+        self.assertEqual("USCBP", build_abbreviation(sub_agency_name))
