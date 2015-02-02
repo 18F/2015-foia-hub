@@ -1,5 +1,7 @@
 debug.log
+npm-debug.log
 
+node_modules
 *__pycache__*
 *.pyc
 *.pyo
