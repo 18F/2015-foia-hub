@@ -214,7 +214,7 @@ class LoadingTest(TestCase):
         self.assertEqual(None, phone)
 
     def test_build_abbreviation(self):
-        """ Test that abbreviations are build correctly """
+        """ Test that abbreviations are built correctly """
 
         sub_agency_name = "Administrative Conference of the United States"
         self.assertEqual("ACUS", build_abbreviation(sub_agency_name))
