@@ -128,11 +128,17 @@ class AgencyResource(DjangoResource):
         query parameter. It doesn't provide every field for every object,
         instead limiting the output to useful fields. To see the detail for
         each object, use the detail endpoint. """
+
+        # Use request 'query' parameter if it exists
+        if self.request and 'query' in self.request.GET:
+            q = self.request.GET.get('query', None)
+
         if q:
             agencies = Agency.objects.filter(
                 Q(abbreviation__icontains=q) |
                 Q(name__icontains=q) |
                 Q(slug__icontains=q) |
+                Q(keywords__icontains=q) |
                 Q(description__icontains=q)
             )
         else:

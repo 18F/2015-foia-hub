@@ -1,3 +1,33 @@
+This project uses several third-party tools, each of which has its own license.
+
+In `foia_hub/static/css/`:
+
+* [`pure`](https://github.com/yahoo/pure/blob/cb8704cc167c7e8e7c7fbf7c5ec60cdc6e9987df/LICENSE.md)
+
+In `foia_hub/static/font-awesome-4.2.0/`:
+
+* [`font-awesome`](https://github.com/FortAwesome/Font-Awesome/blob/41b9ed01103e6820c3cb043ba7ddab30ecd3f4c0/README.md#license)
+
+In `foia_hub/static/pickadate/`:
+
+* [`pickadate.js`](https://github.com/amsul/pickadate.js/blob/7d08128177ff1512f8eae7aab5655d799193c833/LICENSE.md)
+
+In `foia_hub/static/js/`:
+
+* [`handlebars`](https://github.com/wycats/handlebars.js/blob/752a28f24c202cce85068f9c07f6997babc5f6b1/LICENSE)
+* [`jquery`](https://github.com/jquery/jquery/blob/e0673dfedb9ad07d8e68f28a54453b975c412c33/LICENSE.txt)
+* [`typeahead`](https://github.com/twitter/typeahead.js/blob/0fd2467baa3e0593b91794b485be0bd725b7d2cb/LICENSE)
+
+In `foia_hub/static/sass/`:
+
+* [Bourbon](https://github.com/thoughtbot/bourbon/blob/9d89e3f5af10ee39bfccb7be15b147448c670825/LICENSE.md)
+* [Neat](https://github.com/thoughtbot/neat/blob/ba9c78933a7d18e0e6aa3bcf035c486a04b8c8a6/LICENSE.md)
+
+Everything else is covered by the following text.
+
+
+# Public domain
+
 As a work of the United States Government, this project is in the
 public domain within the United States.
 

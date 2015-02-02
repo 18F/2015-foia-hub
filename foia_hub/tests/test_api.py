@@ -96,6 +96,15 @@ class AgencyAPITests(TestCase):
             'us-patent-and-trademark-office'],
             slugs)
 
+    def test_list_query(self):
+        c = Client()
+        response = c.get('/api/agency/?query=industry')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'], 'department-of-commerce')
+
     def test_detail(self):
         """ Check the detail view for an agency."""
 
