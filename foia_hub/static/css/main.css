@@ -732,7 +732,7 @@ footer {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 1.5em; }
+  padding: 0 1rem; }
   .container::after {
     clear: both;
     content: "";
