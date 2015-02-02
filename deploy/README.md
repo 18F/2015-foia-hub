@@ -32,8 +32,7 @@ These instructions can be applied locally (for development) or on the server (fo
 Install the Node dependencies with:
 
 ```bash
-npm install hookshot
-npm install minimist
+npm install
 npm install -g forever
 ```
 
