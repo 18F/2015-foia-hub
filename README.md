@@ -6,18 +6,9 @@ A starting place for FOIA in the US government.
 
 This project is currently working on getting people to the right place in the government to file their FOIA request.
 
-## Outside Contributors
+Some related repos:
 
-Hello! If you're interested in learning more about this project, check out some related repos and don't be afraid to ask us questions (general questions usually go here: [foia](https://github.com/18F/foia)). 
-
-If you'd like to contribute to our project, please check out our [foia-hub] (https://github.com/18F/foia-hub) repo. We try to tag things that are easy to pick up without being entrenched in our project with a ["help wanted"](https://github.com/18F/foia-hub/labels/help%20wanted%21) tag. Things in our [backlog](https://github.com/18F/foia-hub/milestones/Backlog) are usually also up for grabs, so let us know if you'd like to pick something up from there. 
-
-For those interested in contributing, please check out our [contributing guidelines](https://github.com/18F/foia-hub/blob/master/CONTRIBUTING.md) we use to guide our development processes internally.
-
-## Our Repos
-
-* [foia](https://github.com/18F/foia) - A discussion forum where we can discuss the project. Also includes miscellaneous resources and scrapers.
-* [foia-hub](https://github.com/18F/foia-hub) - Where our work happens. We create issues related to each sprint and our backlog here. If you're interested in contribution, please look for "help wanted" tags or ask!
+* [foia](https://github.com/18F/foia) - Discussion forum and miscellaneous resources and scrapers.
 
 ## How is this different from other stuff?
 
