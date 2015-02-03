@@ -19,16 +19,6 @@ h6 {
   margin: 0;
   text-rendering: optimizeLegibility; // Fix the character spacing for headings
   display: inline-block;
-}
-
-.hero--content {
-  h1, h2, h3, h4, h5, h6
-   {
-      padding-bottom:0.8em; // Krang
-   }
-}
-
-h1, h2, h3, h4, h5, h6 {
   em {
     border-bottom: 0.15em solid $aqua-blue;
     line-height: $header-line-height * 1.25;

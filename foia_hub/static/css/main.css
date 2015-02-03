@@ -402,14 +402,15 @@ h6 {
   margin: 0;
   text-rendering: optimizeLegibility;
   display: inline-block; }
-
-.hero--content h1, .hero--content h2, .hero--content h3, .hero--content h4, .hero--content h5, .hero--content h6 {
-  padding-bottom: 0.8em; }
-
-h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
-  border-bottom: 0.15em solid #00BFE7;
-  line-height: 1.5625;
-  font-style: normal; }
+  h1 em,
+  h2 em,
+  h3 em,
+  h4 em,
+  h5 em,
+  h6 em {
+    border-bottom: 0.15em solid #00BFE7;
+    line-height: 1.5625;
+    font-style: normal; }
 
 h1 {
   font-size: 2.25em; }
@@ -421,10 +422,10 @@ h3 {
   font-size: 1.125em; }
 
 h4 {
-  font-size: 1.5em; }
+  font-size: 1em; }
 
 h5 {
-  font-size: 1.25em; }
+  font-size: 1em; }
 
 h6 {
   font-size: 1em; }
@@ -594,10 +595,6 @@ input[type="submit"] {
   vertical-align: middle;
   white-space: nowrap; }
 
-/* Neat 1.7.0
- * http://neat.bourbon.io
- * Copyright 2012-2014 thoughtbot, inc.
- * MIT License */
 html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -717,29 +714,29 @@ div#usa {
   #main .search--content a {
     color: #00BFE7;
     font-weight: 800; }
-  #main .search--content .search--box {
-    margin: 30px 0; }
-#main footer {
+
+footer {
   background-color: white;
   padding-top: 1em; }
-  #main footer div.left {
-    float: left;
-    padding-right: 1em; }
-    #main footer div.left img {
-      width: 32px;
-      height: 32px; }
-  #main footer div.right {
-    float: left; }
+  footer img {
+    width: 32px;
+    height: 32px;
+    margin-right: 1em;
+    display: inline-block; }
+  footer h4 {
+    font-weight: 500;
+    vertical-align: top;
+    display: inline-block; }
 
 .container {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 1.5em; }
-  .container:after {
+  padding: 0 1rem; }
+  .container::after {
+    clear: both;
     content: "";
-    display: table;
-    clear: both; }
+    display: table; }
 
 .row {
   float: left;
@@ -748,15 +745,15 @@ div#usa {
   width: 100%; }
   .row:last-child {
     margin-right: 0; }
-  .row:after {
+  .row::after {
+    clear: both;
     content: "";
-    display: table;
-    clear: both; }
+    display: table; }
 
-.clearfix:after {
+.clearfix::after {
+  clear: both;
   content: "";
-  display: table;
-  clear: both; }
+  display: table; }
 
 .hero {
   background-color: #EAEDF1;
@@ -791,13 +788,7 @@ div#usa {
         width: 100%; }
         .hero > .container > .hero--content:last-child {
           margin-right: 0; } }
-    .hero > .container > .hero--content p.big {
-      font-size: 1.5em;
-      line-height: 1.25;
-      font-weight: 600;
-      margin: 1em 0; }
     .hero > .container > .hero--content a.more {
-      font-size: 1em;
       font-weight: 600; }
 
 @media screen and (max-width: 30em) {
@@ -868,16 +859,32 @@ div#usa {
       width: 100%; }
       .searchresults:last-child {
         margin-right: 0; } }
-  .searchresults h1 {
-    font-size: 1.8em;
-    padding: 1em 0; }
-  .searchresults h2 {
-    font-size: 0.9em; }
   .searchresults li {
     padding: 0.5em 0; }
 
 .breadcrumbs {
   margin: 1em 0; }
+
+#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
+  margin-bottom: 0.8em; }
+
+#main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6, #main .about .toc h1, #main .about .toc h2, #main .about .toc h3, #main .about .toc h4, #main .about .toc h5, #main .about .toc h6 {
+  margin: 0; }
+#main .learn h2, #main .about h2 {
+  border-bottom: 1px solid #323A45;
+  padding-bottom: 0.5em;
+  display: block; }
+#main .learn .question, #main .about .question {
+  margin-top: 2em; }
+
+#main .about ul .fa {
+  text-align: center;
+  position: absolute;
+  width: 4rem;
+  margin-left: -4rem;
+  font-size: 1.4em; }
+#main .about ul li {
+  padding-left: 4rem; }
 
 #main.landing .contact h3 {
   margin-top: 30px;
