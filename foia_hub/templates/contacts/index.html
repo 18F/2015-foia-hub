@@ -10,11 +10,12 @@
     {% if query %}
       <h3>Displaying results for</h3><br />
       <h2>&ldquo;<em>{{ query }}</em>&rdquo;</h2>
+      <h4>Number of results: {{agencies|length}}</h4>
     {% endif %}
     {% if not query %}
       <h2><em>Federal Agencies</em></h2>
-    {% endif %}    
-  
+    {% endif %}
+
     <ul>
       {% for agency in agencies %}
           <li>
