@@ -10,30 +10,37 @@
     {% if query %}
       <h3>Displaying results for</h3><br />
       <h2>&ldquo;<em>{{ query }}</em>&rdquo;</h2>
-      <h4>Number of results: {{agencies|length}}</h4>
     {% endif %}
     {% if not query %}
       <h2><em>Federal Agencies</em></h2>
     {% endif %}
-
-    <ul>
-      {% for agency in agencies %}
-          <li>
-            <div class="agencies--name">
-              <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
-            </div>
-            <div class="agencies--description">
-              <p>
-                {% if agency.description %}
-                  {{ agency.description }}
-                {% else %}
-                  Click to find out more about this agency.
-                {% endif %}
-              </p>
-            </div>
-          </li>
+      <h3>Results: {{agencies|length}}</h3>
+      <p>
+          {% for letter in agencies|groupby('name.0') %}
+            {{letter.grouper}}
+          {% endfor %}
+      </p>
+      {% for letter, agency_list in agencies|groupby('name.0') %}
+       <p>{{letter}}</p>
+          {% for agency in agency_list %}
+           <ul>
+                <li>
+                  <div class="agencies--name">
+                    <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
+                  </div>
+                  <div class="agencies--description">
+                    <p>
+                      {% if agency.description %}
+                        {{ agency.description }}
+                      {% else %}
+                        Click to find out more about this agency.
+                      {% endif %}
+                    </p>
+                  </div>
+                </li>
+            {% endfor %}
+          </ul>
       {% endfor %}
-    </ul>
   {% else %}
     <p>
       There are no agencies matching your search.
