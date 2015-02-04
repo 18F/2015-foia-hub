@@ -8,20 +8,19 @@
 
   {% if agencies %}
     {% if query %}
-      <h3>Displaying results for</h3><br />
+      <h3>Displaying {{agencies|length}} results for</h3><br />
       <h2>&ldquo;<em>{{ query }}</em>&rdquo;</h2>
     {% endif %}
     {% if not query %}
       <h2><em>Federal Agencies</em></h2>
     {% endif %}
-      <h3>Results: {{agencies|length}}</h3>
       <p>
           {% for letter in agencies|groupby('name.0') %}
             <a href="#{{letter.grouper}}">{{letter.grouper}}</a>
           {% endfor %}
       </p>
       {% for letter, agency_list in agencies|groupby('name.0') %}
-       <h3><a name="{{letter}}">{{letter}} ({{agency_list|length}})</a></h3>
+       <h3><a name="{{letter}}">{{letter}}</a></h3>
           {% for agency in agency_list %}
            <ul>
                 <li>
