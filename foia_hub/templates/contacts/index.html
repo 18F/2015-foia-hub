@@ -3,36 +3,57 @@
 
 {% block body %}
 
+<!-- Setting up macro, html for agency line can be edited here -->
+{% macro format_agency(agency) -%}
+<li>
+  <div class="agencies--name">
+    <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
+  </div>
+  <div class="agencies--description">
+    <p>
+      {% if agency.description %}
+        {{ agency.description }}
+      {% else %}
+        Click to find out more about this agency.
+      {% endif %}
+    </p>
+  </div>
+</li>
+{%- endmacro %}
+
 <div class="container">
   <section class="searchresults">
 
   {% if agencies %}
+
     {% if query %}
-      <h3>Displaying results for</h3><br />
+      <h3>Displaying {{agencies|length}} results for</h3><br />
       <h2>&ldquo;<em>{{ query }}</em>&rdquo;</h2>
-    {% endif %}
-    {% if not query %}
-      <h2><em>Federal Agencies</em></h2>
-    {% endif %}    
-  
     <ul>
       {% for agency in agencies %}
-          <li>
-            <div class="agencies--name">
-              <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
-            </div>
-            <div class="agencies--description">
-              <p>
-                {% if agency.description %}
-                  {{ agency.description }}
-                {% else %}
-                  Click to find out more about this agency.
-                {% endif %}
-              </p>
-            </div>
-          </li>
+            <!-- This formats the agency title and description see macro at top -->
+          {{format_agency(agency)}}
       {% endfor %}
     </ul>
+    {% else %}
+      <h2><em>Federal Agencies</em></h2>
+      <p>
+          <!--The loop below creates the letter the list-->
+          {% for letter in agencies|groupby('name.0') %}
+            <a href="#{{letter.grouper}}">{{letter.grouper}}</a>
+          {% endfor %}
+      </p>
+      {% for letter, agency_list in agencies|groupby('name.0') %}
+      <!-- The line below generates the individual letter -->
+       <a name="{{letter}}">{{letter}}</a>
+          <ul>
+          {% for agency in agency_list %}
+            <!-- This formats the agency title and description see macro at top -->
+            {{format_agency(agency)}}
+          {% endfor %}
+          </ul>
+      {% endfor %}
+    {% endif %}
   {% else %}
     <p>
       There are no agencies matching your search.
