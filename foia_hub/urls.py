@@ -21,6 +21,9 @@ urlpatterns = patterns(
     url(r'^agencies/?$', agencies, name='agencies'),
     url(r'^developers/?$', TemplateView.as_view(
         template_name="developers.html"), name='developers'),
+    #Add in the singular version as well. 
+    url(r'^developer/?$', TemplateView.as_view(
+        template_name="developers.html"), name='developer'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
     url(r'^request/noop/$', request_noop, name='noop'),
