@@ -8,10 +8,10 @@ import sys
 import yaml
 from glob import iglob
 import django
-django.setup()
 
 from foia_hub.models import Agency, Office, Stats, ReadingRoomUrls
 
+django.setup()
 logger = logging.getLogger(__name__)
 
 
