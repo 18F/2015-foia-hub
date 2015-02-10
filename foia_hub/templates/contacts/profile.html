@@ -71,26 +71,6 @@
         </div>
         {% endif %}
 
-        <div class="address contact_type">
-          <div class="icon">
-            <span class="fa fa-envelope-o"></span>
-          </div>
-          <div class="subdetails">
-            <h3>Request by mail</h3>
-            <p>
-              {% for line in profile.address_lines %}
-                {{ line }}<br/>
-              {% endfor %}
-              {% if profile.street %}
-                {{ profile.street }}<br/>
-              {% endif %}
-              {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
-            </p>
-          </div>
-          <hr>
-        </div>
-
-
         {% if profile.emails %}
           <div class="email contact_type">
             <div class="icon">
@@ -128,6 +108,26 @@
             <hr>
           </div>
         {% endif %}
+
+        <div class="address contact_type">
+          <div class="icon">
+            <span class="fa fa-envelope-o"></span>
+          </div>
+          <div class="subdetails">
+            <h3>Request by mail</h3>
+            <p>
+              {% for line in profile.address_lines %}
+                {{ line }}<br/>
+              {% endfor %}
+              {% if profile.street %}
+                {{ profile.street }}<br/>
+              {% endif %}
+              {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
+            </p>
+          </div>
+          <hr>
+        </div>
+
       </section><!--/details-->
     </div><!--/department--container-->
     <div class="resources">
