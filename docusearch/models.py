@@ -1,7 +1,7 @@
 from django.db import models
 
 class Document(models.Model):
-    """ A model represeting a document from an agency. """
+    """ A model representing a document from an agency. """
 
     text = models.TextField(
         null=False, help_text='The full text of the document')
