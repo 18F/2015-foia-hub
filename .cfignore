@@ -1,6 +1,8 @@
 debug.log
 npm-debug.log
 
+*.db
+
 node_modules
 *__pycache__*
 *.pyc
