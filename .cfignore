@@ -1,0 +1,26 @@
+debug.log
+npm-debug.log
+
+node_modules
+*__pycache__*
+*.pyc
+*.pyo
+*.DS_Store
+*.swp
+*.codekit
+
+# SCSS/SASS
+.sass-cache
+*/static/sass/bourbon
+*/static/sass/neat
+.webassets-cache
+
+local_settings.py
+
+/todo.txt
+
+/deploy/config.py
+/log
+
+docs/build
+.coverage
