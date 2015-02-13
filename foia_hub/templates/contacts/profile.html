@@ -15,15 +15,13 @@
 
 <div class="container">
     <section class="breadcrumbs">
-      <a href="/">
-        Home &gt;
-      </a>
+      <a href="{{ url('home') }}">Home &gt;</a>
       {% if profile.parent %}
-        <a href="/contacts/{{ profile.parent.slug }}">
+        <a href="{{ url('contact_landing', profile.parent.slug) }}">
           {{ profile.parent.name }} &gt;
         </a>
       {% elif profile.is_a == "office" %}
-        <a href="/contacts/{{ profile.agency_slug }}">
+        <a href="{{ url('contact_landing', profile.agency_slug) }}">
           {{ profile.agency_name }} &gt;
         </a>
       {% endif %}
@@ -56,15 +54,15 @@
             <div class="subdetails">
                <h3> Request online </h3>
                 <ul>
-                  <li><a
                     {% if profile.request_form_url %}
-                      href="{{ profile.request_form_url }}"
+                        <li>
+                            <a href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
+                        </li>
                     {% elif profile.emails|length>0 %}
-                      href="/request/{{ slug }}"
+                        <li>
+                            <a href="{{url('form', slug)}}">Use our web form</a>
+                        </li>
                     {% endif %}
-                    >
-                      Submit a request via web
-                  </a></li>
                 </ul>
             </div>
           <hr>
