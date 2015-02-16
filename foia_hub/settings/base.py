@@ -17,6 +17,7 @@ STATICFILES_DIRS = (
 
 
 DATABASES = {}
+HAYSTACK_CONNECTIONS = {}
 
 # ALLOWED_HOSTS = []
 
@@ -29,6 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'haystack',
     'foia_hub',
     'docusearch',
 )
