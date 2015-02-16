@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+<div class="container">
+    <section class="content">
+    <h1><em>Document</em></h1>
+    <h2>{{document.title}}</h2>
+
+
+    <object data="{{ static(document.path) }}" type="application/pdf" width="100%" height="100%">
+        View the <a href="{{ static(document.path) }}">original document</a>
+    </object>
+
+    <p>
+        <a href="{{ static(document.path) }}">Download PDF</a>
+    </p>
+
+    </section>
+</div>
+
+{% endblock %}
