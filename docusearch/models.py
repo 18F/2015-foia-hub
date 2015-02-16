@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Document(models.Model):
     """ A model representing a document from an agency. """
 
