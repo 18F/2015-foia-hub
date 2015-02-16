@@ -13,3 +13,8 @@ class Document(models.Model):
         help_text="Slug for the agency or office that released this document.")
     path = models.FilePathField(
         null=False, help_text="Path to the original document file")
+
+
+    def get_absolute_url(self):
+        """ Return the canonical URL for a Document object. """
+        return '/documents/document/%i' % self.id

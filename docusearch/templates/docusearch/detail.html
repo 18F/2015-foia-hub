@@ -17,6 +17,15 @@
         <a href="{{ static(document.path) }}">Download PDF</a>
     </p>
 
+    {% if similar_documents %}
+        <h2> Similar documents (more like this one): </h2>
+        <ul> 
+            {% for similar_doc in similar_documents %}
+                <li> <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title}}</a> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     </section>
 </div>
 
