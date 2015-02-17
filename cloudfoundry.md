@@ -40,3 +40,58 @@ foreman start
 
 * Install `dj-database-url`.
 * Rework `local_settings.py` to use a database string instead of a whole dict.
+
+## Specify runtime
+
+* Add a `runtime.txt` with `python-3.4.2`.
+
+
+## On heroku
+
+* Create a Heroku app.
+
+```bash
+heroku apps:create foia-testing-18f
+```
+
+* Install the Postgres addon.
+
+```bash
+heroku addons:add heroku-postgresql:hobby-dev
+```
+
+* Grab the Postgres connection string from the Heroku config.
+
+```bash
+heroku config
+```
+
+* Add the Postgres connection string to `.env`.
+
+* Send environment variables to the app, overwriting any that are there.
+
+```bash
+heroku config:push -o
+```
+
+* Deploy the app.
+
+```bash
+git push heroku master
+```
+
+If using a non-`master` branch, like `cloudfoundry`:
+
+```bash
+git push heroku cloudfoundry:master
+```
+
+* Migrate the database.
+
+```bash
+heroku run python manage.py migrate
+```
+
+* Load the data.
+
+```bash
