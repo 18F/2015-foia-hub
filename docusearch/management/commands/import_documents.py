@@ -2,7 +2,10 @@ import os
 import shutil
 import subprocess
 from datetime import datetime
+
 from django.core.management.base import BaseCommand
+from django.core.files import File
+
 import yaml
 
 from docusearch.models import Document
@@ -67,11 +70,10 @@ def create_document(document, release_slug):
 
     d.release_agency_slug = release_slug
 
+    doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
-    doc_path = 'docusearch/pdfs/%s' % filename
-    d.path = doc_path
-    d.save()
 
+    d.original_file.save(filename, doc_file, save=True)
 
 def process_office(agency_directory, agency, office_name):
     office_directory = os.path.join(agency_directory, office_name)
