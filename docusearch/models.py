@@ -14,7 +14,6 @@ class Document(models.Model):
     path = models.FilePathField(
         null=False, help_text="Path to the original document file")
 
-
     def get_absolute_url(self):
         """ Return the canonical URL for a Document object. """
         return '/documents/document/%i' % self.id

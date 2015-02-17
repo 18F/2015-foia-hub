@@ -98,6 +98,7 @@ def process_agency(documents_directory, agency):
         else:
             process_office(agency_directory, agency, d)
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):

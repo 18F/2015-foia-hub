@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from docusearch.models import Document
 
+
 class DocumentTests(TestCase):
     def test_document_creation(self):
         """ A simple check to ensure a document can be created correctly. """

@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
@@ -10,7 +10,8 @@ from .models import Document
 
 sqs = SearchQuerySet().models(Document).highlight().facet('')
 
-urlpatterns = patterns('haystack.views',
+urlpatterns = patterns(
+    'haystack.views',
     url(
         r'^search/',
         search_view_factory(
