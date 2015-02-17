@@ -100,3 +100,38 @@ Right now, load it *locally* from your laptop, with a connection string pointed 
 ./manage.py load_agency_contacts /path/to/foia/contacts/data
 
 Better instructions TBD!
+
+## Cloud Foundry time
+
+* Change `Procfile` to use `$VCAP_APP_PORT` instead of `$PORT`.
+* Create the Postgresql service:
+
+```bash
+cf create-service postgresql default foia-db
+```
+
+* Bind the postgresql service to the app:
+
+```
+cf bind-service foia-testing foia-db
+```
+
+* Grab the database URL from the env. It's in `VCAP_SERVICES.postgresql-9.3.credentials.uri`.
+
+```
+cf env foia-testing
+```
+
+* Set the `DATABASE_URL` to that URL.
+
+```
+cf set-env foia-testing [url]
+```
+
+* Set the remaining environment variables, one by one.
+
+```
+cf set-env foia-testing FOIA_ANALYTICS_ID [value]
+cf set-env foia-testing FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia-testing DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+```
