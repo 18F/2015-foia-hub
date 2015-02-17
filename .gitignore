@@ -1,8 +1,6 @@
 .env
 
-debug.log
-npm-debug.log
-
+*.log
 *.db
 
 node_modules
