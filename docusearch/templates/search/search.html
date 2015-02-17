@@ -17,7 +17,7 @@
 </div>
 
 <div class="container">
-    <section class="search--content">
+    <section class="searchresults">
     {% if query %}
         <h2>Displaying {{page.paginator.count}} Results</h2>
 
@@ -35,22 +35,30 @@
         </dl>
         </div>
 
+        <ul>
         {% for result in page.object_list %}
-            <p>
-                <a href="{{ result.object.get_absolute_url() }}">Document {{result.object.title}}</a>
-            </p>
+            <li>
+                <div class="agencies--name">
+                    <h3><a href="{{ result.object.get_absolute_url() }}">Document {{result.object.title}}</a></h3>
+                </div>
 
-            {% for htext in result.highlighted %}
-                {% if loop.last %}
-                    {{htext|safe}}
-                {% else %}
-                    {{htext|safe}} ...
-                {% endif %}
-            {% endfor %}
+                <div class="agencies--description">
+                <p>
+                {% for htext in result.highlighted %}
+                    {% if loop.last %}
+                        {{htext|safe}}
+                    {% else %}
+                        {{htext|safe}} ...
+                    {% endif %}
+                {% endfor %}
+                </p>
+                </div>
+            </li>
 
         {% else %}
             <p>No results found</p>
         {% endfor %}
+        </ul>
 
         <hr />
 
