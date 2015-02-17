@@ -26,6 +26,7 @@ urlpatterns = patterns(
         template_name="developers.html"), name='developer'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
+    url(r'^documents/', include('docusearch.urls')),
     url(r'^request/noop/$', request_noop, name='noop'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^robots\.txt$',

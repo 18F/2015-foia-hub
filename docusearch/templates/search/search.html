@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="search">
+    <div class="container">
+        <section class="search--content">
+        <h2>Search for Government Records</h2>
+
+            <form class="agency" method="get" action=".">
+                <div class="search--box scrollable-dropdown-menu">
+                        <input id="id_q" name="q" type="search" value="{{request.GET.q}}" />
+                        <button type="submit" name="search">Search</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<div class="container">
+    <section class="searchresults">
+    {% if query %}
+        <h2>Displaying {{page.paginator.count}} Results</h2>
+
+        <div>
+        <dl>
+        {% if facets.fields.foia_agency %}
+            <dt>Agencies</dt>
+
+            {% for agency in facets.fields.foia_agency %}
+                <dd>
+                    <a href="{{ request.get_full_path }}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                </dd>
+            {% endfor %}
+        {% endif %}
+        </dl>
+        </div>
+
+        <ul>
+        {% for result in page.object_list %}
+            <li>
+                <div class="agencies--name">
+                    <h3><a href="{{ result.object.get_absolute_url() }}">Document {{result.object.title}}</a></h3>
+                </div>
+
+                <div class="agencies--description">
+                <p>
+                {% for htext in result.highlighted %}
+                    {% if loop.last %}
+                        {{htext|safe}}
+                    {% else %}
+                        {{htext|safe}} ...
+                    {% endif %}
+                {% endfor %}
+                </p>
+                </div>
+            </li>
+
+        {% else %}
+            <p>No results found</p>
+        {% endfor %}
+        </ul>
+
+        <hr />
+
+        {% if page.has_previous() or page.has_next() %}
+            <div>
+                {% if page.has_previous() %} 
+                    <a href="?q={{query}}&amp;page={{page.previous_page_number}}">{%endif%}&laquo; Previous {% if page.has_previous%}</a>
+                {% endif %}
+                {% if page.has_next() %}
+                    | <a href="?q={{query}}&amp;page={{page.next_page_number}}">{%endif%} Next &raquo;{% if page.has_next%}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+
+    {# Show some example queries to run, maybe query syntax, something else? #}
+    {% endif %}
+</section>
+</div>
+{% endblock %}
