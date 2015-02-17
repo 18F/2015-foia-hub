@@ -8,3 +8,9 @@ This covers Cloud Foundry specific instructions, and TODOs.
 - [ ] Deployed to Cloudfront
 
 
+## waitress
+
+```
+pip install waitress
+```
+
