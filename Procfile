@@ -1,1 +1,1 @@
-web: waitress-serve foia_hub.wsgi:application
+web: waitress-serve --port=$PORT foia_hub.wsgi:application
