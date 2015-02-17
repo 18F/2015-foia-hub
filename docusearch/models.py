@@ -17,7 +17,7 @@ def upload_original_to(instance, filename):
 
     right_now = now().strftime("%Y%m%d%H%M")
 
-    upload_path = '%s/%s/%s.%s' % (
+    upload_path = '%s/%s/%s%s' % (
         origin_path, right_now, filename_base, filename_ext)
     return upload_path
 
