@@ -37,4 +37,5 @@ class Document(models.Model):
 
     def get_absolute_url(self):
         """ Return the canonical URL for a Document object. """
+
         return '/documents/document/%i' % self.id
