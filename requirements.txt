@@ -15,3 +15,7 @@ gunicorn
 dj-static
 
 django-localflavor
+
+#Used for Krang
+django-haystack
+elasticsearch
