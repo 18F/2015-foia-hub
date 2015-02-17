@@ -1,0 +1,8 @@
+---
+# all applications use these settings and services
+memory: 1G
+instances: 1
+applications:
+- name: foia-testing
+  path: .
+  timeout: 180
