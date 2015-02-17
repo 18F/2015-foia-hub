@@ -2,10 +2,9 @@
 
 This covers Cloud Foundry specific instructions, and TODOs.
 
-* gunicorn -> waitress
-* dj-static -> whitenoise?
-* make the app boot without a database
+- [X] moving config to environment variables
+- [ ] running via foreman
+- [ ] Deployed to Heroku
+- [ ] Deployed to Cloudfront
 
-
-## gunicorn -> waitress
 
