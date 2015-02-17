@@ -92,6 +92,11 @@ git push heroku cloudfoundry:master
 heroku run python manage.py migrate
 ```
 
-* Load the data.
+## Load the data
+
+Right now, load it *locally* from your laptop, with a connection string pointed at the production DB:
 
 ```bash
+./manage.py load_agency_contacts /path/to/foia/contacts/data
+
+Better instructions TBD!
