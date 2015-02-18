@@ -42,7 +42,6 @@ def copy_and_extract_documents(agency_directory, d):
     for document in manifest:
         doc_filename = document['document']['document_id']
         doc_path = os.path.join(date_dir, doc_filename)
-        #doc_path = copy_document(doc_filename, doc_path)
         text_path = convert_to_text(doc_filename, doc_path)
         text_contents = open(text_path, 'r').read()
         yield (document, doc_path, text_contents)
@@ -78,6 +77,7 @@ def create_document(document, release_slug):
     filename = os.path.basename(doc_path)
 
     d.original_file.save(filename, doc_file, save=True)
+
 
 def process_office(agency_directory, agency, office_name):
     office_directory = os.path.join(agency_directory, office_name)
