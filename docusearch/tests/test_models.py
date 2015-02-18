@@ -17,7 +17,6 @@ class DocumentTests(TestCase):
         saved = Document.objects.get(title='Useful Document')
         self.assertEqual(saved.text, "This is the full-text of the document")
 
-
     def test_upload_original_to(self):
         """ Ensure the upload_original_to() returns a correct path. """
 
