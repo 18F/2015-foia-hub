@@ -20,6 +20,9 @@ def is_date(d):
 
 
 def text_to_date(date_string):
+    """ Given a string that represents a date in YMD format, return an
+    equivalent Date object. """
+
     return datetime.strptime(str(date_string), '%Y%m%d').date()
 
 
