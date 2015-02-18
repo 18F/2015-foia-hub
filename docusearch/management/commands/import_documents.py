@@ -1,8 +1,13 @@
 import os
 import shutil
 import subprocess
+import tempfile
 from datetime import datetime
+
 from django.core.management.base import BaseCommand
+from django.core.files import File
+from django.utils.timezone import now
+
 import yaml
 
 from docusearch.models import Document
@@ -18,17 +23,6 @@ def text_to_date(date_string):
     return datetime.strptime(str(date_string), '%Y%m%d').date()
 
 
-def copy_document(filename, doc_path):
-    """ This moves a document from the intake point. to where this application
-    expects it. Initally this is in a /static/ directory. Later it might be an
-    S3 bucket. """
-
-    destination = '/vagrant/code/krang/docusearch/static/docusearch/pdfs/'
-    destination += filename
-    shutil.copy2(doc_path, destination)
-    return destination
-
-
 def copy_and_extract_documents(agency_directory, d):
     date_dir = os.path.join(agency_directory, d)
     manifest_path = os.path.join(date_dir, 'manifest.yml')
@@ -37,7 +31,6 @@ def copy_and_extract_documents(agency_directory, d):
     for document in manifest:
         doc_filename = document['document']['document_id']
         doc_path = os.path.join(date_dir, doc_filename)
-        doc_path = copy_document(doc_filename, doc_path)
         text_path = convert_to_text(doc_filename, doc_path)
         text_contents = open(text_path, 'r').read()
         yield (document, doc_path, text_contents)
@@ -48,9 +41,11 @@ def convert_to_text(file_name, doc_path):
     sophisticated here. """
 
     file_name_base = file_name.split('.')[0]
+    extracted_folder = tempfile.gettempdir()
 
-    extracted_folder = '/vagrant/code/krang/docusearch/static/docusearch/pdfs/'
-    extracted_file = os.path.join(extracted_folder, '%s.txt' % file_name_base)
+    right_now = now().strftime("%Y%m%d%H%M%S")
+    extracted_file = os.path.join(
+        extracted_folder, '%s%s.txt' % (file_name_base, right_now))
     subprocess.check_call(['pdftotext', doc_path, extracted_file], shell=False)
     return extracted_file
 
@@ -67,10 +62,10 @@ def create_document(document, release_slug):
 
     d.release_agency_slug = release_slug
 
+    doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
-    doc_path = 'docusearch/pdfs/%s' % filename
-    d.path = doc_path
-    d.save()
+
+    d.original_file.save(filename, doc_file, save=True)
 
 
 def process_office(agency_directory, agency, office_name):

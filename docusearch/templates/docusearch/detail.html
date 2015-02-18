@@ -9,12 +9,12 @@
     <h2>{{document.title}}</h2>
 
 
-    <object data="{{ static(document.path) }}" type="application/pdf" width="100%" height="100%">
+    <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
         View the <a href="{{ static(document.path) }}">original document</a>
     </object>
 
     <p>
-        <a href="{{ static(document.path) }}">Download PDF</a>
+        <a href="{{ document.original_file.url }}">Download PDF</a>
     </p>
 
     {% if similar_documents %}
