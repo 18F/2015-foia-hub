@@ -108,5 +108,5 @@ AWS_ACCESS_KEY_ID = ''
 AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME = 'krangdocuments'
 
-# Don't add complex authentication related query paramers for requests
+# Don't add complex authentication related query parameters for requests
 AWS_QUERYSTRING_AUTH = False
