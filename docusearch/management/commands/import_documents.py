@@ -26,17 +26,6 @@ def text_to_date(date_string):
     return datetime.strptime(str(date_string), '%Y%m%d').date()
 
 
-def copy_document(filename, doc_path):
-    """ This moves a document from the intake point. to where this application
-    expects it. Initally this is in a /static/ directory. Later it might be an
-    S3 bucket. """
-
-    destination = '/vagrant/code/krang/docusearch/static/docusearch/pdfs/'
-    destination += filename
-    shutil.copy2(doc_path, destination)
-    return destination
-
-
 def copy_and_extract_documents(agency_directory, d):
     """ Extract text from documents, and return a tuple contain documentation
     details and the extracted text. """
