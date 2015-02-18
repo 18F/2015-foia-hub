@@ -46,9 +46,9 @@
                 <p>
                 {% for htext in result.highlighted %}
                     {% if loop.last %}
-                        {{htext|safe}}
+                        ... {{htext|safe|lower}} 
                     {% else %}
-                        {{htext|safe}} ...
+                        ... {{htext|safe|lower}} ... <br />
                     {% endif %}
                 {% endfor %}
                 </p>
