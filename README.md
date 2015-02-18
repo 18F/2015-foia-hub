@@ -8,9 +8,9 @@ This project is currently working on getting people to the right place in the go
 
 ## Outside Contributors
 
-Hello! If you're interested in learning more about this project, check out some related repos and don't be afraid to ask us questions (general questions usually go here: [foia](https://github.com/18F/foia)). 
+Hello! If you're interested in learning more about this project, check out some related repos and don't be afraid to ask us questions (general questions usually go here: [foia](https://github.com/18F/foia)).
 
-If you'd like to contribute to our project, please check out our [foia-hub] (https://github.com/18F/foia-hub) repo. We try to tag things that are easy to pick up without being entrenched in our project with a ["help wanted"](https://github.com/18F/foia-hub/labels/help%20wanted%21) tag. Things in our [backlog](https://github.com/18F/foia-hub/milestones/Backlog) are usually also up for grabs, so let us know if you'd like to pick something up from there. 
+If you'd like to contribute to our project, please check out our [foia-hub](https://github.com/18F/foia-hub) repo. We try to tag things that are easy to pick up without being entrenched in our project with a ["help wanted"](https://github.com/18F/foia-hub/labels/help%20wanted%21) tag. Things in our [backlog](https://github.com/18F/foia-hub/milestones/Backlog) are usually also up for grabs, so let us know if you'd like to pick something up from there.
 
 For those interested in contributing, please check out our [contributing guidelines](https://github.com/18F/foia-hub/blob/master/CONTRIBUTING.md) we use to guide our development processes internally.
 
@@ -25,11 +25,11 @@ There are some [fantastic open source tools](https://github.com/18F/foia/wiki/Pl
 
 Our platform, while still in its infancy, plans to be heavily optimized for the US federal government. It also plans to *not* be a backend tool for FOIA processing offices. In other words, there's no plans to allow government employees to log in to this system.
 
-Instead, our tool will focus on a small, US-focused user experience, and API-driven integration for tools to submit, and receive submissions, through the US Freedom of Information Act.
+Instead, our tool will focus on a small, US-focused user experience, and API-driven integration for looking up FOIA contact information, submitting and receiving requests, and searching for responsive documents.
 
 ## Setup
 
-This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
+This is a Django app that uses [Postgres](http://www.postgresql.org/) and [Elasticsearch](http://www.elasticsearch.org/), and depends on [Python 3](https://docs.python.org/3/).
 
 **Installing Python 3**: There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
 
@@ -37,6 +37,8 @@ This is a Django app that uses [Postgres](http://www.postgresql.org/), and depen
 2. You can install Python 3 to your system. On OS X, install [Homebrew](http://brew.sh), then run `brew install Python3`. On Ubuntu, install using `apt-get install python3`.
 
 **Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
+
+**Installing Postgres**: You can `brew install elasticsearch` (OS X) or `apt-get install elasticsearch` (Ubuntu).
 
 The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest/), [virtualenv](http://virtualenv.readthedocs.org/en/latest/), and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
 
@@ -106,21 +108,35 @@ If you you get a `could not connect to server` error, you could be experiencing 
 psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 ```
 
+* Change database password in local_settings.py:
+```python
+# Change the password below to the one you use
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'foia',
+        'USER': 'foia',
+        'PASSWORD': 'CHANGETHIS',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+
 * Initialize your database schema:
 
 ```bash
 django-admin.py syncdb
 ```
 
-* Finally, launch the server locally:
+### Elasticsearch setup
 
+* Start the Elasticsearch server
+```bash
+elasticsearch
 ```
-django-admin.py runserver
-```
 
-* The site should be running at [`http://localhost:8000`](http://localhost:8000).
-
-### Loading Data
+### Loading Contacts Data
 
 Agency contact data is stored in another repository as YAML files.
 
@@ -133,7 +149,6 @@ git clone git@github.com:18F/foia.git
 Then run the data loading script:
 
 ```bash
-cd foia_hub
 python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
 
@@ -153,6 +168,14 @@ No repository parameter is needed if both the foia and foia-hub projects are
 cloned into the same directory.
 
 Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
+
+### Loading Responsive Documents
+
+***Work in progress***
+
+```bash
+python manage.py import_documents
+```
 
 
 ### Front-end Dev Environment
