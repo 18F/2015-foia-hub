@@ -38,6 +38,9 @@ def copy_document(filename, doc_path):
 
 
 def copy_and_extract_documents(agency_directory, d):
+    """ Extract text from documents, and return a tuple contain documentation
+    details and the extracted text. """
+
     date_dir = os.path.join(agency_directory, d)
     manifest_path = os.path.join(date_dir, 'manifest.yml')
     manifest = yaml.load(open(manifest_path, 'r'))
@@ -65,6 +68,9 @@ def convert_to_text(file_name, doc_path):
 
 
 def create_document(document, release_slug):
+    """ Create a Document object representing the document. This also uploads
+    the document into it's S3 location. """
+
     details, doc_path, text_contents = document
     d = Document()
     d.text = text_contents
@@ -83,6 +89,9 @@ def create_document(document, release_slug):
 
 
 def process_office(agency_directory, agency, office_name):
+    """ Process an Office directory, which will contain several sub-directories
+    that are named after dates (which contain the actual documents. """
+
     office_directory = os.path.join(agency_directory, office_name)
 
     office_slug = '%s--%s' % (agency, office_name)
@@ -99,6 +108,10 @@ def process_agency_documents(agency_directory, agency, date_directory):
 
 
 def process_agency(documents_directory, agency):
+    """ An Agency directory can either have sub-Office directories, or date
+    named directories that contain actual documents. This processes both
+    appropriately. """
+
     agency_directory = os.path.join(documents_directory, agency)
 
     for d in os.listdir(agency_directory):
