@@ -38,7 +38,7 @@ This is a Django app that uses [Postgres](http://www.postgresql.org/) and [Elast
 
 **Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
 
-**Installing Postgres**: You can `brew install elasticsearch` (OS X) or `apt-get install elasticsearch` (Ubuntu).
+**Installing Elasticsearch**: You can `brew install elasticsearch` (OS X) or `apt-get install elasticsearch` (Ubuntu).
 
 The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest/), [virtualenv](http://virtualenv.readthedocs.org/en/latest/), and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
 
@@ -108,26 +108,19 @@ If you you get a `could not connect to server` error, you could be experiencing 
 psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 ```
 
-* Change database password in local_settings.py:
-```python
-# Change the password below to the one you use
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'foia',
-        'USER': 'foia',
-        'PASSWORD': 'CHANGETHIS',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-```
-
 * Initialize your database schema:
 
 ```bash
 django-admin.py syncdb
 ```
+
+* Finally, launch the server locally:
+
+```
+django-admin.py runserver
+```
+
+* The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 ### Elasticsearch setup
 
@@ -149,6 +142,7 @@ git clone git@github.com:18F/foia.git
 Then run the data loading script:
 
 ```bash
+cd foia_hub
 python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
 
