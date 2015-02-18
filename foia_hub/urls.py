@@ -31,7 +31,6 @@ urlpatterns = patterns(
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^robots\.txt$',
         TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-
 )
 
 # APIs
