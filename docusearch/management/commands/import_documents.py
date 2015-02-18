@@ -74,6 +74,7 @@ def create_document(document, release_slug):
     doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
 
+    # On save() django-storages uploads this file to S3
     d.original_file.save(filename, doc_file, save=True)
 
 
