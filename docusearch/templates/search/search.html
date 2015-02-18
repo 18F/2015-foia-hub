@@ -39,7 +39,7 @@
         {% for result in page.object_list %}
             <li>
                 <div class="agencies--name">
-                    <h3><a href="{{ result.object.get_absolute_url() }}">Document {{result.object.title}}</a></h3>
+                    <h3><a href="{{ result.object.get_absolute_url() }}">{{result.object.title}}</a></h3>
                 </div>
 
                 <div class="agencies--description">
