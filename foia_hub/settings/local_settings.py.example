@@ -3,7 +3,7 @@ from .base import *
 SECRET_KEY = 'CHANGE THIS IN PRODUCTION'
 
 
-# change the password below to the one you use
+# Change the password below to the one you use
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -13,6 +13,15 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
+}
+
+# These are the default settings for haystack.
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
 }
 
 # Replace with a Google Analytics ID in production
