@@ -1,5 +1,4 @@
 import os
-import shutil
 import subprocess
 import tempfile
 from datetime import datetime
@@ -112,10 +111,16 @@ def process_agency(documents_directory, agency):
 
 
 class Command(BaseCommand):
+    help = "Import documents from your document source, into docusearch."
 
     def handle(self, *args, **options):
-        documents_directory = '/vagrant/data/responsive'
-        agencies = os.listdir(documents_directory)
+        if len(args) > 0:
+            documents_directory = args[0]
+            agencies = os.listdir(documents_directory)
+            for agency in agencies:
+                process_agency(documents_directory, agency)
+        else:
+            print('python manage.py import_documents <<document/import/path>>')
+            
 
-        for agency in agencies:
-            process_agency(documents_directory, agency)
+        
