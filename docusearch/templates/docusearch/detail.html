@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
-
 {% block body %}
 
 <div class="container">
+    <section class="breadcrumbs">
+        <a href="{{url('home')}}">Home &gt;</a>
+        <a href="{{url('doc_search')}}?q={{request.GET.q}}">Search &gt;</a>
+    </section>
+
     <section class="content">
     <h1><em>Document</em></h1>
     <h2>{{document.title}}</h2>
-
 
     <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
         View the <a href="{{ static(document.path) }}">original document</a>
@@ -21,7 +24,7 @@
         <h2> Similar documents (more like this one): </h2>
         <ul> 
             {% for similar_doc in similar_documents %}
-                <li> <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title}}</a> </li>
+                <li> <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title|title}}</a> </li>
             {% endfor %}
         </ul>
     {% endif %}
