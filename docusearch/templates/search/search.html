@@ -45,11 +45,16 @@
 
                 <div class="agencies--description">
                 <p>
+                {% for text in result.highlighted.text %}
+                    {{text}}
+                {% endfor %}
+                </p>
+                <p>
                 {% for htext in result.highlighted %}
                     {% if loop.last %}
-                        ... {{htext|safe|lower}} 
+                        {{htext|truncate(256)|lower|safe}}
                     {% else %}
-                        ... {{htext|safe|lower}} ... <br />
+                        ... {{htext|truncate(256)|lower|safe}} ... <br />
                     {% endif %}
                 {% endfor %}
                 </p>
