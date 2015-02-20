@@ -17,6 +17,7 @@ STATICFILES_DIRS = (
 
 
 DATABASES = {}
+HAYSTACK_CONNECTIONS = {'default': {}}
 
 # ALLOWED_HOSTS = []
 
@@ -28,9 +29,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'corsheaders',
+    'haystack',
+    'storages',
     'foia_hub',
+    'docusearch',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,3 +101,12 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 
 ANALYTICS_ID = ""
+
+# Uses s3boto
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = 'krangdocuments'
+
+# Don't add complex authentication related query parameters for requests
+AWS_QUERYSTRING_AUTH = False

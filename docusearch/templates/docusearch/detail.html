@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+<div class="container">
+    <section class="content">
+    <h1><em>Document</em></h1>
+    <h2>{{document.title}}</h2>
+
+
+    <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
+        View the <a href="{{ static(document.path) }}">original document</a>
+    </object>
+
+    <p>
+        <a href="{{ document.original_file.url }}">Download PDF</a>
+    </p>
+
+    {% if similar_documents %}
+        <h2> Similar documents (more like this one): </h2>
+        <ul> 
+            {% for similar_doc in similar_documents %}
+                <li> <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title}}</a> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    </section>
+</div>
+
+{% endblock %}
