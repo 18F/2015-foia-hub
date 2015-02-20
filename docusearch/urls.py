@@ -13,7 +13,7 @@ sqs = SearchQuerySet().models(Document).highlight().facet('')
 
 urlpatterns = patterns(
     'haystack.views',
-    url(r'^$', TemplateView.as_view(template_name='search/index.html'), name="home"),
+    url(r'^$', TemplateView.as_view(template_name='search/index.html'), name="search_home"),
     url(
         r'^search/',
         search_view_factory(

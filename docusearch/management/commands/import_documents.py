@@ -9,7 +9,7 @@ from django.utils.timezone import now
 
 import yaml
 
-from docusearch.models import Document
+from docusearch.models import Document, ImportLog
 
 
 def is_date(d):
@@ -73,8 +73,31 @@ def create_document(document, release_slug):
     doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
 
+    return
     # On save() django-storages uploads this file to S3
-    d.original_file.save(filename, doc_file, save=True)
+    # d.original_file.save(filename, doc_file, save=True)
+
+
+def unprocessed_directory(date_directory, agency, office=None):
+    """ If we've completely processed a directory of documents, we will have an
+    ImportLog entry for it. Return False if this is the case. """
+    
+    existing_logs_count = ImportLog.objects.filter(   
+        agency_slug=agency,
+        office_slug=office,
+        directory=date_directory).count()
+    return existing_logs_count == 0
+
+def mark_directory_processed(date_directory, agency, office=None):
+    """ This simply creates an ImportLog entry, marking date_directory as
+    having been processed for this agency/office combination. """
+
+    il = ImportLog(
+        agency_slug=agency,
+        office_slug=office,
+        directory=date_directory,
+    )
+    il.save()
 
 
 def process_office(agency_directory, agency, office_name):
@@ -91,9 +114,11 @@ def process_office(agency_directory, agency, office_name):
 
 
 def process_agency_documents(agency_directory, agency, date_directory):
-    for document in copy_and_extract_documents(
-            agency_directory, date_directory):
-        create_document(document, agency)
+    if unprocessed_directory(date_directory, agency):
+        for document in copy_and_extract_documents(
+                agency_directory, date_directory):
+            create_document(document, agency)
+    mark_directory_processed(date_directory, agency)
 
 
 def process_agency(documents_directory, agency):
@@ -121,6 +146,3 @@ class Command(BaseCommand):
                 process_agency(documents_directory, agency)
         else:
             print('python manage.py import_documents <<document/import/path>>')
-            
-
-        
