@@ -105,12 +105,13 @@ def process_office(agency_directory, agency, office_name):
     that are named after dates (which contain the actual documents. """
 
     office_directory = os.path.join(agency_directory, office_name)
-
     office_slug = '%s--%s' % (agency, office_name)
 
     for d in os.listdir(office_directory):
-        for document in copy_and_extract_documents(office_directory, d):
-            create_document(document, office_slug)
+        if unprocessed_directory(date_directory, agency, office_name):
+            for document in copy_and_extract_documents(office_directory, d):
+                create_document(document, office_slug)
+        mark_directory_processed(date_directory, agency)
 
 
 def process_agency_documents(agency_directory, agency, date_directory):
