@@ -1,3 +1,4 @@
+import datetime
 from django.test import TestCase
 
 from docusearch.models import Document, upload_original_to
@@ -11,11 +12,15 @@ class DocumentTests(TestCase):
         doc.text = "This is the full-text of the document"
         doc.title = "Useful Document"
         doc.release_agency_slug = "department-of-justice--information"
+        doc.create_date = datetime.date(2015, 2, 3)
+        doc.release_date = datetime.date(2017, 5, 5)
 
         doc.save()
 
         saved = Document.objects.get(title='Useful Document')
         self.assertEqual(saved.text, "This is the full-text of the document")
+        self.assertEqual(datetime.date(2015, 2, 3), saved.create_date)
+        self.assertEqual(datetime.date(2017, 5, 5), saved.release_date)
 
     def test_upload_original_to(self):
         """ Ensure the upload_original_to() returns a correct path. """
