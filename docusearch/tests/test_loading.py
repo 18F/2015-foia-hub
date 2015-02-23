@@ -24,7 +24,7 @@ class ImportTest(TestCase):
         self.assertEqual(15, d.day)
 
     def test_unprocessed_directory(self):
-        self.assertTrue(importer.unprocessed_directory( 
+        self.assertTrue(importer.unprocessed_directory(
             '20150301', 'department-of-justice'))
 
         il = ImportLog()
@@ -32,7 +32,7 @@ class ImportTest(TestCase):
         il.directory = '20150301'
         il.save()
 
-        self.assertFalse(importer.unprocessed_directory( 
+        self.assertFalse(importer.unprocessed_directory(
             '20150301', 'department-of-justice'))
 
         self.assertTrue(importer.unprocessed_directory(
@@ -48,21 +48,21 @@ class ImportTest(TestCase):
             '20140212-1', 'department-of-agriculture', 'farmers-markets-desk'))
 
     def test_mark_directory_processed(self):
-        self.assertTrue(importer.unprocessed_directory( 
+        self.assertTrue(importer.unprocessed_directory(
             '20150302', 'department-of-defense'))
         importer.mark_directory_processed('20150302', 'department-of-defense')
-        self.assertFalse(importer.unprocessed_directory( 
+        self.assertFalse(importer.unprocessed_directory(
             '20150302', 'department-of-defense'))
 
     def test_import_log_decorator(self):
         """ Test that the import log decorator only lets an action happen once,
         and populates the database correctly.  """
-        
+
         filler = []
 
         def process_documents():
             """ A fake process script """
-            for x in range(1,10):
+            for x in range(1, 10):
                 filler.append(x)
 
         importer.import_log_decorator(
@@ -75,7 +75,7 @@ class ImportTest(TestCase):
 
     def test_create_basic_document(self):
         doc_details = {
-            'document': { 
+            'document': {
                 'title': 'UFOs land on South Lawn',
                 'document_date': '19500113'
             }
@@ -83,6 +83,7 @@ class ImportTest(TestCase):
 
         text_contents = "We are not alone."
         doc_tuple = (doc_details, None, text_contents)
-        document = importer.create_basic_document(doc_tuple, 'state-department')
+        document = importer.create_basic_document(
+            doc_tuple, 'state-department')
         self.assertEqual(document.title, 'UFOs land on South Lawn')
         self.assertEqual(document.text, 'We are not alone.')
