@@ -8,7 +8,6 @@ from django.core.files import File
 from django.utils.timezone import now
 
 import yaml
-
 from docusearch.models import Document, ImportLog
 
 
@@ -55,11 +54,11 @@ def convert_to_text(file_name, doc_path):
     return extracted_file
 
 
-def create_document(document, release_slug):
-    """ Create a Document object representing the document. This also uploads
-    the document into it's S3 location. """
+def create_basic_document(document, release_slug):
+    """ Create a basic Document object (without the file upload related bits)
+    """
 
-    details, doc_path, text_contents = document
+    details, _, text_contents = document
     d = Document()
     d.text = text_contents
 
@@ -69,13 +68,30 @@ def create_document(document, release_slug):
         d.date = text_to_date(details['document']['document_date'])
 
     d.release_agency_slug = release_slug
+    return d
+
+
+def create_document(document, release_slug):
+    """ Create a Document object representing the document. This also uploads
+    the document into it's S3 location. """
+
+    #d = Document()
+    #d.text = text_contents
+
+    #if 'title' in details['document']:
+    #    d.title = details['document']['title']
+    #if 'document_date' in details['document']:
+    #    d.date = text_to_date(details['document']['document_date'])
+
+    #d.release_agency_slug = release_slug
+    d = create_basic_document(document, release_slug)
+    details, doc_path, text_contents = document
 
     doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
 
-    return
     # On save() django-storages uploads this file to S3
-    # d.original_file.save(filename, doc_file, save=True)
+    d.original_file.save(filename, doc_file, save=True)
 
 
 def unprocessed_directory(date_directory, agency, office=None):
@@ -87,6 +103,7 @@ def unprocessed_directory(date_directory, agency, office=None):
         office_slug=office,
         directory=date_directory).count()
     return existing_logs_count == 0
+
 
 def mark_directory_processed(date_directory, agency, office=None):
     """ This simply creates an ImportLog entry, marking date_directory as
@@ -100,26 +117,31 @@ def mark_directory_processed(date_directory, agency, office=None):
     il.save()
 
 
+def import_log_decorator(date_directory, agency, office, process_documents):
+    if unprocessed_directory(date_directory, agency, office):
+        process_documents()
+        mark_directory_processed(date_directory, agency, office)
+
+
+def process_date_documents(date_directory, parent_directory, agency, office=None):
+    release_slug = agency
+    if office:
+        release_slug = '%s-%s' % (agency, office)
+    
+    def process():
+        for document in copy_and_extract_documents(parent_directory, date_directory):
+            create_document(document, release_slug)
+
+    import_log_decorator(date_directory, agency, office, process)
+
+
 def process_office(agency_directory, agency, office_name):
     """ Process an Office directory, which will contain several sub-directories
     that are named after dates (which contain the actual documents. """
 
     office_directory = os.path.join(agency_directory, office_name)
-    office_slug = '%s--%s' % (agency, office_name)
-
-    for d in os.listdir(office_directory):
-        if unprocessed_directory(date_directory, agency, office_name):
-            for document in copy_and_extract_documents(office_directory, d):
-                create_document(document, office_slug)
-        mark_directory_processed(date_directory, agency)
-
-
-def process_agency_documents(agency_directory, agency, date_directory):
-    if unprocessed_directory(date_directory, agency):
-        for document in copy_and_extract_documents(
-                agency_directory, date_directory):
-            create_document(document, agency)
-    mark_directory_processed(date_directory, agency)
+    for date_directory in os.listdir(office_directory):
+        process_date_documents(date_directory, office_directory, agency, office_name)
 
 
 def process_agency(documents_directory, agency):
@@ -131,7 +153,7 @@ def process_agency(documents_directory, agency):
 
     for d in os.listdir(agency_directory):
         if is_date(d):
-            process_agency_documents(agency_directory, agency, d)
+            process_date_documents(d, agency_directory, agency)
         else:
             process_office(agency_directory, agency, d)
 

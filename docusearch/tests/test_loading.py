@@ -47,10 +47,42 @@ class ImportTest(TestCase):
         self.assertFalse(importer.unprocessed_directory(
             '20140212-1', 'department-of-agriculture', 'farmers-markets-desk'))
 
-
     def test_mark_directory_processed(self):
         self.assertTrue(importer.unprocessed_directory( 
             '20150302', 'department-of-defense'))
         importer.mark_directory_processed('20150302', 'department-of-defense')
         self.assertFalse(importer.unprocessed_directory( 
             '20150302', 'department-of-defense'))
+
+    def test_import_log_decorator(self):
+        """ Test that the import log decorator only lets an action happen once,
+        and populates the database correctly.  """
+        
+        filler = []
+
+        def process_documents():
+            """ A fake process script """
+            for x in range(1,10):
+                filler.append(x)
+
+        importer.import_log_decorator(
+            '20130102', 'cfpb', None, process_documents)
+        self.assertEqual(filler, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+        importer.import_log_decorator(
+            '20130102', 'cfpb', None, process_documents)
+        self.assertEqual(filler, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+    def test_create_basic_document(self):
+        doc_details = {
+            'document': { 
+                'title': 'UFOs land on South Lawn',
+                'document_date': '19500113'
+            }
+        }
+
+        text_contents = "We are not alone."
+        doc_tuple = (doc_details, None, text_contents)
+        document = importer.create_basic_document(doc_tuple, 'state-department')
+        self.assertEqual(document.title, 'UFOs land on South Lawn')
+        self.assertEqual(document.text, 'We are not alone.')
