@@ -22,3 +22,4 @@ elasticsearch
 boto
 # @see http://code.larlet.fr/django-storages/issue/155/python-3-support
 -e git+https://github.com/coagulant/django-storages-py3.git@py3#egg=django-storages
+-e git+https://github.com/18F/doc_processing_toolkit.git#egg=doc_processing_toolkit
