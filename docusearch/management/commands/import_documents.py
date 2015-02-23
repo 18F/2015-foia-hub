@@ -97,8 +97,8 @@ def create_document(document, release_slug):
 def unprocessed_directory(date_directory, agency, office=None):
     """ If we've completely processed a directory of documents, we will have an
     ImportLog entry for it. Return False if this is the case. """
-    
-    existing_logs_count = ImportLog.objects.filter(   
+
+    existing_logs_count = ImportLog.objects.filter(
         agency_slug=agency,
         office_slug=office,
         directory=date_directory).count()
@@ -123,13 +123,15 @@ def import_log_decorator(date_directory, agency, office, process_documents):
         mark_directory_processed(date_directory, agency, office)
 
 
-def process_date_documents(date_directory, parent_directory, agency, office=None):
+def process_date_documents(
+        date_directory, parent_directory, agency, office=None):
     release_slug = agency
     if office:
         release_slug = '%s-%s' % (agency, office)
-    
+
     def process():
-        for document in copy_and_extract_documents(parent_directory, date_directory):
+        for document in copy_and_extract_documents(
+                parent_directory, date_directory):
             create_document(document, release_slug)
 
     import_log_decorator(date_directory, agency, office, process)
@@ -141,7 +143,8 @@ def process_office(agency_directory, agency, office_name):
 
     office_directory = os.path.join(agency_directory, office_name)
     for date_directory in os.listdir(office_directory):
-        process_date_documents(date_directory, office_directory, agency, office_name)
+        process_date_documents(
+            date_directory, office_directory, agency, office_name)
 
 
 def process_agency(documents_directory, agency):
