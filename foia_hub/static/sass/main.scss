@@ -29,6 +29,7 @@ body > header {
       li {
         display: inline-block;
         padding: 0 10px;
+        font-weight: 600;
       }
 
       a {
@@ -137,6 +138,7 @@ div#usa {
 footer {
   background-color: white;
   padding-top: 1em;
+  margin-top: 4em;
   img {
     width: 32px;
     height: 32px;
@@ -208,8 +210,13 @@ footer {
   }
 }
 
+.breadcrumbs_container {
+  background: white;
+  margin-bottom: 1.5em;
+}
+
 .breadcrumbs {
-    margin: 1em 0;
+    padding: 0.5em 0;
 }
 
 #main {

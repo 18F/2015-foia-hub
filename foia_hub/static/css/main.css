@@ -388,7 +388,8 @@ body {
   color: #323A45;
   font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
   font-size: 1em;
-  line-height: 1.5; }
+  line-height: 1.5;
+  font-weight: 500; }
 
 h1,
 h2,
@@ -625,7 +626,8 @@ body > header {
       font-style: normal; }
   body > header #topnav nav ul li {
     display: inline-block;
-    padding: 0 10px; }
+    padding: 0 10px;
+    font-weight: 600; }
   body > header #topnav nav ul a {
     color: #777777;
     padding-bottom: 12px; }
@@ -717,7 +719,8 @@ div#usa {
 
 footer {
   background-color: white;
-  padding-top: 1em; }
+  padding-top: 1em;
+  margin-top: 4em; }
   footer img {
     width: 32px;
     height: 32px;
@@ -862,8 +865,12 @@ footer {
   .searchresults li {
     padding: 0.5em 0; }
 
+.breadcrumbs_container {
+  background: white;
+  margin-bottom: 1.5em; }
+
 .breadcrumbs {
-  margin: 1em 0; }
+  padding: 0.5em 0; }
 
 #main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
   margin-bottom: 0.8em; }
