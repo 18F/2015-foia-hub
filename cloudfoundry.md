@@ -109,3 +109,12 @@ Status:
 
 * `fab deploy` will stay hanging, but successfully daemonize the app.
 * The webhook is down.
+
+## Load the data
+
+Right now, load it *locally* from your laptop, with a connection string pointed at the production DB:
+
+```bash
+./manage.py load_agency_contacts /path/to/foia/contacts/data
+
+Better instructions TBD!
