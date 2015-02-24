@@ -364,7 +364,7 @@ th {
 button,
 input[type="submit"] {
   -webkit-font-smoothing: antialiased;
-  background-color: #0067BA;
+  background-color: #00BFE7;
   border-radius: 3px;
   color: white;
   display: inline-block;
@@ -375,7 +375,7 @@ input[type="submit"] {
   text-decoration: none; }
   button:hover,
   input[type="submit"]:hover {
-    background-color: #003d6e;
+    background-color: #00BFE7;
     color: white; }
   button:disabled,
   input[type="submit"]:disabled {
@@ -383,7 +383,6 @@ input[type="submit"] {
     opacity: 0.5; }
 
 body {
-  -webkit-font-smoothing: antialiased;
   background-color: #EAEDF1;
   color: #323A45;
   font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
@@ -662,7 +661,7 @@ div#usa {
   padding: 0.25em 0; }
   div#usa .usa--content {
     font-size: 0.8em;
-    font-weight: 700; }
+    font-weight: 400; }
   div#usa .official {
     float: left; }
   div#usa .alpha {
@@ -677,6 +676,8 @@ div#usa {
         display: block;
         text-align: center; } }
 
+#main .search--box {
+  height: 3em; }
 #main .search {
   background: #323A45;
   color: #EAEDF1;
@@ -713,7 +714,7 @@ div#usa {
         margin-right: 0; } }
   #main .search--content h2 {
     border-bottom: none; }
-  #main .search--content a {
+  #main .search--content .browse a {
     color: #00BFE7;
     font-weight: 800; }
 
@@ -793,6 +794,8 @@ footer {
           margin-right: 0; } }
     .hero > .container > .hero--content a.more {
       font-weight: 600; }
+      .hero > .container > .hero--content a.more .fa {
+        color: #0067BA; }
 
 @media screen and (max-width: 30em) {
   .hero {
@@ -870,7 +873,8 @@ footer {
   margin-bottom: 1.5em; }
 
 .breadcrumbs {
-  padding: 0.5em 0; }
+  padding: 0.5em 0;
+  font-size: 0.8em; }
 
 #main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
   margin-bottom: 0.8em; }
@@ -1018,97 +1022,36 @@ footer {
       .department__decentralized:last-child {
         margin-right: 0; } }
 
-form.request input.upto[type=text] {
-  width: 80px;
-  display: inline; }
-form.request fieldset {
-  float: left;
-  display: block;
-  margin-right: 1.0526315789%;
-  width: 49.4736842105%;
-  border: 0; }
-  form.request fieldset:last-child {
-    margin-right: 0; }
-  form.request fieldset input {
-    font-size: 100%;
-    padding: 10px; }
-  form.request fieldset legend {
-    display: block;
-    width: 100%;
-    padding: .3em 0;
-    margin-bottom: .3em;
-    color: #333;
-    border-bottom: 1px solid #e5e5e5; }
-form.request #name-email input {
-  float: left;
-  display: block;
-  margin-right: 1.0526315789%;
-  width: 49.4736842105%;
-  margin: 0; }
-  form.request #name-email input:last-child {
-    margin-right: 0; }
-form.request textarea.request {
-  height: 9em;
-  width: 100%; }
-form.request textarea.fee-waiver-justification {
-  height: 4em; }
-form.request span.fee-amount {
-  font-weight: bold; }
-form.request label.fee-waiver {
-  display: inline; }
-form.request input[type=submit] {
-  font-size: 100%;
-  padding: .5em 1em;
-  color: #fff;
-  border: 0;
-  background-color: #0078e7;
-  border-radius: 2px; }
+.search_icon {
+  color: #777777;
+  height: 3em;
+  position: absolute;
+  z-index: 100;
+  padding-top: 0.75em;
+  padding-left: 0.75em; }
+  .search_icon .fa-search {
+    color: #777777; }
 
-a:hover {
-  text-decoration: underline; }
-
-p a:hover {
-  text-decoration: underline; }
-
-input.agency {
-  width: 100%; }
-
-.search input {
+.search input[type=search] {
   color: #323A45;
-  width: 100%;
   background-color: white;
-  display: inline-block; }
+  height: 3em;
+  padding-left: 2em;
+  margin-bottom: 0; }
 
-.search button {
-  background-color: #00BFE7;
+.search input[type=submit] {
   color: #323A45;
-  display: inline-block;
-  width: 5%;
-  min-width: 6em; }
-
-.pure-menu .pure-menu-selected a {
-  border-bottom: 0.3em solid #333; }
-
-/* error message next to submit button */
-div.request.error {
-  display: none;
-  padding: 10px 0;
-  font-weight: bold;
-  color: #f00; }
-
-#tracking-number {
-  font-weight: bold; }
-
-#requester-email {
-  font-weight: bold; }
-
-#fee-waiver-justification {
-  display: none;
-  margin: 10px 0; }
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  float: right;
+  position: relative;
+  top: -3em; }
 
 /* agency autocomplete */
 .twitter-typeahead {
-  width: 100%; }
+  width: 100%;
+  display: block !important; }
 
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
@@ -1116,53 +1059,35 @@ div.request.error {
   width: 100%;
   margin-bottom: 100px; }
 
-.typeahead,
-.tt-query,
-.tt-hint {
-  width: 396px;
-  height: 50px;
-  padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  outline: none; }
-
 .typeahead {
   background-color: #fff; }
 
 .typeahead:focus {
-  border: 2px solid #0097cf; }
-
-.tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  border: none; }
 
 .tt-hint {
   color: #999; }
 
 .tt-dropdown-menu {
-  width: 422px;
-  margin-top: 12px;
-  padding: 8px 0;
+  padding: 1em 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 
 .tt-suggestion {
   color: #323A45;
-  padding: 8px 20px;
-  font-size: 18px;
-  line-height: 24px; }
+  padding: 8px 20px; }
 
 .tt-suggestion.tt-cursor {
   color: #fff;

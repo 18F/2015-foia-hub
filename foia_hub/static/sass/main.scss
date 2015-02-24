@@ -100,7 +100,7 @@ div#usa {
   padding: 0.25em 0;
   .usa--content {
     font-size: 0.8em;
-    font-weight: 700;
+    font-weight: 400;
   }
   .official { float:left; }
   .alpha {float:right; }
@@ -116,6 +116,7 @@ div#usa {
 }
 
 #main {
+  .search--box { height: 3em; }
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -128,7 +129,7 @@ div#usa {
       border-bottom: none;
     }
 
-    a {
+    .browse a {
       color: $aqua-blue;
       font-weight: 800;
     }
@@ -170,16 +171,13 @@ footer {
 .hero {
   background-color: $light-gray;
   padding: 2em 0;
-
-//  background-size: contain;
-
   & > .container > .hero--content {
     @include inner(16);
     a.more {
       font-weight: $header-font-weight;
+      .fa { color: $blue;}
     }
-}
-
+  }
 }
 
 @include media($small) {
@@ -217,6 +215,7 @@ footer {
 
 .breadcrumbs {
     padding: 0.5em 0;
+    font-size: 0.8em;
 }
 
 #main {
@@ -369,7 +368,6 @@ footer {
   .inaccurate {
     clear:both;
     padding-bottom:2em;
-    //@include clearfix();
   }
 
 }
@@ -378,84 +376,44 @@ footer {
   @include inner(16);
 }
 
-form.request {
-  input.upto[type=text] { width: 80px; display: inline;}
-  fieldset {
-    @include span-columns(12);
-    border: 0;
-
-    input {
-      font-size: 100%;
-      padding: 10px;
-    }
-
-    legend {
-      display: block;
-      width: 100%;
-      padding: .3em 0;
-      margin-bottom: .3em;
-      color: #333;
-      border-bottom: 1px solid #e5e5e5;
-    }
-  }
-  #name-email input {
-    @include span-columns(12);
-    margin: 0;
-  }
-  textarea.request { height: 9em; width: 100%;}
-  textarea.fee-waiver-justification  { height: 4em; }
-  span.fee-amount { font-weight: bold; }
-
-  label.fee-waiver {display: inline;}
-
-  input[type=submit] {
-    font-size: 100%;
-    padding: .5em 1em;
-    color: #fff;
-    border: 0;
-    background-color: #0078e7;
-    border-radius: 2px;
+.search_icon {
+  color: $gray;
+  // display: inline-block;
+  height: 3em;
+  // width: 2em;
+  position: absolute;
+  z-index: 100;
+//  background: white;
+//  @include border-left-radius(8px);
+  padding-top:0.75em;
+  padding-left: 0.75em;
+  .fa-search {
+    color: $gray;
   }
 }
 
-a:hover {text-decoration: underline}
-p a:hover { text-decoration: underline; }
-
-
-input.agency { width: 100% }
-
-.search input {
+.search input[type=search] {
   color: $dark-gray;
-  width: 100%;
   background-color: white;
-  display:inline-block;
+  height: 3em;
+  padding-left: 2em;
+  margin-bottom: 0;
 }
-.search button {
-  background-color: $aqua-blue;
+
+.search input[type=submit] {
   color: $dark-gray;
-  display:inline-block;
-  width: 5%;
-  min-width: 6em;
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  float:right;
+  position: relative;
+  top: -3em;
 }
-
-.pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
-
-
-/* error message next to submit button */
-div.request.error {
-  display: none; padding: 10px 0;
-  font-weight: bold; color: #f00;
-}
-
-
-#tracking-number {font-weight: bold;}
-#requester-email {font-weight: bold;}
-#fee-waiver-justification {display: none; margin: 10px 0;}
-
 
 /* agency autocomplete */
 .twitter-typeahead {
   width: 100%;
+  display: block !important;
 }
 
 .scrollable-dropdown-menu .tt-dropdown-menu {
@@ -465,33 +423,18 @@ div.request.error {
   margin-bottom: 100px;
 }
 
-.typeahead,
-.tt-query,
-.tt-hint {
-  width: 396px;
-  height: 50px;
-  padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  outline: none;
-}
-
 .typeahead {
   background-color: #fff;
 }
 
 .typeahead:focus {
-  border: 2px solid #0097cf;
+  border: none;
 }
 
 .tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 .tt-hint {
@@ -499,15 +442,15 @@ div.request.error {
 }
 
 .tt-dropdown-menu {
-  width: 422px;
-  margin-top: 12px;
-  padding: 8px 0;
+//  width: 422px;
+  padding: 1em 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  @include border-top-radius(8px);
+  @include border-right-radius(8px);
+  @include border-bottom-radius(8px);
+  @include border-left-radius(8px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -516,8 +459,6 @@ div.request.error {
 .tt-suggestion {
   color: $dark-gray;
   padding: 8px 20px;
-  font-size: 18px;
-  line-height: 24px;
 }
 
 .tt-suggestion.tt-cursor {
