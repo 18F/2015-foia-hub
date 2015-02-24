@@ -8,9 +8,9 @@ This project is currently working on getting people to the right place in the go
 
 ## Outside Contributors
 
-Hello! If you're interested in learning more about this project, check out some related repos and don't be afraid to ask us questions (general questions usually go here: [foia](https://github.com/18F/foia)). 
+Hello! If you're interested in learning more about this project, check out some related repos and don't be afraid to ask us questions (general questions usually go here: [foia](https://github.com/18F/foia)).
 
-If you'd like to contribute to our project, please check out our [foia-hub] (https://github.com/18F/foia-hub) repo. We try to tag things that are easy to pick up without being entrenched in our project with a ["help wanted"](https://github.com/18F/foia-hub/labels/help%20wanted%21) tag. Things in our [backlog](https://github.com/18F/foia-hub/milestones/Backlog) are usually also up for grabs, so let us know if you'd like to pick something up from there. 
+If you'd like to contribute to our project, please check out our [foia-hub] (https://github.com/18F/foia-hub) repo. We try to tag things that are easy to pick up without being entrenched in our project with a ["help wanted"](https://github.com/18F/foia-hub/labels/help%20wanted%21) tag. Things in our [backlog](https://github.com/18F/foia-hub/milestones/Backlog) are usually also up for grabs, so let us know if you'd like to pick something up from there.
 
 For those interested in contributing, please check out our [contributing guidelines](https://github.com/18F/foia-hub/blob/master/CONTRIBUTING.md) we use to guide our development processes internally.
 
@@ -70,15 +70,21 @@ sudo apt-get install libpq-dev python3-dev
 export PYTHONPATH=/path/to/hub:$PYTHONPATH
 ```
 
-* Create a `local_settings.py` file inside `foia-hub/settings`. Start by copying the example:
+* Install [`autoenv`](https://github.com/kennethreitz/autoenv) to automatically load the contents of `.env` as environment variables.
+
+* Copy `env.example` to `.env` to get your settings started.
 
 ```bash
-cp foia_hub/settings/local_settings.py.example foia_hub/settings/local_settings.py
+cp env.example .env
 ```
 
-* In development, you may only need to update the password from `CHANGETHIS` to something else.
+* Change values in `.env`. In development, you may not need to change anything.
 
-### Database setup
+### Using SQLite
+
+If you're using SQLite, you're already done! Jump to [loading data](#loading-data).
+
+### Using Postgres
 
 * Switch to the `postgres` user:
 
@@ -122,6 +128,12 @@ django-admin.py runserver
 
 ### Loading Data
 
+First, migrate the database:
+
+```bash
+python manage.py migrate
+```
+
 Agency contact data is stored in another repository as YAML files.
 
 Clone the repository:
@@ -130,15 +142,11 @@ Clone the repository:
 git clone git@github.com:18F/foia.git
 ```
 
-Then run the data loading script:
+Then run the data loading script, providing the path to `contacts/data/` inside the `foia` repo you checked out above:
 
 ```bash
-cd foia_hub
 python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
-
-Note that the data repository is your local clone of:
-[https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
 
 There's a small bash script which will check for changes to the repository,
 and if found, import the new data. This can be useful if combined with a cron

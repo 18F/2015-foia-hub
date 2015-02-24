@@ -93,6 +93,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 # turn on CORS for everything (will be locked down later)
 CORS_ORIGIN_ALLOW_ALL = True
