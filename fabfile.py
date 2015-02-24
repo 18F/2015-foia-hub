@@ -35,6 +35,7 @@ versions_path = "%s/versions" % home
 version_path = "%s/%s" % (versions_path, datestamp)
 current_path = "%s/current" % home
 logs = "%s/log" % shared_path
+env = "%s/foia-env" % shared_path
 
 # keep the last 5 deployed versions on disk
 keep = 5
@@ -48,7 +49,7 @@ def dependencies():
     run('cd %s/deploy && npm install' % version_path)
 
 def migrate():
-    run('workon %s && cd %s && python manage.py migrate' % (virtualenv, version_path))
+    run('workon %s && source %s && cd %s && python manage.py migrate' % (virtualenv, env, version_path))
 
 def make_current():
     run('rm -f %s && ln -s %s %s' % (current_path, version_path, current_path))
@@ -61,36 +62,32 @@ def cleanup():
         command = "rm -rf %s/%s" % (versions_path, version)
         run(command)
 
-def links():
-    run("ln -s %s/config.py %s/deploy/config.py" % (shared_path, version_path))
-    run("ln -s %s/local_settings.py %s/foia_hub/settings/local_settings.py" % (shared_path, version_path))
-
 
 # can be run on their own
 
 def start():
     """
-    Run gunicorn:
-    * with production settings,
-    * with project root in the PYTHONPATH,
-    * expecting the gunicorn config in deploy/config.py,
-    * with our wsgi application module.
+    Foreman start, Heroku-style:
+    * with the virtualenv enabled.
+    * with the environment variables for the production server sourced.
+    * run the command in our versioned Procfile.
     """
 
     run(
         (
-            "workon %s && DJANGO_SETTINGS_MODULE=foia_hub.settings.%s " +
-            "PYTHONPATH=%s:$PYTHONPATH " +
-            "gunicorn -c %s/deploy/config.py %s"
-        ) % (virtualenv, environment, current_path, current_path, wsgi), pty=False
+            "workon %s && source %s && " +
+            "cd %s && "
+            "nohup foreman start &"
+        ) % (virtualenv, env, current_path), pty=False
     )
 
 # config.py is expected to point the .pid to the shared/ dir
 def stop():
-    run("kill `cat %s/gunicorn.pid`" % shared_path)
+    run("killall waitress-serve")
 
 def restart():
-    run("kill -HUP `cat %s/gunicorn.pid`" % shared_path)
+    stop()
+    start()
 
 def deploy():
     """
@@ -99,7 +96,6 @@ def deploy():
     restarts app, cleans up old deploys.
     """
     execute(checkout)
-    execute(links)
     execute(dependencies)
     execute(migrate)
     execute(make_current)
@@ -112,7 +108,6 @@ def deploy_cold():
     Doesn't bother doing cleanup.
     """
     execute(checkout)
-    execute(links)
     execute(dependencies)
     execute(migrate)
     execute(make_current)
