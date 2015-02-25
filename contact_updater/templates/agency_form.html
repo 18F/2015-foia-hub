@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="hero">
+    <div class="container">
+    <section class="hero--content">
+
+
+    {% if validated  %}
+        <h3>Instructions</h3>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{management_form|safe}}
+        <fieldset>
+        {% if validated %}
+        <div style="display:none">
+        {% endif %}
+        {% for agency, form in data %}
+            <h2>{{agency.name}}</h2>
+            {{form|safe}}
+        {% endfor %}
+        <br>
+        </div>
+        </fieldset>
+
+        <center>
+        {% if validated %}
+         <input type="submit" name="download" value="Download">
+         <input type="submit" name="return" value="Return" />
+        {% else %}
+        <input type="submit" value="Finished" />
+        {% endif %}
+        </center>
+
+    </form>
+
+    </section>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="hero">
+  <div class="container">
+  <section class="searchresults">
+
+  <h1>Agencies</h1>
+  <br><br>
+
+  {% for letter in agencies|groupby('name.0') %}
+      <h2><a href="#{{letter.grouper}}">{{letter.grouper}}</a></h2>
+  {% endfor %}
+  <br><br>
+  <fieldset>
+   {% for letter, agency_list in agencies|groupby('name.0') %}
+        <!-- The line below generates the individual letter -->
+         <h3><a name="{{letter}}">{{letter}}</a></h3>
+            <ul>
+            {% for agency in agency_list %}
+              <a href="{{agency.slug}}">{{agency.name}}</a><br>
+            {% endfor %}
+            <br>
+            </ul>
+        {% endfor %}
+  </fieldset>
+  </section>
+  </div>
+  </div>
+{% endblock %}
