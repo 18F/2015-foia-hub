@@ -59,7 +59,6 @@ def transform_data(data):
     data['no_records_about'] = join_array(data.get('no_records_about'))
     data['address_lines'] = join_array(data.get('address_lines'))
     # data['person_name'] = data.get('person_name', '').replace('Phone: ', '')
-
     return data
 
 
@@ -72,11 +71,11 @@ def get_agency_data(slug):
     agency_data = [transform_data(agency_resource.detail(slug).value)]
     if agency_data[0].get('offices'):
         office_resource = OfficeResource()
-        for office in agency_data[0]['offices']:
+        for office in agency_data[0].get('offices'):
             if '--' in office.get('slug'):
-                office_data = office_resource.detail(office).value
+                office_data = office_resource.detail(office['slug']).value
             else:
-                office_resource = agency_resource.detail(office).value
+                office_data = agency_resource.detail(office['slug']).value
             agency_data.append(transform_data(office_data))
     return agency_data
 
