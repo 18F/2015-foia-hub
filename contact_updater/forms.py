@@ -5,6 +5,8 @@ PHONE_RE = r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'
 
 class AgencyData(forms.Form):
 
+    slug = forms.CharField(widget=forms.HiddenInput())
+
     description = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={'rows': 3}))
@@ -34,7 +36,6 @@ class AgencyData(forms.Form):
         label='Public Reading Room/FOIA Library Link', required=False)
     office_url = forms.URLField(required=False)
 
-    # Will need to reformat the value
     address_lines = forms.CharField(
         label='Recipient', required=False,
         widget=forms.Textarea(attrs={'rows': 3}))
