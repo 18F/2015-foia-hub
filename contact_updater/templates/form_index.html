@@ -15,9 +15,10 @@
   <fieldset>
    {% for letter, agency_list in agencies|groupby('name.0') %}
          <h3><a name="{{letter}}">{{letter}}</a></h3>
+         <hr>
             <ul>
             {% for agency in agency_list %}
-              <a href="{{agency.slug}}">{{agency.name}}</a><br>
+              <li><a href="{{agency.slug}}">{{agency.name}}</a></li>
             {% endfor %}
             <br>
             </ul>

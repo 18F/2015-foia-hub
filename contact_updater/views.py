@@ -10,9 +10,6 @@ from django.http import HttpResponse
 from foia_hub.api import AgencyResource, OfficeResource
 
 
-SITE = "https://foia.18f.us/api/"
-
-
 def form_index(request):
     agencies = AgencyResource().list()
     return render(
@@ -30,7 +27,7 @@ def download_data(request, slug):
     return res
 
 
-def get_first_array(array):
+def get_first_element(array):
     """ Given a list returns first element """
 
     if array:
@@ -53,12 +50,11 @@ def join_array(array):
 def transform_data(data):
     """ Returns only first email """
 
-    data['emails'] = get_first_array(data.get('emails'))
+    data['emails'] = get_first_element(data.get('emails'))
     data['foia_libraries'] = unpack_libraries(data.get('foia_libraries'))
     data['common_requests'] = join_array(data.get('common_requests'))
     data['no_records_about'] = join_array(data.get('no_records_about'))
     data['address_lines'] = join_array(data.get('address_lines'))
-    # data['person_name'] = data.get('person_name', '').replace('Phone: ', '')
     return data
 
 
