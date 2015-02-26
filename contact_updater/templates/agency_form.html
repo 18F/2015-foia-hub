@@ -1,5 +1,22 @@
 {% extends "base.html" %}
+{% block head %}
+    {{super()}}
+<script type="text/javascript">
+    function getContent(){
+        data_array = document.querySelectorAll("div[contentEditable='true']")
+        for(var i = 0; i < data_array.length; i++){
+            document.getElementById(data_array[i].getAttribute("name")).value = data_array[i].innerHTML;
+        }
 
+    }
+</script>
+<style>
+.errorlist {
+  color: red;
+  text-decoration: underline;
+}
+</style>
+{% endblock %}
 {% block body %}
     <div class="hero">
     <div class="container">
@@ -10,7 +27,7 @@
         <h3>Instructions</h3>
     {% endif %}
 
-    <form action="" method="post">
+    <form action="" method="post" onsubmit="getContent()">
         {% csrf_token %}
         {{management_form|safe}}
         <fieldset>
@@ -22,8 +39,17 @@
             {% endfor %}
         {% else %}
             {% for agency, form in data %}
-                <h2>{{agency.name}}</h2>
-                {{form|safe}}
+                <h2>{{agency.name}}</h2><br>
+                {% for field in form.visible_fields() %}
+                    <h3>{{field.label}}</h3>
+                    {{ field.errors }}
+                    <div name="{{field.id_for_label}}" contentEditable="true">{{field.value() | default("")}}</div>
+                    {{field.as_hidden()}}
+                    <br>
+                {% endfor %}
+                {% for field in form.hidden_fields() %}
+                    {{field}}
+                {% endfor %}
             {% endfor %}
         {% endif %}
         <br>

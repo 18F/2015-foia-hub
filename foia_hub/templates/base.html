@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+{% block head %}
 <head>
 
   {# Render block here, so that future renderings can be passed through a filter. #}
@@ -23,7 +24,7 @@
   {% include "includes/head.html" %}
 </head>
 <body>
-
+{% endblock %}
 {% include "includes/nav.html" %}
 
 <div id="main" class="{% block class %}{% endblock %}">
