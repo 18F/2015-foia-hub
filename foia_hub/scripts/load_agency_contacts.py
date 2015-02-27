@@ -79,14 +79,14 @@ def contactable_fields(agency, office_dict):
     agency.city = address.get('city')
     agency.street = address.get('street')
     agency.address_lines = address.get('address_lines', [])
-
-    reading_rooms = office_dict.get('reading_rooms', [])
-    if reading_rooms:
-        add_reading_rooms(agency, reading_rooms)
+    add_reading_rooms(agency, office_dict)
 
 
 def add_request_time_statistics(data, agency, office=None):
     """Load stats data about agencies into the database."""
+
+    # Delete old stats before adding
+    Stats.objects.filter(agency=agency, office=office).delete()
 
     if data.get('request_time_stats'):
         latest_year = sorted(
@@ -97,7 +97,7 @@ def add_request_time_statistics(data, agency, office=None):
             for arg in iterator:
                 median = data.get("%s_median_days" % arg[1])
                 if median:
-                    stat, created = Stats.objects.get_or_create(
+                    stat = Stats(
                         agency=agency,
                         office=office,
                         year=int(latest_year),
@@ -111,8 +111,8 @@ def add_request_time_statistics(data, agency, office=None):
                     stat.save()
 
 
-def add_reading_rooms(contactable, reading_rooms):
-    for link_text, url in reading_rooms:
+def add_reading_rooms(contactable, data):
+    for link_text, url in data.get('reading_rooms', []):
         existing_room = ReadingRoomUrls.objects.filter(
             link_text=link_text, url=url)
         existing_room = list(existing_room)
@@ -151,6 +151,9 @@ def load_data(data):
     """
     Loads data from each yaml file into the database.
     """
+
+    # Delete old data
+    ReadingRoomUrls.objects.all().delete()
 
     # Load the agency
     name = data['name']

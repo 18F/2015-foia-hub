@@ -152,11 +152,13 @@ class LoadingTest(TestCase):
     def test_add_reading_rooms(self):
         """ Test if reading rooms are added properly """
 
-        reading_room_links = [[
-            'Electronic Reading Room', 'http://agency.gov/err/'],
-            ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
+        reading_room_data = {
+            'reading_rooms': [
+                ['Electronic Reading Room', 'http://agency.gov/err/'],
+                ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
+        }
         agency = Agency.objects.get(slug='department-of-homeland-security')
-        agency = add_reading_rooms(agency, reading_room_links)
+        agency = add_reading_rooms(agency, reading_room_data)
         agency.save()
 
         # Retrieve saved
@@ -175,15 +177,6 @@ class LoadingTest(TestCase):
             'http://agency.gov/pre-2000/rooms',
             dhs.reading_room_urls.all()[1].url)
 
-        reading_room_links = [[
-            'Electronic Reading Room', 'http://agency.gov/err/'],
-            ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/']]
-        agency = Agency.objects.get(slug='department-of-homeland-security')
-        agency = add_reading_rooms(agency, reading_room_links)
-        agency.save()
-        self.assertEqual(2, len(dhs.reading_room_urls.all()))
-
-
     def test_add_stats(self):
         """
         Confirms all latest records are loaded, no empty records
@@ -194,8 +187,13 @@ class LoadingTest(TestCase):
         agency = Agency.objects.get(slug='department-of-homeland-security')
         data = {'request_time_stats': {
             '2012': {'simple_median_days': '2'},
-            '2014': {'simple_median_days': 'less than 1'}}}
+            '2014': {'simple_median_days': 'less than 1'}
+        }}
+
         add_request_time_statistics(data, agency)
+
+        # Verify that only one stat was added
+        self.assertEqual(len(agency.stats_set.all()), 1)
 
         # Verify latest data is returned when it exists
         retrieved = agency.stats_set.filter(
@@ -207,13 +205,15 @@ class LoadingTest(TestCase):
             stat_type='S').order_by('-year').first()
         self.assertEqual(retrieved.less_than_one, True)
 
-        # Verify that no empty records are created
-        retrieved = agency.stats_set.filter(
-            stat_type='C').order_by('-year').first()
-        self.assertEqual(retrieved, None)
-        with self.assertRaises(AttributeError) as error:
-            retrieved.median
-        self.assertEqual(type(error.exception), AttributeError)
+        # Load test 2
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        data = {'request_time_stats': {
+            '2015': {'simple_median_days': '3',
+                     'complex_median_days': '3'}}}
+        add_request_time_statistics(data, agency)
+
+        # Verify latest old data is overwritten when new data is updated
+        self.assertEqual(len(agency.stats_set.all()), 2)
 
     def test_extract_tty_phone(self):
         """ Test: from a service center entry, extract the TTY phone if it
