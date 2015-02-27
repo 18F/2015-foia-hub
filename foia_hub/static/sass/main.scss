@@ -1,31 +1,47 @@
+@import "bourbon/bourbon";
 @import "normalize";
-@import "bourbon";
 // @import "grid-settings";
 @import "base/grid-settings";
 @import "base/base";
-@import "neat";
+@import "neat/neat";
 
 
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede;
-  a:hover {text-decoration: none;}
+
+  a:hover {
+    text-decoration: none;
+  }
+
   #topnav {
     margin: 1em 0 0.8em;
   }
+
   #logo {
-    float:left;
+    float: left;
     // font-weight: normal;
     // font-size: 2em;
     color: $blue;
     padding-right: 1em;
-    a { color: $blue; }
-    strong {font-weight: 800;}
-    em { color: #cc2211; font-style: normal;}
+
+    a {
+      color: $blue;
+    }
+
+    strong {
+      font-weight: 800;
+    }
+
+    em {
+      color: #cc2211;
+      font-style: normal;
+    }
   }
 
-#topnav nav {
+  #topnav nav {
     ul {
+
       li {
         display: inline-block;
         padding: 0 10px;
@@ -35,9 +51,10 @@ body > header {
         color: $gray;
         padding-bottom:12px;
         @include media($small) {
-            padding-bottom: 0;
-          }
+          padding-bottom: 0;
+        }
       }
+
       a:hover, a.active, #logo:hover {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray;
@@ -45,6 +62,7 @@ body > header {
           border-bottom: 1px solid $aqua-blue;
         }
       }
+
       a:focus {
         // background: #cc2211;
         background: #fff;
@@ -94,18 +112,32 @@ body > header {
 }
 
 div#usa {
+
   background-color: $dark-gray;
   color: $light-gray;
   padding: 0.25em 0;
+
   .usa--content {
     font-size: 0.8em;
     font-weight: 700;
   }
-  .official { float:left; }
-  .alpha {float:right; }
-  .official, .alpha {
+
+  .official {
+    float: left;
+  }
+
+  .alpha {
+    float: right;
+  }
+
+  .official,
+  .alpha {
     display: inline-block;
-    a { color: $aqua-blue;}  
+
+    a {
+      color: $aqua-blue;
+    }
+
     @include media($medium) {
       float:none;
       display: block;
@@ -218,17 +250,20 @@ footer {
   }
 }
 
-#main .learn, #main .about {
+#main .learn,
+#main .about {
   .toc {
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
     }
   }
+
   h2 {
     border-bottom: 1px solid #323A45;
     padding-bottom: 0.5em;
     display: block;
   }
+
   .question {
     margin-top: 2em;
   }
@@ -251,30 +286,35 @@ footer {
 
 #main.landing {
   .contact {
+
     h3 {
       margin-top: 30px; margin-bottom: 10px;
     }
+
     ul, li {
       list-style-type: none;
       list-style-position: outside;
       padding: 0; margin: 0;
     }
+
   }
 
   .department {
 
     .department--container {
-    @include span-columns(15 of 24);
-    @include media($medium) {
+      @include span-columns(15 of 24);
+      @include media($medium) {
         @include span-columns(12);
       }
     }
 
     h2 {
+      // XXX magic numbers! 0.8 should be a variable
       font-size: $h2-font-size * 0.8;
     }
 
     h3 {
+      // XXX magic numbers! 0.6 should be a variable
       font-size: $h3-font-size * 0.6;
     }
 
@@ -285,13 +325,16 @@ footer {
     .resources {
       @include span-columns(8 of 24);
       @include shift(1);
+
       padding: 1em;
       background-color: white;
       box-shadow: 4px 4px 8px #CCC;
+
       @include media($medium) {
-          @include span-columns(12);
-          @include shift(0);
-        }
+        @include span-columns(12);
+        @include shift(0);
+      }
+
       @include media($small) {
         @include span-columns(4);
         @include shift(0);
@@ -302,6 +345,7 @@ footer {
       margin: 1.2em 0;
       font-size: $base-font-size * 1.2;
     }
+
     .details {
      .offices {
         ul, li {
@@ -319,7 +363,8 @@ footer {
 
     }
 
-    .resource_type, .contact_type {
+    .resource_type,
+    .contact_type {
 
       margin: 15px 0;
 
@@ -328,16 +373,16 @@ footer {
           font-size: 1.8em;
         }
         // @include span-columns(2 of 24);
-        float:left;
-        text-align:center;
-        margin-right:2em;
+        float: left;
+        text-align: center;
+        margin-right: 2em;
         // position:absolute;
-        width:24px;
+        width: 24px;
       }
 
       .subdetails {
         // display:inline-block;
-        overflow:hidden;
+        overflow: hidden;
       }
 
       ul, li {
@@ -360,8 +405,8 @@ footer {
     }
 }
   .inaccurate {
-    clear:both;
-    padding-bottom:2em;
+    clear: both;
+    padding-bottom: 2em;
     //@include clearfix();
   }
 
@@ -372,7 +417,12 @@ footer {
 }
 
 form.request {
-  input.upto[type=text] { width: 80px; display: inline;}
+
+  input.upto[type=text] {
+    width: 80px;
+    display: inline;
+  }
+
   fieldset {
     @include span-columns(12);
     border: 0;
@@ -395,11 +445,23 @@ form.request {
     @include span-columns(12);
     margin: 0;
   }
-  textarea.request { height: 9em; width: 100%;}
-  textarea.fee-waiver-justification  { height: 4em; }
-  span.fee-amount { font-weight: bold; }
 
-  label.fee-waiver {display: inline;}
+  textarea.request {
+    height: 9em;
+    width: 100%;
+  }
+
+  textarea.fee-waiver-justification  {
+    height: 4em;
+  }
+
+  span.fee-amount {
+    font-weight: bold;
+  }
+
+  label.fee-waiver {
+    display: inline;
+  }
 
   input[type=submit] {
     font-size: 100%;
@@ -411,39 +473,57 @@ form.request {
   }
 }
 
-a:hover {text-decoration: underline}
-p a:hover { text-decoration: underline; }
+a:hover {
+  text-decoration: underline;
+}
+p a:hover {
+  text-decoration: underline;
+}
 
-
-input.agency { width: 100% }
+input.agency {
+  width: 100%;
+}
 
 .search input {
   color: $dark-gray;
   width: 100%;
   background-color: white;
-  display:inline-block;
+  display: inline-block;
 }
 .search button {
   background-color: $aqua-blue;
   color: $dark-gray;
-  display:inline-block;
+  display: inline-block;
   width: 5%;
   min-width: 6em;
 }
 
-.pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
+.pure-menu .pure-menu-selected a {
+  border-bottom: 0.3em solid #333;
+}
 
 
 /* error message next to submit button */
 div.request.error {
-  display: none; padding: 10px 0;
-  font-weight: bold; color: #f00;
+  display: none;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #f00;
 }
 
 
-#tracking-number {font-weight: bold;}
-#requester-email {font-weight: bold;}
-#fee-waiver-justification {display: none; margin: 10px 0;}
+#tracking-number {
+  font-weight: bold;
+}
+
+#requester-email {
+  font-weight: bold;
+}
+
+#fee-waiver-justification {
+  display: none;
+  margin: 10px 0;
+}
 
 
 /* agency autocomplete */
@@ -467,9 +547,7 @@ div.request.error {
   font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  @include prefixer(border-radius, 8px, webkit moz);
   outline: none;
 }
 
@@ -482,9 +560,7 @@ div.request.error {
 }
 
 .tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  @include prefixer(boz-shadow, inset 0 1px 1px rgba(0, 0, 0, 0.075), webkit moz);
 }
 
 .tt-hint {
@@ -498,12 +574,8 @@ div.request.error {
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  @include prefixer(border-radius, 8px, webkit moz);
+  @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), webkit moz);
 }
 
 .tt-suggestion {
