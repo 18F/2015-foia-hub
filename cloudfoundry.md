@@ -139,3 +139,13 @@ cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
 * Ignored the `staticfiles/` directory.
 
 * Re-synced the `.cfignore` and `.gitignore`.
+
+## Custom domain
+
+* Map a route from our app to a custom domain.
+
+```bash
+cf map-route foia open.foia.gov
+```
+
+* Setting the host value in `/etc/hosts` locally for `open.foia.gov` to the IP address used by `cf.18f.us` should then cause `http://open.foia.gov` to show the deployed app in your browser.
