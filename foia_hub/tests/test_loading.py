@@ -7,10 +7,7 @@ from foia_hub.scripts.load_agency_contacts import (
 
 example_office1 = {
     'address': {
-        'address_lines': [
-            'Regional Freedom of Information Officer',
-            'U.S. EPA, Region 9',
-            '(OPPA-2)'],
+        'address_lines': ['line 1', 'line 2'],
         'street': '75 Hawthorne Street',
         'city': 'San Francisco',
         'state': 'CA',
@@ -24,7 +21,7 @@ example_office1 = {
     'phone': '415-947-4251',
     'public_liaison': {'name': 'Deborah Williams', 'phone': ['703-516-5555']},
     'request_form': 'http://www.epa.gov/foia/requestform.html',
-    'service_center': {'phone': ['415-947-4251']},
+    'service_center': {'name': 'Timbo Two', 'phone': ['415-947-4251']},
     'top_level': False,
     'website': 'http://www.epa.gov/region09/foia/index.html'
 }
@@ -32,10 +29,7 @@ example_office1 = {
 example_sub_office = {
     'abbreviation': 'R9',
     'address': {
-        'address_lines': [
-            'Regional Freedom of Information Officer',
-            'U.S. EPA, Region 9',
-            '(OPPA-2)'],
+        'address_lines': ['line 1', 'line 2'],
         'street': '75 Hawthorne Street',
         'city': 'San Francisco',
         'state': 'CA',
@@ -52,7 +46,7 @@ example_sub_office = {
     'phone': '415-947-4251',
     'public_liaison': {'name': 'Deborah Williams', 'phone': ['703-516-5555']},
     'request_form': 'http://www.epa.gov/foia/requestform.html',
-    'service_center': {'phone': ['415-947-4251']},
+    'service_center': {'name': 'Timbo', 'phone': ['415-947-4251']},
     'top_level': True,
     'website': 'http://www.epa.gov/region09/foia/index.html'
 }
@@ -113,12 +107,51 @@ class LoaderTest(TestCase):
             'environmental-protection-agency-' +
             '-region-9-states-az-ca-hi-nv-as-gu', o.slug)
 
+    def test_multi_load(self):
+        """ Ensures that old data are set to null on second load """
+
+        # Load one
+        load_data(example_agency)
+        sub_a = Agency.objects.get(
+            name='Region 10 (States: AK, ID, OR, WA)')
+        self.assertEqual(sub_a.person_name, 'Timbo')
+        self.assertEqual(sub_a.public_liaison_name, 'Deborah Williams')
+        self.assertEqual(sub_a.address_lines, ['line 1', 'line 2'])
+        self.assertEqual(sub_a.zip_code, '94105')
+        self.assertEqual(sub_a.state, 'CA')
+        self.assertEqual(sub_a.city, 'San Francisco')
+        self.assertEqual(sub_a.street, '75 Hawthorne Street')
+
+        # Deleting values
+        del (example_sub_office['service_center']['name'],
+             example_sub_office['public_liaison']['name'],
+             example_sub_office['address']['address_lines'],
+             example_sub_office['address']['zip'],
+             example_sub_office['address']['state'],
+             example_sub_office['address']['city'],
+             example_sub_office['address']['street']
+             )
+
+        # Load two test
+        load_data(example_agency)
+        sub_a = Agency.objects.get(
+            name='Region 10 (States: AK, ID, OR, WA)')
+        self.assertEqual(sub_a.person_name, None)
+        self.assertEqual(sub_a.public_liaison_name, None)
+        self.assertEqual(sub_a.address_lines, [])
+        self.assertEqual(sub_a.zip_code, None)
+        self.assertEqual(sub_a.state, None)
+        self.assertEqual(sub_a.city, None)
+        self.assertEqual(sub_a.street, None)
+
 
 class LoadingTest(TestCase):
 
     fixtures = ['agencies_test.json']
 
     def test_add_reading_rooms(self):
+        """ Test if reading rooms are added properly """
+
         reading_room_links = [[
             'Electronic Reading Room', 'http://agency.gov/err/'],
             ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
@@ -141,6 +174,15 @@ class LoadingTest(TestCase):
         self.assertEqual(
             'http://agency.gov/pre-2000/rooms',
             dhs.reading_room_urls.all()[1].url)
+
+        reading_room_links = [[
+            'Electronic Reading Room', 'http://agency.gov/err/'],
+            ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/']]
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        agency = add_reading_rooms(agency, reading_room_links)
+        agency.save()
+        self.assertEqual(2, len(dhs.reading_room_urls.all()))
+
 
     def test_add_stats(self):
         """
