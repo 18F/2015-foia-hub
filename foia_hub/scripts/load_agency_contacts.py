@@ -112,6 +112,10 @@ def add_request_time_statistics(data, agency, office=None):
 
 
 def add_reading_rooms(contactable, data):
+
+    # delete old data
+    contactable.reading_room_urls.all().delete()
+
     for link_text, url in data.get('reading_rooms', []):
         existing_room = ReadingRoomUrls.objects.filter(
             link_text=link_text, url=url)
@@ -122,7 +126,6 @@ def add_reading_rooms(contactable, data):
             r = ReadingRoomUrls(link_text=link_text, url=url)
             r.save()
             contactable.reading_room_urls.add(r)
-    return contactable
 
 
 def build_abbreviation(agency_name):
@@ -151,9 +154,6 @@ def load_data(data):
     """
     Loads data from each yaml file into the database.
     """
-
-    # Delete old data
-    ReadingRoomUrls.objects.all().delete()
 
     # Load the agency
     name = data['name']
