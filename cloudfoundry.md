@@ -122,34 +122,20 @@ Better instructions TBD!
 ## Cloud Foundry time
 
 * Change `Procfile` to use `$VCAP_APP_PORT` instead of `$PORT`.
-* Create the Postgresql service:
 
-```bash
-cf create-service postgresql default foia-db
-```
-
-* Bind the postgresql service to the app:
+* Set the necessary environment variables:
 
 ```
-cf bind-service foia-testing foia-db
+cf set-env foia DATABASE_URL [value]
+cf set-env foia FOIA_ANALYTICS_ID [value]
+cf set-env foia FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
 ```
 
-* Grab the database URL from the env. It's in `VCAP_SERVICES.postgresql-9.3.credentials.uri`.
+* Moved the runtime down from `3.4.2` to `3.4.0`, as that's what 18F's CF currently supports.
 
-```
-cf env foia-testing
-```
+* Renamed app from `foia-testing` to `foia`.
 
-* Set the `DATABASE_URL` to that URL.
+* Ignored the `staticfiles/` directory.
 
-```
-cf set-env foia-testing [url]
-```
-
-* Set the remaining environment variables, one by one.
-
-```
-cf set-env foia-testing FOIA_ANALYTICS_ID [value]
-cf set-env foia-testing FOIA_SECRET_SESSION_KEY [value]
-cf set-env foia-testing DJANGO_SETTINGS_MODULE foia_hub.settings.dev
-```
+* Re-synced the `.cfignore` and `.gitignore`.
