@@ -1,6 +1,7 @@
-debug.log
-npm-debug.log
+.env
+/staticfiles
 
+*.log
 *.db
 
 node_modules
@@ -16,8 +17,6 @@ node_modules
 */static/sass/bourbon
 */static/sass/neat
 .webassets-cache
-
-local_settings.py
 
 /todo.txt
 
