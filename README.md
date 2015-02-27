@@ -158,9 +158,13 @@ foia-hub repository's root:
 ```
 
 No repository parameter is needed if both the foia and foia-hub projects are
-cloned into the same directory.
+cloned into the same directory. You should be able to run the server now:
 
-Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
+```bash
+python manage.py runserver
+```
+
+And when you access [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll see the list of agencies in JSON format.
 
 
 ### Front-end Dev Environment
