@@ -67,8 +67,8 @@ body > header {
     @include span-columns(20)
   }*/
   @include media($medium) {
-    @include shift(1);
-    @include span-columns(10);
+    @include shift(1 of 12);
+    @include span-columns(10 of 12);
   }
   @include media($small) {
     @include shift(0);
