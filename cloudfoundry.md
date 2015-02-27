@@ -92,6 +92,24 @@ git push heroku cloudfoundry:master
 heroku run python manage.py migrate
 ```
 
+## Moving AWS to use Heroku-style deployment
+
+* Moved some old settings file into `shared/old`.
+* Made a new `shared/log` dir and restarted nginx to kick off nginx log files again.
+* Updated fabfile with a first pass at new approach.
+* Renamed `env` to `foia-env`, since `env` is a system command.
+* Removed `links` method in `fabfile.py`, since we don't need unversioned files anymore.
+* **Important**: the `$PYTHONPATH` variable should _not_ be set. If it is set, it interferes in non-obvious ways to make the server not see env variables and not start.
+* Sourced environment variables for the `migrate` step in the fabfile.
+* Temporarily add `$PORT` to the env file as well, since the `Procfile` uses `$PORT`.
+* Change the `start` command to use `nohup foreman start &`.
+* Change the `stop` command to just `killall waitress-server`
+
+Status:
+
+* `fab deploy` will stay hanging, but successfully daemonize the app.
+* The webhook is down.
+
 ## Load the data
 
 Right now, load it *locally* from your laptop, with a connection string pointed at the production DB:
