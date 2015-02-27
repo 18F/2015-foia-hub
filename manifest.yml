@@ -3,6 +3,6 @@
 memory: 1G
 instances: 1
 applications:
-- name: foia-testing
+- name: foia
   path: .
   timeout: 180
