@@ -79,10 +79,10 @@ body > header {
 @mixin inner($columns) {
   @include span-columns( $columns );
   @include shift( ( 24 - $columns ) / 2 );
-/*  @include media($large) {
-    @include shift(2);
-    @include span-columns(20)
-  }*/
+  // @include media($large) {
+  //   @include shift(2);
+  //   @include span-columns(20)
+  // }
   @include media($medium) {
     @include shift(1);
     @include span-columns(10);

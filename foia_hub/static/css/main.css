@@ -794,10 +794,6 @@ div#usa .alpha a {
   margin-right: 1.05263%;
   width: 66.31579%;
   margin-left: 16.84211%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/
 }
 #main .search--content:last-child {
   margin-right: 0;
@@ -893,10 +889,6 @@ footer h4 {
   margin-right: 1.05263%;
   width: 66.31579%;
   margin-left: 16.84211%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/
 }
 .hero > .container > .hero--content:last-child {
   margin-right: 0;
@@ -945,10 +937,6 @@ footer h4 {
   margin-right: 1.05263%;
   width: 66.31579%;
   margin-left: 16.84211%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/
 }
 .content:last-child {
   margin-right: 0;
@@ -984,10 +972,6 @@ footer h4 {
   margin-right: 1.05263%;
   width: 66.31579%;
   margin-left: 16.84211%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/
 }
 .searchresults:last-child {
   margin-right: 0;
@@ -1194,10 +1178,6 @@ footer h4 {
   margin-right: 1.05263%;
   width: 66.31579%;
   margin-left: 16.84211%;
-  /*  @include media($large) {
-      @include shift(2);
-      @include span-columns(20)
-    }*/
 }
 .department__decentralized:last-child {
   margin-right: 0;
