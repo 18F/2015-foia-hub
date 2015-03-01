@@ -7,10 +7,7 @@ from foia_hub.scripts.load_agency_contacts import (
 
 example_office1 = {
     'address': {
-        'address_lines': [
-            'Regional Freedom of Information Officer',
-            'U.S. EPA, Region 9',
-            '(OPPA-2)'],
+        'address_lines': ['line 1', 'line 2'],
         'street': '75 Hawthorne Street',
         'city': 'San Francisco',
         'state': 'CA',
@@ -24,7 +21,7 @@ example_office1 = {
     'phone': '415-947-4251',
     'public_liaison': {'name': 'Deborah Williams', 'phone': ['703-516-5555']},
     'request_form': 'http://www.epa.gov/foia/requestform.html',
-    'service_center': {'phone': ['415-947-4251']},
+    'service_center': {'name': 'Timbo Two', 'phone': ['415-947-4251']},
     'top_level': False,
     'website': 'http://www.epa.gov/region09/foia/index.html'
 }
@@ -32,10 +29,7 @@ example_office1 = {
 example_sub_office = {
     'abbreviation': 'R9',
     'address': {
-        'address_lines': [
-            'Regional Freedom of Information Officer',
-            'U.S. EPA, Region 9',
-            '(OPPA-2)'],
+        'address_lines': ['line 1', 'line 2'],
         'street': '75 Hawthorne Street',
         'city': 'San Francisco',
         'state': 'CA',
@@ -52,7 +46,7 @@ example_sub_office = {
     'phone': '415-947-4251',
     'public_liaison': {'name': 'Deborah Williams', 'phone': ['703-516-5555']},
     'request_form': 'http://www.epa.gov/foia/requestform.html',
-    'service_center': {'phone': ['415-947-4251']},
+    'service_center': {'name': 'Timbo', 'phone': ['415-947-4251']},
     'top_level': True,
     'website': 'http://www.epa.gov/region09/foia/index.html'
 }
@@ -113,17 +107,58 @@ class LoaderTest(TestCase):
             'environmental-protection-agency-' +
             '-region-9-states-az-ca-hi-nv-as-gu', o.slug)
 
+    def test_multi_load(self):
+        """ Ensures that old data are set to null on second load """
+
+        # Load one
+        load_data(example_agency)
+        sub_a = Agency.objects.get(
+            name='Region 10 (States: AK, ID, OR, WA)')
+        self.assertEqual(sub_a.person_name, 'Timbo')
+        self.assertEqual(sub_a.public_liaison_name, 'Deborah Williams')
+        self.assertEqual(sub_a.address_lines, ['line 1', 'line 2'])
+        self.assertEqual(sub_a.zip_code, '94105')
+        self.assertEqual(sub_a.state, 'CA')
+        self.assertEqual(sub_a.city, 'San Francisco')
+        self.assertEqual(sub_a.street, '75 Hawthorne Street')
+
+        # Deleting values
+        del (example_sub_office['service_center']['name'],
+             example_sub_office['public_liaison']['name'],
+             example_sub_office['address']['address_lines'],
+             example_sub_office['address']['zip'],
+             example_sub_office['address']['state'],
+             example_sub_office['address']['city'],
+             example_sub_office['address']['street']
+             )
+
+        # Load two test
+        load_data(example_agency)
+        sub_a = Agency.objects.get(
+            name='Region 10 (States: AK, ID, OR, WA)')
+        self.assertEqual(sub_a.person_name, None)
+        self.assertEqual(sub_a.public_liaison_name, None)
+        self.assertEqual(sub_a.address_lines, [])
+        self.assertEqual(sub_a.zip_code, None)
+        self.assertEqual(sub_a.state, None)
+        self.assertEqual(sub_a.city, None)
+        self.assertEqual(sub_a.street, None)
+
 
 class LoadingTest(TestCase):
 
     fixtures = ['agencies_test.json']
 
     def test_add_reading_rooms(self):
-        reading_room_links = [[
-            'Electronic Reading Room', 'http://agency.gov/err/'],
-            ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
+        """ Test if reading rooms are added properly """
+
+        reading_room_data = {
+            'reading_rooms': [
+                ['Electronic Reading Room', 'http://agency.gov/err/'],
+                ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
+        }
         agency = Agency.objects.get(slug='department-of-homeland-security')
-        agency = add_reading_rooms(agency, reading_room_links)
+        add_reading_rooms(agency, reading_room_data)
         agency.save()
 
         # Retrieve saved
@@ -142,6 +177,16 @@ class LoadingTest(TestCase):
             'http://agency.gov/pre-2000/rooms',
             dhs.reading_room_urls.all()[1].url)
 
+        # Add reading rooms again with altered data
+        reading_room_data = {
+            'reading_rooms': [
+                ['Electronic Reading Room', 'http://agency.gov/err/'],
+                ['Pre-2000 Reading Room', 'http://agency.gov/']]
+        }
+        add_reading_rooms(agency, reading_room_data)
+        dhs = Agency.objects.get(slug='department-of-homeland-security')
+        self.assertEqual(2, len(dhs.reading_room_urls.all()))
+
     def test_add_stats(self):
         """
         Confirms all latest records are loaded, no empty records
@@ -152,8 +197,13 @@ class LoadingTest(TestCase):
         agency = Agency.objects.get(slug='department-of-homeland-security')
         data = {'request_time_stats': {
             '2012': {'simple_median_days': '2'},
-            '2014': {'simple_median_days': 'less than 1'}}}
+            '2014': {'simple_median_days': 'less than 1'}
+        }}
+
         add_request_time_statistics(data, agency)
+
+        # Verify that only one stat was added
+        self.assertEqual(len(agency.stats_set.all()), 1)
 
         # Verify latest data is returned when it exists
         retrieved = agency.stats_set.filter(
@@ -165,13 +215,15 @@ class LoadingTest(TestCase):
             stat_type='S').order_by('-year').first()
         self.assertEqual(retrieved.less_than_one, True)
 
-        # Verify that no empty records are created
-        retrieved = agency.stats_set.filter(
-            stat_type='C').order_by('-year').first()
-        self.assertEqual(retrieved, None)
-        with self.assertRaises(AttributeError) as error:
-            retrieved.median
-        self.assertEqual(type(error.exception), AttributeError)
+        # Load test 2
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        data = {'request_time_stats': {
+            '2015': {'simple_median_days': '3',
+                     'complex_median_days': '3'}}}
+        add_request_time_statistics(data, agency)
+
+        # Verify latest old data is overwritten when new data is updated
+        self.assertEqual(len(agency.stats_set.all()), 2)
 
     def test_extract_tty_phone(self):
         """ Test: from a service center entry, extract the TTY phone if it

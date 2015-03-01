@@ -56,6 +56,7 @@ def contactable_fields(agency, office_dict):
     """Add the Contactable and USAddress fields to the agency based on values
     in the office dictionary. This will be called for both parent and child
     agencies/offices (as written in our current data set)"""
+
     agency.phone = office_dict.get('phone')
     agency.emails = office_dict.get('emails', [])
     agency.fax = office_dict.get('fax')
@@ -65,58 +66,57 @@ def contactable_fields(agency, office_dict):
     service_center = office_dict.get(
         'service_center', {'name': None, 'phone': ['']})
     agency.TTY_phone = extract_tty_phone(service_center)
-    if 'name' in service_center:
-        agency.person_name = service_center['name']
+    agency.person_name = service_center.get('name')
 
     public_liaison = office_dict.get(
         'public_liaison', {'name': None, 'phone': []})
     agency.public_liaison_phone = extract_non_tty_phone(public_liaison)
-    if 'name' in public_liaison:
-        agency.public_liaison_name = public_liaison['name']
+    agency.public_liaison_name = public_liaison.get('name')
 
-    address = office_dict.get('address', {})
-    if address:
-        agency.zip_code = address['zip']
-        agency.state = address['state']
-        agency.city = address['city']
-        agency.street = address['street']
-        if 'address_lines' in address:
-            agency.address_lines = address['address_lines']
-
-    reading_rooms = office_dict.get('reading_rooms', [])
-    if reading_rooms:
-        add_reading_rooms(agency, reading_rooms)
+    address = office_dict.get('address', )
+    agency.zip_code = address.get('zip')
+    agency.state = address.get('state')
+    agency.city = address.get('city')
+    agency.street = address.get('street')
+    agency.address_lines = address.get('address_lines', [])
+    add_reading_rooms(agency, office_dict)
 
 
 def add_request_time_statistics(data, agency, office=None):
-    '''Load stats data about agencies into the database.'''
-    if not data.get('request_time_stats'):
-        return
-    latest_year = sorted(
-        data.get('request_time_stats').keys(), reverse=True)[0]
-    data = data['request_time_stats'].get(latest_year)
-    if not data:
-        return
-    iterator = [('S', 'simple'), ('C', 'complex')]
-    for arg in iterator:
-        median = data.get("%s_median_days" % arg[1])
-        if median:
-            stat, created = Stats.objects.get_or_create(
-                agency=agency,
-                office=office,
-                year=int(latest_year),
-                stat_type=arg[0])
+    """Load stats data about agencies into the database."""
 
-            if median == 'less than 1':
-                stat.median = 1
-                stat.less_than_one = True
-            else:
-                stat.median = median
-            stat.save()
+    # Delete old stats before adding
+    Stats.objects.filter(agency=agency, office=office).delete()
+
+    if data.get('request_time_stats'):
+        latest_year = sorted(
+            data.get('request_time_stats').keys(), reverse=True)[0]
+        data = data['request_time_stats'].get(latest_year)
+        if data:
+            iterator = [('S', 'simple'), ('C', 'complex')]
+            for arg in iterator:
+                median = data.get("%s_median_days" % arg[1])
+                if median:
+                    stat = Stats(
+                        agency=agency,
+                        office=office,
+                        year=int(latest_year),
+                        stat_type=arg[0])
+
+                    if median == 'less than 1':
+                        stat.median = 1
+                        stat.less_than_one = True
+                    else:
+                        stat.median = median
+                    stat.save()
 
 
-def add_reading_rooms(contactable, reading_rooms):
-    for link_text, url in reading_rooms:
+def add_reading_rooms(contactable, data):
+
+    # delete old data
+    contactable.reading_room_urls.all().delete()
+
+    for link_text, url in data.get('reading_rooms', []):
         existing_room = ReadingRoomUrls.objects.filter(
             link_text=link_text, url=url)
         existing_room = list(existing_room)
@@ -126,7 +126,6 @@ def add_reading_rooms(contactable, reading_rooms):
             r = ReadingRoomUrls(link_text=link_text, url=url)
             r.save()
             contactable.reading_room_urls.add(r)
-    return contactable
 
 
 def build_abbreviation(agency_name):
@@ -138,24 +137,33 @@ def build_abbreviation(agency_name):
     return abbreviation
 
 
+def load_agency_fields(agency, data):
+    """ Loads agency-specific values """
+
+    abbreviation = data.get('abbreviation')
+    if not abbreviation:
+        abbreviation = build_abbreviation(data.get('name'))
+    agency.abbreviation = abbreviation
+    agency.description = data.get('description')
+    agency.keywords = data.get('keywords')
+    agency.common_requests = data.get('common_requests', [])
+    agency.no_records_about = data.get('no_records_about', [])
+
+
 def load_data(data):
     """
     Loads data from each yaml file into the database.
     """
 
-    # Agencies
+    # Load the agency
     name = data['name']
     slug = Agency.slug_for(name)
-
     a, created = Agency.objects.get_or_create(slug=slug, name=name)
 
-    a.abbreviation = data['abbreviation']
-    a.description = data.get('description')
-    a.keywords = data.get('keywords')
-    a.common_requests = data.get('common_requests', [])
-    a.no_records_about = data.get('no_records_about', [])
+    # Load the agency-specific values
+    load_agency_fields(a, data)
 
-    #   Only has a single, main branch/office
+    #   If the agency only has a single department the contactable fields
     if len(data['departments']) == 1:
         dept_rec = data['departments'][0]
         contactable_fields(a, dept_rec)
@@ -163,32 +171,22 @@ def load_data(data):
     a.save()
     add_request_time_statistics(data, a)
 
-    # Offices
+    # Load agency offices
     if len(data['departments']) > 1:
         for dept_rec in data['departments']:
+
+            # If top-level=True office is saved as agency
             if dept_rec.get('top_level'):
-                # This is actually an agency
                 sub_agency_name = dept_rec['name']
                 sub_agency_slug = Agency.slug_for(sub_agency_name)
-
                 sub_agency, created = Agency.objects.get_or_create(
                     slug=sub_agency_slug, name=sub_agency_name)
                 sub_agency.parent = a
-
-                abbreviation = dept_rec.get('abbreviation')
-                if not abbreviation:
-                    abbreviation = build_abbreviation(sub_agency_name)
-                sub_agency.abbreviation = abbreviation
-
-                sub_agency.description = dept_rec.get('description')
-                sub_agency.keywords = dept_rec.get('keywords')
-                sub_agency.common_requests = dept_rec.get(
-                    'common_requests', [])
-                sub_agency.no_records_about = dept_rec.get(
-                    'no_records_about', [])
+                load_agency_fields(sub_agency, dept_rec)
                 contactable_fields(sub_agency, dept_rec)
                 sub_agency.save()
                 add_request_time_statistics(dept_rec, sub_agency)
+
             else:
                 # Just an office
                 office_name = dept_rec['name']
