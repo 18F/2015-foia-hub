@@ -37,24 +37,6 @@ class USAddress(models.Model):
         abstract = True
 
 
-class ReadingRoomUrls(models.Model):
-    """ Reading rooms are where agencies and offices put their disclosed
-    documents. """
-
-    link_text = models.CharField(
-        max_length=512,
-        help_text="This is the text associated with the reading room URL. ")
-    url = models.URLField(
-        null=True, help_text="The URL to an agency's reading room.")
-
-    def __unicode__(self):
-        return '%s %s' % (self.link_text, self.url)
-
-    def __str__(self):
-        return self.__unicode__()
-
-    class Meta:
-        unique_together = (("link_text", "url"),)
 
 
 class Contactable(USAddress):
@@ -72,8 +54,8 @@ class Contactable(USAddress):
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
 
-    reading_room_urls = models.ManyToManyField(
-        ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
+    #reading_room_urls = models.ManyToManyField(
+    #    ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
 
     request_form_url = models.URLField(
         null=True,
@@ -160,6 +142,24 @@ class Office(Contactable):
         """ Helper method for slugifying office names."""
         return slugify(text)[:50]
 
+class ReadingRoomUrls(models.Model):
+    """ Reading rooms are where agencies and offices put their disclosed
+    documents. """
+
+    agency = models.ForeignKey(Agency)
+    office = models.ForeignKey(Office, null=True, blank=True)
+    link_text = models.CharField(
+        max_length=512,
+        help_text="This is the text associated with the reading room URL. ")
+    url = models.URLField(
+        null=True, help_text="The URL to an agency's reading room.")
+
+
+    def __unicode__(self):
+        return '%s %s' % (self.link_text, self.url)
+
+    def __str__(self):
+        return self.__unicode__()
 
 class Stats(models.Model):
     """
