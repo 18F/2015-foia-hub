@@ -59,7 +59,6 @@ class PreparerTests(TestCase):
 
         census = Office.objects.get(
             slug='department-of-commerce--census-bureau')
-        #census.reading_room_urls.add(rone, rtwo)
 
         rone = ReadingRoomUrls(
             content_object=census, link_text='Url One', url='http://urlone.gov')
@@ -68,7 +67,6 @@ class PreparerTests(TestCase):
             content_object=census, link_text='Url Two', url='http://urltwo.gov')
         rtwo.save()
 
-        
         data = foia_libraries_preparer(census)
 
         serialized_rooms = {'foia_libraries': [

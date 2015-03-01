@@ -229,8 +229,6 @@ class ContactPageTests(TestCase):
             url='http://urltwo.gov')
         rtwo.save()
 
-        #census.reading_room_urls.add(rone, rtwo)
-
         response = self.client.get(
             reverse(
                 'contact_landing',

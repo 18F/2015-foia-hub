@@ -47,8 +47,6 @@ class ReadingRoomUrls(models.Model):
     object_id = models.PositiveIntegerField()
     content_type = models.ForeignKey(ContentType)
     content_object = GenericForeignKey('content_type', 'object_id')
-    #agency = models.ForeignKey(Agency)
-    #office = models.ForeignKey(Office, null=True, blank=True)
     link_text = models.CharField(
         max_length=512,
         help_text="This is the text associated with the reading room URL. ")
@@ -78,8 +76,6 @@ class Contactable(USAddress):
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
 
-    #reading_room_urls = models.ManyToManyField(
-    #    ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
     reading_room_urls = GenericRelation(ReadingRoomUrls)
 
     request_form_url = models.URLField(
