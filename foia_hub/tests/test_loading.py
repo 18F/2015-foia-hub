@@ -147,7 +147,7 @@ class LoaderTest(TestCase):
 
 class LoadingTest(TestCase):
 
-    fixtures = ['agencies_test.json']
+    fixtures = ['agencies_test.json', 'offices_test.json']
 
     def test_add_reading_rooms(self):
         """ Test if reading rooms are added properly """
@@ -176,6 +176,35 @@ class LoadingTest(TestCase):
         self.assertEqual(
             'http://agency.gov/pre-2000/rooms',
             dhs.reading_room_urls.all()[1].url)
+
+    def test_add_delete_reading_rooms(self):
+        """ Add a reading room. Then, remove a reading room (by omission)
+        during a subsequent load. The reading rooms in the database should
+        reflect these changes (the removed reading room should not be there.
+        """
+
+        census = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        all_rooms = census.reading_room_urls.all().count()
+        self.assertEqual(0, all_rooms)
+
+        data = {
+            'reading_rooms': [
+                ['Url One', 'http://urlone.gov'],
+                ['Url Two', 'http://urltwo.gov']]}
+        add_reading_rooms(census, data)
+        all_rooms = census.reading_room_urls.all()
+        self.assertEqual(2, len(all_rooms))
+
+        data = {
+            'reading_rooms': [
+                ['Url One', 'http://urlone.gov'],
+                ['Url Three', 'http://urlthree.gov']]}
+        add_reading_rooms(census, data)
+        rr_count = census.reading_room_urls.all().count()
+        self.assertEqual(2, rr_count)
+
+
 
     def test_add_stats(self):
         """
