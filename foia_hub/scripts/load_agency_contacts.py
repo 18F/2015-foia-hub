@@ -113,19 +113,19 @@ def add_request_time_statistics(data, agency, office=None):
 
 def add_reading_rooms(contactable, data):
 
-    # delete old data
-    contactable.reading_room_urls.all().delete()
-
     for link_text, url in data.get('reading_rooms', []):
-        existing_room = ReadingRoomUrls.objects.filter(
-            link_text=link_text, url=url)
-        existing_room = list(existing_room)
-        if len(existing_room) > 0:
-            contactable.reading_room_urls.add(*existing_room)
-        else:
-            r = ReadingRoomUrls(link_text=link_text, url=url)
-            r.save()
-            contactable.reading_room_urls.add(r)
+        rru = ReadingRoomUrls(
+            content_object=contactable, link_text=link_text, url=url)
+        rru.save()
+        #existing_room = ReadingRoomUrls.objects.filter(
+        #    link_text=link_text, url=url)
+        #existing_room = list(existing_room)
+        #if len(existing_room) > 0:
+        #    contactable.reading_room_urls.add(*existing_room)
+        #else:
+        #    r = ReadingRoomUrls(link_text=link_text, url=url)
+        #    r.save()
+        #    contactable.reading_room_urls.add(r)
 
 
 def build_abbreviation(agency_name):

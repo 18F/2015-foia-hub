@@ -30,14 +30,6 @@
     },
     {
         "fields": {
-            "link_text": "The Electronic Reading Room",
-            "url": "http://www.doc.gov/err/"
-        },
-        "model": "foia_hub.readingroomurls",
-        "pk": 175
-    },
-    {
-        "fields": {
             "TTY_phone": null,
             "abbreviation": "DOC",
             "address_lines": [],
@@ -55,7 +47,6 @@
             "public_liaison_email": null,
             "public_liaison_name": null,
             "public_liaison_phone": null,
-            "reading_room_urls": [175],
             "request_form_url": null,
             "slug": "department-of-commerce",
             "state": "",
@@ -65,6 +56,16 @@
         },
         "model": "foia_hub.agency",
         "pk": 17
+    },
+    {
+        "fields": {
+            "link_text": "The Electronic Reading Room",
+            "url": "http://www.doc.gov/err/", 
+            "object_id": 17,
+            "content_type": ["foia_hub", "agency"]
+        },
+        "model": "foia_hub.readingroomurls",
+        "pk": 175
     },
     {
         "fields": {

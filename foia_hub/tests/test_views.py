@@ -214,14 +214,22 @@ class ContactPageTests(TestCase):
         self.assertTrue('Request online' not in content)
 
     def test_reading_rooms(self):
-        rone = ReadingRoomUrls(link_text='Url One', url='http://urlone.gov')
-        rone.save()
-        rtwo = ReadingRoomUrls(link_text='Url Two', url='http://urltwo.gov')
-        rtwo.save()
-
         census = Office.objects.get(
             slug='department-of-commerce--census-bureau')
-        census.reading_room_urls.add(rone, rtwo)
+
+        rone = ReadingRoomUrls(
+            content_object=census,
+            link_text='Url One',
+            url='http://urlone.gov')
+        rone.save()
+
+        rtwo = ReadingRoomUrls(
+            content_object=census,
+            link_text='Url Two',
+            url='http://urltwo.gov')
+        rtwo.save()
+
+        #census.reading_room_urls.add(rone, rtwo)
 
         response = self.client.get(
             reverse(

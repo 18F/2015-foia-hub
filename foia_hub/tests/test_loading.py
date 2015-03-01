@@ -177,16 +177,6 @@ class LoadingTest(TestCase):
             'http://agency.gov/pre-2000/rooms',
             dhs.reading_room_urls.all()[1].url)
 
-        # Add reading rooms again with altered data
-        reading_room_data = {
-            'reading_rooms': [
-                ['Electronic Reading Room', 'http://agency.gov/err/'],
-                ['Pre-2000 Reading Room', 'http://agency.gov/']]
-        }
-        add_reading_rooms(agency, reading_room_data)
-        dhs = Agency.objects.get(slug='department-of-homeland-security')
-        self.assertEqual(2, len(dhs.reading_room_urls.all()))
-
     def test_add_stats(self):
         """
         Confirms all latest records are loaded, no empty records
