@@ -67,27 +67,23 @@ def cleanup():
 
 def start():
     """
-    Foreman start, Heroku-style:
-    * with the virtualenv enabled.
-    * with the environment variables for the production server sourced.
-    * run the command in our versioned Procfile.
+    Gunicorn start.
     """
 
     run(
         (
             "workon %s && source %s && " +
-            "cd %s && "
-            "nohup foreman start &"
-        ) % (virtualenv, env, current_path), pty=False
+            "cd %s && " +
+            "gunicorn -c %s/config.py %s"
+        ) % (virtualenv, env, current_path, shared_path, wsgi), pty=False
     )
 
 # config.py is expected to point the .pid to the shared/ dir
 def stop():
-    run("killall waitress-serve")
+    run("kill `cat %s/gunicorn.pid`" % shared_path)
 
 def restart():
-    stop()
-    start()
+    run("kill -HUP `cat %s/gunicorn.pid`" % shared_path)
 
 def deploy():
     """
