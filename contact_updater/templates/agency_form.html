@@ -53,8 +53,8 @@
                 {% for field in form.visible_fields() %}
                     <h3>{{field.label}}</h3>
                     {{ field.errors }}
-                    <div name="{{field.id_for_label}}" contentEditable="true">{{field.value() | default("")}}</div>
-                    {{field.as_hidden()}}
+                    <div class='editable' name="{{field.id_for_label}}" contentEditable="true" style="display: none;">{{field.value() | default("")}}</div>
+                    {{field}}
                     <br>
                 {% endfor %}
                 {% for field in form.hidden_fields() %}
@@ -79,4 +79,15 @@
     </section>
     </div>
     </div>
+{% endblock %}
+
+
+{% block footer %}
+    {{super()}}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+        $( ":input" ).hide();
+        $('.editable').show()
+    });
+    </script>
 {% endblock %}
