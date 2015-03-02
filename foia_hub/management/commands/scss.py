@@ -1,9 +1,9 @@
 from glob import glob
 import os
 import subprocess
+import optparse
 
 from django.core.management.base import BaseCommand
-from optparse import make_option
 
 class Command(BaseCommand):
     help = """Runs the sass executable to compile the scss. Add parameter
@@ -11,11 +11,13 @@ class Command(BaseCommand):
 
 
     option_list = BaseCommand.option_list + (
-        make_option("--style",
+        optparse.make_option(
+            "--style",
             dest="style",
             default="expanded",
-            help="specify the CSS output style: 'nested', 'expanded' (default), 'compact', or 'compressed'"),
-        )
+            help="specify the CSS output style: 'nested', 'expanded' (default), 'compact', or 'compressed'"
+        ),
+    )
 
     def handle(self, *args, **options):
         self.style = options["style"]
