@@ -19,5 +19,8 @@ dj-database-url==0.3.0
 
 django-localflavor
 
+# for using New Relic
+newrelic
+
 # temporary, while we maintain an EC2 instance
 gunicorn
