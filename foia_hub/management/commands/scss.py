@@ -14,7 +14,7 @@ class Command(BaseCommand):
         optparse.make_option(
             "--style",
             dest="style",
-            default="expanded",
+            default="nested",
             help="specify the CSS output style: 'nested', 'expanded' (default), 'compact', or 'compressed'"
         ),
     )
