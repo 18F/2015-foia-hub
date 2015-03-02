@@ -112,14 +112,15 @@ def add_request_time_statistics(data, agency, office=None):
 
 
 def add_reading_rooms(contactable, data):
-    
-    # Delete all existing reading rooms, because we'll re-add them. 
+
+    # Delete all existing reading rooms, because we'll re-add them.
     contactable.reading_room_urls.all().delete()
 
     for link_text, url in data.get('reading_rooms', []):
         rru = ReadingRoomUrls(
             content_object=contactable, link_text=link_text, url=url)
         rru.save()
+
 
 def build_abbreviation(agency_name):
     """ Given an agency name, guess at an abbrevation. """
