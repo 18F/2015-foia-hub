@@ -79,7 +79,7 @@ def contactable_fields(agency, office_dict):
     agency.city = address.get('city')
     agency.street = address.get('street')
     agency.address_lines = address.get('address_lines', [])
-    add_reading_rooms(agency, office_dict)
+    update_reading_rooms(agency, office_dict)
 
 
 def add_request_time_statistics(data, agency, office=None):
@@ -111,7 +111,10 @@ def add_request_time_statistics(data, agency, office=None):
                     stat.save()
 
 
-def add_reading_rooms(contactable, data):
+def update_reading_rooms(contactable, data):
+    """ This ensures that the reading rooms indicated in `data` are added to
+    the contactable (agency, office). If the contactable already has reading
+    rooms, those are deleted first. """
 
     # Delete all existing reading rooms, because we'll re-add them.
     contactable.reading_room_urls.all().delete()

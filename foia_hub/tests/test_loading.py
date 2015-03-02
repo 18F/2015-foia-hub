@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import (
-    load_data, add_reading_rooms, add_request_time_statistics,
+    load_data, update_reading_rooms, add_request_time_statistics,
     extract_tty_phone, extract_non_tty_phone, build_abbreviation)
 
 example_office1 = {
@@ -149,7 +149,7 @@ class LoadingTest(TestCase):
 
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_add_reading_rooms(self):
+    def test_update_reading_rooms(self):
         """ Test if reading rooms are added properly """
 
         reading_room_data = {
@@ -158,7 +158,7 @@ class LoadingTest(TestCase):
                 ['Pre-2000 Reading Room', 'http://agency.gov/pre-2000/rooms']]
         }
         agency = Agency.objects.get(slug='department-of-homeland-security')
-        add_reading_rooms(agency, reading_room_data)
+        update_reading_rooms(agency, reading_room_data)
         agency.save()
 
         # Retrieve saved
@@ -192,7 +192,7 @@ class LoadingTest(TestCase):
             'reading_rooms': [
                 ['Url One', 'http://urlone.gov'],
                 ['Url Two', 'http://urltwo.gov']]}
-        add_reading_rooms(census, data)
+        update_reading_rooms(census, data)
         all_rooms = census.reading_room_urls.all()
         self.assertEqual(2, len(all_rooms))
 
@@ -200,11 +200,9 @@ class LoadingTest(TestCase):
             'reading_rooms': [
                 ['Url One', 'http://urlone.gov'],
                 ['Url Three', 'http://urlthree.gov']]}
-        add_reading_rooms(census, data)
+        update_reading_rooms(census, data)
         rr_count = census.reading_room_urls.all().count()
         self.assertEqual(2, rr_count)
-
-
 
     def test_add_stats(self):
         """
