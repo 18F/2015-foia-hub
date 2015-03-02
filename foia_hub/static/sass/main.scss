@@ -276,16 +276,9 @@ footer {
       }
     }
 
-    h2 {
-      font-size: $h2-font-size * 0.8;
-    }
-
-    h3 {
-      font-size: $h3-font-size * 0.6;
-    }
-
     .details > hr {
       border-bottom: 1px solid $dark-gray;
+      margin-top: 0;
     }
 
     .resources {
@@ -325,18 +318,28 @@ footer {
 
     }
 
+    .contact_type {
+      .fa {
+        font-size: 1.8em;
+      }
+    }
+
+    .resource_type {
+        padding-left: 1em;
+        .fa {
+          font-size: 1.5em;
+        }
+    }
+
     .resource_type, .contact_type {
 
       margin: 15px 0;
 
       .icon {
-        .fa {
-          font-size: 1.8em;
-        }
         // @include span-columns(2 of 24);
         float:left;
         text-align:center;
-        margin-right:2em;
+        margin-right:1.7em;
         // position:absolute;
         width:24px;
       }

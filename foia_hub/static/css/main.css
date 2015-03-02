@@ -920,12 +920,9 @@ footer {
       width: 100%; }
       #main.landing .department .department--container:last-child {
         margin-right: 0; } }
-#main.landing .department h2 {
-  font-size: 1.2em; }
-#main.landing .department h3 {
-  font-size: 0.675em; }
 #main.landing .department .details > hr {
-  border-bottom: 1px solid #323A45; }
+  border-bottom: 1px solid #323A45;
+  margin-top: 0; }
 #main.landing .department .resources {
   float: left;
   display: block;
@@ -967,15 +964,19 @@ footer {
   margin: 10px 0;
   font-size: 1.2em;
   line-height: 30px; }
+#main.landing .department .contact_type .fa {
+  font-size: 1.8em; }
+#main.landing .department .resource_type {
+  padding-left: 1em; }
+  #main.landing .department .resource_type .fa {
+    font-size: 1.5em; }
 #main.landing .department .resource_type, #main.landing .department .contact_type {
   margin: 15px 0; }
   #main.landing .department .resource_type .icon, #main.landing .department .contact_type .icon {
     float: left;
     text-align: center;
-    margin-right: 2em;
+    margin-right: 1.7em;
     width: 24px; }
-    #main.landing .department .resource_type .icon .fa, #main.landing .department .contact_type .icon .fa {
-      font-size: 1.8em; }
   #main.landing .department .resource_type .subdetails, #main.landing .department .contact_type .subdetails {
     overflow: hidden; }
   #main.landing .department .resource_type ul, #main.landing .department .resource_type li, #main.landing .department .contact_type ul, #main.landing .department .contact_type li {
