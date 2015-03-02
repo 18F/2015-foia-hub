@@ -118,3 +118,34 @@ Right now, load it *locally* from your laptop, with a connection string pointed 
 ./manage.py load_agency_contacts /path/to/foia/contacts/data
 
 Better instructions TBD!
+
+## Cloud Foundry time
+
+* Change `Procfile` to use `$VCAP_APP_PORT` instead of `$PORT`.
+
+* Set the necessary environment variables:
+
+```
+cf set-env foia DATABASE_URL [value]
+cf set-env foia FOIA_ANALYTICS_ID [value]
+cf set-env foia FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+```
+
+* Moved the runtime down from `3.4.2` to `3.4.0`, as that's what 18F's CF currently supports.
+
+* Renamed app from `foia-testing` to `foia`.
+
+* Ignored the `staticfiles/` directory.
+
+* Re-synced the `.cfignore` and `.gitignore`.
+
+## Custom domain
+
+* Map a route from our app to a custom domain.
+
+```bash
+cf map-route foia open.foia.gov
+```
+
+* Setting the host value in `/etc/hosts` locally for `open.foia.gov` to the IP address used by `cf.18f.us` should then cause `http://open.foia.gov` to show the deployed app in your browser.
