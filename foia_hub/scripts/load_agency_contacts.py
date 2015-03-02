@@ -112,6 +112,9 @@ def add_request_time_statistics(data, agency, office=None):
 
 
 def add_reading_rooms(contactable, data):
+    
+    # Delete all existing reading rooms, because we'll re-add them. 
+    contactable.reading_room_urls.all().delete()
 
     for link_text, url in data.get('reading_rooms', []):
         rru = ReadingRoomUrls(
