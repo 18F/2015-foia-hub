@@ -1071,7 +1071,11 @@ footer {
   background-color: white;
   height: 3em;
   padding-left: 2em;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px; }
   .search input[type=search]::-webkit-input-placeholder {
     color: #777777; }
   .search input[type=search]::-moz-placeholder {
@@ -1083,6 +1087,10 @@ footer {
 
 .search input[type=submit] {
   color: #323A45;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
   height: 3em;
   width: 6em;
   text-align: center;

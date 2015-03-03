@@ -448,6 +448,8 @@ footer {
   height: 3em;
   padding-left: 2em;
   margin-bottom: 0;
+  @include border-left-radius(3px);
+  @include border-right-radius(3px);
   @include placeholder {
     color: $gray;
   }
@@ -455,6 +457,8 @@ footer {
 
 .search input[type=submit] {
   color: $dark-gray;
+  @include border-right-radius(3px);
+  @include border-left-radius(0);
   height: 3em;
   width: 6em;
   text-align: center;
