@@ -1,9 +1,9 @@
 @import "normalize";
-@import "bourbon";
+@import "bourbon/bourbon";
 // @import "grid-settings";
 @import "base/grid-settings";
 @import "base/base";
-@import "neat";
+@import "neat/neat";
 
 /* 
  * Mixin: inner 
@@ -43,6 +43,31 @@
         @include span-columns($columns);
       }
 }
+
+// see: <http://18f.github.io/accessibility/links/>
+#skip-nav {
+  a {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    width: 1px;
+    overflow: hidden;
+
+    &:focus {
+      top: 5px;
+      left: 5px;
+      width: auto;
+      height: auto;
+      overflow: visible;
+    }
+  }
+}
+
+// all focused links should be underlined
+a:focus {
+  text-decoration: underline !important;
+}
+
 
 body > header {
   background-color: white;
