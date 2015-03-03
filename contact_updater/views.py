@@ -16,14 +16,14 @@ def form_index(request):
         request, "form_index.html", {'agencies': agencies})
 
 
-def download_data(request, slug):
+def download_data(request):
     """ Converts POST request into json file ready for download """
 
     data = dict(request.POST)
     data['timestamp'] = int(time.time())
     del data['csrfmiddlewaretoken']
     res = HttpResponse(json.dumps(data), content_type="application/javascript")
-    res['Content-Disposition'] = 'attachment; filename=%s.json' % slug
+    res['Content-Disposition'] = 'attachment; filename=contact_data.json'
     return res
 
 
@@ -94,7 +94,7 @@ def prepopulate_agency(request, slug):
         if formset.is_valid():
             return_data['validated'] = True
             if request.POST.get('download'):
-                return download_data(request=request, slug=slug)
+                return download_data(request=request)
             elif request.POST.get('return'):
                 return_data['validated'] = False
 
