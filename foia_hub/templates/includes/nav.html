@@ -21,16 +21,16 @@
 
       <nav>
         <ul>
-          <li><a
-            {% if request and ('/agencies/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+            {% if request and ('/agencies/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/agencies/">Federal Agencies
           </a></li>
-          <li><a
-              {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+              {% if request and ('/learn/' == request.path) %}class="active" aria-selected="true"{% endif %}
               href="/learn/">Understanding FOIA
             </a></li>
-          <li><a
-            {% if request and ('/about/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+            {% if request and ('/about/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/about/">About This Project
           </a></li>
         </ul>
