@@ -67,18 +67,6 @@ class FormPageTests(TestCase):
 
 class HelpFunctionTests(TestCase):
 
-    def test_get_first_array(self):
-        """ Test that first element of array is returned"""
-
-        # Array with one element
-        self.assertEqual(views.get_first_element([1]), 1)
-
-        # Array with multiple elements
-        self.assertEqual(views.get_first_element([1, 2, 3]), 1)
-
-        # Array with no elments
-        self.assertEqual(views.get_first_element([]), None)
-
     def test_unpack_libraries(self):
         """ Validate that libraries dicts are unpacked correctly """
 

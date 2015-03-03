@@ -1,6 +1,5 @@
 from django import forms
 
-PHONE_RE = r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'
 PHONE_RE = (
     r"""(?P<prefix>\+?[\d\s\(\)\-]*)"""
     r"""(?P<area_code>\(?\d{3}\)?[\s\-\(\)]*)"""
@@ -54,9 +53,9 @@ class AgencyData(forms.Form):
 
     common_requests = forms.CharField(
         label='Commonly Requested Topics',
-        help_text='(Types of requests which this office recives often)',
+        help_text='(Types of requests which this office receives often)',
         required=False, widget=forms.Textarea(attrs={'rows': 3}))
     no_records_about = forms.CharField(
         label='Commonly Misdirected Topics',
-        help_text='(Misdirected requests which this office recives often)',
+        help_text='(Misdirected requests which this office receives often)',
         required=False, widget=forms.Textarea(attrs={'rows': 3}))

@@ -11,13 +11,17 @@ from foia_hub.api import AgencyResource, OfficeResource
 
 
 def form_index(request):
+    """
+    This function renders the landing page of the contact updater, which
+    contains a links to each agencies update form.
+    """
     agencies = AgencyResource().list()
     return render(
         request, "form_index.html", {'agencies': agencies})
 
 
 def download_data(request):
-    """ Converts POST request into json file ready for download """
+    """ Converts POST request into JSON file ready for download """
 
     data = dict(request.POST)
     data['timestamp'] = int(time.time())
@@ -25,13 +29,6 @@ def download_data(request):
     res = HttpResponse(json.dumps(data), content_type="application/javascript")
     res['Content-Disposition'] = 'attachment; filename=contact_data.json'
     return res
-
-
-def get_first_element(array):
-    """ Given a list returns first element """
-
-    if array:
-        return array[0]
 
 
 def unpack_libraries(libraries):
@@ -50,7 +47,9 @@ def join_array(array):
 def transform_data(data):
     """ Returns only first email """
 
-    data['emails'] = get_first_element(data.get('emails'))
+    emails = data.get('emails')
+    if emails:
+        data['emails'] = emails[0]
     data['foia_libraries'] = unpack_libraries(data.get('foia_libraries'))
     data['common_requests'] = join_array(data.get('common_requests'))
     data['no_records_about'] = join_array(data.get('no_records_about'))
@@ -83,13 +82,10 @@ def prepopulate_agency(request, slug):
     """
     return_data = {}
     agency_form_set = formset_factory(AgencyData)
-    # I think we'll need a special endpoint for this
-    # looping though multiple pages is taking too long
-    agency_data = get_agency_data(slug=slug)
-    if request.method == "GET":
-        formset = agency_form_set(initial=agency_data)
 
-    elif request.method == 'POST':
+    agency_data = get_agency_data(slug=slug)
+
+    if request.method == 'POST':
         formset = agency_form_set(request.POST)
         if formset.is_valid():
             return_data['validated'] = True
@@ -97,6 +93,9 @@ def prepopulate_agency(request, slug):
                 return download_data(request=request)
             elif request.POST.get('return'):
                 return_data['validated'] = False
+
+    else:
+        formset = agency_form_set(initial=agency_data)
 
     management_form = formset.management_form
     return_data.update(
