@@ -1,0 +1,8 @@
+# for using New Relic
+newrelic
+
+# deployed/hosted with waitress
+waitress==0.8.9
+
+# temporary, while we maintain an EC2 instance
+gunicorn

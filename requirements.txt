@@ -10,17 +10,9 @@ restless==2.0.1
 # PyYAML is for contact loading
 PyYAML==3.11
 
-# deployed/hosted with waitress
-waitress==0.8.9
 dj-static==0.0.6
 
 # use database strings instead of dicts
 dj-database-url==0.3.0
 
 django-localflavor
-
-# for using New Relic
-newrelic
-
-# temporary, while we maintain an EC2 instance
-gunicorn
