@@ -876,6 +876,8 @@ footer {
     margin-bottom: 0; }
   #main .searchresults hr {
     margin-top: 0.5em; }
+  #main .searchresults a .fa {
+    color: #0067BA; }
   #main .searchresults .searchresults--list em {
     color: #0096B5;
     font-style: normal;
