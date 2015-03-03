@@ -400,8 +400,7 @@ h6 {
   font-weight: 600;
   line-height: 1.25;
   margin: 0;
-  text-rendering: optimizeLegibility;
-  display: inline-block; }
+  text-rendering: optimizeLegibility; }
   h1 em,
   h2 em,
   h3 em,
@@ -440,9 +439,10 @@ a {
   color: #0067BA;
   text-decoration: none; }
   a:hover {
-    color: #003d6e; }
+    color: #3ba7ff;
+    text-decoration: underline; }
   a:active, a:focus {
-    color: #003d6e;
+    color: #3ba7ff;
     outline: none; }
 
 hr {
@@ -605,6 +605,18 @@ html {
   -moz-box-sizing: inherit;
   box-sizing: inherit; }
 
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede; }
@@ -643,18 +655,6 @@ body > header {
     background: #fff;
     color: #1188ff; }
 
-/* 
- * Mixin: inner 
- * $columns should always be an even number 
- */
-/* 
- * Mixin: fullbleed
- * $columns should always be an even number 
- */
-/* 
- * Mixin: small
- * $columns should always be an even number 
- */
 div#usa {
   background-color: #323A45;
   color: #EAEDF1;
@@ -714,9 +714,11 @@ div#usa {
         margin-right: 0; } }
   #main .search--content h2 {
     border-bottom: none; }
-  #main .search--content .browse a {
-    color: #00BFE7;
-    font-weight: 800; }
+  #main .search--content .browse {
+    margin-top: 1em; }
+    #main .search--content .browse a {
+      color: #00BFE7;
+      font-weight: 800; }
 
 footer {
   background-color: white;
@@ -800,6 +802,11 @@ footer {
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
+#main.home hr {
+  margin: 1em 0 3em; }
+#main.home p, #main.home li {
+  font-size: 1.2em; }
+
 .fa {
   color: #00BFE7; }
 
@@ -835,7 +842,7 @@ footer {
       .content:last-child {
         margin-right: 0; } }
 
-.searchresults {
+#main .searchresults {
   float: left;
   display: block;
   margin-right: 1.0526315789%;
@@ -845,28 +852,50 @@ footer {
       @include shift(2);
       @include span-columns(20)
     }*/ }
-  .searchresults:last-child {
+  #main .searchresults:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
-    .searchresults {
+    #main .searchresults {
       margin-left: 8.5106382979%;
       float: left;
       display: block;
       margin-right: 2.1276595745%;
       width: 82.9787234043%; }
-      .searchresults:last-child {
+      #main .searchresults:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
-    .searchresults {
+    #main .searchresults {
       margin-left: 0%;
       float: left;
       display: block;
       margin-right: 6.6666666667%;
       width: 100%; }
-      .searchresults:last-child {
+      #main .searchresults:last-child {
         margin-right: 0; } }
-  .searchresults li {
+  #main .searchresults h2 {
+    margin-bottom: 0; }
+  #main .searchresults hr {
+    margin-top: 0.5em; }
+  #main .searchresults .searchresults--list em {
+    color: #0096B5;
+    font-style: normal;
+    font-weight: 700; }
+  #main .searchresults .searchresults--list li {
     padding: 0.5em 0; }
+  #main .searchresults #searchresults--index li {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.2em; }
+  #main .searchresults .searchresults--letter {
+    margin: 2em 0 0; }
+    #main .searchresults .searchresults--letter h2 {
+      font-size: 1.2em;
+      color: #323A45; }
+    #main .searchresults .searchresults--letter a {
+      color: #323A45; }
+      #main .searchresults .searchresults--letter a:hover {
+        font-style: none;
+        text-decoration: none; }
 
 .breadcrumbs_container {
   background: white;
@@ -876,8 +905,10 @@ footer {
   padding: 0.5em 0;
   font-size: 0.8em; }
 
-#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
+#main h1, #main h2 {
   margin-bottom: 0.8em; }
+#main h3, #main h4, #main h5, #main h6 {
+  margin-botto: 0.6em; }
 
 #main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6, #main .about .toc h1, #main .about .toc h2, #main .about .toc h3, #main .about .toc h4, #main .about .toc h5, #main .about .toc h6 {
   margin: 0; }
@@ -1039,6 +1070,14 @@ footer {
   height: 3em;
   padding-left: 2em;
   margin-bottom: 0; }
+  .search input[type=search]::-webkit-input-placeholder {
+    color: #777777; }
+  .search input[type=search]::-moz-placeholder {
+    color: #777777; }
+  .search input[type=search]:-moz-placeholder {
+    color: #777777; }
+  .search input[type=search]:-ms-input-placeholder {
+    color: #777777; }
 
 .search input[type=submit] {
   color: #323A45;

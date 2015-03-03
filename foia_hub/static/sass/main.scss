@@ -5,6 +5,44 @@
 @import "base/base";
 @import "neat";
 
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
+@mixin inner($columns) {
+  @include span-columns( $columns );
+  @include shift( ( 24 - $columns ) / 2 );
+/*  @include media($large) {
+    @include shift(2);
+    @include span-columns(20)
+  }*/
+  @include media($medium) {
+    @include shift(1 of 12);
+    @include span-columns(10 of 12);
+  }
+  @include media($small) {
+    @include shift(0);
+    @include span-columns(4);
+  }  
+}
+
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+@mixin fullbleed($columns) {
+ // vz: TO BE IMPLEMENTED
+}
+
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
+@mixin small($columns) {
+      @include media($small) {
+        @include span-columns($columns);
+      }
+}
 
 body > header {
   background-color: white;
@@ -55,45 +93,6 @@ body > header {
   }
 }
 
-/* 
- * Mixin: inner 
- * $columns should always be an even number 
- */
-@mixin inner($columns) {
-  @include span-columns( $columns );
-  @include shift( ( 24 - $columns ) / 2 );
-/*  @include media($large) {
-    @include shift(2);
-    @include span-columns(20)
-  }*/
-  @include media($medium) {
-    @include shift(1 of 12);
-    @include span-columns(10 of 12);
-  }
-  @include media($small) {
-    @include shift(0);
-    @include span-columns(4);
-  }  
-}
-
-/* 
- * Mixin: fullbleed
- * $columns should always be an even number 
- */
-@mixin fullbleed($columns) {
- // vz: TO BE IMPLEMENTED
-}
-
-/* 
- * Mixin: small
- * $columns should always be an even number 
- */
-@mixin small($columns) {
-      @include media($small) {
-        @include span-columns($columns);
-      }
-}
-
 div#usa {
   background-color: $dark-gray;
   color: $light-gray;
@@ -129,9 +128,12 @@ div#usa {
       border-bottom: none;
     }
 
-    .browse a {
+    .browse {
+      margin-top: 1em;
+      a {
       color: $aqua-blue;
       font-weight: 800;
+      }
     }
   }
 }
@@ -187,9 +189,13 @@ footer {
 }
 
 #main.home {
+  hr {
+    margin: 1em 0 3em;
+  }
   section.process {
     ol { @extend %default-ol; }
   }
+  p, li { font-size: $base-font-size * 1.2; }
 }
 
 .fa {
@@ -201,10 +207,45 @@ footer {
   @include inner(16);
 }
 
-.searchresults {
+#main .searchresults {
   @include inner(16);
-  li {
-    padding: 0.5em 0;
+  h2 {
+    margin-bottom: 0;
+  }
+  hr {
+    margin-top: 0.5em;
+  }
+  .searchresults--list {
+    em {
+    color: $medium-blue;
+    font-style: normal;
+    font-weight: 700;
+    }
+    li {
+      padding: 0.5em 0;
+    }
+  }
+  #searchresults--index {
+    li {
+    display: inline-block;
+    font-weight: 700;
+    font-size: $base-font-size * 1.2;
+    }
+  }
+  .searchresults--letter {
+    margin: 2em 0 0;
+    h2 {
+      font-size: $base-font-size * 1.2;
+      color: $dark-gray;
+    }
+    a {
+      color: $dark-gray;
+      &:hover {
+        font-style: none;
+        text-decoration: none;
+      }
+    }
+
   }
 }
 
@@ -219,8 +260,11 @@ footer {
 }
 
 #main {
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
     margin-bottom:0.8em;
+  }
+  h3, h4, h5, h6 {
+    margin-botto: 0.6em;
   }
 }
 
@@ -401,6 +445,9 @@ footer {
   height: 3em;
   padding-left: 2em;
   margin-bottom: 0;
+  @include placeholder {
+    color: $gray;
+  }
 }
 
 .search input[type=submit] {
