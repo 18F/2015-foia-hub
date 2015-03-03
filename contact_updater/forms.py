@@ -1,6 +1,14 @@
 from django import forms
 
 PHONE_RE = r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'
+PHONE_RE = (
+    r"""(?P<prefix>\+?[\d\s\(\)\-]*)"""
+    r"""(?P<area_code>\(?\d{3}\)?[\s\-\(\)]*)"""
+    r"""(?P<first_three>\d{3}[\-\s\(\)]*)"""
+    r"""(?P<last_four>\d{4}[\-\s]*)"""
+    r"""(?P<extension>[\s\(,]*?ext[ .]*?\d{3,5})?"""
+    r"""(?P<tty>\s*\(tty)?"""
+)
 
 
 class AgencyData(forms.Form):
