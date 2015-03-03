@@ -6,22 +6,24 @@
   <section class="searchresults">
 
   <h1>Agencies</h1>
-  <br><br>
 
-  {% for letter in agencies|groupby('name.0') %}
-      <h2><a href="#{{letter.grouper}}">{{letter.grouper}}</a></h2>
-  {% endfor %}
-  <br><br>
   <fieldset>
+    <ul id="searchresults--index">
+        {% for letter in agencies|groupby('name.0') %}
+          <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
+        {% endfor %}
+    </ul>
+
    {% for letter, agency_list in agencies|groupby('name.0') %}
-         <h3><a name="{{letter}}">{{letter}}</a></h3>
-         <hr>
+         <h2 class="searchresults--letter"><a name="{{letter}}">{{letter}}</a></h2>
+         <hr/>
             <ul>
             {% for agency in agency_list %}
               <li><a href="{{agency.slug}}">{{agency.name}}</a></li>
             {% endfor %}
-            <br>
             </ul>
+            <br />
+            <h4><a href="#searchresults--index">Back to top <span class="fa fa-arrow-up"></span></a></h4>
         {% endfor %}
   </fieldset>
   </section>
