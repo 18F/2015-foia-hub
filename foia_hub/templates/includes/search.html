@@ -6,19 +6,20 @@
       <form class="agency" method="get" action="/agencies/">
         <div class="search--box scrollable-dropdown-menu">
           <form id="search">
+            <div class="search_icon"><span class="fa fa-search"></span></div>
             <input class="typeahead agency" name="query" type="search" placeholder="Search for a topic or the agency you want to contact"
               {% if query %}
                 value="{{ query }}"
               {% endif %}
               />
-<!--            <button form="search" type="submit" name="submit">Search</button>-->
+            <input class="submit" type="submit" value="Search" />
           </form>
         </div>
       </form>
 
-      <span class="browse">
+      <div class="browse">
         <a href="/agencies/">Or browse a list of all federal agencies <i class="fa fa-arrow-right"></i></a>
-      </span>
+      </div>
 
     </section>
   </div>

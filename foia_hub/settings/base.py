@@ -31,6 +31,7 @@ INSTALLED_APPS = (
 
     'corsheaders',
     'foia_hub',
+    'contact_updater'
 )
 
 MIDDLEWARE_CLASSES = (

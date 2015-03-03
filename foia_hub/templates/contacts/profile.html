@@ -13,7 +13,8 @@
 
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
-<div class="container">
+<div class="breadcrumbs_container">
+  <div class="container">
     <section class="breadcrumbs">
       <a href="{{ url('home') }}">Home &gt;</a>
       {% if profile.parent %}
@@ -26,7 +27,10 @@
         </a>
       {% endif %}
     </section>
+  </div>
+</div>
 
+<div class="container">
   <section class="department">
     <div class="department--container">
       <div class="description">
