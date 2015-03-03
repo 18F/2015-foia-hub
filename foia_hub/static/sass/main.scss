@@ -48,14 +48,14 @@
 #skip-nav {
   a {
     position: absolute;
-    left: -10000px;
+    right: -10000px;
     top: 0;
     width: 1px;
     overflow: hidden;
 
     &:focus {
-      top: 5px;
-      left: 5px;
+      top: 2em;
+      right: 1em;
       width: auto;
       height: auto;
       overflow: visible;
@@ -67,7 +67,6 @@
 a:focus {
   text-decoration: underline !important;
 }
-
 
 body > header {
   background-color: white;

@@ -619,13 +619,13 @@ html {
  */
 #skip-nav a {
   position: absolute;
-  left: -10000px;
+  right: -10000px;
   top: 0;
   width: 1px;
   overflow: hidden; }
   #skip-nav a:focus {
-    top: 5px;
-    left: 5px;
+    top: 2em;
+    right: 1em;
     width: auto;
     height: auto;
     overflow: visible; }
