@@ -9,6 +9,7 @@ from foia_hub.views import (
 
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
 
+import contact_updater.urls as contact_updater_urls
 
 # Front-end
 urlpatterns = patterns(
@@ -29,7 +30,8 @@ urlpatterns = patterns(
     url(r'^request/noop/$', request_noop, name='noop'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^robots\.txt$',
-        TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+        TemplateView.as_view(
+            template_name='robots.txt', content_type='text/plain')),
 
 )
 
@@ -44,6 +46,12 @@ if settings.SHOW_WEBFORM:
     urlpatterns += patterns(
         '',
         url(r'^api/request/', include(FOIARequestResource.urls())))
+
+# Contact updater
+urlpatterns += patterns(
+    '',
+    url(r'^contact_updater/', include(contact_updater_urls)),
+)
 
 # Admin
 admin.autodiscover()
