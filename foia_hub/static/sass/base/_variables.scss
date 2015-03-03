@@ -17,7 +17,7 @@ $h6-font-size: $base-font-size;
 
 //Font Weights
 $header-font-weight: 600;
-
+$base-font-weight: 400;
 
 // Line height
 $base-line-height: 1.5;
@@ -56,9 +56,9 @@ $base-accent-color: $blue;
 
 // Link Colors
 $base-link-color: $base-accent-color;
-$hover-link-color: darken($base-accent-color, 15);
-$base-button-color: $base-link-color;
-$hover-button-color: $hover-link-color;
+$hover-link-color: lighten($base-accent-color, 25);
+$base-button-color: $aqua-blue;
+$hover-button-color: $aqua-blue;
 
 // Flash Colors
 $alert-color: $light-yellow;

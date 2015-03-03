@@ -5,55 +5,6 @@
 @import "base/base";
 @import "neat";
 
-
-body > header {
-  background-color: white;
-  border-bottom: 1px solid #dedede;
-  a:hover {text-decoration: none;}
-  #topnav {
-    margin: 1em 0 0.8em;
-  }
-  #logo {
-    float:left;
-    // font-weight: normal;
-    // font-size: 2em;
-    color: $blue;
-    padding-right: 1em;
-    a { color: $blue; }
-    strong {font-weight: 800;}
-    em { color: #cc2211; font-style: normal;}
-  }
-
-#topnav nav {
-    ul {
-      li {
-        display: inline-block;
-        padding: 0 10px;
-      }
-
-      a {
-        color: $gray;
-        padding-bottom:12px;
-        @include media($small) {
-            padding-bottom: 0;
-          }
-      }
-      a:hover, a.active, #logo:hover {
-        border-bottom: 0.3em solid $aqua-blue;
-        color: $dark-gray;
-        @include media($small) {
-          border-bottom: 1px solid $aqua-blue;
-        }
-      }
-      a:focus {
-        // background: #cc2211;
-        background: #fff;
-        color:#1188ff;
-      }
-    }
-  }
-}
-
 /* 
  * Mixin: inner 
  * $columns should always be an even number 
@@ -66,8 +17,8 @@ body > header {
     @include span-columns(20)
   }*/
   @include media($medium) {
-    @include shift(1);
-    @include span-columns(10);
+    @include shift(1 of 12);
+    @include span-columns(10 of 12);
   }
   @include media($small) {
     @include shift(0);
@@ -93,13 +44,62 @@ body > header {
       }
 }
 
+body > header {
+  background-color: white;
+  border-bottom: 1px solid #dedede;
+  a:hover {text-decoration: none;}
+  #topnav {
+    margin: 1em 0 0.8em;
+  }
+  #logo {
+    float:left;
+    // font-weight: normal;
+    // font-size: 2em;
+    color: $blue;
+    padding-right: 1em;
+    a { color: $blue; }
+    strong {font-weight: 800;}
+    em { color: #cc2211; font-style: normal;}
+  }
+
+#topnav nav {
+    ul {
+      li {
+        display: inline-block;
+        padding: 0 10px;
+        font-weight: 600;
+      }
+
+      a {
+        color: $gray;
+        padding-bottom:12px;
+        @include media($small) {
+            padding-bottom: 0;
+          }
+      }
+      a:hover, a.active, #logo:hover {
+        border-bottom: 0.3em solid $aqua-blue;
+        color: $dark-gray;
+        @include media($small) {
+          border-bottom: 1px solid $aqua-blue;
+        }
+      }
+      a:focus {
+        // background: #cc2211;
+        background: #fff;
+        color:#1188ff;
+      }
+    }
+  }
+}
+
 div#usa {
   background-color: $dark-gray;
   color: $light-gray;
   padding: 0.25em 0;
   .usa--content {
     font-size: 0.8em;
-    font-weight: 700;
+    font-weight: 400;
   }
   .official { float:left; }
   .alpha {float:right; }
@@ -115,6 +115,7 @@ div#usa {
 }
 
 #main {
+  .search--box { height: 3em; }
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -127,9 +128,12 @@ div#usa {
       border-bottom: none;
     }
 
-    a {
+    .browse {
+      margin-top: 1em;
+      a {
       color: $aqua-blue;
       font-weight: 800;
+      }
     }
   }
 }
@@ -137,6 +141,7 @@ div#usa {
 footer {
   background-color: white;
   padding-top: 1em;
+  margin-top: 4em;
   img {
     width: 32px;
     height: 32px;
@@ -168,16 +173,13 @@ footer {
 .hero {
   background-color: $light-gray;
   padding: 2em 0;
-
-//  background-size: contain;
-
   & > .container > .hero--content {
     @include inner(16);
     a.more {
       font-weight: $header-font-weight;
+      .fa { color: $blue;}
     }
-}
-
+  }
 }
 
 @include media($small) {
@@ -187,9 +189,13 @@ footer {
 }
 
 #main.home {
+  hr {
+    margin: 1em 0 3em;
+  }
   section.process {
     ol { @extend %default-ol; }
   }
+  p, li { font-size: $base-font-size * 1.2; }
 }
 
 .fa {
@@ -201,20 +207,67 @@ footer {
   @include inner(16);
 }
 
-.searchresults {
+#main .searchresults {
   @include inner(16);
-  li {
-    padding: 0.5em 0;
+  h2 {
+    margin-bottom: 0;
+  }
+  hr {
+    margin-top: 0.5em;
+  }
+  a .fa {
+    color: $blue;
+  }
+  .searchresults--list {
+    em {
+    color: $medium-blue;
+    font-style: normal;
+    font-weight: 700;
+    }
+    li {
+      padding: 0.5em 0;
+    }
+  }
+  #searchresults--index {
+    li {
+    display: inline-block;
+    font-weight: 700;
+    font-size: $base-font-size * 1.2;
+    }
+  }
+  .searchresults--letter {
+    margin: 2em 0 0;
+    h2 {
+      font-size: $base-font-size * 1.2;
+      color: $dark-gray;
+    }
+    a {
+      color: $dark-gray;
+      &:hover {
+        font-style: none;
+        text-decoration: none;
+      }
+    }
+
   }
 }
 
+.breadcrumbs_container {
+  background: white;
+  margin-bottom: 1.5em;
+}
+
 .breadcrumbs {
-    margin: 1em 0;
+    padding: 0.5em 0;
+    font-size: 0.8em;
 }
 
 #main {
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
     margin-bottom:0.8em;
+  }
+  h3, h4, h5, h6 {
+    margin-botto: 0.6em;
   }
 }
 
@@ -270,16 +323,9 @@ footer {
       }
     }
 
-    h2 {
-      font-size: $h2-font-size * 0.8;
-    }
-
-    h3 {
-      font-size: $h3-font-size * 0.6;
-    }
-
     .details > hr {
       border-bottom: 1px solid $dark-gray;
+      margin-top: 0;
     }
 
     .resources {
@@ -299,7 +345,7 @@ footer {
     }
 
     .description p {
-      margin: 1.2em 0;
+      margin-bottom: 1.2em;
       font-size: $base-font-size * 1.2;
     }
     .details {
@@ -319,18 +365,28 @@ footer {
 
     }
 
+    .contact_type {
+      .fa {
+        font-size: 1.8em;
+      }
+    }
+
+    .resource_type {
+        padding-left: 1em;
+        .fa {
+          font-size: 1.5em;
+        }
+    }
+
     .resource_type, .contact_type {
 
       margin: 15px 0;
 
       .icon {
-        .fa {
-          font-size: 1.8em;
-        }
         // @include span-columns(2 of 24);
         float:left;
         text-align:center;
-        margin-right:2em;
+        margin-right:1.7em;
         // position:absolute;
         width:24px;
       }
@@ -362,7 +418,6 @@ footer {
   .inaccurate {
     clear:both;
     padding-bottom:2em;
-    //@include clearfix();
   }
 
 }
@@ -371,84 +426,51 @@ footer {
   @include inner(16);
 }
 
-form.request {
-  input.upto[type=text] { width: 80px; display: inline;}
-  fieldset {
-    @include span-columns(12);
-    border: 0;
-
-    input {
-      font-size: 100%;
-      padding: 10px;
-    }
-
-    legend {
-      display: block;
-      width: 100%;
-      padding: .3em 0;
-      margin-bottom: .3em;
-      color: #333;
-      border-bottom: 1px solid #e5e5e5;
-    }
-  }
-  #name-email input {
-    @include span-columns(12);
-    margin: 0;
-  }
-  textarea.request { height: 9em; width: 100%;}
-  textarea.fee-waiver-justification  { height: 4em; }
-  span.fee-amount { font-weight: bold; }
-
-  label.fee-waiver {display: inline;}
-
-  input[type=submit] {
-    font-size: 100%;
-    padding: .5em 1em;
-    color: #fff;
-    border: 0;
-    background-color: #0078e7;
-    border-radius: 2px;
+.search_icon {
+  color: $gray;
+  // display: inline-block;
+  height: 3em;
+  // width: 2em;
+  position: absolute;
+  z-index: 100;
+//  background: white;
+//  @include border-left-radius(8px);
+  padding-top:0.75em;
+  padding-left: 0.75em;
+  .fa-search {
+    color: $gray;
   }
 }
 
-a:hover {text-decoration: underline}
-p a:hover { text-decoration: underline; }
-
-
-input.agency { width: 100% }
-
-.search input {
+.search input[type=search] {
   color: $dark-gray;
-  width: 100%;
   background-color: white;
-  display:inline-block;
+  height: 3em;
+  padding-left: 2em;
+  margin-bottom: 0;
+  @include border-left-radius(3px);
+  @include border-right-radius(3px);
+  @include placeholder {
+    color: $gray;
+  }
 }
-.search button {
-  background-color: $aqua-blue;
+
+.search input[type=submit] {
   color: $dark-gray;
-  display:inline-block;
-  width: 5%;
-  min-width: 6em;
+  @include border-right-radius(3px);
+  @include border-left-radius(0);
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  float:right;
+  position: relative;
+  top: -3em;
 }
-
-.pure-menu .pure-menu-selected a { border-bottom: 0.3em solid #333;}
-
-
-/* error message next to submit button */
-div.request.error {
-  display: none; padding: 10px 0;
-  font-weight: bold; color: #f00;
-}
-
-
-#tracking-number {font-weight: bold;}
-#requester-email {font-weight: bold;}
-#fee-waiver-justification {display: none; margin: 10px 0;}
-
 
 /* agency autocomplete */
 .twitter-typeahead {
   width: 100%;
+  display: block !important;
 }
 
 .scrollable-dropdown-menu .tt-dropdown-menu {
@@ -458,33 +480,18 @@ div.request.error {
   margin-bottom: 100px;
 }
 
-.typeahead,
-.tt-query,
-.tt-hint {
-  width: 396px;
-  height: 50px;
-  padding: 8px 12px;
-  font-size: 24px;
-  line-height: 30px;
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  outline: none;
-}
-
 .typeahead {
   background-color: #fff;
 }
 
 .typeahead:focus {
-  border: 2px solid #0097cf;
+  border: none;
 }
 
 .tt-query {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 .tt-hint {
@@ -492,15 +499,15 @@ div.request.error {
 }
 
 .tt-dropdown-menu {
-  width: 422px;
-  margin-top: 12px;
-  padding: 8px 0;
+//  width: 422px;
+  padding: 1em 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
+  @include border-top-radius(8px);
+  @include border-right-radius(8px);
+  @include border-bottom-radius(8px);
+  @include border-left-radius(8px);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -509,8 +516,6 @@ div.request.error {
 .tt-suggestion {
   color: $dark-gray;
   padding: 8px 20px;
-  font-size: 18px;
-  line-height: 24px;
 }
 
 .tt-suggestion.tt-cursor {
