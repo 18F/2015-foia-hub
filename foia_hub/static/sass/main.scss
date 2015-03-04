@@ -5,47 +5,7 @@
 @import "base/base";
 @import "neat/neat";
 @import "mixins";
-
-// a mixin for screen-reader-specific content
-@mixin sr-only($focus:false) {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-  @if ($focus == true) {
-    &:focus,
-    &:active {
-      position: static;
-      width: auto;
-      height: auto;
-      margin: 0;
-      overflow: visible;
-      clip: auto;
-    }
-  }
-}
-
-// see: <http://18f.github.io/accessibility/links/>
-#skip-nav {
-  text-align: center;
-
-  a {
-    color: $light-blue;
-    @include sr-only(true);
-  }
-}
-
-.sr-only {
-  @include sr-only();
-}
-
-.sr-only--focus {
-  @include sr-only(true);
-}
+@import "accessibility";
 
 // all focused links should be underlined
 a:focus {
