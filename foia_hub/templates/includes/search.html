@@ -7,12 +7,12 @@
         <div class="search--box scrollable-dropdown-menu">
           <form id="search">
             <div class="search_icon"><span class="fa fa-search"></span></div>
-            <input id="query" class="typeahead agency" name="query" type="search" placeholder="Search for a topic or the agency you want to contact"
-              {% if query %}
-                value="{{ query }}"
-              {% endif %}
-              />
-            <input class="submit" type="submit" value="Search" />
+            {% set search_placeholder = 'Search for a topic or the agency you want to contact' %}
+            <input id="query" class="typeahead agency" name="query" type="search"
+              placeholder="{{ search_placeholder }}"
+              aria-label="{{ search_placeholder }}"
+              {% if query %}value="{{ query }}"{% endif %}>
+            <input class="submit" type="submit" value="Search">
           </form>
         </div>
       </form>
