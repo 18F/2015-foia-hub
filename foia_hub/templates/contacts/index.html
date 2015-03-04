@@ -34,9 +34,9 @@
       
       <section class="searchresults--list">
         <ul>
+        <!-- This formats the agency title and description see macro at top -->
         {% for agency in agencies %}
-              <!-- This formats the agency title and description see macro at top -->
-            {{format_agency(agency)}}
+            {{ format_agency(agency) }}
         {% endfor %}
         </ul>
       </section>
@@ -45,17 +45,17 @@
       <ul id="searchresults--index">
           <!--The loop below creates the letter list-->
           {% for letter in agencies|groupby('name.0') %}
-            <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
+          <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
           {% endfor %}
       </ul>
       {% for letter, agency_list in agencies|groupby('name.0') %}
       <!-- The line below generates the individual letter -->
-       <h2 class="searchresults--letter"><a name="{{letter}}">{{letter}}</a></h2>
-          <hr />
+       <h2 class="searchresults--letter"><a id="{{letter}}" tabindex="-1">{{letter}}</a></h2>
+          <hr>
           <ul>
+          <!-- This formats the agency title and description see macro at top -->
           {% for agency in agency_list %}
-            <!-- This formats the agency title and description see macro at top -->
-            {{format_agency(agency)}}
+            {{ format_agency(agency) }}
           {% endfor %}
           </ul>
        <h4><a href="#searchresults--index">Back to top <span class="fa fa-arrow-up"></span></a></h4>
