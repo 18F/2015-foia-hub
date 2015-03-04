@@ -724,45 +724,47 @@ div#usa {
         display: block;
         text-align: center; } }
 
-#main .search--box {
-  height: 3em; }
-#main .search {
-  background: #323A45;
-  color: #EAEDF1;
-  padding: 3.4em 0; }
-#main .search--content {
-  float: left;
-  display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
-  #main .search--content:last-child {
-    margin-right: 0; }
-  @media screen and (max-width: 48em) {
-    #main .search--content {
-      margin-left: 8.51064%;
-      float: left;
-      display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
-      #main .search--content:last-child {
-        margin-right: 0; } }
-  @media screen and (max-width: 30em) {
-    #main .search--content {
-      margin-left: 0%;
-      float: left;
-      display: block;
-      margin-right: 6.66667%;
-      width: 100%; }
-      #main .search--content:last-child {
-        margin-right: 0; } }
-  #main .search--content h2 {
-    border-bottom: none; }
-  #main .search--content .browse {
-    margin-top: 1em; }
-    #main .search--content .browse a {
-      color: #00BFE7;
-      font-weight: 800; }
+#main {
+  outline: none; }
+  #main .search--box {
+    height: 3em; }
+  #main .search {
+    background: #323A45;
+    color: #EAEDF1;
+    padding: 3.4em 0; }
+  #main .search--content {
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 66.31579%;
+    margin-left: 16.84211%; }
+    #main .search--content:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 48em) {
+      #main .search--content {
+        margin-left: 8.51064%;
+        float: left;
+        display: block;
+        margin-right: 2.12766%;
+        width: 82.97872%; }
+        #main .search--content:last-child {
+          margin-right: 0; } }
+    @media screen and (max-width: 30em) {
+      #main .search--content {
+        margin-left: 0%;
+        float: left;
+        display: block;
+        margin-right: 6.66667%;
+        width: 100%; }
+        #main .search--content:last-child {
+          margin-right: 0; } }
+    #main .search--content h2 {
+      border-bottom: none; }
+    #main .search--content .browse {
+      margin-top: 1em; }
+      #main .search--content .browse a {
+        color: #00BFE7;
+        font-weight: 800; }
 
 footer {
   background-color: white;

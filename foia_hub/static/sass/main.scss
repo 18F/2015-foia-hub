@@ -154,7 +154,13 @@ div#usa {
 }
 
 #main {
-  .search--box { height: 3em; }
+  // remove focus ring for anchor links
+  outline: none;
+
+  .search--box {
+    height: 3em;
+  }
+
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -170,8 +176,8 @@ div#usa {
     .browse {
       margin-top: 1em;
       a {
-      color: $aqua-blue;
-      font-weight: 800;
+        color: $aqua-blue;
+        font-weight: 800;
       }
     }
   }
