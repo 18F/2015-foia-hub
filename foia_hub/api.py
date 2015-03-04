@@ -12,6 +12,56 @@ from restless.exceptions import BadRequest
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 
+import re
+import string
+
+
+def sanitize_search_term(term):
+    # Replace all puncuation with spaces.
+    allowed_punctuation = set(['&', '|', '"', "'"])
+    all_punctuation = set(string.punctuation)
+    punctuation = "".join(all_punctuation - allowed_punctuation)
+    term = re.sub(r"[{}]+".format(re.escape(punctuation)), " ", term)
+
+    # Substitute all double quotes to single quotes.
+    term = term.replace('"', "'")
+    term = re.sub(r"[']+", "'", term)
+
+    # Create regex to find strings within quotes.
+    quoted_strings_re = re.compile(r"('[^']*')")
+    space_between_words_re = re.compile(r'([^ &|])[ ]+([^ &|])')
+    spaces_surrounding_letter_re = re.compile(r'[ ]+([^ &|])[ ]+')
+    multiple_operator_re = re.compile(r"[ &]+(&|\|)[ &]+")
+
+    tokens = quoted_strings_re.split(term)
+    processed_tokens = []
+    for token in tokens:
+        # Remove all surrounding whitespace.
+        token = token.strip()
+
+        if token in ['', "'"]:
+            continue
+
+        if token[0] != "'":
+            # Surround single letters with &'s
+            token = spaces_surrounding_letter_re.sub(r' & \1 & ', token)
+
+            # Specify '&' between words that have neither | or & specified.
+            token = space_between_words_re.sub(r'\1 & \2', token)
+
+            # Add a prefix wildcard to every search term.
+            token = re.sub(r'([^ &|]+)', r'\1:*', token)
+
+        processed_tokens.append(token)
+
+    term = " & ".join(processed_tokens)
+
+    # Replace ampersands or pipes surrounded by ampersands.
+    term = multiple_operator_re.sub(r" \1 ", term)
+
+    # Escape single quotes
+    return term.replace("'", "''")
+
 
 def contact_preparer():
     return FieldsPreparer(fields={
@@ -134,13 +184,18 @@ class AgencyResource(DjangoResource):
             q = self.request.GET.get('query', None)
 
         if q:
-            agencies = Agency.objects.filter(
-                Q(abbreviation__icontains=q) |
-                Q(name__icontains=q) |
-                Q(slug__icontains=q) |
-                Q(keywords__icontains=q) |
-                Q(description__icontains=q)
+            search_term = sanitize_search_term(q)
+            agencies =  Agency.objects.extra(
+                where=["foia_hub_agency.fts_document @@ to_tsquery('simple', %s)"],
+                params=[search_term]
             )
+            # agencies = Agency.objects.filter(
+            #     # Q(abbreviation__icontains=q) |
+            #     # Q(name__search=q) |
+            #     # Q(slug__icontains=q) |
+            #     # Q(keywords__icontains=q) |
+            #     Q(description__icontains=q)
+            # )
         else:
             agencies = Agency.objects.all()
 
@@ -163,7 +218,7 @@ class AgencyResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class OfficeResource(DjangoResource):
@@ -213,7 +268,7 @@ class OfficeResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class FOIARequestResource(DjangoResource):
