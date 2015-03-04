@@ -1,0 +1,38 @@
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
+@mixin inner($columns) {
+  @include span-columns( $columns );
+  @include shift( ( 24 - $columns ) / 2 );
+//  @include media($large) {
+//    @include shift(2);
+//    @include span-columns(20)
+//  }
+  @include media($medium) {
+    @include shift(1 of 12);
+    @include span-columns(10 of 12);
+  }
+  @include media($small) {
+    @include shift(0);
+    @include span-columns(4);
+  }  
+}
+
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+@mixin fullbleed($columns) {
+// vz: TO BE IMPLEMENTED
+}
+
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
+@mixin small($columns) {
+  @include media($small) {
+    @include span-columns($columns);
+  }
+}

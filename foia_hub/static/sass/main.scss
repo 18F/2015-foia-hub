@@ -1,48 +1,10 @@
-@import "normalize";
 @import "bourbon/bourbon";
+@import "normalize";
 // @import "grid-settings";
 @import "base/grid-settings";
 @import "base/base";
 @import "neat/neat";
-
-/* 
- * Mixin: inner 
- * $columns should always be an even number 
- */
-@mixin inner($columns) {
-  @include span-columns( $columns );
-  @include shift( ( 24 - $columns ) / 2 );
-/*  @include media($large) {
-    @include shift(2);
-    @include span-columns(20)
-  }*/
-  @include media($medium) {
-    @include shift(1 of 12);
-    @include span-columns(10 of 12);
-  }
-  @include media($small) {
-    @include shift(0);
-    @include span-columns(4);
-  }  
-}
-
-/* 
- * Mixin: fullbleed
- * $columns should always be an even number 
- */
-@mixin fullbleed($columns) {
- // vz: TO BE IMPLEMENTED
-}
-
-/* 
- * Mixin: small
- * $columns should always be an even number 
- */
-@mixin small($columns) {
-      @include media($small) {
-        @include span-columns($columns);
-      }
-}
+@import "mixins";
 
 // a mixin for screen-reader-specific content
 @mixin sr-only($focus:false) {
@@ -92,23 +54,39 @@ a:focus {
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede;
-  a:hover {text-decoration: none;}
+
+  a:hover {
+    text-decoration: none;
+  }
+
   #topnav {
     margin: 1em 0 0.8em;
   }
+
   #logo {
-    float:left;
+    float: left;
     // font-weight: normal;
     // font-size: 2em;
     color: $blue;
     padding-right: 1em;
-    a { color: $blue; }
-    strong {font-weight: 800;}
-    em { color: #cc2211; font-style: normal;}
+
+    a {
+      color: $blue;
+    }
+
+    strong {
+      font-weight: 800;
+    }
+
+    em {
+      color: #cc2211;
+      font-style: normal;
+    }
   }
 
-#topnav nav {
+  #topnav nav {
     ul {
+
       li {
         display: inline-block;
         padding: 0 10px;
@@ -119,9 +97,10 @@ body > header {
         color: $gray;
         padding-bottom:12px;
         @include media($small) {
-            padding-bottom: 0;
-          }
+          padding-bottom: 0;
+        }
       }
+
       a:hover, a.active, #logo:hover {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray;
@@ -129,6 +108,7 @@ body > header {
           border-bottom: 1px solid $aqua-blue;
         }
       }
+
       a:focus {
         // background: #cc2211;
         background: #fff;
@@ -139,18 +119,32 @@ body > header {
 }
 
 div#usa {
+
   background-color: $dark-gray;
   color: $light-gray;
   padding: 0.25em 0;
+
   .usa--content {
     font-size: 0.8em;
     font-weight: 400;
   }
-  .official { float:left; }
-  .alpha {float:right; }
-  .official, .alpha {
+
+  .official {
+    float: left;
+  }
+
+  .alpha {
+    float: right;
+  }
+
+  .official,
+  .alpha {
     display: inline-block;
-    a { color: $aqua-blue;}  
+
+    a {
+      color: $aqua-blue;
+    }
+
     @include media($medium) {
       float:none;
       display: block;
@@ -316,17 +310,20 @@ footer {
   }
 }
 
-#main .learn, #main .about {
+#main .learn,
+#main .about {
   .toc {
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
     }
   }
+
   h2 {
     border-bottom: 1px solid #323A45;
     padding-bottom: 0.5em;
     display: block;
   }
+
   .question {
     margin-top: 2em;
   }
@@ -349,21 +346,24 @@ footer {
 
 #main.landing {
   .contact {
+
     h3 {
       margin-top: 30px; margin-bottom: 10px;
     }
+
     ul, li {
       list-style-type: none;
       list-style-position: outside;
       padding: 0; margin: 0;
     }
+
   }
 
   .department {
 
     .department--container {
-    @include span-columns(15 of 24);
-    @include media($medium) {
+      @include span-columns(15 of 24);
+      @include media($medium) {
         @include span-columns(12);
       }
     }
@@ -376,13 +376,16 @@ footer {
     .resources {
       @include span-columns(8 of 24);
       @include shift(1);
+
       padding: 1em;
       background-color: white;
       box-shadow: 4px 4px 8px #CCC;
+
       @include media($medium) {
-          @include span-columns(12);
-          @include shift(0);
-        }
+        @include span-columns(12);
+        @include shift(0);
+      }
+
       @include media($small) {
         @include span-columns(4);
         @include shift(0);
@@ -393,6 +396,7 @@ footer {
       margin-bottom: 1.2em;
       font-size: $base-font-size * 1.2;
     }
+
     .details {
      .offices {
         ul, li {
@@ -423,22 +427,23 @@ footer {
         }
     }
 
-    .resource_type, .contact_type {
+    .resource_type,
+    .contact_type {
 
       margin: 15px 0;
 
       .icon {
         // @include span-columns(2 of 24);
-        float:left;
-        text-align:center;
-        margin-right:1.7em;
+        float: left;
+        text-align: center;
+        margin-right: 1.7em;
         // position:absolute;
-        width:24px;
+        width: 24px;
       }
 
       .subdetails {
         // display:inline-block;
-        overflow:hidden;
+        overflow: hidden;
       }
 
       ul, li {
@@ -461,8 +466,8 @@ footer {
     }
 }
   .inaccurate {
-    clear:both;
-    padding-bottom:2em;
+    clear: both;
+    padding-bottom: 2em;
   }
 
 }
@@ -534,9 +539,7 @@ footer {
 }
 
 .tt-query {
-//  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-//  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-//  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  // @include prefixer(box-shadow, inset 0 1px 1px rgba(0, 0, 0, 0.075), webkit moz);
 }
 
 .tt-hint {
@@ -553,9 +556,7 @@ footer {
   @include border-right-radius(8px);
   @include border-bottom-radius(8px);
   @include border-left-radius(8px);
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), webkit moz);
 }
 
 .tt-suggestion {
