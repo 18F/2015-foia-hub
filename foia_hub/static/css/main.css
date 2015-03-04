@@ -619,16 +619,47 @@ html {
  */
 #skip-nav a {
   position: absolute;
-  right: -10000px;
-  top: 0;
   width: 1px;
-  overflow: hidden; }
-  #skip-nav a:focus {
-    top: 2em;
-    right: 1em;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+  #skip-nav a:focus, #skip-nav a:active {
+    position: static;
     width: auto;
     height: auto;
-    overflow: visible; }
+    margin: 0;
+    overflow: visible;
+    clip: auto; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.sr-only--focus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+  .sr-only--focus:focus, .sr-only--focus:active {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto; }
 
 a:focus {
   text-decoration: underline !important; }
