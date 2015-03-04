@@ -660,6 +660,13 @@ html {
     overflow: visible;
     clip: auto; }
 
+#logo-18f:focus {
+  text-decoration: none !important; }
+  #logo-18f:focus img {
+    -webkit-box-shadow: 0 0 5px #18f;
+    -moz-box-shadow: 0 0 5px #18f;
+    -ms-box-shadow: 0 0 5px #18f; }
+
 a:focus {
   text-decoration: underline !important; }
 
@@ -691,11 +698,15 @@ body > header {
     @media screen and (max-width: 30em) {
       body > header #topnav nav ul a {
         padding-bottom: 0; } }
-  body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
+  body > header #topnav nav ul a:hover,
+  body > header #topnav nav ul a.active,
+  body > header #topnav nav ul #logo:hover {
     border-bottom: 0.3em solid #00BFE7;
     color: #323A45; }
     @media screen and (max-width: 30em) {
-      body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
+      body > header #topnav nav ul a:hover,
+      body > header #topnav nav ul a.active,
+      body > header #topnav nav ul #logo:hover {
         border-bottom: 1px solid #00BFE7; } }
   body > header #topnav nav ul a:focus {
     background: #fff;
