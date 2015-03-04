@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block class %}agencies{% endblock %}
 
+{% block breadcrumb %}
+{% include "includes/breadcrumb.html" %}
+{% endblock %}
+
 {% block body %}
 
 <!-- Setting up macro, html for agency line can be edited here -->
@@ -20,8 +24,6 @@
   </div>
 </li>
 {%- endmacro %}
-
-{% include "includes/breadcrumb.html" %}
 
 <div class="container">
   <section class="searchresults">

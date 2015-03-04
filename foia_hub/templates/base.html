@@ -27,7 +27,8 @@
 {% endblock %}
 {% include "includes/nav.html" %}
 
-<div id="main" class="{% block class %}{% endblock %}">
+{% block breadcrumb %}{% endblock %}
+<div id="main" class="{% block class %}{% endblock %}" tabindex="-1">
   {% block body %}This is not seen.{% endblock %}
 </div>
 {% block footer %}
