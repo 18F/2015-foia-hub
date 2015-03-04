@@ -69,6 +69,8 @@
 
 // see: <http://18f.github.io/accessibility/links/>
 #skip-nav {
+  text-align: center;
+
   a {
     @include sr-only(true);
   }
