@@ -45,7 +45,7 @@
 }
 
 // a mixin for screen-reader-specific content
-@mixin sr-only($focus) {
+@mixin sr-only($focus:false) {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -77,7 +77,7 @@
 }
 
 .sr-only {
-  @include sr-only(false);
+  @include sr-only();
 }
 
 .sr-only--focus {
