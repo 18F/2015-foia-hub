@@ -15,6 +15,7 @@ from django.db import connection
 
 import re
 import string
+from json import loads
 
 
 def dictfetchall(cursor):
@@ -23,10 +24,15 @@ def dictfetchall(cursor):
     django documentation
     """
     desc = cursor.description
-    return [
-        dict(zip([col[0] for col in desc], row))
-        for row in cursor.fetchall()
-    ]
+    data = []
+    for row in cursor.fetchall():
+        agency = dict(zip([col[0] for col in desc], row))
+        keywords = agency.get('keywords')
+        # change keywords back to list
+        if keywords:
+            agency['keywords'] = loads(keywords)
+        data.append(agency)
+    return data
 
 
 def sanitize_search_term(term):
@@ -209,19 +215,17 @@ class AgencyResource(DjangoResource):
             # abbreviation, name, description, keywords
             cursor.execute(
                 """
-SELECT * FROM foia_hub_agency
-WHERE id IN (
-    SELECT id
+    SELECT *
     FROM (
         SELECT * ,
             setweight(to_tsvector('simple', slug), 'A') ||
             setweight(to_tsvector('english', name), 'A') ||
             setweight(to_tsvector('simple', abbreviation), 'A') ||
-            setweight(to_tsvector('english', description), 'B') as score
+            setweight(to_tsvector('english', description), 'B') as tsvect
         FROM foia_hub_agency
         ) as results
-    WHERE results.score @@ to_tsquery('english', %s)
-    ORDER BY ts_rank(results.score, to_tsquery('english', %s)) DESC);
+    WHERE results.tsvect @@ to_tsquery('english', %s)
+    ORDER BY ts_rank(results.tsvect, to_tsquery('english', %s)) DESC;
                 """,
                 [search_term, search_term])
             agencies = dictfetchall(cursor)
