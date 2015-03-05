@@ -56,7 +56,7 @@ $base-accent-color: $blue;
 
 // Link Colors
 $base-link-color: $base-accent-color;
-$hover-link-color: lighten($base-accent-color, 25);
+$hover-link-color: $base-link-color; // lighten($base-accent-color, 25);
 $base-button-color: $aqua-blue;
 $hover-button-color: $aqua-blue;
 

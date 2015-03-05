@@ -444,10 +444,10 @@ a {
   color: #0067BA;
   text-decoration: none; }
   a:hover {
-    color: #3ba7ff;
+    color: #0067BA;
     text-decoration: underline; }
   a:active, a:focus {
-    color: #3ba7ff;
+    color: #0067BA;
     outline: none; }
 
 hr {
