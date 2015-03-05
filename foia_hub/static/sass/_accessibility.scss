@@ -19,7 +19,7 @@
 #logo-18f:focus {
   text-decoration: none !important;
   img {
-    @include prefixer(box-shadow, 0 0 5px #18f, webkit moz ms);
+    @include prefixer(box-shadow, 0 0 5px #18f, $vendor-prefixes);
   }
 }
 
