@@ -17,7 +17,25 @@ import re
 import string
 
 
+def dictfetchall(cursor):
+    """
+    Returns all rows from a cursor as a dict this function appears in the
+    django documentation
+    """
+    desc = cursor.description
+    return [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
+
+
 def sanitize_search_term(term):
+    """
+    Cleans search in a format to_tsquery can ingest
+    modified from http://dlo.me/archives/2014/09/01/postgresql-fts/
+    """
+    # Replace ANDs and ORs with correct punction
+    term = term.replace(" AND ", " & ").replace(" OR ", ' | ')
     # Replace all puncuation with spaces.
     allowed_punctuation = set(['&', '|', '"', "'"])
     all_punctuation = set(string.punctuation)
@@ -186,8 +204,9 @@ class AgencyResource(DjangoResource):
 
         if q:
             search_term = sanitize_search_term(q)
-
             cursor = connection.cursor()
+            # full text search weighted in following order:
+            # abbreviation, name, description, keywords
             cursor.execute(
                 """
 SELECT * FROM foia_hub_agency
@@ -195,7 +214,9 @@ WHERE id IN (
     SELECT id
     FROM (
         SELECT * ,
+            setweight(to_tsvector('simple', slug), 'A') ||
             setweight(to_tsvector('english', name), 'A') ||
+            setweight(to_tsvector('simple', abbreviation), 'A') ||
             setweight(to_tsvector('english', description), 'B') as score
         FROM foia_hub_agency
         ) as results
@@ -203,12 +224,11 @@ WHERE id IN (
     ORDER BY ts_rank(results.score, to_tsquery('english', %s)) DESC);
                 """,
                 [search_term, search_term])
-            agencies = cursor.fetchall()
-            print(agencies)
+            agencies = dictfetchall(cursor)
         else:
-            agencies = Agency.objects.all()
+            agencies = Agency.objects.all().order_by('name')
 
-        return agencies #.order_by('name')
+        return agencies
 
     @skip_prepare
     def detail(self, slug):
