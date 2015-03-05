@@ -85,7 +85,13 @@ def sanitize_search_term(term):
     term = multiple_operator_re.sub(r" \1 ", term)
 
     # Escape single quotes
-    return term.replace("'", "''")
+    term = term.replace("'", "''")
+
+    # Check if quotes are balanced
+    if term.count("''") % 2 != 0:
+        term = term.replace("''", '')
+
+    return term
 
 
 def contact_preparer():

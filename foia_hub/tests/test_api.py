@@ -1,10 +1,14 @@
 import json
+from django.db import connection
 from django.test import TestCase, Client
+
 from foia_hub.models import Agency, ReadingRoomUrls, Office
 
 from foia_hub.api import agency_preparer, contact_preparer
 from foia_hub.api import foia_libraries_preparer
+from foia_hub.api import sanitize_search_term, dictfetchall
 from foia_hub.tests import helpers
+
 
 from foia_hub.settings.test import custom_backend
 
@@ -201,6 +205,59 @@ class AgencyAPITests(TestCase):
             self.assertEqual(
                 content['objects'][0]['slug'],
                 'us-patent-and-trademark-office')
+
+    def test_dictfetchall(self):
+        """ Test that the raw sql converter works """
+
+        cursor = connection.cursor()
+        cursor.execute("select * from foia_hub_agency;")
+        data = dictfetchall(cursor)
+        self.assertEqual(len(data), 3)
+
+        # Lists rendered as strings in DB are brought back as lists
+        self.assertEqual(
+            data[1].get('keywords'),
+            ['business', 'industry', 'forests', 'petroleum'])
+
+    def test_sanitize_search_term(self):
+        """
+        Test that raw strings are cleaned correctly to be used by to_tsquery
+        """
+
+        # Single words are turned into ingestible string
+        test_term = sanitize_search_term('health')
+        self.assertEqual(test_term, 'health:*')
+
+        # Unspecified words connected with &
+        test_term = sanitize_search_term('health justice')
+        self.assertEqual(test_term, 'health:* & justice:*')
+
+        # Quoted words are kept as one term
+        test_term = sanitize_search_term("'health justice'")
+        self.assertEqual(test_term, "''health justice''")
+        test_term = sanitize_search_term('"health justice"')
+        self.assertEqual(test_term, "''health justice''")
+
+        # Single quotes don't break search
+        # The search won't break, but still not ideal
+        test_term = sanitize_search_term("'health justice")
+        self.assertEqual(test_term, 'health justice')
+        test_term = sanitize_search_term('health justice"')
+        self.assertEqual(test_term, 'health:* & justice:*')
+
+
+        # Ands and Ors are converted
+        test_term = sanitize_search_term('health AND justice')
+        self.assertEqual(test_term, 'health:* & justice:*')
+        test_term = sanitize_search_term('health OR justice')
+        self.assertEqual(test_term, 'health:* | justice:*')
+
+        # Complex search remains intact
+        test_term = sanitize_search_term(
+            '"health life" AND justice OR "Justice AND Peace"')
+        self.assertEqual(
+            test_term,
+            "''health life'' & justice:* | ''Justice & Peace''")
 
     def test_detail(self):
         """ Check the detail view for an agency."""
