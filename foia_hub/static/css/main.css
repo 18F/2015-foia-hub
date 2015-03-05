@@ -507,7 +507,7 @@ select[multiple=multiple] {
   background-color: white;
   border-radius: 3px;
   border: 1px solid #CCCCCC;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
   font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
   font-size: 1em;
   margin-bottom: 0.75em;
@@ -516,12 +516,12 @@ select[multiple=multiple] {
   textarea:hover,
   input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, textarea:hover,
   select[multiple=multiple]:hover {
-    border-color: #b3b3b3; }
+    border-color: #CCCCCC; }
   textarea:focus,
   input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus,
   select[multiple=multiple]:focus {
-    border-color: #0067BA;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(0, 89, 161, 0.7);
+    border-color: #0096B5;
+    box-shadow: 0 0 3px #0096B5;
     outline: none; }
 
 textarea {
@@ -1138,29 +1138,29 @@ footer {
   .search_icon .fa-search {
     color: #777777; }
 
-.search input[type=search] {
+.search input.typeahead {
   color: #323A45;
   background-color: white;
   height: 3em;
-  padding-left: 2em;
+  padding-left: 2.5em;
   margin-bottom: 0;
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px; }
-  .search input[type=search]::-webkit-input-placeholder {
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px; }
+  .search input.typeahead::-webkit-input-placeholder {
     color: #777777; }
-  .search input[type=search]::-moz-placeholder {
+  .search input.typeahead::-moz-placeholder {
     color: #777777; }
-  .search input[type=search]:-moz-placeholder {
+  .search input.typeahead:-moz-placeholder {
     color: #777777; }
-  .search input[type=search]:-ms-input-placeholder {
+  .search input.typeahead:-ms-input-placeholder {
     color: #777777; }
 
-.search input[type=submit] {
+.search .submit {
   color: #323A45;
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   height: 3em;
@@ -1173,52 +1173,53 @@ footer {
 /* agency autocomplete */
 .twitter-typeahead {
   width: 100%;
-  display: block !important; }
-
-.scrollable-dropdown-menu .tt-dropdown-menu {
-  max-height: 300px;
-  overflow-y: auto;
-  width: 100%;
-  margin-bottom: 100px; }
+  display: block !important;
+  border: none; }
 
 .typeahead {
   background-color: #fff; }
-
-.typeahead:focus {
-  border: none; }
 
 .tt-hint {
   color: #999; }
 
 .tt-dropdown-menu {
-  padding: 1em 0;
+  padding: 0;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #EAEDF1;
   border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-top-left-radius: 8px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -o-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 
+.scrollable-dropdown-menu .tt-dropdown-menu {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%; }
+
 .tt-suggestion {
-  color: #323A45;
-  padding: 8px 20px; }
+  color: #323A45 !important;
+  padding: 8px; }
+
+.tt-dataset-agencies .tt-suggestion {
+  border-bottom: 1px solid #EAEDF1; }
 
 .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0097cf; }
 
-.tt-suggestion p,
-.tt-suggestion h5 {
-  margin: 0; }
+.tt-suggestion p {
+  margin: 0;
+  padding: 0; }
+
+.tt-suggestion .return {
+  font-size: .8em;
+  vertical-align: baseline;
+  margin-right: .5em; }
 
 /*# sourceMappingURL=main.css.map */

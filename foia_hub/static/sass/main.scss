@@ -7,6 +7,8 @@
 @import "mixins";
 @import "accessibility";
 
+$search-border-radius: 8px;
+
 // all focused links should be underlined
 a:focus {
   text-decoration: underline !important;
@@ -461,22 +463,22 @@ footer {
   }
 }
 
-.search input[type=search] {
+.search input.typeahead {
   color: $dark-gray;
   background-color: white;
   height: 3em;
-  padding-left: 2em;
+  padding-left: 2.5em;
   margin-bottom: 0;
-  @include border-left-radius(3px);
-  @include border-right-radius(3px);
+  @include border-left-radius($search-border-radius);
+  @include border-right-radius($search-border-radius);
   @include placeholder {
     color: $gray;
   }
 }
 
-.search input[type=submit] {
+.search .submit {
   color: $dark-gray;
-  @include border-right-radius(3px);
+  @include border-right-radius($search-border-radius);
   @include border-left-radius(0);
   height: 3em;
   width: 6em;
@@ -490,25 +492,11 @@ footer {
 .twitter-typeahead {
   width: 100%;
   display: block !important;
-}
-
-.scrollable-dropdown-menu .tt-dropdown-menu {
-  max-height: 300px;
-  overflow-y: auto;
-  width: 100%;
-  margin-bottom: 100px;
+  border: none;
 }
 
 .typeahead {
   background-color: #fff;
-}
-
-.typeahead:focus {
-  border: none;
-}
-
-.tt-query {
-  // @include prefixer(box-shadow, inset 0 1px 1px rgba(0, 0, 0, 0.075), $vendor-prefixes);
 }
 
 .tt-hint {
@@ -516,21 +504,28 @@ footer {
 }
 
 .tt-dropdown-menu {
-//  width: 422px;
-  padding: 1em 0;
+  padding: 0;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  @include border-top-radius(8px);
-  @include border-right-radius(8px);
-  @include border-bottom-radius(8px);
-  @include border-left-radius(8px);
+  border: 1px solid $light-gray;
+  @include border-top-radius($search-border-radius);
+  @include border-bottom-radius($search-border-radius);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
 }
 
+.scrollable-dropdown-menu .tt-dropdown-menu {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
 .tt-suggestion {
-  color: $dark-gray;
-  padding: 8px 20px;
+  color: $dark-gray !important;
+  padding: 8px;
+}
+
+.tt-dataset-agencies .tt-suggestion {
+  border-bottom: 1px solid $light-gray;
 }
 
 .tt-suggestion.tt-cursor {
@@ -538,7 +533,13 @@ footer {
   background-color: #0097cf; // XXX: should this be $medium-blue?
 }
 
-.tt-suggestion p,
-.tt-suggestion h5 {
+.tt-suggestion p {
   margin: 0;
+  padding: 0;
+}
+
+.tt-suggestion .return {
+  font-size: .8em;
+  vertical-align: baseline;
+  margin-right: .5em;
 }
