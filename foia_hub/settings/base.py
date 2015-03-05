@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'corsheaders',
+    'storages',
     'foia_hub',
     'contact_updater'
 )
@@ -67,8 +68,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "foia_hub.context_processors.google_analytics.google_analytics")
 
 INSTALLED_APPS += ('django_jinja',)
-
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
+
+
 
 # Enable bytecode cache (default: False)
 # JINJA2_BYTECODE_CACHE_ENABLE = False
@@ -92,7 +94,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 
@@ -100,3 +101,6 @@ STATIC_ROOT = 'staticfiles'
 CORS_ORIGIN_ALLOW_ALL = True
 
 ANALYTICS_ID = ""
+
+# Don't allow client-side JS to access CSRF cookie
+CSRF_COOKIE_HTTPONLY = True
