@@ -8,7 +8,11 @@
 
 html {
   font-family: sans-serif; /* 1 */
-  @include prefixer(text-size-adjust, 100%, webkit ms);
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+       -o-text-size-adjust: 100%;
+          text-size-adjust: 100%;
 }
 
 /**
@@ -208,7 +212,11 @@ figure {
  */
 
 hr {
-  @include prefixer(box-sizing, content-box, webkit moz);
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+      -ms-box-sizing: content-box;
+       -o-box-sizing: content-box;
+          box-sizing: content-box;
   height: 0;
 }
 
@@ -354,7 +362,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="search"] {
   -webkit-appearance: textfield; /* 1 */
-  @include prefixer(box-size, content-box, webkit moz);
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+      -ms-box-sizing: content-box;
+       -o-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 /**
