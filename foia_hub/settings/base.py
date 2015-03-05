@@ -101,3 +101,6 @@ STATIC_ROOT = 'staticfiles'
 CORS_ORIGIN_ALLOW_ALL = True
 
 ANALYTICS_ID = ""
+
+# Don't allow client-side JS to access CSRF cookie
+CSRF_COOKIE_HTTPONLY = True
