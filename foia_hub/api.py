@@ -11,6 +11,8 @@ from restless.exceptions import BadRequest
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 
+from django.db import connection
+
 import re
 import string
 
@@ -184,29 +186,29 @@ class AgencyResource(DjangoResource):
 
         if q:
             search_term = sanitize_search_term(q)
-            agencies = Agency.objects.extra(
-                where=[
-                    """
-                to_tsvector('english', foia_hub_agency.name) ||
-                to_tsvector('english', foia_hub_agency.description) ||
-                to_tsvector('english', foia_hub_agency.abbreviation) ||
-                to_tsvector('english', foia_hub_agency.keywords) ||
-                to_tsvector('english', foia_hub_agency.slug)
-                @@ to_tsquery('english', %s)
-                    """],
-                params=[search_term]
-            )
-            # agencies = Agency.objects.filter(
-            #     # Q(abbreviation__icontains=q) |
-            #     # Q(name__search=q) |
-            #     # Q(slug__icontains=q) |
-            #     # Q(keywords__icontains=q) |
-            #     Q(description__icontains=q)
-            # )
+
+            cursor = connection.cursor()
+            cursor.execute(
+                """
+SELECT * FROM foia_hub_agency
+WHERE id IN (
+    SELECT id
+    FROM (
+        SELECT * ,
+            setweight(to_tsvector('english', name), 'A') ||
+            setweight(to_tsvector('english', description), 'B') as score
+        FROM foia_hub_agency
+        ) as results
+    WHERE results.score @@ to_tsquery('english', %s)
+    ORDER BY ts_rank(results.score, to_tsquery('english', %s)) DESC);
+                """,
+                [search_term, search_term])
+            agencies = cursor.fetchall()
+            print(agencies)
         else:
             agencies = Agency.objects.all()
 
-        return agencies.order_by('name')
+        return agencies #.order_by('name')
 
     @skip_prepare
     def detail(self, slug):
