@@ -52,7 +52,7 @@
       </ul>
       {% for letter, agency_list in agencies|groupby('name.0') %}
       <!-- The line below generates the individual letter -->
-       <h2 class="searchresults--letter"><a id="{{letter}}" tabindex="-1">{{letter}}</a></h2>
+       <h2 class="searchresults--letter" id="{{letter}}" tabindex="-1">{{letter}}</h2>
           <hr>
           <ul>
           <!-- This formats the agency title and description see macro at top -->

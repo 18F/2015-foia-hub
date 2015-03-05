@@ -249,14 +249,6 @@ footer {
       font-size: $base-font-size * 1.2;
       color: $dark-gray;
     }
-    a {
-      color: $dark-gray;
-      &:hover {
-        font-style: none;
-        text-decoration: none;
-      }
-    }
-
   }
 }
 
