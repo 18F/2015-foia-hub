@@ -9,7 +9,10 @@ html {
   font-family: sans-serif;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%; }
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -o-text-size-adjust: 100%;
+  text-size-adjust: 100%; }
 
 /**
  * Remove default margin.
@@ -170,6 +173,9 @@ figure {
 hr {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  -o-box-sizing: content-box;
+  box-sizing: content-box;
   height: 0; }
 
 /**
@@ -297,8 +303,11 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-  -webkit-box-size: content-box;
-  -moz-box-size: content-box; }
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  -o-box-sizing: content-box;
+  box-sizing: content-box; }
 
 /**
  * Remove inner padding and search cancel button in Safari and Chrome on OS X.
@@ -435,10 +444,10 @@ a {
   color: #0067BA;
   text-decoration: none; }
   a:hover {
-    color: #3ba7ff;
+    color: #005184;
     text-decoration: underline; }
   a:active, a:focus {
-    color: #3ba7ff;
+    color: #005184;
     outline: none; }
 
 hr {
@@ -613,6 +622,68 @@ html {
  * Mixin: small
  * $columns should always be an even number 
  */
+#skip-nav {
+  text-align: center; }
+  #skip-nav a {
+    color: #CDEAF0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0; }
+    #skip-nav a:focus, #skip-nav a:active {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.sr-only--focus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+  .sr-only--focus:focus, .sr-only--focus:active {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto; }
+
+#logo-18f:focus {
+  text-decoration: none !important; }
+  #logo-18f:focus img {
+    -webkit-box-shadow: 0 0 5px #18f;
+    -moz-box-shadow: 0 0 5px #18f;
+    -ms-box-shadow: 0 0 5px #18f;
+    -o-box-shadow: 0 0 5px #18f;
+    box-shadow: 0 0 5px #18f; }
+
+[tabindex="-1"] {
+  outline: none; }
+
+a:focus {
+  text-decoration: underline !important; }
+
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede; }
@@ -641,15 +712,22 @@ body > header {
     @media screen and (max-width: 30em) {
       body > header #topnav nav ul a {
         padding-bottom: 0; } }
-  body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
+  body > header #topnav nav ul a:hover,
+  body > header #topnav nav ul a.active,
+  body > header #topnav nav ul a:active,
+  body > header #topnav nav ul #logo:hover {
     border-bottom: 0.3em solid #00BFE7;
-    color: #323A45; }
+    color: #323A45 !important;
+    text-decoration: none !important; }
     @media screen and (max-width: 30em) {
-      body > header #topnav nav ul a:hover, body > header #topnav nav ul a.active, body > header #topnav nav ul #logo:hover {
+      body > header #topnav nav ul a:hover,
+      body > header #topnav nav ul a.active,
+      body > header #topnav nav ul a:active,
+      body > header #topnav nav ul #logo:hover {
         border-bottom: 1px solid #00BFE7; } }
   body > header #topnav nav ul a:focus {
     background: #fff;
-    color: #1188ff; }
+    color: #18f; }
 
 div#usa {
   background-color: #323A45;
@@ -795,7 +873,8 @@ footer {
     padding: 2em 0; } }
 #main.home hr {
   margin: 1em 0 3em; }
-#main.home p, #main.home li {
+#main.home p,
+#main.home li {
   font-size: 1.2em; }
 
 .fa {
@@ -876,11 +955,6 @@ footer {
     #main .searchresults .searchresults--letter h2 {
       font-size: 1.2em;
       color: #323A45; }
-    #main .searchresults .searchresults--letter a {
-      color: #323A45; }
-      #main .searchresults .searchresults--letter a:hover {
-        font-style: none;
-        text-decoration: none; }
 
 .breadcrumbs_container {
   background: white;
@@ -893,7 +967,7 @@ footer {
 #main h1, #main h2 {
   margin-bottom: 0.8em; }
 #main h3, #main h4, #main h5, #main h6 {
-  margin-botto: 0.6em; }
+  margin-bottom: 0.6em; }
 
 #main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6,
 #main .about .toc h1,
@@ -924,7 +998,8 @@ footer {
 #main.landing .contact h3 {
   margin-top: 30px;
   margin-bottom: 10px; }
-#main.landing .contact ul, #main.landing .contact li {
+#main.landing .contact ul,
+#main.landing .contact li {
   list-style-type: none;
   list-style-position: outside;
   padding: 0;
@@ -955,7 +1030,11 @@ footer {
   margin-left: 4.21053%;
   padding: 1em;
   background-color: white;
-  box-shadow: 4px 4px 8px #CCC; }
+  -webkit-box-shadow: 4px 4px 8px #CCCCCC;
+  -moz-box-shadow: 4px 4px 8px #CCCCCC;
+  -ms-box-shadow: 4px 4px 8px #CCCCCC;
+  -o-box-shadow: 4px 4px 8px #CCCCCC;
+  box-shadow: 4px 4px 8px #CCCCCC; }
   #main.landing .department .resources:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
@@ -1006,7 +1085,8 @@ footer {
   #main.landing .department .resource_type .subdetails,
   #main.landing .department .contact_type .subdetails {
     overflow: hidden; }
-  #main.landing .department .resource_type ul, #main.landing .department .resource_type li,
+  #main.landing .department .resource_type ul,
+  #main.landing .department .resource_type li,
   #main.landing .department .contact_type ul,
   #main.landing .department .contact_type li {
     list-style-type: none;
@@ -1124,7 +1204,10 @@ footer {
   border-bottom-left-radius: 8px;
   border-top-left-radius: 8px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 
 .tt-suggestion {
   color: #323A45;
