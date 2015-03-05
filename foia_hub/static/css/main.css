@@ -667,6 +667,9 @@ html {
     -moz-box-shadow: 0 0 5px #18f;
     -ms-box-shadow: 0 0 5px #18f; }
 
+[tabindex="-1"] {
+  outline: none; }
+
 a:focus {
   text-decoration: underline !important; }
 
@@ -939,11 +942,6 @@ footer {
     #main .searchresults .searchresults--letter h2 {
       font-size: 1.2em;
       color: #323A45; }
-    #main .searchresults .searchresults--letter a {
-      color: #323A45; }
-      #main .searchresults .searchresults--letter a:hover {
-        font-style: none;
-        text-decoration: none; }
 
 .breadcrumbs_container {
   background: white;

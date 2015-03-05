@@ -22,3 +22,8 @@
     @include prefixer(box-shadow, 0 0 5px #18f, webkit moz ms);
   }
 }
+
+// remove focus ring for anchor links
+[tabindex="-1"] {
+  outline: none;
+}
