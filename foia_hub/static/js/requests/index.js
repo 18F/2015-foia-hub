@@ -72,7 +72,10 @@ $(document).ready(function() {
   //  If the footer was selected, submit the form to redirect
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
-      $(ev.target).val(suggestion.query).closest('form').submit();
+      $(ev.target)
+        .val(suggestion.query)
+        .closest('form')
+          .submit();
     } else {
       var callback = function() {
             clearTimeout(timeout);
