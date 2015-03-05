@@ -716,7 +716,7 @@ body > header {
   body > header #topnav nav ul a.active,
   body > header #topnav nav ul #logo:hover {
     border-bottom: 0.3em solid #00BFE7;
-    color: #323A45; }
+    color: #323A45 !important; }
     @media screen and (max-width: 30em) {
       body > header #topnav nav ul a:hover,
       body > header #topnav nav ul a.active,
