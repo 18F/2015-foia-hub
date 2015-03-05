@@ -63,9 +63,11 @@ body > header {
 
       a:hover,
       a.active,
+      a:active,
       #logo:hover {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray !important;
+        text-decoration: none !important;
         @include media($small) {
           border-bottom: 1px solid $aqua-blue;
         }
