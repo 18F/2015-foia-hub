@@ -3,7 +3,6 @@ import datetime
 from django.db import transaction
 from django.conf.urls import patterns, url
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
 
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
@@ -185,8 +184,16 @@ class AgencyResource(DjangoResource):
 
         if q:
             search_term = sanitize_search_term(q)
-            agencies =  Agency.objects.extra(
-                where=["foia_hub_agency.fts_document @@ to_tsquery('simple', %s)"],
+            agencies = Agency.objects.extra(
+                where=[
+                    """
+                to_tsvector('english', foia_hub_agency.name) ||
+                to_tsvector('english', foia_hub_agency.description) ||
+                to_tsvector('english', foia_hub_agency.abbreviation) ||
+                to_tsvector('english', foia_hub_agency.keywords) ||
+                to_tsvector('english', foia_hub_agency.slug)
+                @@ to_tsquery('english', %s)
+                    """],
                 params=[search_term]
             )
             # agencies = Agency.objects.filter(
