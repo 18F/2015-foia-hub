@@ -6,14 +6,21 @@ $(document).ready(function() {
       onSelection,
       agencyDatasource,
       agencyAdaptor,
-      footerAdaptor;
+      footerAdaptor,
+      // how long we'll give Google Analytics to record a an action
+      // before just going ahead with it, in milliseconds
+      gaTimeout = 500;
 
   //  Set up the agency data source
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     limit: 500, // infinity
-    prefetch: {url: '/api/agency/', filter: function(response) {
-      return response.objects; }},
+    prefetch: {
+      url: '/api/agency/',
+      filter: function(response) {
+        return response.objects;
+      }
+    },
     datumTokenizer: function(d) {
       return []
         .concat(Bloodhound.tokenizers.whitespace(d.name))
@@ -30,7 +37,7 @@ $(document).ready(function() {
     displayKey: 'value',
     source: agencyDatasource.ttAdapter(),
     templates: {
-      suggestion: Handlebars.compile('<h5 class="agency-name">{{name}}</h5>')
+      suggestion: Handlebars.compile('<p class="agency-name">{{name}}</p>')
     }
   };
   //  Set up the footer link adaptor
@@ -42,21 +49,23 @@ $(document).ready(function() {
       }
     },
     templates: {
-      suggestion: Handlebars.compile('<h5>Search for "{{query}}" in keyterms and descriptions</h5>')
+      suggestion: Handlebars.compile('<p class="search-prompt"><strong class="return">&#9166;</strong> Search for "{{query}}" in keyterms and descriptions</p>')
     }
   };
 
   //  Track the text as the user types
   onUserStroke = function(ev) {
-    currentText = $(ev.target).val();
+    var input = $(ev.target);
+    currentText = input.val();
     if (currentText.length > longestText.length) {
       longestText = currentText;
-    }
-    //  blanked out the text after initially typing something
-    else if (currentText.length === 0 && longestText.length > 0) {
+    } else if (currentText.length === 0 && longestText.length > 0) {
+      //  blanked out the text after initially typing something
       ga('send', 'event', 'contacts', 'did-not-want', longestText);
       longestText = '';
     }
+    input.parent()
+      .toggleClass('tt-active', currentText.length > 0);
   };
 
   //  If an agency was selected, notify analytics and redirect
@@ -64,21 +73,24 @@ $(document).ready(function() {
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
       $(ev.target).val(suggestion.query).closest('form').submit();
-    }
-    else {
+    } else {
       var callback = function() {
-        window.location = '/contacts/' + suggestion.slug + '/';
-      };
+            clearTimeout(timeout);
+            window.location = '/contacts/' + suggestion.slug + '/';
+          },
+          timeout = setTimeout(callback, gaTimeout);
       ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
          currentText, {'hitCallback': callback});
     }
   };
 
   //  Initialize typeahead
-  $('.scrollable-dropdown-menu .typeahead').typeahead({
+  $('.scrollable-dropdown-menu .typeahead')
+    .typeahead({
       hint: false,
       highlight: true,
       minLength: 1
-    }, agencyAdaptor, footerAdaptor
-  ).on('keyup', onUserStroke).on('typeahead:selected', onSelection);
+    }, agencyAdaptor, footerAdaptor)
+    .on('keyup', onUserStroke)
+    .on('typeahead:selected', onSelection);
 });
