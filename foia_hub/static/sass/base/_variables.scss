@@ -41,6 +41,7 @@ $light-green: #E6EFC2;
 $dark-gray: #323A45; // Text/Rules
 $gray: #777777; // Text 2
 $blue: #0067BA; // Links
+$dark-blue: #005184;
 $aqua-blue: #00BFE7; // Graphics
 $medium-blue: #0096B5; // Rollover
 $light-blue: #CDEAF0; // Highlight
@@ -56,7 +57,7 @@ $base-accent-color: $blue;
 
 // Link Colors
 $base-link-color: $base-accent-color;
-$hover-link-color: $base-link-color; // lighten($base-accent-color, 25);
+$hover-link-color: $dark-blue;
 $base-button-color: $aqua-blue;
 $hover-button-color: $aqua-blue;
 
