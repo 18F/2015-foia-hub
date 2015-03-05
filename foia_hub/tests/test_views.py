@@ -8,6 +8,8 @@ from foia_hub.models import ReadingRoomUrls
 from foia_hub.views import get_agency_list
 from foia_hub.templatetags.get_domain import get_domain
 
+from foia_hub.settings.test import custom_backend
+
 
 class RequestFormTests(SimpleTestCase):
     def setUp(self):
@@ -150,42 +152,28 @@ class AgenciesPageTests(TestCase):
     def test_agencies_search_list(self):
         """ The /agencies/ page should filter agencies by a search term. """
         query = "department"
-        response = self.client.get(reverse('agencies') + "?query=" + query)
-        self.assertEqual(response.status_code, 200)
+        if custom_backend == 'postgresql_psycopg2':
+            response = self.client.get(reverse('agencies') + "?query=" + query)
+            self.assertEqual(response.status_code, 200)
 
-        content = response.content.decode('utf-8')
-        self.assertTrue('Department of Homeland Security' in content)
-        self.assertTrue('Department of Commerce' in content)
-        self.assertTrue('Patent and Trademark Office' not in content)
-
-    def test_agencies_search_one(self):
-        """ The /agencies/ page should redirect to an agency if there's only
-        one result. """
-
-        query = "dhs"
-        dhs = Agency.objects.filter(abbreviation='DHS')[0]
-        response = self.client.get(reverse('agencies') + "?query=" + query)
-        self.assertEqual(response.status_code, 302)
-
-        self.assertEqual(
-            "http://testserver" + reverse(
-                'contact_landing', kwargs={'slug': dhs.slug}),
-            response['Location']
-        )
+            content = response.content.decode('utf-8')
+            self.assertTrue('Department of Homeland Security' in content)
+            self.assertTrue('Department of Commerce' in content)
+            self.assertTrue('Patent and Trademark Office' not in content)
 
     def test_agencies_search_none(self):
         """ The /agencies/ page should display a message if there are no
         results. """
+        if custom_backend == 'postgresql_psycopg2':
+            query = "kjlasdhfjhsdfljsdhflkasdjh"
+            response = self.client.get(reverse('agencies') + "?query=" + query)
+            self.assertEqual(response.status_code, 200)
 
-        query = "kjlasdhfjhsdfljsdhflkasdjh"
-        response = self.client.get(reverse('agencies') + "?query=" + query)
-        self.assertEqual(response.status_code, 200)
-
-        content = response.content.decode('utf-8')
-        self.assertTrue('Department of Homeland Security' not in content)
-        self.assertTrue('Department of Commerce' not in content)
-        self.assertTrue('Patent and Trademark Office' not in content)
-        self.assertTrue('no agencies matching your search' in content)
+            content = response.content.decode('utf-8')
+            self.assertTrue('Department of Homeland Security' not in content)
+            self.assertTrue('Department of Commerce' not in content)
+            self.assertTrue('Patent and Trademark Office' not in content)
+            self.assertTrue('no agencies matching your search' in content)
 
 
 class ContactPageTests(TestCase):

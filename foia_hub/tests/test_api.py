@@ -6,6 +6,8 @@ from foia_hub.api import agency_preparer, contact_preparer
 from foia_hub.api import foia_libraries_preparer
 from foia_hub.tests import helpers
 
+from foia_hub.settings.test import custom_backend
+
 
 class PreparerTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
@@ -61,10 +63,14 @@ class PreparerTests(TestCase):
             slug='department-of-commerce--census-bureau')
 
         rone = ReadingRoomUrls(
-            content_object=census, link_text='Url One', url='http://urlone.gov')
+            content_object=census,
+            link_text='Url One',
+            url='http://urlone.gov')
         rone.save()
         rtwo = ReadingRoomUrls(
-            content_object=census, link_text='Url Two', url='http://urltwo.gov')
+            content_object=census,
+            link_text='Url Two',
+            url='http://urltwo.gov')
         rtwo.save()
 
         data = foia_libraries_preparer(census)
@@ -72,7 +78,10 @@ class PreparerTests(TestCase):
         serialized_rooms = {'foia_libraries': [
             {'link_text': 'Url One', 'url': 'http://urlone.gov'},
             {'link_text': 'Url Two', 'url': 'http://urltwo.gov'}]}
-
+        if custom_backend == 'postgresql_psycopg2':
+            serialized_rooms = {'foia_libraries': [
+                {'url': 'http://urltwo.gov', 'link_text': 'Url Two'},
+                {'url': 'http://urlone.gov', 'link_text': 'Url One'}]}
         self.assertEqual(serialized_rooms, data)
 
 
@@ -99,13 +108,16 @@ class AgencyAPITests(TestCase):
             slugs)
 
     def test_list_query(self):
-        c = Client()
-        response = c.get('/api/agency/?query=industry')
-        self.assertEqual(200, response.status_code)
-        content = helpers.json_from(response)
-        self.assertEqual(len(content['objects']), 1)
-        self.assertEqual(
-            content['objects'][0]['slug'], 'department-of-commerce')
+        """ Test that search works when backend is postgresql_psycopg2 """
+        if custom_backend == 'postgresql_psycopg2':
+            c = Client()
+            response = c.get('/api/agency/?query=emergency')
+            self.assertEqual(200, response.status_code)
+            content = helpers.json_from(response)
+            self.assertEqual(len(content['objects']), 1)
+            self.assertEqual(
+                content['objects'][0]['slug'],
+                'department-of-homeland-security')
 
     def test_detail(self):
         """ Check the detail view for an agency."""

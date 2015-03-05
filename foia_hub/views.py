@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from foia_hub.api import AgencyResource, OfficeResource
 
