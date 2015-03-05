@@ -44,9 +44,4 @@ def temp_home():
 
 # test if a command exists, don't print output
 def clone_repo(repo, directory):
-  try:
     subprocess.check_call(["git", "clone", repo, directory], shell=False)
-    return True
-  except subprocess.CalledProcessError as exc:
-    print("Error running: %s" % (str(command)))
-    return False
