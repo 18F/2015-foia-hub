@@ -172,11 +172,66 @@ python manage.py scss watch   # will run continuously
 
 During development, then, you will likely have both `scss watch` and `runserver`.
 
-## Deploying
+## Deploying to Cloud Foundry
 
-18F deploys this app to Cloud Foundry. Deployment to Heroku should be very similar to the below.
+18F deploys this app to a self-hosted instance of Cloud Foundry. If you're not at 18F, you may want to [deploy on Heroku](#deploying-to-heroku) instead.
 
+You'll need to configure an app named `foia` in the space or org that makes sense for you. We already have a [`manifest.yml`](manifest.yml) that assumes the app is named `foia`, and sets a memory size of 1GB.
 
+#### 18F setup
+
+Point `cf` at 18F's API. You may need to use `--skip-ssl
+
+```bash
+cf api https://api.cf.18f.us
+```
+
+If the `cf api` command below fails, add `--skip-ssl-validation` (this is temporary).
+
+Work with the right "org" and "space":
+
+```bash
+cf target -o foia -s hub
+```
+
+Set the app's environment variables.
+
+* `DATABASE_URL`: connection string to Postgres.
+* `FOIA_ANALYTICS_ID`: A Google Analytics profile ID.
+* `FOIA_SECRET_SESSION_KEY`: A random high-entropy string. Should be strong and unique for production.
+* `DJANGO_SETTINGS_MODULE`: Set to `foia_hub.settings.dev` in development, and to `foia_hub.settings.production` in production.
+
+```
+cf set-env foia DATABASE_URL [value]
+cf set-env foia FOIA_ANALYTICS_ID [value]
+cf set-env foia FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+```
+
+Deploy the app with:
+
+```bash
+cf push foia -c "bash cf.sh"
+```
+
+This will:
+
+* Deploy the app **from the directory you run the command** (the server does not check out the app from source control).
+* Migrate the database.
+* Check out the latest data from [`18f/foia`](https://github.com/18f/foia) and load the data into the database.
+* Start the app.
+
+You can tail the logs during the process with:
+
+```bash
+cf logs foia
+```
+
+Tailing the logs doesn't show past logs. To view recent logs (without tailing), run:
+
+```bash
+cf logs foia --recent
+```
 
 ## Public domain
 
