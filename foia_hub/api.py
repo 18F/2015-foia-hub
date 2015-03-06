@@ -210,23 +210,26 @@ class AgencyResource(DjangoResource):
             cursor = connection.cursor()
             # full text search weighted in following order:
             # abbreviation, name, description, keywords
-            cursor.execute(
-                """
-    SELECT *
-    FROM (
-        SELECT * ,
-            setweight(to_tsvector('simple', slug), 'A') ||
-            setweight(to_tsvector('english', name), 'A') ||
-            setweight(to_tsvector('simple', abbreviation), 'A') ||
-            setweight(to_tsvector('english', description), 'B') ||
-            setweight(to_tsvector('simple', keywords), 'C') as tsvect
-        FROM foia_hub_agency
-        ) as results
-    WHERE results.tsvect @@ to_tsquery('english', %s)
-    ORDER BY ts_rank(results.tsvect, to_tsquery('english', %s)) DESC;
-                """,
-                [search_term, search_term])
-            agencies = dictfetchall(cursor)
+            try:
+                cursor.execute(
+                    """
+        SELECT *
+        FROM (
+            SELECT * ,
+                setweight(to_tsvector('simple', slug), 'A') ||
+                setweight(to_tsvector('english', name), 'A') ||
+                setweight(to_tsvector('simple', abbreviation), 'A') ||
+                setweight(to_tsvector('english', description), 'B') ||
+                setweight(to_tsvector('simple', keywords), 'C') as tsvect
+            FROM foia_hub_agency
+            ) as results
+        WHERE results.tsvect @@ to_tsquery('english', %s)
+        ORDER BY ts_rank(results.tsvect, to_tsquery('english', %s)) DESC;
+                    """,
+                    [search_term, search_term])
+                agencies = dictfetchall(cursor)
+            except:
+                agencies = []
         else:
             agencies = Agency.objects.all().order_by('name')
 
