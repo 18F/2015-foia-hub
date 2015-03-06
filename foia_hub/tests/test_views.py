@@ -151,8 +151,9 @@ class AgenciesPageTests(TestCase):
 
     def test_agencies_search_list(self):
         """ The /agencies/ page should filter agencies by a search term. """
-        query = "department"
+
         if custom_backend == 'postgresql_psycopg2':
+            query = "department"
             response = self.client.get(reverse('agencies') + "?query=" + query)
             self.assertEqual(response.status_code, 200)
 
