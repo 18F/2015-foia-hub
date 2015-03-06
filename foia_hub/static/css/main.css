@@ -1198,27 +1198,31 @@ footer {
       position: relative;
       top: .25em; }
   .search .clear {
-    color: transparent !important;
-    background: #CCCCCC;
-    position: absolute;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    border: none;
-    width: 1em;
-    height: 1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    -ms-border-radius: 1em;
-    -o-border-radius: 1em;
-    border-radius: 1em;
-    position: absolute;
-    top: .5em;
-    right: .5em; }
-    .search .clear:hover {
-      background: #323A45; }
+    display: none; }
+
+.search.tt-filled .clear {
+  display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  color: #fff !important;
+  background: #CCCCCC;
+  position: absolute;
+  border: none;
+  width: 1em;
+  height: 1em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+  position: absolute;
+  top: .5em;
+  right: .5em; }
+  .search.tt-filled .clear:hover {
+    background: #323A45; }
 
 /* agency autocomplete */
 .twitter-typeahead {

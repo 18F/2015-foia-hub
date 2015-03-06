@@ -503,10 +503,17 @@ footer {
   }
 
   .clear {
-    color: transparent !important;
+    display: none;
+  }
+}
+
+.search.tt-filled {
+  .clear {
+    display: block;
+    @include appearance(none);
+    color: #fff !important;
     background: $medium-gray;
     position: absolute;
-    @include appearance(none);
     border: none;
     width: 1em;
     height: 1em;
