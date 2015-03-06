@@ -174,7 +174,7 @@ During development, then, you will likely have both `scss watch` and `runserver`
 
 ## Deploying to Cloud Foundry
 
-18F deploys this app to a self-hosted instance of Cloud Foundry. If you're not at 18F, you may want to [deploy on Heroku](#deploying-to-heroku) instead.
+18F deploys this app to a self-hosted instance of Cloud Foundry.
 
 You'll need to configure an app named `foia` in the space or org that makes sense for you. We already have a [`manifest.yml`](manifest.yml) that assumes the app is named `foia`, and sets a memory size of 1GB.
 
