@@ -1,18 +1,16 @@
 // Typography
-$sans-serif: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
-// $serif: $georgia;
+$sans-serif: proximanova, "proxima-nova", "proxima nova", "Open Sans","Gill Sans MT","Gill Sans", Corbel, Arial,sans-serif;
+$serif: $georgia;
 $base-font-family: $sans-serif;
 $header-font-family: $base-font-family;
 
 // Font Sizes
 $base-font-size: 1em;
 $h1-font-size: $base-font-size * 2.25;
-// $h2-font-size: $base-font-size * 2;
 $h2-font-size: $base-font-size * 1.5;
-// $h3-font-size: $base-font-size * 1.75;
 $h3-font-size: $base-font-size * 1.125;
-$h4-font-size: $base-font-size * 1;
-$h5-font-size: $base-font-size * 1;
+$h4-font-size: $base-font-size;
+$h5-font-size: $base-font-size;
 $h6-font-size: $base-font-size;
 
 //Font Weights
