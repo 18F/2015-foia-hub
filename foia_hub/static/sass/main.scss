@@ -550,8 +550,7 @@ $search-height: 2em;
   padding: 0;
   background-color: #fff;
   border: 1px solid $medium-gray;
-  @include border-top-radius(2px);
-  @include border-bottom-radius(2px);
+  @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
 }
 
