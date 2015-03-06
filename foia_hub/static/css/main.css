@@ -703,7 +703,7 @@ body > header {
       float: left;
       display: block;
       margin-right: 1.05263%;
-      width: 7.36842%;
+      width: 15.78947%;
       float: left;
       color: #0067BA;
       padding-right: 1em; }
@@ -720,7 +720,7 @@ body > header {
       float: left;
       display: block;
       margin-right: 1.05263%;
-      width: 66.31579%; }
+      width: 62.10526%; }
       body > header .container nav ul:last-child {
         margin-right: 0; }
       body > header .container nav ul li {
@@ -753,7 +753,7 @@ body > header {
       float: left;
       display: block;
       margin-right: 1.05263%;
-      width: 24.21053%; }
+      width: 20%; }
       body > header .container form.search:last-child {
         margin-right: 0; }
 
@@ -1158,6 +1158,7 @@ footer {
 
 .search {
   position: relative;
+  top: -.3em;
   color: #323A45;
   height: 2em; }
   .search input.typeahead {
@@ -1213,14 +1214,21 @@ footer {
   border: none;
   width: 1em;
   height: 1em;
+  padding: 0;
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   -ms-border-radius: 1em;
   -o-border-radius: 1em;
   border-radius: 1em;
   position: absolute;
+  text-align: center;
   top: .5em;
   right: .5em; }
+  .search.tt-filled .clear span {
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
+    line-height: 0;
+    font-weight: bold; }
   .search.tt-filled .clear:hover {
     background: #323A45; }
 

@@ -7,9 +7,6 @@
 @import "mixins";
 @import "accessibility";
 
-$search-border-radius: 1em;
-$search-height: 2em;
-
 // all focused links should be underlined
 a:focus {
   text-decoration: underline !important;
@@ -31,7 +28,7 @@ body > header {
     @include outer-container();
 
     #logo {
-      @include span-columns(2);
+      @include span-columns(4);
 
       float: left;
       // font-weight: normal;
@@ -55,7 +52,7 @@ body > header {
 
     nav {
       ul {
-        @include span-columns(16);
+        @include span-columns(15);
 
         li {
           display: inline-block;
@@ -93,7 +90,7 @@ body > header {
     }
 
     form.search {
-      @include span-columns(6);
+      @include span-columns(5);
     }
   }
 }
@@ -461,8 +458,11 @@ footer {
   @include inner(16);
 }
 
+$search-height: 2em;
+
 .search {
   position: relative;
+  top: -.3em;
   color: $dark-gray;
   height: $search-height;
 
@@ -477,8 +477,8 @@ footer {
     display: block !important;
     @include prefixer(box-sizing, border-box, $vendor-prefixes);
 
-    @include border-left-radius($search-border-radius);
-    @include border-right-radius($search-border-radius);
+    @include border-left-radius(1em);
+    @include border-right-radius(1em);
     @include placeholder {
       color: $gray;
     }
@@ -517,10 +517,19 @@ footer {
     border: none;
     width: 1em;
     height: 1em;
+    padding: 0;
     @include prefixer(border-radius, 1em, $vendor-prefixes);
     position: absolute;
+    text-align: center;
     top: .5em;
     right: .5em;
+
+    span {
+      position: relative;
+      font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
+      line-height: 0;
+      font-weight: bold;
+    }
 
     &:hover {
       background: $dark-gray;
