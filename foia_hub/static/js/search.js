@@ -2,13 +2,14 @@
 $(document).ready(function() {
   var currentText = '',
       longestText = '',
-      onUserStroke,
+      onChange,
       onSelection,
       agencyDatasource,
       agencyAdaptor,
       footerAdaptor,
       updateEmptyState,
       typeahead,
+      form,
       // how long we'll give Google Analytics to record a an action
       // before just going ahead with it, in milliseconds
       gaTimeout = 500;
@@ -56,8 +57,8 @@ $(document).ready(function() {
   };
 
   //  Track the text as the user types
-  onUserStroke = function(ev) {
-    var currentText = typeahead.val();
+  onChange = function(ev) {
+    currentText = typeahead.val();
     if (currentText.length > longestText.length) {
       longestText = currentText;
     } else if (currentText.length === 0 && longestText.length > 0) {
@@ -65,6 +66,7 @@ $(document).ready(function() {
       ga('send', 'event', 'contacts', 'did-not-want', longestText);
       longestText = '';
     }
+    form.toggleClass('tt-filled', currentText.length > 0);
   };
 
   //  If an agency was selected, notify analytics and redirect
@@ -72,7 +74,7 @@ $(document).ready(function() {
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
       typeahead.val(suggestion.query);
-      typeahead.closest('form').submit();
+      form.submit();
     } else {
       var callback = function() {
             clearTimeout(timeout);
@@ -91,6 +93,20 @@ $(document).ready(function() {
       highlight: true,
       minLength: 1
     }, agencyAdaptor, footerAdaptor)
-    .on('keyup', onUserStroke)
+    .on('keyup', onChange)
     .on('typeahead:selected', onSelection);
+
+  form = typeahead.closest('form');
+
+  /*
+   * when the clear button is clicked, focus the typeahead after
+   * 10ms (which gives typehead.js some time to understand that the
+   * input is empty.
+   */
+  form.select('.clear')
+    .on('click', function() {
+      setTimeout(function() {
+        typeahead.focus();
+      }, 10);
+    });
 });
