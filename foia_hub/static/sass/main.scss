@@ -7,7 +7,8 @@
 @import "mixins";
 @import "accessibility";
 
-$search-border-radius: 8px;
+$search-border-radius: 1em;
+$search-height: 2em;
 
 // all focused links should be underlined
 a:focus {
@@ -23,63 +24,76 @@ body > header {
   }
 
   #topnav {
-    margin: 1em 0 0.8em;
+    margin: 1.5em 0 0.8em;
   }
 
-  #logo {
-    float: left;
-    // font-weight: normal;
-    // font-size: 2em;
-    color: $blue;
-    padding-right: 1em;
+  .container {
+    @include outer-container();
 
-    a {
+    #logo {
+      @include span-columns(2);
+
+      float: left;
+      // font-weight: normal;
+      // font-size: 2em;
       color: $blue;
-    }
-
-    strong {
-      font-weight: 800;
-    }
-
-    em {
-      color: #cc2211;
-      font-style: normal;
-    }
-  }
-
-  #topnav nav {
-    ul {
-      li {
-        display: inline-block;
-        padding: 0 10px;
-        font-weight: 600;
-      }
+      padding-right: 1em;
 
       a {
-        color: $gray;
-        padding-bottom: 12px;
-        @include media($small) {
-          padding-bottom: 0;
+        color: $blue;
+      }
+
+      strong {
+        font-weight: 800;
+      }
+
+      em {
+        color: #cc2211;
+        font-style: normal;
+      }
+    }
+
+    nav {
+      ul {
+        @include span-columns(16);
+
+        li {
+          display: inline-block;
+          padding: 0 10px;
+          font-weight: 600;
+        }
+
+        a {
+          color: $gray;
+          padding-bottom: 20px;
+          @include media($small) {
+            padding-bottom: 0;
+          }
+        }
+
+        a:hover,
+        a.active,
+        a:active,
+        #logo:hover {
+          border-bottom: 0.3em solid $aqua-blue;
+          color: $dark-gray !important;
+          text-decoration: none !important;
+          @include media($small) {
+            border-bottom: 1px solid $aqua-blue;
+          }
+        }
+
+        a:focus {
+          // background: #cc2211;
+          background: #fff;
+          color: #18f;
         }
       }
 
-      a:hover,
-      a.active,
-      a:active,
-      #logo:hover {
-        border-bottom: 0.3em solid $aqua-blue;
-        color: $dark-gray !important;
-        text-decoration: none !important;
-        @include media($small) {
-          border-bottom: 1px solid $aqua-blue;
-        }
-      }
+    }
 
-      a:focus {
-        // background: #cc2211;
-        background: #fff;
-        color: #18f;
-      }
+    form.search {
+      @include span-columns(6);
     }
   }
 }
@@ -447,56 +461,65 @@ footer {
   @include inner(16);
 }
 
-.search_icon {
-  color: $gray;
-  // display: inline-block;
-  height: 3em;
-  // width: 2em;
-  position: absolute;
-  z-index: 100;
-//  background: white;
-//  @include border-left-radius(8px);
-  padding-top: 0.75em;
-  padding-left: 0.75em;
-  .fa-search {
-    color: $gray;
-  }
-}
-
-.search input.typeahead {
-  color: $dark-gray;
-  background-color: white;
-  height: 3em;
-  padding-left: 2.5em;
-  margin-bottom: 0;
-  @include border-left-radius($search-border-radius);
-  @include border-right-radius($search-border-radius);
-  @include placeholder {
-    color: $gray;
-  }
-}
-
-.search .submit {
-  color: $dark-gray;
-  @include border-right-radius($search-border-radius);
-  @include border-left-radius(0);
-  height: 3em;
-  width: 6em;
-  text-align: center;
-  float:right;
+.search {
   position: relative;
-  top: -3em;
+  color: $dark-gray;
+  height: $search-height;
+
+  input.typeahead {
+    color: inherit;
+    background-color: white;
+    height: $search-height;
+    padding-left: 2em;
+    margin-bottom: 0;
+
+    width: 100%;
+    display: block !important;
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+
+    @include border-left-radius($search-border-radius);
+    @include border-right-radius($search-border-radius);
+    @include placeholder {
+      color: $gray;
+    }
+  }
+
+  .fa {
+    color: inherit !important;
+  }
+
+  .search-icon {
+    height: 100%;
+    width: 2em;
+    position: absolute;
+    top: 0;
+    left: .5em;
+    z-index: 100;
+
+    .fa {
+      position: relative;
+      top: .25em;
+    }
+  }
+
+  .clear {
+    color: transparent !important;
+    background: $medium-gray;
+    position: absolute;
+    @include appearance(none);
+    border: none;
+    width: 1em;
+    height: 1em;
+    @include prefixer(border-radius, 1em, $vendor-prefixes);
+    position: absolute;
+    top: .5em;
+    right: .5em;
+  }
 }
 
 /* agency autocomplete */
 .twitter-typeahead {
   width: 100%;
-  display: block !important;
-  border: none;
-}
-
-.typeahead {
-  background-color: #fff;
 }
 
 .tt-hint {
@@ -506,9 +529,9 @@ footer {
 .tt-dropdown-menu {
   padding: 0;
   background-color: #fff;
-  border: 1px solid $light-gray;
-  @include border-top-radius($search-border-radius);
-  @include border-bottom-radius($search-border-radius);
+  border: 1px solid $medium-gray;
+  @include border-top-radius(2px);
+  @include border-bottom-radius(2px);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
 }
 
@@ -516,7 +539,11 @@ footer {
   margin-top: 10px;
   max-height: 300px;
   overflow-y: auto;
-  width: 100%;
+  // make this thing stick out to the left
+  min-width: 320px;
+  position: absolute;
+  right: 0 !important;
+  left: auto !important;
 }
 
 .tt-suggestion {
