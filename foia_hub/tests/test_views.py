@@ -158,21 +158,6 @@ class AgenciesPageTests(TestCase):
         self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Patent and Trademark Office' not in content)
 
-    def test_agencies_search_one(self):
-        """ The /agencies/ page should redirect to an agency if there's only
-        one result. """
-
-        query = "dhs"
-        dhs = Agency.objects.filter(abbreviation='DHS')[0]
-        response = self.client.get(reverse('agencies') + "?query=" + query)
-        self.assertEqual(response.status_code, 302)
-
-        self.assertEqual(
-            "http://testserver" + reverse(
-                'contact_landing', kwargs={'slug': dhs.slug}),
-            response['Location']
-        )
-
     def test_agencies_search_none(self):
         """ The /agencies/ page should display a message if there are no
         results. """
