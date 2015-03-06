@@ -84,13 +84,10 @@ def sanitize_search_term(term):
     # Replace ampersands or pipes surrounded by ampersands.
     term = multiple_operator_re.sub(r" \1 ", term)
 
-    # Escape single quotes
-    term = term.replace("'", "''")
-
     # Check if quotes are balanced
-    if term.count("''") % 2 != 0:
-        term = term.replace("''", '')
-
+    if term.count("'") % 2 != 0:
+        term = term.replace("'", '')
+        term = "'%s'" % term
     return term
 
 

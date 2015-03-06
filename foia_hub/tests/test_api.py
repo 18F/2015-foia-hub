@@ -131,8 +131,8 @@ class AgencyAPITests(TestCase):
 
         if custom_backend == 'postgresql_psycopg2':
 
-            # Test that search works with words not in order in title
             c = Client()
+            # Test that search works with words not in order in title
             response = c.get('/api/agency/?query=cybersecurity+chemical')
             content = helpers.json_from(response)
             self.assertEqual(len(content['objects']), 1)
@@ -141,7 +141,6 @@ class AgencyAPITests(TestCase):
                 'department-of-homeland-security')
 
             # Test that search works with words not in order in description
-            c = Client()
             response = c.get('/api/agency/?query=Security+Homeland')
             content = helpers.json_from(response)
             self.assertEqual(len(content['objects']), 1)
@@ -150,7 +149,6 @@ class AgencyAPITests(TestCase):
                 'department-of-homeland-security')
 
             # Test that search works with abbeviations
-            c = Client()
             response = c.get('/api/agency/?query=dhs')
             content = helpers.json_from(response)
             self.assertEqual(len(content['objects']), 1)
@@ -159,7 +157,6 @@ class AgencyAPITests(TestCase):
                 'department-of-homeland-security')
 
             # Test that search works with slugs
-            c = Client()
             response = c.get(
                 '/api/agency/?query=department-of-homeland-security')
             content = helpers.json_from(response)
@@ -167,6 +164,52 @@ class AgencyAPITests(TestCase):
             self.assertEqual(
                 content['objects'][0]['slug'],
                 'department-of-homeland-security')
+
+    def test_list_query_quotes(self):
+        """
+        Test that using quotes produces a more defined search
+        DOC has the word `taxes` and USPTO has the word `taxpayer`
+        """
+        if custom_backend == 'postgresql_psycopg2':
+            c = Client()
+
+            # `taxes` brings up both `tax` and `taxpayer`
+            response = c.get(
+                '/api/agency/?query=taxes')
+            content = helpers.json_from(response)
+            self.assertEqual(len(content['objects']), 2)
+
+            # `"taxes"` brings up only words that have taxes
+            response = c.get(
+                '/api/agency/?query="taxes"')
+            content = helpers.json_from(response)
+            self.assertEqual(len(content['objects']), 1)
+
+    def test_list_query_quotes_errors(self):
+        """
+        Test quotes don't break the search.
+        """
+        if custom_backend == 'postgresql_psycopg2':
+            c = Client()
+            # single single quotes don't break search
+            response = c.get("/api/agency/?query='test")
+            self.assertEqual(response.status_code, 200)
+            response = c.get("/api/agency/?query=te'st")
+            self.assertEqual(response.status_code, 200)
+            response = c.get("/api/agency/?query=test'")
+            self.assertEqual(response.status_code, 200)
+            response = c.get("/api/agency/?query='tes't test'")
+            self.assertEqual(response.status_code, 200)
+
+            # single double quotes don't break search
+            response = c.get('/api/agency/?query="test')
+            self.assertEqual(response.status_code, 200)
+            response = c.get('/api/agency/?query=te"st')
+            self.assertEqual(response.status_code, 200)
+            response = c.get('/api/agency/?query=test"')
+            self.assertEqual(response.status_code, 200)
+            response = c.get('/api/agency/?query="tes"t test"')
+            self.assertEqual(response.status_code, 200)
 
     def test_list_query_and_or(self):
         """
@@ -234,17 +277,16 @@ class AgencyAPITests(TestCase):
 
         # Quoted words are kept as one term
         test_term = sanitize_search_term("'health justice'")
-        self.assertEqual(test_term, "''health justice''")
+        self.assertEqual(test_term, "'health justice'")
         test_term = sanitize_search_term('"health justice"')
-        self.assertEqual(test_term, "''health justice''")
+        self.assertEqual(test_term, "'health justice'")
 
         # Single quotes don't break search
         # The search won't break, but still not ideal
         test_term = sanitize_search_term("'health justice")
-        self.assertEqual(test_term, 'health justice')
+        self.assertEqual(test_term, "'health justice'")
         test_term = sanitize_search_term('health justice"')
-        self.assertEqual(test_term, 'health:* & justice:*')
-
+        self.assertEqual(test_term, "'health:* & justice:*'")
 
         # Ands and Ors are converted
         test_term = sanitize_search_term('health AND justice')
@@ -257,7 +299,7 @@ class AgencyAPITests(TestCase):
             '"health life" AND justice OR "Justice AND Peace"')
         self.assertEqual(
             test_term,
-            "''health life'' & justice:* | ''Justice & Peace''")
+            "'health life' & justice:* | 'Justice & Peace'")
 
     def test_detail(self):
         """ Check the detail view for an agency."""
