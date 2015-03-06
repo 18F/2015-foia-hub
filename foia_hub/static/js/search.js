@@ -73,7 +73,7 @@ $(document).ready(function() {
   //  If the footer was selected, submit the form to redirect
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
-      typeahead.val(suggestion.query);
+      // typeahead.val(suggestion.query);
       form.submit();
     } else {
       var callback = function() {
@@ -105,8 +105,9 @@ $(document).ready(function() {
    */
   form.select('.clear')
     .on('click', function() {
-      setTimeout(function() {
-        typeahead.focus();
-      }, 10);
+      typeahead
+        .typeahead('val', '')
+        .focus();
+      onChange();
     });
 });

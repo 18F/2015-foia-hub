@@ -8,6 +8,8 @@
       placeholder="{{ search_placeholder }}"
       aria-label="{{ search_placeholder }}"
       {% if query %}value="{{ query }}"{% endif %}>
-    <input type="reset" class="clear" value="&times;">
+    <button type="reset" class="clear">
+      <span>&times;</span>
+    </button>
   </div>
 </form>
