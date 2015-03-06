@@ -1250,14 +1250,11 @@ footer {
 
 .tt-suggestion {
   color: #323A45 !important;
-  padding: 8px; }
-
-.tt-dataset-agencies .tt-suggestion {
-  border-bottom: 1px solid #EAEDF1; }
+  padding: 10px 15px; }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf; }
+  color: #005184;
+  background-color: #CDEAF0; }
 
 .tt-suggestion p {
   margin: 0;

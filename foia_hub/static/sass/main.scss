@@ -548,16 +548,12 @@ footer {
 
 .tt-suggestion {
   color: $dark-gray !important;
-  padding: 8px;
-}
-
-.tt-dataset-agencies .tt-suggestion {
-  border-bottom: 1px solid $light-gray;
+  padding: 10px 15px;
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf; // XXX: should this be $medium-blue?
+  color: $dark-blue;
+  background-color: $light-blue;
 }
 
 .tt-suggestion p {
