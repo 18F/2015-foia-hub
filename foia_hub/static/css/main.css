@@ -1258,35 +1258,50 @@ footer {
   margin-top: 10px;
   max-height: 300px;
   overflow-y: auto;
-  min-width: 320px;
+  width: 375px;
   position: absolute;
   right: 0 !important;
   left: auto !important; }
 
 .tt-suggestion {
   color: #323A45 !important;
-  padding: 10px 15px; }
+  font-size: .9em;
+  line-height: 1.3em;
+  padding: .7em 1.2em; }
+
+.tt-suggestion:first-child {
+  padding-top: .9em; }
+
+.tt-suggestion:last-child {
+  padding-bottom: .9em; }
 
 .tt-suggestion.tt-cursor {
   color: #005184;
   background-color: #CDEAF0; }
 
+.tt-dataset-agencies .tt-suggestion:last-child {
+  border-bottom: 1px solid #CCCCCC; }
+
 .tt-suggestion p {
   margin: 0;
   padding: 0; }
 
-.tt-suggestion .return {
-  color: #fff;
-  background: #CCCCCC;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  font-size: .6em;
-  vertical-align: baseline;
-  margin-right: .5em;
-  padding: 4px 6px 2px; }
+.search-prompt {
+  word-wrap: break-word; }
+  .search-prompt .return {
+    color: #fff;
+    background: #CCCCCC;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    font-size: .6em;
+    vertical-align: baseline;
+    margin-right: .5em;
+    padding: 4px 6px 2px;
+    position: relative;
+    top: -.1em; }
 
 .tt-cursor .return {
   background: #323A45; }
