@@ -31,10 +31,12 @@
             </a></li>
           <li><a role="tab"
             {% if request and ('/about/' == request.path) %}class="active" aria-selected="true"{% endif %}
-            href="/about/">About This Project
+            href="/about/">About this Project
           </a></li>
         </ul>
       </nav>
+
+      {% include 'includes/search.html' %}
     </div>
   </div>
 </header>
