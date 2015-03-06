@@ -31,43 +31,16 @@ Instead, our tool will focus on a small, US-focused user experience, and API-dri
 
 This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
 
-**Installing Python 3**: There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
-
-1. You can use [`pyenv`](https://github.com/yyuu/pyenv) to download and install any version of Python to your home directory, and to switch easily between them. This separates your system Pythons from your development Pythons.
-2. You can install Python 3 to your system. On OS X, install [Homebrew](http://brew.sh), then run `brew install Python3`. On Ubuntu, install using `apt-get install python3`.
-
-**Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
-
-The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest/), [virtualenv](http://virtualenv.readthedocs.org/en/latest/), and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
-
-### Project setup
-
-Create an environment to install Python dependencies, with virtualenvwrapper.
-
-* If you're using `pyenv`, activate Python 3 and run `mkvirtualenv foia-hub`.
-
-* If you're using a system Python, specify the path to Python like so:
-
-```bash
-mkvirtualenv --python=/path/to/python3 foia-hub
-```
-
-* Install project requirements.
-
-```bash
-pip install -r requirements.txt
-```
-
-* **If using Ubuntu**, run the following before psycopg2 installed correctly:
+* **If using Ubuntu**, you may need to install the following:
 
 ```bash
 sudo apt-get install libpq-dev python3-dev
 ```
 
-* Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
+* Install project requirements. It's recommended you use a virtualenv.
 
 ```bash
-export PYTHONPATH=/path/to/hub:$PYTHONPATH
+pip install -r requirements.txt
 ```
 
 * Install [`autoenv`](https://github.com/kennethreitz/autoenv) to automatically load the contents of `.env` as environment variables.
@@ -77,8 +50,6 @@ export PYTHONPATH=/path/to/hub:$PYTHONPATH
 ```bash
 cp env.example .env
 ```
-
-* Change values in `.env`. In development, you may not need to change anything.
 
 ### Using SQLite
 
@@ -118,10 +89,14 @@ psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 django-admin.py syncdb
 ```
 
-* Finally, launch the server locally:
+* Update the `DATABASE_URL` in `.env` with your Postgres connection string.
+
+### Running the server
+
+* Launch the server locally:
 
 ```
-django-admin.py runserver
+python manage.py runserver
 ```
 
 * The site should be running at [`http://localhost:8000`](http://localhost:8000).
@@ -170,22 +145,16 @@ And when you access [http://localhost:8000/api/agency/](http://localhost:8000/ap
 ### Front-end Dev Environment
 
 We use SASS, Bourbon, and Neat for our front-end stack. To set them up, you
-will need ruby (and gem) installed. On a Debian/Linux box, this can be
-accomplished via:
+will need Ruby.
 
-```bash
-sudo apt-get install ruby
-```
-
-You next need to install the appropriate ruby libraries. In this example, we
+You next need to install the appropriate Ruby libraries. In this example, we
 will install them system wide, though you may prefer bundler, etc.
 
 ```bash
 sudo gem install neat sass bourbon
 ```
 
-You will then need to pull down the appropriate sass libraries for bourbon and
-neat:
+You will then need to pull down the appropriate Sass libraries for Bourbon and Neat:
 
 ```bash
 cd foia_hub/static/sass
@@ -193,8 +162,7 @@ bourbon install
 neat install
 ```
 
-While developing you can trigger a recompile or run a "watch" script, which
-will recompile as you make Sass changes:
+While developing you can trigger a recompile or run a "watch" script, which will recompile as you make Sass changes:
 
 ```bash
 python manage.py scss   # one-off
@@ -202,8 +170,7 @@ python manage.py scss   # one-off
 python manage.py scss watch   # will run continuously
 ```
 
-During development, then, you will likely have both `scss watch` and
-`runserver`.
+During development, then, you will likely have both `scss watch` and `runserver`.
 
 ## Deploying
 
