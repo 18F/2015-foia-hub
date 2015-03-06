@@ -7,6 +7,7 @@ $(document).ready(function() {
       agencyDatasource,
       agencyAdaptor,
       footerAdaptor,
+      typeahead,
       // how long we'll give Google Analytics to record a an action
       // before just going ahead with it, in milliseconds
       gaTimeout = 500;
@@ -55,8 +56,7 @@ $(document).ready(function() {
 
   //  Track the text as the user types
   onUserStroke = function(ev) {
-    var input = $(ev.target);
-    currentText = input.val();
+    var currentText = typeahead.val();
     if (currentText.length > longestText.length) {
       longestText = currentText;
     } else if (currentText.length === 0 && longestText.length > 0) {
@@ -64,18 +64,16 @@ $(document).ready(function() {
       ga('send', 'event', 'contacts', 'did-not-want', longestText);
       longestText = '';
     }
-    input.parent()
-      .toggleClass('tt-active', currentText.length > 0);
+    typeahead.parent()
+      .toggleClass('tt-empty', !currentText.length);
   };
 
   //  If an agency was selected, notify analytics and redirect
   //  If the footer was selected, submit the form to redirect
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
-      $(ev.target)
-        .val(suggestion.query)
-        .closest('form')
-          .submit();
+      typeahead.val(suggestion.query);
+      typeahead.closest('form').submit();
     } else {
       var callback = function() {
             clearTimeout(timeout);
@@ -88,7 +86,7 @@ $(document).ready(function() {
   };
 
   //  Initialize typeahead
-  $('.scrollable-dropdown-menu .typeahead')
+  typeahead = $('.scrollable-dropdown-menu .typeahead')
     .typeahead({
       hint: false,
       highlight: true,
