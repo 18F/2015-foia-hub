@@ -514,6 +514,10 @@ footer {
     position: absolute;
     top: .5em;
     right: .5em;
+
+    &:hover {
+      background: $dark-gray;
+    }
   }
 }
 
@@ -562,7 +566,15 @@ footer {
 }
 
 .tt-suggestion .return {
-  font-size: .8em;
+  color: #fff;
+  background: $medium-gray;
+  @include prefixer(border-radius, 4px, $vendor-prefixes);
+  font-size: .6em;
   vertical-align: baseline;
   margin-right: .5em;
+  padding: 4px 6px 2px;
+}
+
+.tt-cursor .return {
+  background: $dark-gray;
 }

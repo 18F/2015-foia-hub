@@ -1217,6 +1217,8 @@ footer {
     position: absolute;
     top: .5em;
     right: .5em; }
+    .search .clear:hover {
+      background: #323A45; }
 
 /* agency autocomplete */
 .twitter-typeahead {
@@ -1261,8 +1263,19 @@ footer {
   padding: 0; }
 
 .tt-suggestion .return {
-  font-size: .8em;
+  color: #fff;
+  background: #CCCCCC;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: .6em;
   vertical-align: baseline;
-  margin-right: .5em; }
+  margin-right: .5em;
+  padding: 4px 6px 2px; }
+
+.tt-cursor .return {
+  background: #323A45; }
 
 /*# sourceMappingURL=main.css.map */
