@@ -7,6 +7,7 @@ $(document).ready(function() {
       agencyDatasource,
       agencyAdaptor,
       footerAdaptor,
+      updateEmptyState,
       typeahead,
       // how long we'll give Google Analytics to record a an action
       // before just going ahead with it, in milliseconds
@@ -64,8 +65,6 @@ $(document).ready(function() {
       ga('send', 'event', 'contacts', 'did-not-want', longestText);
       longestText = '';
     }
-    typeahead.parent()
-      .toggleClass('tt-empty', !currentText.length);
   };
 
   //  If an agency was selected, notify analytics and redirect
