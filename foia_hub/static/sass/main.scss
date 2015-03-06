@@ -515,14 +515,14 @@ $search-height: 2em;
     background: $medium-gray;
     position: absolute;
     border: none;
-    width: 1em;
-    height: 1em;
+    width: 1.2em;
+    height: 1.2em;
     padding: 0;
     @include prefixer(border-radius, 1em, $vendor-prefixes);
     position: absolute;
     text-align: center;
-    top: .5em;
-    right: .5em;
+    top: .4em;
+    right: .4em;
 
     span {
       position: relative;

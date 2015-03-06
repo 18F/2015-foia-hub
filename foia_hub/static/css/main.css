@@ -1212,8 +1212,8 @@ footer {
   background: #CCCCCC;
   position: absolute;
   border: none;
-  width: 1em;
-  height: 1em;
+  width: 1.2em;
+  height: 1.2em;
   padding: 0;
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
@@ -1222,8 +1222,8 @@ footer {
   border-radius: 1em;
   position: absolute;
   text-align: center;
-  top: .5em;
-  right: .5em; }
+  top: .4em;
+  right: .4em; }
   .search.tt-filled .clear span {
     position: relative;
     font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
