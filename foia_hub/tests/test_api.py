@@ -174,26 +174,6 @@ class AgencyAPITests(TestCase):
                 content['objects'][0]['slug'],
                 'department-of-commerce')
 
-    def test_list_query_quotes(self):
-        """
-        Test that using quotes produces a more defined search
-        DOC has the word `taxes` and USPTO has the word `taxpayer`
-        """
-        if custom_backend == 'postgresql_psycopg2':
-            c = Client()
-
-            # `taxes` brings up both `tax` and `taxpayer`
-            response = c.get(
-                '/api/agency/?query=taxes')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 2)
-
-            # `"taxes"` brings up only words that have taxes
-            response = c.get(
-                '/api/agency/?query="taxes"')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-
     def test_list_query_quotes_errors(self):
         """
         Test quotes don't break the search.
@@ -288,18 +268,24 @@ class AgencyAPITests(TestCase):
         test_term = sanitize_search_term('health justice')
         self.assertEqual(test_term, 'health:* & justice:*')
 
-        # Quoted words are kept as one term
-        test_term = sanitize_search_term("'health justice'")
-        self.assertEqual(test_term, "'health justice'")
-        test_term = sanitize_search_term('"health justice"')
-        self.assertEqual(test_term, "'health justice'")
+        # Single punctuation doesn't stay except for '&', '|', '-'
+        test_term = sanitize_search_term("'he??alth justice")
+        self.assertEqual(test_term, "health:* & justice:*")
 
-        # Single quotes don't break search
-        # The search won't break, but still not ideal
-        test_term = sanitize_search_term("'health justice")
-        self.assertEqual(test_term, "'health justice'")
-        test_term = sanitize_search_term('health justice"')
-        self.assertEqual(test_term, "'health:* & justice:*'")
+        test_term = sanitize_search_term('health just#ice"')
+        self.assertEqual(test_term, "health:* & justice:*")
+
+        test_term = sanitize_search_term('health-justice"')
+        self.assertEqual(test_term, "health-justice:*")
+
+        test_term = sanitize_search_term('health & justice"')
+        self.assertEqual(test_term, "health:* & justice:*")
+
+        test_term = sanitize_search_term('health | justice"')
+        self.assertEqual(test_term, "health:* | justice:*")
+
+        test_term = sanitize_search_term('health|justice"')
+        self.assertEqual(test_term, "health:*|justice:*")
 
         # Ands and Ors are converted
         test_term = sanitize_search_term('health AND justice')
@@ -307,12 +293,12 @@ class AgencyAPITests(TestCase):
         test_term = sanitize_search_term('health OR justice')
         self.assertEqual(test_term, 'health:* | justice:*')
 
-        # Complex search remains intact
+        # Complex search remains intact, but without punctuation
         test_term = sanitize_search_term(
             '"health life" AND justice OR "Justice AND Peace"')
         self.assertEqual(
             test_term,
-            "'health life' & justice:* | 'Justice & Peace'")
+            "health:* & life:* & justice:* | Justice:* & Peace:*")
 
     def test_detail(self):
         """ Check the detail view for an agency."""
