@@ -52,7 +52,7 @@ $(document).ready(function() {
       }
     },
     templates: {
-      suggestion: Handlebars.compile('<p class="search-prompt"><strong class="return">&#9166;</strong> Search for "{{query}}" in keyterms and descriptions</p>')
+      suggestion: Handlebars.compile('<p class="search-prompt"><strong class="return">&#9166;</strong> Search for "{{query}}" in keywords and descriptions</p>')
     }
   };
 
