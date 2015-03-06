@@ -70,7 +70,7 @@ sudo apt-get install libpq-dev python3-dev
 export PYTHONPATH=/path/to/hub:$PYTHONPATH
 ```
 
-* Install [`autoenv`](https://github.com/kennethreitz/autoenv) to automatically load the contents of `.env` as environment variables.
+* Install [`autoenv`](https://github.com/kennethreitz/autoenv) to automatically load the contents of `.env` as environment variables. Do not use the `brew` version of `autoenv`.
 
 * Copy `env.example` to `.env` to get your settings started.
 
