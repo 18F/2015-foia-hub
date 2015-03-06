@@ -21,7 +21,8 @@ else
   PUSH="cf.sh"
 fi
 
-if $(cf app foia-a | grep -q "requested state" | grep -q started)
+# The first grep can't have -q or the second grep won't have anything to grep!
+if $(cf app foia-a | grep "requested state" | grep -q started)
 then
   OLD="foia-a"
   NEW="foia-b"
