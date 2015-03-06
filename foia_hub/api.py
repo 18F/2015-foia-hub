@@ -202,10 +202,29 @@ class AgencyResource(DjangoResource):
         return data
 
     def list(self, q=None):
-        """ This lists all Agency objects, optionally filtered by a given
+        """
+        This lists all Agency objects, optionally filtered by a given
         query parameter. It doesn't provide every field for every object,
         instead limiting the output to useful fields. To see the detail for
-        each object, use the detail endpoint. """
+        each object, use the detail endpoint.
+
+        Full-text-search - queries are made in Postgres tsearch2.
+
+        Capabilities
+        Fields Searched: name, slug, abbreviation, description
+        Weighting:
+            First - name, slug, abbreviation
+            Second - description
+        Boolean operators:  “OR”/”|” and “AND”/”&”
+        Relative Search: i.e. search for `taxes` will also match tax and
+            taxpayer
+
+        Limitations
+            Parenthesis don’t work
+            Quotes don’t produce exact search rather just limit the
+            relative search. i.e. search for `”taxes”` will match `tax` but
+            not `taxpayers`
+        """
 
         # Use request 'query' parameter if it exists
         if self.request and 'query' in self.request.GET:
