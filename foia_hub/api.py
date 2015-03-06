@@ -211,19 +211,20 @@ class AgencyResource(DjangoResource):
         Full-text-search - queries are made in Postgres tsearch2.
 
         Capabilities
-        Fields Searched: name, slug, abbreviation, description
-        Weighting:
+        - Fields Searched: name, slug, abbreviation, description
+        - Weighting:
             First - name, slug, abbreviation
             Second - description
-        Boolean operators:  “OR”/”|” and “AND”/”&”
-        Relative Search: i.e. search for `taxes` will also match tax and
+        - Boolean operators:  “OR”/”|” and “AND”/”&”
+        - Relative Search: i.e. search for `taxes` will also match tax and
             taxpayer
 
         Limitations
-            Parenthesis don’t work
-            Quotes don’t produce exact search rather just limit the
-            relative search. i.e. search for `”taxes”` will match `tax` but
-            not `taxpayers`
+            - Parenthesis don’t work
+            - Quotes don’t produce exact search rather just limit the
+              relative search. i.e. search for `”taxes”` will match `tax` but
+              not `taxpayers`
+            - all keywords must at least have an empty list `[]`
         """
 
         # Use request 'query' parameter if it exists
@@ -243,7 +244,8 @@ class AgencyResource(DjangoResource):
             setweight(to_tsvector('simple', slug), 'A') ||
             setweight(to_tsvector('english', name), 'A') ||
             setweight(to_tsvector('simple', abbreviation), 'A') ||
-            setweight(to_tsvector('english', description), 'B') as tsvect
+            setweight(to_tsvector('english', description), 'B') ||
+            setweight(to_tsvector('simple', keywords), 'C') as tsvect
         FROM foia_hub_agency
         ) as results
     WHERE results.tsvect @@ to_tsquery('english', %s)

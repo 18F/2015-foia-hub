@@ -165,6 +165,15 @@ class AgencyAPITests(TestCase):
                 content['objects'][0]['slug'],
                 'department-of-homeland-security')
 
+            # Test that search works with keywords
+            response = c.get(
+                '/api/agency/?query=forests')
+            content = helpers.json_from(response)
+            self.assertEqual(len(content['objects']), 1)
+            self.assertEqual(
+                content['objects'][0]['slug'],
+                'department-of-commerce')
+
     def test_list_query_quotes(self):
         """
         Test that using quotes produces a more defined search
@@ -243,11 +252,15 @@ class AgencyAPITests(TestCase):
             content = helpers.json_from(response)
 
             # Any results with `trademark` are returned
-            self.assertEqual(len(content['objects']), 2)
+            self.assertEqual(len(content['objects']), 3)
             # But results with `trademark` in name are first
             self.assertEqual(
                 content['objects'][0]['slug'],
                 'us-patent-and-trademark-office')
+            # And results with `trademark` in the keywords returned last
+            self.assertEqual(
+                content['objects'][2]['slug'],
+                'department-of-homeland-security')
 
     def test_dictfetchall(self):
         """ Test that the raw sql converter works """
