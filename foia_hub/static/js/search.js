@@ -3,6 +3,7 @@ $(document).ready(function() {
   var currentText = '',
       longestText = '',
       onChange,
+      onCursorChange,
       onSelection,
       agencyDatasource,
       agencyAdaptor,
@@ -86,6 +87,12 @@ $(document).ready(function() {
     }
   };
 
+  onCursorChange = function() {
+    var first = form.find('.tt-dataset-agencies .tt-suggestion:first-child');
+    form.find('.tt-dropdown-menu')
+      .toggleClass('tt-cursor-first', first.hasClass('tt-cursor'));
+  };
+
   //  Initialize typeahead
   typeahead = $('.scrollable-dropdown-menu .typeahead')
     .typeahead({
@@ -94,6 +101,7 @@ $(document).ready(function() {
       minLength: 1
     }, agencyAdaptor, footerAdaptor)
     .on('keyup', onChange)
+    .on('typeahead:cursorchanged', onCursorChange)
     .on('typeahead:selected', onSelection);
 
   form = typeahead.closest('form');
