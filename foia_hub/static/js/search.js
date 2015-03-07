@@ -94,15 +94,22 @@ $(document).ready(function() {
   };
 
   //  Initialize typeahead
-  typeahead = $('.scrollable-dropdown-menu .typeahead')
+  typeahead = $('#query')
     .typeahead({
       hint: false,
       highlight: true,
       minLength: 1
     }, agencyAdaptor, footerAdaptor)
     .on('keyup', onChange)
+    .on('keydown', onCursorChange)
     .on('typeahead:cursorchanged', onCursorChange)
     .on('typeahead:selected', onSelection);
+
+  // uuuuugggghhhhh
+  var menu = $('.tt-dropdown-menu')
+    .append('<div class="tt-dropdown-wrap"></div>');
+  menu.find('[class^="tt-dataset-"]')
+    .appendTo(menu.find('.tt-dropdown-wrap'));
 
   form = typeahead.closest('form');
 

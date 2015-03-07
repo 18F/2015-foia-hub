@@ -1258,8 +1258,7 @@ footer {
   right: 0 !important;
   left: auto !important;
   width: 375px;
-  margin-top: 10px;
-  max-height: 300px; }
+  margin-top: 12px; }
   .tt-dropdown-menu:after, .tt-dropdown-menu:before {
     bottom: 100%;
     left: 50%;
@@ -1272,15 +1271,20 @@ footer {
   .tt-dropdown-menu:after {
     border-color: transparent;
     border-bottom-color: #fff;
-    border-width: 8px;
-    margin-left: -8px; }
+    border-width: 10px;
+    margin-left: -10px; }
   .tt-dropdown-menu:before {
     border-color: transparent;
     border-bottom-color: #CCCCCC;
-    border-width: 9px;
-    margin-left: -9px; }
+    border-width: 11px;
+    margin-left: -11px; }
   .tt-dropdown-menu.tt-cursor-first:after {
     border-bottom-color: #CDEAF0; }
+
+.tt-dropdown-wrap {
+  position: relative;
+  max-height: 300px;
+  overflow-y: auto; }
 
 .tt-suggestion {
   color: #323A45 !important;

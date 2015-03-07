@@ -549,20 +549,24 @@ $search-height: 2em;
 .tt-dropdown-menu {
   @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
-  @include arrow-top(8px, #fff, 1px, $medium-gray);
+  @include arrow-top(10px, #fff, 1px, $medium-gray);
   padding: 0;
   // position: absolute; // this is handled by typeahead.js
   // make this thing stick out to the left
   right: 0 !important;
   left: auto !important;
   width: 375px; // XXX: this will need to shrink on mobile
-  margin-top: 10px;
-  max-height: 300px;
-  // overflow-y: auto;
+  margin-top: 12px;
 
   &.tt-cursor-first:after {
     border-bottom-color: $light-blue;
   }
+}
+
+.tt-dropdown-wrap {
+  position: relative;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .tt-suggestion {
