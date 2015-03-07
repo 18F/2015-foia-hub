@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-{% include "includes/breadcrumb.html" %}
+{% import 'includes/breadcrumb.html' as breadcrumb %}
+{{breadcrumb.create([(url('learn'), 'Understanding FOIA')]) }}
 {% endblock %}
+
 
 {% block body %}
 <div class="container">
@@ -45,7 +47,7 @@
       <div class="answer">
         <p>While the Federal Government makes a lot of information
         <a href="https://www.data.gov">available</a> in many
-        <a href="http://foia.state.gov/Search/Search.aspx">places</a>, you might 
+        <a href="http://foia.state.gov/Search/Search.aspx">places</a>, you might
         still want to access information that has not already been publicly released.
         FOIA makes it possible to access records that are not yet publicly
         available.</p>
@@ -56,7 +58,7 @@
       <h2 id="ask" tabindex="-1" class="question">What can I ask for?</h2>
 
       <div class="answer">
-      
+
         <p>You can file a FOIA request for any “agency record.” This is a broad
         term that covers things like books, papers, maps, photographs, emails,
         machine-readable materials, and other documentary materials.</p>
@@ -72,7 +74,7 @@
       <h2 id="form" tabindex="-1" class="question">Is there a special form I have to use to make a FOIA request?</h2>
 
       <div class="answer">
-      
+
        <p>You do not need to use a specific form to make a request. All you
        need is to do is write a description of the information you are seeking
        and comply with any agency-specific requirements, which are described in
@@ -114,7 +116,7 @@
       <h2 id="after" tabindex="-1" class="question">What happens after I make my FOIA request?</h2>
 
       <div class="answer">
-        
+
         <p> A lot happens behind the scenes after an agency receives your FOIA
         request. Each agency has its own specific way of processing requests.
         The first step an agency will take is to determine which offices may
@@ -137,7 +139,7 @@
         requested (and from what agency). Response time varies among agencies
         and also depends on the complexity of your request; more complicated
         requests can take longer to fulfill. In general, most requests are
-        responded to within 20 business days. 
+        responded to within 20 business days.
 
         <p>Agencies may also request an extension in unusual or exceptional
         circumstances and may pause the request clock to <a

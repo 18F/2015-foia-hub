@@ -1,7 +1,18 @@
+{% macro create(pages) -%}
 <div class="breadcrumbs_container">
   <div class="container">
     <section class="breadcrumbs">
       <a href="{{ url('home') }}">Home &gt;</a>
+      {% if pages %}
+          {% for page in pages %}
+            {% if loop.index == pages|length %}
+            {{page.1}}
+            {% else %}
+             <a href="{{ page.0 }}">{{page.1}} &gt;</a>
+            {% endif %}
+          {% endfor %}
+      {% endif %}
     </section>
   </div>
 </div>
+{%- endmacro %}

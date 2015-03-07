@@ -2,7 +2,8 @@
 {% block class %}agencies{% endblock %}
 
 {% block breadcrumb %}
-{% include "includes/breadcrumb.html" %}
+{% import 'includes/breadcrumb.html' as breadcrumb %}
+{{breadcrumb.create([(url('agencies'), 'Agencies')]) }}
 {% endblock %}
 
 {% block body %}
@@ -33,7 +34,7 @@
     {% if query %}
       <h2>Displaying {{agencies|length}} results for</h2>
       <h1>&ldquo;<em>{{ query }}</em>&rdquo;</h1>
-      
+
       <section class="searchresults--list">
         <ul>
         <!-- This formats the agency title and description see macro at top -->
