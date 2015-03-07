@@ -390,7 +390,7 @@ input[type="submit"] {
 body {
   background-color: #EAEDF1;
   color: #323A45;
-  font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
+  font-family: proximanova, "proxima-nova", "proxima nova", "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial, sans-serif;
   font-size: 1em;
   line-height: 1.5;
   font-weight: 400; }
@@ -401,7 +401,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
   font-weight: 600;
   line-height: 1.25;
   margin: 0;
@@ -484,7 +483,7 @@ input,
 label,
 select {
   display: block;
-  font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
+  font-family: proximanova, "proxima-nova", "proxima nova", "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial, sans-serif;
   font-size: 1em; }
 
 label {
@@ -508,7 +507,7 @@ select[multiple=multiple] {
   border-radius: 3px;
   border: 1px solid #CCCCCC;
   box-shadow: none;
-  font-family: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
+  font-family: proximanova, "proxima-nova", "proxima nova", "Open Sans", "Gill Sans MT", "Gill Sans", Corbel, Arial, sans-serif;
   font-size: 1em;
   margin-bottom: 0.75em;
   padding: 0.5em 0.5em;
@@ -681,6 +680,26 @@ html {
 [tabindex="-1"] {
   outline: none; }
 
+@font-face {
+  font-family: "proximanova";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.svg#proximanova") format("svg"); }
+@font-face {
+  font-family: "proximanova";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.svg#proximanova") format("svg"); }
+@font-face {
+  font-family: "proximanova";
+  font-style: italic;
+  font-weight: 400;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.svg#proximanova") format("svg"); }
+@font-face {
+  font-family: "proximanova";
+  font-style: italic;
+  font-weight: 600;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
 a:focus {
   text-decoration: underline !important; }
 
