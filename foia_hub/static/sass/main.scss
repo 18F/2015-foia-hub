@@ -547,26 +547,23 @@ $search-height: 2em;
 }
 
 .tt-dropdown-menu {
-  padding: 0;
-  background-color: #fff;
-  border: 1px solid $medium-gray;
   @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
-}
-
-.scrollable-dropdown-menu .tt-dropdown-menu {
-  margin-top: 10px;
-  max-height: 300px;
-  overflow-y: auto;
+  @include arrow-top(8px, #fff, 1px, $medium-gray);
+  padding: 0;
+  // position: absolute; // this is handled by typeahead.js
   // make this thing stick out to the left
-  width: 375px;
-  position: absolute;
   right: 0 !important;
   left: auto !important;
-}
+  width: 375px; // XXX: this will need to shrink on mobile
+  margin-top: 10px;
+  max-height: 300px;
+  // overflow-y: auto;
 
-$suggestion-outer-padding: 1.1em;
-$suggestion-inner-padding: .7em;
+  &.tt-cursor-first:after {
+    border-bottom-color: $light-blue;
+  }
+}
 
 .tt-suggestion {
   color: $dark-gray !important;
@@ -580,7 +577,7 @@ $suggestion-inner-padding: .7em;
 }
 
 .tt-suggestion:last-child {
-  padding-bottom: .9em;
+  padding-bottom: .8em;
 }
 
 .tt-suggestion.tt-cursor {

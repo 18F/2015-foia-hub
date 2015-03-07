@@ -1240,9 +1240,6 @@ footer {
   color: #999; }
 
 .tt-dropdown-menu {
-  padding: 0;
-  background-color: #fff;
-  border: 1px solid #CCCCCC;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -1252,16 +1249,38 @@ footer {
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -o-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
-
-.scrollable-dropdown-menu .tt-dropdown-menu {
-  margin-top: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-  width: 375px;
-  position: absolute;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid red;
+  position: relative;
+  background: #fff;
+  border: 1px solid #CCCCCC;
+  padding: 0;
   right: 0 !important;
-  left: auto !important; }
+  left: auto !important;
+  width: 375px;
+  margin-top: 10px;
+  max-height: 300px; }
+  .tt-dropdown-menu:after, .tt-dropdown-menu:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none; }
+  .tt-dropdown-menu:after {
+    border-color: transparent;
+    border-bottom-color: #fff;
+    border-width: 8px;
+    margin-left: -8px; }
+  .tt-dropdown-menu:before {
+    border-color: transparent;
+    border-bottom-color: #CCCCCC;
+    border-width: 9px;
+    margin-left: -9px; }
+  .tt-dropdown-menu.tt-cursor-first:after {
+    border-bottom-color: #CDEAF0; }
 
 .tt-suggestion {
   color: #323A45 !important;
@@ -1273,7 +1292,7 @@ footer {
   padding-top: .9em; }
 
 .tt-suggestion:last-child {
-  padding-bottom: .9em; }
+  padding-bottom: .8em; }
 
 .tt-suggestion.tt-cursor {
   color: #005184;
