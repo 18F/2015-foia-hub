@@ -98,11 +98,8 @@ $(document).ready(function() {
 
   form = typeahead.closest('form');
 
-  /*
-   * when the clear button is clicked, focus the typeahead after
-   * 10ms (which gives typehead.js some time to understand that the
-   * input is empty.
-   */
+  // when the clear button is clicked, clear the input and
+  // trigger the change handler to toggle the tt-filled class
   form.select('.clear')
     .on('click', function() {
       typeahead
