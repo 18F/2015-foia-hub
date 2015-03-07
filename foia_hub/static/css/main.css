@@ -735,28 +735,29 @@ a:focus {
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede; }
-  body > header a:hover {
-    text-decoration: none; }
   body > header #logo {
     float: left;
     color: #0067BA;
     margin-right: 1em; }
+    body > header #logo a:hover {
+      text-decoration: none; }
     body > header #logo h4 {
       font-size: 2em; }
     body > header #logo a {
       color: #0067BA; }
       body > header #logo a em {
+        padding-bottom: 6px;
         color: #323A45;
         border: none; }
     body > header #logo:hover em {
-      border-bottom: 3px solid #00BFE7; }
+      border-bottom: 0.15em solid #00BFE7; }
   body > header #topnav {
     margin: 1em 0 0.2em; }
     body > header #topnav nav {
       padding-top: 1em; }
       body > header #topnav nav ul li {
         display: inline-block;
-        padding: 0 10px;
+        padding: 0 1em;
         font-weight: 600; }
       body > header #topnav nav ul a {
         color: #777777;
