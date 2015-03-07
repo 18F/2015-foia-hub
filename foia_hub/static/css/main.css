@@ -742,14 +742,16 @@ body > header {
   body > header #logo {
     float: left;
     color: #0067BA;
-    padding-right: 1em; }
+    margin-right: 1em; }
+    body > header #logo h4 {
+      font-size: 2em; }
     body > header #logo a {
       color: #0067BA; }
-    body > header #logo strong {
-      font-weight: 800; }
-    body > header #logo em {
-      color: #cc2211;
-      font-style: normal; }
+      body > header #logo a em {
+        color: #323A45;
+        border: none; }
+    body > header #logo:hover em {
+      border-bottom: 3px solid #00BFE7; }
   body > header #topnav nav ul li {
     display: inline-block;
     padding: 0 10px;
@@ -762,16 +764,14 @@ body > header {
         padding-bottom: 0; } }
   body > header #topnav nav ul a:hover,
   body > header #topnav nav ul a.active,
-  body > header #topnav nav ul a:active,
-  body > header #topnav nav ul #logo:hover {
+  body > header #topnav nav ul a:active {
     border-bottom: 0.3em solid #00BFE7;
     color: #323A45 !important;
     text-decoration: none !important; }
     @media screen and (max-width: 30em) {
       body > header #topnav nav ul a:hover,
       body > header #topnav nav ul a.active,
-      body > header #topnav nav ul a:active,
-      body > header #topnav nav ul #logo:hover {
+      body > header #topnav nav ul a:active {
         border-bottom: 1px solid #00BFE7; } }
   body > header #topnav nav ul a:focus {
     background: #fff;

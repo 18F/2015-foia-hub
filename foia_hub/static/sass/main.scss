@@ -49,22 +49,22 @@ body > header {
 
   #logo {
     float: left;
-    // font-weight: normal;
-    // font-size: 2em;
     color: $blue;
-    padding-right: 1em;
-
+    margin-right: 1em;
+    h4 {
+      font-size: $base-font-size * 2;
+    }
     a {
       color: $blue;
+      em {
+        color: $dark-gray;
+        border: none;
+      }
     }
-
-    strong {
-      font-weight: 800;
-    }
-
-    em {
-      color: #cc2211;
-      font-style: normal;
+    &:hover {
+      em {
+        border-bottom: 3px solid $aqua-blue
+      }
     }
   }
 
@@ -86,8 +86,7 @@ body > header {
 
       a:hover,
       a.active,
-      a:active,
-      #logo:hover {
+      a:active {
         border-bottom: 0.3em solid $aqua-blue;
         color: $dark-gray !important;
         text-decoration: none !important;
