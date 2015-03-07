@@ -43,10 +43,6 @@ body > header {
     text-decoration: none;
   }
 
-  #topnav {
-    margin: 1em 0 0.8em;
-  }
-
   #logo {
     float: left;
     color: $blue;
@@ -68,7 +64,10 @@ body > header {
     }
   }
 
-  #topnav nav {
+#topnav {
+  margin: 1em 0 0.2em;
+  nav {
+    padding-top: 1em;
     ul {
       li {
         display: inline-block;
@@ -102,6 +101,7 @@ body > header {
       }
     }
   }
+}
 }
 
 div#usa {

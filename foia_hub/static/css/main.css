@@ -737,8 +737,6 @@ body > header {
   border-bottom: 1px solid #dedede; }
   body > header a:hover {
     text-decoration: none; }
-  body > header #topnav {
-    margin: 1em 0 0.8em; }
   body > header #logo {
     float: left;
     color: #0067BA;
@@ -752,30 +750,34 @@ body > header {
         border: none; }
     body > header #logo:hover em {
       border-bottom: 3px solid #00BFE7; }
-  body > header #topnav nav ul li {
-    display: inline-block;
-    padding: 0 10px;
-    font-weight: 600; }
-  body > header #topnav nav ul a {
-    color: #777777;
-    padding-bottom: 12px; }
-    @media screen and (max-width: 30em) {
+  body > header #topnav {
+    margin: 1em 0 0.2em; }
+    body > header #topnav nav {
+      padding-top: 1em; }
+      body > header #topnav nav ul li {
+        display: inline-block;
+        padding: 0 10px;
+        font-weight: 600; }
       body > header #topnav nav ul a {
-        padding-bottom: 0; } }
-  body > header #topnav nav ul a:hover,
-  body > header #topnav nav ul a.active,
-  body > header #topnav nav ul a:active {
-    border-bottom: 0.3em solid #00BFE7;
-    color: #323A45 !important;
-    text-decoration: none !important; }
-    @media screen and (max-width: 30em) {
+        color: #777777;
+        padding-bottom: 12px; }
+        @media screen and (max-width: 30em) {
+          body > header #topnav nav ul a {
+            padding-bottom: 0; } }
       body > header #topnav nav ul a:hover,
       body > header #topnav nav ul a.active,
       body > header #topnav nav ul a:active {
-        border-bottom: 1px solid #00BFE7; } }
-  body > header #topnav nav ul a:focus {
-    background: #fff;
-    color: #18f; }
+        border-bottom: 0.3em solid #00BFE7;
+        color: #323A45 !important;
+        text-decoration: none !important; }
+        @media screen and (max-width: 30em) {
+          body > header #topnav nav ul a:hover,
+          body > header #topnav nav ul a.active,
+          body > header #topnav nav ul a:active {
+            border-bottom: 1px solid #00BFE7; } }
+      body > header #topnav nav ul a:focus {
+        background: #fff;
+        color: #18f; }
 
 div#usa {
   background-color: #323A45;
