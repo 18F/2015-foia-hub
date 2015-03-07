@@ -88,7 +88,9 @@ $(document).ready(function() {
   };
 
   onCursorChange = function() {
-    var first = form.find('.tt-dataset-agencies .tt-suggestion:first-child');
+    var first = form
+      .find('.tt-dataset-agencies .tt-suggestion, .tt-dataset-footer .tt-suggestion')
+      .first();
     form.find('.tt-dropdown-menu')
       .toggleClass('tt-cursor-first', first.hasClass('tt-cursor'));
   };
