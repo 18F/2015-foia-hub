@@ -1,12 +1,34 @@
 @import "normalize";
 @import "bourbon/bourbon";
-// @import "grid-settings";
 @import "base/grid-settings";
 @import "base/base";
 @import "neat/neat";
 @import "mixins";
 @import "accessibility";
 @import "fonts";
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+#main {
+  min-height: 100%;
+  margin: 0 auto -4.8em; /* the bottom margin is the negative value of the footer's height */
+  @include media($small) {
+    margin-bottom: -5.5em;
+  }
+}
+
+footer, .push {
+  height: 4.8em; /* '.push' must be the same height as 'footer' */
+  @include media($small) {
+    height: 5.5em;
+  }
+}
 
 // all focused links should be underlined
 a:focus {
@@ -150,15 +172,16 @@ footer {
   padding-top: 1em;
   margin-top: 4em;
   img {
-    width: 32px;
-    height: 32px;
+    width: 45px;
+    height: 45px;
     margin-right: 1em;
-    display: inline-block;
+    // display: inline-block;
+    float: left;
   }
   h4 {
     font-weight: 500;
     vertical-align: top;
-    display: inline-block;
+    // display: inline-block;
   }
 }
 

@@ -708,6 +708,27 @@ html {
   font-style: italic;
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot");
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
+* {
+  margin: 0; }
+
+html, body {
+  height: 100%; }
+
+#main {
+  min-height: 100%;
+  margin: 0 auto -4.8em;
+  /* the bottom margin is the negative value of the footer's height */ }
+  @media screen and (max-width: 30em) {
+    #main {
+      margin-bottom: -5.5em; } }
+
+footer, .push {
+  height: 4.8em;
+  /* '.push' must be the same height as 'footer' */ }
+  @media screen and (max-width: 30em) {
+    footer, .push {
+      height: 5.5em; } }
+
 a:focus {
   text-decoration: underline !important; }
 
@@ -825,14 +846,13 @@ footer {
   padding-top: 1em;
   margin-top: 4em; }
   footer img {
-    width: 32px;
-    height: 32px;
+    width: 45px;
+    height: 45px;
     margin-right: 1em;
-    display: inline-block; }
+    float: left; }
   footer h4 {
     font-weight: 500;
-    vertical-align: top;
-    display: inline-block; }
+    vertical-align: top; }
 
 .container {
   max-width: 68em;
