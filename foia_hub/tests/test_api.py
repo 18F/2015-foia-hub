@@ -1,6 +1,7 @@
 import json
 from django.db import connection
 from django.test import TestCase, Client
+from django.utils.unittest import skipIf, skipUnless
 
 from foia_hub.models import Agency, ReadingRoomUrls, Office
 
@@ -60,6 +61,8 @@ class PreparerTests(TestCase):
         }
         self.assertEqual(ap, data)
 
+    @skipIf(custom_backend == 'postgresql_psycopg2',
+            'The order of the returned data changes with postgres')
     def test_reading_room_preparer(self):
         """ Ensure reading room urls are serialized correctly. """
 
@@ -82,10 +85,7 @@ class PreparerTests(TestCase):
         serialized_rooms = {'foia_libraries': [
             {'link_text': 'Url One', 'url': 'http://urlone.gov'},
             {'link_text': 'Url Two', 'url': 'http://urltwo.gov'}]}
-        if custom_backend == 'postgresql_psycopg2':
-            serialized_rooms = {'foia_libraries': [
-                {'url': 'http://urltwo.gov', 'link_text': 'Url Two'},
-                {'url': 'http://urlone.gov', 'link_text': 'Url One'}]}
+
         self.assertEqual(serialized_rooms, data)
 
 
@@ -111,136 +111,140 @@ class AgencyAPITests(TestCase):
             'us-patent-and-trademark-office'],
             slugs)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_list_query(self):
         """ Test that search works when backend is postgresql_psycopg2 """
 
-        if custom_backend == 'postgresql_psycopg2':
-            c = Client()
-            response = c.get('/api/agency/?query=emergency')
-            self.assertEqual(200, response.status_code)
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        c = Client()
+        response = c.get('/api/agency/?query=emergency')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_list_query_order_and_fields(self):
         """
         Test that non-exact queries work and with multiple fields.
         """
 
-        if custom_backend == 'postgresql_psycopg2':
+        c = Client()
+        # Test that search works with words not in order in title
+        response = c.get('/api/agency/?query=cybersecurity+chemical')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
-            c = Client()
-            # Test that search works with words not in order in title
-            response = c.get('/api/agency/?query=cybersecurity+chemical')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        # Test that search works with words not in order in description
+        response = c.get('/api/agency/?query=Security+Homeland')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
-            # Test that search works with words not in order in description
-            response = c.get('/api/agency/?query=Security+Homeland')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        # Test that search works with abbeviations
+        response = c.get('/api/agency/?query=dhs')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
-            # Test that search works with abbeviations
-            response = c.get('/api/agency/?query=dhs')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        # Test that search works with slugs
+        response = c.get(
+            '/api/agency/?query=department-of-homeland-security')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
-            # Test that search works with slugs
-            response = c.get(
-                '/api/agency/?query=department-of-homeland-security')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        # Test that search works with keywords
+        response = c.get(
+            '/api/agency/?query=forests')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-commerce')
 
-            # Test that search works with keywords
-            response = c.get(
-                '/api/agency/?query=forests')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-commerce')
-
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_list_query_quotes_errors(self):
         """
         Test quotes don't break the search.
         """
-        if custom_backend == 'postgresql_psycopg2':
-            c = Client()
-            # single single quotes don't break search
-            response = c.get("/api/agency/?query='test")
-            self.assertEqual(response.status_code, 200)
-            response = c.get("/api/agency/?query=te'st")
-            self.assertEqual(response.status_code, 200)
-            response = c.get("/api/agency/?query=test'")
-            self.assertEqual(response.status_code, 200)
-            response = c.get("/api/agency/?query='tes't test'")
-            self.assertEqual(response.status_code, 200)
+        c = Client()
+        # single single quotes don't break search
+        response = c.get("/api/agency/?query='test")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query=te'st")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query=test'")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query='tes't test'")
+        self.assertEqual(response.status_code, 200)
 
-            # single double quotes don't break search
-            response = c.get('/api/agency/?query="test')
-            self.assertEqual(response.status_code, 200)
-            response = c.get('/api/agency/?query=te"st')
-            self.assertEqual(response.status_code, 200)
-            response = c.get('/api/agency/?query=test"')
-            self.assertEqual(response.status_code, 200)
-            response = c.get('/api/agency/?query="tes"t test"')
-            self.assertEqual(response.status_code, 200)
+        # single double quotes don't break search
+        response = c.get('/api/agency/?query="test')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query=te"st')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query=test"')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query="tes"t test"')
+        self.assertEqual(response.status_code, 200)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_list_query_and_or(self):
         """
         Test that or and and work correctly
         """
-        if custom_backend == 'postgresql_psycopg2':
 
-            # Using `AND` returns objects that contain both words
-            c = Client()
-            response = c.get('/api/agency/?query=vital+AND+homeland')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 1)
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'department-of-homeland-security')
+        # Using `AND` returns objects that contain both words
+        c = Client()
+        response = c.get('/api/agency/?query=vital+AND+homeland')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
 
-            # Using `OR` returns objects that contain at least one of the words
-            c = Client()
-            response = c.get('/api/agency/?query=patents+OR+technological')
-            content = helpers.json_from(response)
-            self.assertEqual(len(content['objects']), 2)
+        # Using `OR` returns objects that contain at least one of the words
+        c = Client()
+        response = c.get('/api/agency/?query=patents+OR+technological')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 2)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_list_query_weighting(self):
         """
         Test that search returns results with query in title first rather
         than alphabetically
         """
-        if custom_backend == 'postgresql_psycopg2':
-            c = Client()
-            response = c.get('/api/agency/?query=trademark')
-            content = helpers.json_from(response)
+        c = Client()
+        response = c.get('/api/agency/?query=trademark')
+        content = helpers.json_from(response)
 
-            # Any results with `trademark` are returned
-            self.assertEqual(len(content['objects']), 3)
-            # But results with `trademark` in name are first
-            self.assertEqual(
-                content['objects'][0]['slug'],
-                'us-patent-and-trademark-office')
-            # And results with `trademark` in the keywords returned last
-            self.assertEqual(
-                content['objects'][2]['slug'],
-                'department-of-homeland-security')
+        # Any results with `trademark` are returned
+        self.assertEqual(len(content['objects']), 3)
+        # But results with `trademark` in name are first
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'us-patent-and-trademark-office')
+        # And results with `trademark` in the keywords returned last
+        self.assertEqual(
+            content['objects'][2]['slug'],
+            'department-of-homeland-security')
 
     def test_dictfetchall(self):
         """ Test that the raw sql converter works """

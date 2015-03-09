@@ -2,6 +2,7 @@ from datetime import date
 
 from django.core.urlresolvers import reverse
 from django.test import SimpleTestCase, TestCase
+from django.utils.unittest import skipUnless
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.models import ReadingRoomUrls
@@ -149,32 +150,34 @@ class AgenciesPageTests(TestCase):
         content = response.content.decode('utf-8')
         self.assertTrue('Department of Homeland Security' in content)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_agencies_search_list(self):
         """ The /agencies/ page should filter agencies by a search term. """
 
-        if custom_backend == 'postgresql_psycopg2':
-            query = "department"
-            response = self.client.get(reverse('agencies') + "?query=" + query)
-            self.assertEqual(response.status_code, 200)
+        query = "department"
+        response = self.client.get(reverse('agencies') + "?query=" + query)
+        self.assertEqual(response.status_code, 200)
 
-            content = response.content.decode('utf-8')
-            self.assertTrue('Department of Homeland Security' in content)
-            self.assertTrue('Department of Commerce' in content)
-            self.assertTrue('Patent and Trademark Office' not in content)
+        content = response.content.decode('utf-8')
+        self.assertTrue('Department of Homeland Security' in content)
+        self.assertTrue('Department of Commerce' in content)
+        self.assertTrue('Patent and Trademark Office' not in content)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_agencies_search_none(self):
         """ The /agencies/ page should display a message if there are no
         results. """
-        if custom_backend == 'postgresql_psycopg2':
-            query = "kjlasdhfjhsdfljsdhflkasdjh"
-            response = self.client.get(reverse('agencies') + "?query=" + query)
-            self.assertEqual(response.status_code, 200)
+        query = "kjlasdhfjhsdfljsdhflkasdjh"
+        response = self.client.get(reverse('agencies') + "?query=" + query)
+        self.assertEqual(response.status_code, 200)
 
-            content = response.content.decode('utf-8')
-            self.assertTrue('Department of Homeland Security' not in content)
-            self.assertTrue('Department of Commerce' not in content)
-            self.assertTrue('Patent and Trademark Office' not in content)
-            self.assertTrue('no agencies matching your search' in content)
+        content = response.content.decode('utf-8')
+        self.assertTrue('Department of Homeland Security' not in content)
+        self.assertTrue('Department of Commerce' not in content)
+        self.assertTrue('Patent and Trademark Office' not in content)
+        self.assertTrue('no agencies matching your search' in content)
 
 
 class ContactPageTests(TestCase):
