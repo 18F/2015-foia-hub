@@ -44,16 +44,19 @@ body > header {
   }
 
   #logo {
+    @include span-columns(4);
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+    float: left;
+    color: $blue;
+
     a:hover {
       text-decoration: none;
     }
 
-    float: left;
-    color: $blue;
-    margin-right: 1em;
     h4 {
       font-size: $base-font-size * 2;
     }
+
     a {
       color: $blue;
       em {
@@ -62,23 +65,51 @@ body > header {
         border: none;
       }
     }
+
     &:hover {
-      em {
-        border-bottom: 0.15em solid $aqua-blue
+      a {
+        color: $aqua-blue;
       }
     }
   }
 
   #topnav {
-    margin: 1em 0 0.2em;
+    margin: .8em 0 1em;
     nav {
-      padding-top: 1em;
+      padding-top: 1em; // this should match #topnav { margin-top }
       ul {
         @include span-columns(15);
+
         li {
           display: inline-block;
-          padding: 0 1em;
+          padding: 0 2em 0 0;
           font-weight: 600;
+        }
+
+        a {
+          color: $gray;
+          padding-bottom: 1.5em;
+          @include media($small) {
+            padding-bottom: 0;
+          }
+        }
+
+        a:hover,
+        a.active,
+        a:active,
+        #logo:hover {
+          border-bottom: 0.3em solid $aqua-blue;
+          color: $dark-gray !important;
+          text-decoration: none !important;
+          @include media($small) {
+            border-bottom: 1px solid $aqua-blue;
+          }
+        }
+
+        a:focus {
+          // background: #cc2211;
+          background: #fff;
+          color: #18f;
         }
       }
     }

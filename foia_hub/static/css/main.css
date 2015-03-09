@@ -437,9 +437,6 @@ p {
   margin: 0 0 0.75em; }
 
 a {
-  -webkit-transition: color 0.1s linear;
-  -moz-transition: color 0.1s linear;
-  transition: color 0.1s linear;
   color: #0067BA;
   text-decoration: none; }
   a:hover {
@@ -737,8 +734,18 @@ body > header {
       display: table; }
   body > header #logo {
     float: left;
-    color: #0067BA;
-    margin-right: 1em; }
+    display: block;
+    margin-right: 1.05263%;
+    width: 15.78947%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    color: #0067BA; }
+    body > header #logo:last-child {
+      margin-right: 0; }
     body > header #logo a:hover {
       text-decoration: none; }
     body > header #logo h4 {
@@ -749,10 +756,10 @@ body > header {
         padding-bottom: 6px;
         color: #323A45;
         border: none; }
-    body > header #logo:hover em {
-      border-bottom: 0.15em solid #00BFE7; }
+    body > header #logo:hover a {
+      color: #00BFE7; }
   body > header #topnav {
-    margin: 1em 0 0.2em; }
+    margin: .8em 0 1em; }
     body > header #topnav nav {
       padding-top: 1em; }
       body > header #topnav nav ul {
@@ -764,8 +771,30 @@ body > header {
           margin-right: 0; }
         body > header #topnav nav ul li {
           display: inline-block;
-          padding: 0 1em;
+          padding: 0 2em 0 0;
           font-weight: 600; }
+        body > header #topnav nav ul a {
+          color: #777777;
+          padding-bottom: 1.5em; }
+          @media screen and (max-width: 30em) {
+            body > header #topnav nav ul a {
+              padding-bottom: 0; } }
+        body > header #topnav nav ul a:hover,
+        body > header #topnav nav ul a.active,
+        body > header #topnav nav ul a:active,
+        body > header #topnav nav ul #logo:hover {
+          border-bottom: 0.3em solid #00BFE7;
+          color: #323A45 !important;
+          text-decoration: none !important; }
+          @media screen and (max-width: 30em) {
+            body > header #topnav nav ul a:hover,
+            body > header #topnav nav ul a.active,
+            body > header #topnav nav ul a:active,
+            body > header #topnav nav ul #logo:hover {
+              border-bottom: 1px solid #00BFE7; } }
+        body > header #topnav nav ul a:focus {
+          background: #fff;
+          color: #18f; }
     body > header #topnav form.search {
       float: left;
       display: block;
@@ -1011,6 +1040,7 @@ footer {
 #main h1, #main h2 {
   margin-bottom: 0.8em; }
 #main h3, #main h4, #main h5, #main h6 {
+  margin-top: 1.6em;
   margin-bottom: 0.6em; }
 
 #main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6,
