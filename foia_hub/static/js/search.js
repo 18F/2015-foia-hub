@@ -74,7 +74,7 @@ $(document).ready(function() {
   //  If the footer was selected, submit the form to redirect
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
-      // typeahead.val(suggestion.query);
+      typeahead.val(suggestion.query);
       form.submit();
     } else {
       var callback = function() {
@@ -87,7 +87,10 @@ $(document).ready(function() {
     }
   };
 
-  onCursorChange = function() {
+  onCursorChange = function(ev, suggestion) {
+    if (suggestion) {
+      typeahead.val(suggestion.slug || suggestion.query);
+    }
     var first = form
       .find('.tt-dataset-agencies .tt-suggestion, .tt-dataset-footer .tt-suggestion')
       .first();
