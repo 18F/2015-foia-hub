@@ -18,23 +18,23 @@ class Command(BaseCommand):
         if len(args) > 0:
             yaml_folder = args[0]
         else:
-            yaml_folder = download_data()
+            yaml_folder = download_data(self)
 
-        print("Data directory: %s" % yaml_folder)
-        print("Loading data...")
+        self.stdout.write("Data directory: %s" % yaml_folder)
+        self.stdout.write("Loading data...")
         process_yamls(yaml_folder)
 
 # Clone a new copy of the git repo, removing the dir if it exists.
-def download_data():
-    print("No directory given, checking out copy of data from version control.")
-    print("Note: this requires git to be installed.")
+def download_data(command):
+    command.stdout.write("No directory given, checking out copy of data from version control.")
+    command.stdout.write("Note: this requires git to be installed.")
 
     path = temp_home()
     if os.path.exists(path):
-        print("Deleting old data checkout.")
+        command.stdout.write("Deleting old data checkout.")
         shutil.rmtree(path)
 
-    print("Cloning repository at %s" % DEFAULT_DATA_REPO)
+    command.stdout.write("Cloning repository at %s" % DEFAULT_DATA_REPO)
     clone_repo(DEFAULT_DATA_REPO, path)
 
     return os.path.join(path, "contacts", "data")
