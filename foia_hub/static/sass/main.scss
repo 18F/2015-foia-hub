@@ -22,63 +22,76 @@ body > header {
   }
 
   #topnav {
-    margin: 1em 0 0.8em;
+    margin: 1.5em 0 0.8em;
   }
 
-  #logo {
-    float: left;
-    // font-weight: normal;
-    // font-size: 2em;
-    color: $blue;
-    padding-right: 1em;
+  .container {
+    @include outer-container();
 
-    a {
+    #logo {
+      @include span-columns(4);
+
+      float: left;
+      // font-weight: normal;
+      // font-size: 2em;
       color: $blue;
-    }
-
-    strong {
-      font-weight: 800;
-    }
-
-    em {
-      color: #cc2211;
-      font-style: normal;
-    }
-  }
-
-  #topnav nav {
-    ul {
-      li {
-        display: inline-block;
-        padding: 0 10px;
-        font-weight: 600;
-      }
+      padding-right: 1em;
 
       a {
-        color: $gray;
-        padding-bottom: 12px;
-        @include media($small) {
-          padding-bottom: 0;
+        color: $blue;
+      }
+
+      strong {
+        font-weight: 800;
+      }
+
+      em {
+        color: #cc2211;
+        font-style: normal;
+      }
+    }
+
+    nav {
+      ul {
+        @include span-columns(15);
+
+        li {
+          display: inline-block;
+          padding: 0 10px;
+          font-weight: 600;
+        }
+
+        a {
+          color: $gray;
+          padding-bottom: 20px;
+          @include media($small) {
+            padding-bottom: 0;
+          }
+        }
+
+        a:hover,
+        a.active,
+        a:active,
+        #logo:hover {
+          border-bottom: 0.3em solid $aqua-blue;
+          color: $dark-gray !important;
+          text-decoration: none !important;
+          @include media($small) {
+            border-bottom: 1px solid $aqua-blue;
+          }
+        }
+
+        a:focus {
+          // background: #cc2211;
+          background: #fff;
+          color: #18f;
         }
       }
 
-      a:hover,
-      a.active,
-      a:active,
-      #logo:hover {
-        border-bottom: 0.3em solid $aqua-blue;
-        color: $dark-gray !important;
-        text-decoration: none !important;
-        @include media($small) {
-          border-bottom: 1px solid $aqua-blue;
-        }
-      }
+    }
 
-      a:focus {
-        // background: #cc2211;
-        background: #fff;
-        color: #18f;
-      }
+    form.search {
+      @include span-columns(5);
     }
   }
 }
@@ -446,70 +459,88 @@ footer {
   @include inner(16);
 }
 
-.search_icon {
-  color: $gray;
-  // display: inline-block;
-  height: 3em;
-  // width: 2em;
-  position: absolute;
-  z-index: 100;
-//  background: white;
-//  @include border-left-radius(8px);
-  padding-top: 0.75em;
-  padding-left: 0.75em;
-  .fa-search {
-    color: $gray;
-  }
-}
+$search-height: 2em;
 
-.search input[type=search] {
-  color: $dark-gray;
-  background-color: white;
-  height: 3em;
-  padding-left: 2em;
-  margin-bottom: 0;
-  @include border-left-radius(3px);
-  @include border-right-radius(3px);
-  @include placeholder {
-    color: $gray;
-  }
-}
-
-.search input[type=submit] {
-  color: $dark-gray;
-  @include border-right-radius(3px);
-  @include border-left-radius(0);
-  height: 3em;
-  width: 6em;
-  text-align: center;
-  float:right;
+.search {
   position: relative;
-  top: -3em;
+  top: -.3em;
+  color: $dark-gray;
+  height: $search-height;
+
+  input.typeahead {
+    color: inherit;
+    background-color: white;
+    height: $search-height;
+    padding-left: 2em;
+    margin-bottom: 0;
+
+    width: 100%;
+    display: block !important;
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+
+    @include border-left-radius(1em);
+    @include border-right-radius(1em);
+    @include placeholder {
+      color: $gray;
+    }
+  }
+
+  .fa {
+    color: inherit !important;
+  }
+
+  .search-icon {
+    height: 100%;
+    width: 2em;
+    position: absolute;
+    top: 0;
+    left: .5em;
+    z-index: 100;
+
+    .fa {
+      position: relative;
+      top: .25em;
+    }
+  }
+
+  .clear {
+    display: none;
+  }
+}
+
+.search.tt-filled {
+  .clear {
+    display: block;
+    @include appearance(none);
+    color: #fff !important;
+    background: $medium-gray;
+    position: absolute;
+    border: none;
+    width: 1.2em;
+    height: 1.2em;
+    padding: 0;
+    @include prefixer(border-radius, 1em, $vendor-prefixes);
+    position: absolute;
+    text-align: center;
+    top: .4em;
+    right: .4em;
+
+    span {
+      position: relative;
+      font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
+      line-height: 0;
+      font-weight: bold;
+    }
+
+    &:hover {
+      background: $dark-gray;
+    }
+  }
 }
 
 /* agency autocomplete */
 .twitter-typeahead {
   width: 100%;
-  display: block !important;
-}
-
-.scrollable-dropdown-menu .tt-dropdown-menu {
-  max-height: 300px;
-  overflow-y: auto;
-  width: 100%;
-  margin-bottom: 100px;
-}
-
-.typeahead {
-  background-color: #fff;
-}
-
-.typeahead:focus {
-  border: none;
-}
-
-.tt-query {
-  // @include prefixer(box-shadow, inset 0 1px 1px rgba(0, 0, 0, 0.075), $vendor-prefixes);
 }
 
 .tt-hint {
@@ -517,29 +548,72 @@ footer {
 }
 
 .tt-dropdown-menu {
-//  width: 422px;
-  padding: 1em 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  @include border-top-radius(8px);
-  @include border-right-radius(8px);
-  @include border-bottom-radius(8px);
-  @include border-left-radius(8px);
+  @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
+  @include arrow-top(10px, #fff, 1px, $medium-gray);
+  padding: 0;
+  // position: absolute; // this is handled by typeahead.js
+  // make this thing stick out to the left
+  right: 0 !important;
+  left: auto !important;
+  width: 375px; // XXX: this will need to shrink on mobile
+  margin-top: 12px;
+
+  &.tt-cursor-first:after {
+    border-bottom-color: $light-blue;
+  }
+}
+
+.tt-dropdown-wrap {
+  position: relative;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .tt-suggestion {
-  color: $dark-gray;
-  padding: 8px 20px;
+  color: $dark-gray !important;
+  font-size: .9em;
+  line-height: 1.3em;
+  padding: .7em 1.2em;
+}
+
+.tt-suggestion:first-child {
+  padding-top: .9em;
+}
+
+.tt-suggestion:last-child {
+  padding-bottom: .8em;
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf; // XXX: should this be $medium-blue?
+  color: $dark-blue;
+  background-color: $light-blue;
 }
 
-.tt-suggestion p,
-.tt-suggestion h5 {
+.tt-dataset-agencies .tt-suggestion:last-child {
+  border-bottom: 1px solid $medium-gray;
+}
+
+.tt-suggestion p {
   margin: 0;
+  padding: 0;
+}
+
+.search-prompt {
+  word-wrap: break-word;
+  .return {
+    color: #fff;
+    background: $medium-gray;
+    @include prefixer(border-radius, 4px, $vendor-prefixes);
+    font-size: .6em;
+    vertical-align: baseline;
+    margin-right: .5em;
+    padding: 4px 6px 2px;
+    position: relative;
+    top: -.1em;
+  }
+}
+
+.tt-cursor .return {
+  background: $dark-gray;
 }
