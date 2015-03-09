@@ -8,7 +8,7 @@ import subprocess
 class Command(BaseCommand):
 
     help = """ Loads FOIA Contacts from YAML webscrape.
-    To run with default data directory:
+    To download the data automatically:
         django-admin.py load_agency_contacts
     Or to override the directory:
         django-admin.py load_agency_contacts path/to/data
