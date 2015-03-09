@@ -42,6 +42,5 @@ def download_data(command):
 def temp_home():
     return os.path.join(BASE_DIR, "..", "temp-data")
 
-# test if a command exists, don't print output
 def clone_repo(repo, directory):
     subprocess.check_call(["git", "clone", repo, directory], shell=False)
