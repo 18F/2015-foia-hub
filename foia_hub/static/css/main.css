@@ -1219,6 +1219,8 @@ footer {
   float: right;
   position: relative;
   top: -3em; }
+  .search input[type=submit]:hover {
+    background-color: #0096B5; }
 
 /* agency autocomplete */
 .twitter-typeahead {

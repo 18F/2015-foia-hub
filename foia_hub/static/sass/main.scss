@@ -508,6 +508,9 @@ footer {
   float:right;
   position: relative;
   top: -3em;
+  &:hover {
+    background-color: $medium-blue;
+  }
 }
 
 /* agency autocomplete */
