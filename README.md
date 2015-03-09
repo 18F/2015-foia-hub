@@ -86,7 +86,7 @@ psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 * Initialize your database schema:
 
 ```bash
-django-admin.py syncdb
+python manage.py syncdb
 ```
 
 * Update the `DATABASE_URL` in `.env` with your Postgres connection string.
@@ -139,22 +139,20 @@ cloned into the same directory. You should be able to run the server now:
 python manage.py runserver
 ```
 
-And when you access [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll see the list of agencies in JSON format.
+Access `http://localhost:8000/api/agency/` to see the list of agencies in JSON format.
 
 
 ### Front-end Dev Environment
 
-We use SASS, Bourbon, and Neat for our front-end stack. To set them up, you
-will need Ruby.
+We use [Sass](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for our front-end stack.
 
-You next need to install the appropriate Ruby libraries. In this example, we
-will install them system wide, though you may prefer bundler, etc.
+You will need Ruby, and the following gems:
 
 ```bash
-sudo gem install neat sass bourbon
+gem install sass bourbon neat
 ```
 
-You will then need to pull down the appropriate Sass libraries for Bourbon and Neat:
+You will then need to pull down further Bourbon and Neat dependencies:
 
 ```bash
 cd foia_hub/static/sass
@@ -170,7 +168,7 @@ python manage.py scss   # one-off
 python manage.py scss watch   # will run continuously
 ```
 
-During development, then, you will likely have both `scss watch` and `runserver`.
+During development, you will likely run both `scss watch` and `runserver`.
 
 ## Deploying to Cloud Foundry
 
