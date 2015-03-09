@@ -2,13 +2,13 @@
 <div class="breadcrumbs_container">
   <div class="container">
     <section class="breadcrumbs">
-      <a href="{{ url('home') }}">Home &gt;</a>
+      <a href="{{ url('home') }}">Home </a> &gt;
       {% if pages %}
           {% for page in pages %}
             {% if loop.index == pages|length %}
             {{page.1}}
             {% else %}
-             <a href="{{ page.0 }}">{{page.1}} &gt;</a>
+             <a href="{{ page.0 }}">{{page.1}} </a> &gt;
             {% endif %}
           {% endfor %}
       {% endif %}
