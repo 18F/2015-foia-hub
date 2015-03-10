@@ -36,7 +36,9 @@
         </ul>
       </nav>
 
-      {% include 'includes/search.html' %}
+      {% if not view or view.template_name != 'index.html' %}
+        {% include 'includes/search.html' %}
+      {% endif %}
     </div>
   </div>
 </header>
