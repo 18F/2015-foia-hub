@@ -92,3 +92,15 @@
     margin-left: -($size + $border-width);
   }
 }
+
+// set left and right padding (but keep vertical padding the same)
+@mixin padding-horizontal($padding) {
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+// set top and bottom padding (but keep horizontal padding the same)
+@mixin padding-vertical($padding) {
+  padding-top: $padding;
+  padding-bottom: $padding;
+}
