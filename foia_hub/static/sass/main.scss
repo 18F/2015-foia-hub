@@ -54,8 +54,8 @@ body > header {
         border-bottom: none;
         padding-bottom: 0.18em;
       }
-      &:hover {
-        text-decoration: none;
+      &:hover, &:focus {
+        text-decoration: none !important;
         em {
           border-bottom: 0.15em solid $aqua-blue;
           color: $dark-gray !important;
@@ -516,6 +516,9 @@ footer {
   float:right;
   position: relative;
   top: -3em;
+  &:focus, &:hover {
+    background-color: $medium-blue;
+  }
 }
 
 /* agency autocomplete */

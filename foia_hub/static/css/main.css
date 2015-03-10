@@ -749,9 +749,9 @@ body > header {
         color: #323A45;
         border-bottom: none;
         padding-bottom: 0.18em; }
-      body > header #logo a:hover {
-        text-decoration: none; }
-        body > header #logo a:hover em {
+      body > header #logo a:hover, body > header #logo a:focus {
+        text-decoration: none !important; }
+        body > header #logo a:hover em, body > header #logo a:focus em {
           border-bottom: 0.15em solid #00BFE7;
           color: #323A45 !important; }
   body > header #topnav {
@@ -1235,6 +1235,8 @@ footer {
   float: right;
   position: relative;
   top: -3em; }
+  .search input[type=submit]:focus, .search input[type=submit]:hover {
+    background-color: #0096B5; }
 
 /* agency autocomplete */
 .twitter-typeahead {
