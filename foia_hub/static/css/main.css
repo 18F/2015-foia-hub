@@ -1175,12 +1175,12 @@ footer {
       .department__decentralized:last-child {
         margin-right: 0; } }
 
-.search {
+#topnav .search {
   position: relative;
   top: -.3em;
   color: #323A45;
   height: 2em; }
-  .search input.typeahead {
+  #topnav .search input.typeahead {
     color: inherit;
     background-color: white;
     height: 2em;
@@ -1197,27 +1197,27 @@ footer {
     border-top-left-radius: 1em;
     border-bottom-right-radius: 1em;
     border-top-right-radius: 1em; }
-    .search input.typeahead::-webkit-input-placeholder {
+    #topnav .search input.typeahead::-webkit-input-placeholder {
       color: #777777; }
-    .search input.typeahead::-moz-placeholder {
+    #topnav .search input.typeahead::-moz-placeholder {
       color: #777777; }
-    .search input.typeahead:-moz-placeholder {
+    #topnav .search input.typeahead:-moz-placeholder {
       color: #777777; }
-    .search input.typeahead:-ms-input-placeholder {
+    #topnav .search input.typeahead:-ms-input-placeholder {
       color: #777777; }
-  .search .fa {
+  #topnav .search .fa {
     color: inherit !important; }
-  .search .search-icon {
+  #topnav .search .search-icon {
     height: 100%;
     width: 2em;
     position: absolute;
     top: 0;
     left: .5em;
     z-index: 100; }
-    .search .search-icon .fa {
+    #topnav .search .search-icon .fa {
       position: relative;
       top: .25em; }
-  .search .clear {
+  #topnav .search .clear {
     display: none; }
 
 .search.tt-filled .clear {
@@ -1347,5 +1347,41 @@ footer {
 
 .tt-cursor .return {
   background: #323A45; }
+
+#main .search form {
+  position: relative;
+  height: 3em; }
+  #main .search form input.typeahead {
+    color: #005184;
+    padding-left: 2.5em; }
+  #main .search form .search_icon,
+  #main .search form input.submit {
+    position: absolute;
+    top: 0;
+    z-index: 100; }
+  #main .search form .search_icon {
+    left: .7em;
+    top: .7em; }
+  #main .search form input.typeahead,
+  #main .search form input.submit {
+    height: 3em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box; }
+  #main .search form input.submit {
+    right: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0; }
+  #main .search form .twitter-typeahead {
+    display: block !important;
+    width: 100%; }
+  #main .search form .tt-dropdown-menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+    min-width: auto;
+    max-width: auto; }
 
 /*# sourceMappingURL=main.css.map */

@@ -461,7 +461,7 @@ footer {
 
 $search-height: 2em;
 
-.search {
+#topnav .search {
   position: relative;
   top: -.3em;
   color: $dark-gray;
@@ -616,4 +616,50 @@ $search-height: 2em;
 
 .tt-cursor .return {
   background: $dark-gray;
+}
+
+#main .search form {
+  position: relative;
+  height: $search-height + 1em;
+
+  input.typeahead {
+    color: $dark-blue;
+    padding-left: 2.5em;
+  }
+
+  .search_icon,
+  input.submit {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+  }
+
+  .search_icon {
+    left: .7em;
+    top: .7em;
+  }
+
+  input.typeahead,
+  input.submit {
+    height: $search-height + 1em;
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+  }
+
+  input.submit {
+    right: 0;
+    @include border-left-radius(0);
+  }
+
+  .twitter-typeahead {
+    display: block !important;
+    width: 100%;
+  }
+
+  .tt-dropdown-menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+    min-width: auto;
+    max-width: auto;
+  }
 }
