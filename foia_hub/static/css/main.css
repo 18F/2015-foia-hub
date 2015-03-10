@@ -1175,36 +1175,37 @@ footer {
       .department__decentralized:last-child {
         margin-right: 0; } }
 
+input.typeahead {
+  color: #323A45;
+  background-color: white;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box; }
+  input.typeahead::-webkit-input-placeholder {
+    color: #777777; }
+  input.typeahead::-moz-placeholder {
+    color: #777777; }
+  input.typeahead:-moz-placeholder {
+    color: #777777; }
+  input.typeahead:-ms-input-placeholder {
+    color: #777777; }
+
 #topnav .search {
   position: relative;
   top: -.3em;
-  color: #323A45;
   height: 2em; }
   #topnav .search input.typeahead {
-    color: inherit;
-    background-color: white;
     height: 2em;
     padding-left: 2em;
     margin-bottom: 0;
     width: 100%;
     display: block !important;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    box-sizing: border-box;
     border-bottom-left-radius: 1em;
     border-top-left-radius: 1em;
     border-bottom-right-radius: 1em;
     border-top-right-radius: 1em; }
-    #topnav .search input.typeahead::-webkit-input-placeholder {
-      color: #777777; }
-    #topnav .search input.typeahead::-moz-placeholder {
-      color: #777777; }
-    #topnav .search input.typeahead:-moz-placeholder {
-      color: #777777; }
-    #topnav .search input.typeahead:-ms-input-placeholder {
-      color: #777777; }
   #topnav .search .fa {
     color: inherit !important; }
   #topnav .search .search-icon {
@@ -1353,7 +1354,7 @@ footer {
   height: 3em; }
   #main .search form input.typeahead {
     color: #005184;
-    padding-left: 2.5em; }
+    padding-left: 2.2em; }
   #main .search form .search_icon,
   #main .search form input.submit {
     position: absolute;
@@ -1361,7 +1362,10 @@ footer {
     z-index: 100; }
   #main .search form .search_icon {
     left: .7em;
-    top: .7em; }
+    top: .7em;
+    color: #777777; }
+    #main .search form .search_icon .fa {
+      color: inherit; }
   #main .search form input.typeahead,
   #main .search form input.submit {
     height: 3em;
@@ -1372,8 +1376,13 @@ footer {
     box-sizing: border-box; }
   #main .search form input.submit {
     right: 0;
+    color: #323A45;
     border-bottom-left-radius: 0;
-    border-top-left-radius: 0; }
+    border-top-left-radius: 0;
+    padding-left: 1.5em;
+    padding-right: 1.5em; }
+    #main .search form input.submit:hover, #main .search form input.submit:focus {
+      color: #fff; }
   #main .search form .twitter-typeahead {
     display: block !important;
     width: 100%; }
