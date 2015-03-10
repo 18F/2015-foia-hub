@@ -771,13 +771,7 @@ body > header {
           font-weight: 600; }
         body > header #topnav nav ul a {
           color: #777777;
-          padding-bottom: 1.5em; }
-          @media screen and (max-width: 30em) {
-            body > header #topnav nav ul a {
-              padding-bottom: 0; } }
-        body > header #topnav nav ul a {
-          color: #777777;
-          padding-bottom: 12px; }
+          padding-bottom: 0.75em; }
           @media screen and (max-width: 30em) {
             body > header #topnav nav ul a {
               padding-bottom: 0; } }

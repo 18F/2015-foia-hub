@@ -79,19 +79,12 @@ body > header {
 
         a {
           color: $gray;
-          padding-bottom: 1.5em;
+          padding-bottom: 0.75em;
           @include media($small) {
             padding-bottom: 0;
           }
         }
 
-        a {
-          color: $gray;
-          padding-bottom: 12px;
-          @include media($small) {
-            padding-bottom: 0;
-          }
-        }
         a:hover,
         a.active,
         a:active {
