@@ -1246,7 +1246,7 @@ input.typeahead {
 
 #topnav .search {
   position: relative;
-  top: -.3em;
+  top: .3em;
   height: 2em; }
   #topnav .search input.typeahead {
     height: 2em;
@@ -1261,13 +1261,15 @@ input.typeahead {
   #topnav .search .fa {
     color: inherit !important; }
   #topnav .search .search-icon {
+    color: #777777;
     height: 100%;
     width: 2em;
     position: absolute;
     top: 0;
-    left: .5em;
+    left: .7em;
     z-index: 100; }
     #topnav .search .search-icon .fa {
+      color: inherit;
       position: relative;
       top: .25em; }
   #topnav .search .submit-button {
@@ -1289,16 +1291,6 @@ input.typeahead {
     border-top-right-radius: 1em; }
     #topnav .search .submit-button .fa {
       position: relative; }
-
-.search_icon {
-  color: #777777;
-  height: 3em;
-  position: absolute;
-  z-index: 100;
-  padding-top: 0.75em;
-  padding-left: 0.75em; }
-  .search_icon .fa-search {
-    color: #777777; }
 
 .search input[type=search] {
   color: #323A45;
@@ -1346,9 +1338,6 @@ input.typeahead {
 .typeahead {
   background-color: #fff; }
 
-.typeahead:focus {
-  border: none; }
-
 .tt-hint {
   color: #999; }
 
@@ -1389,16 +1378,18 @@ input.typeahead {
   #main .search form input.typeahead {
     color: #005184;
     padding-left: 2.2em; }
-  #main .search form .search_icon,
+  #main .search form .search-icon,
   #main .search form input.submit {
     position: absolute;
     top: 0;
     z-index: 100; }
-  #main .search form .search_icon {
-    left: .7em;
-    top: .7em;
-    color: #777777; }
-    #main .search form .search_icon .fa {
+  #main .search form .search-icon {
+    color: #777777;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em; }
+    #main .search form .search-icon .fa {
       color: inherit; }
   #main .search form input.typeahead,
   #main .search form input.submit {

@@ -542,7 +542,7 @@ input.typeahead {
 
 #topnav .search {
   position: relative;
-  top: -.3em;
+  top: .3em;
   height: $search-height;
 
   input.typeahead {
@@ -561,14 +561,16 @@ input.typeahead {
   }
 
   .search-icon {
+    color: $gray;
     height: 100%;
     width: 2em;
     position: absolute;
     top: 0;
-    left: .5em;
+    left: .7em;
     z-index: 100;
 
     .fa {
+      color: inherit;
       position: relative;
       top: .25em;
     }
@@ -590,22 +592,6 @@ input.typeahead {
     .fa {
       position: relative;
     }
-  }
-}
-
-.search_icon {
-  color: $gray;
-  // display: inline-block;
-  height: 3em;
-  // width: 2em;
-  position: absolute;
-  z-index: 100;
-//  background: white;
-//  @include border-left-radius(8px);
-  padding-top: 0.75em;
-  padding-left: 0.75em;
-  .fa-search {
-    color: $gray;
   }
 }
 
@@ -655,7 +641,7 @@ input.typeahead {
 }
 
 .typeahead:focus {
-  border: none;
+  // border: none;
 }
 
 .tt-query {
@@ -712,6 +698,10 @@ input.typeahead {
 
   .search-icon {
     color: $gray;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
     .fa {
       color: inherit;
     }
