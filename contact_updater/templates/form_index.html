@@ -7,25 +7,25 @@
 
   <h1>Agencies</h1>
 
-  <fieldset>
-    <ul id="searchresults--index">
-        {% for letter in agencies|groupby('name.0') %}
-          <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
-        {% endfor %}
-    </ul>
+  <ul id="searchresults--index">
+      {% for letter in agencies|groupby('name.0') %}
+        <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
+      {% endfor %}
+  </ul>
 
    {% for letter, agency_list in agencies|groupby('name.0') %}
-         <h2 class="searchresults--letter"><a name="{{letter}}">{{letter}}</a></h2>
-         <hr/>
-            <ul>
-            {% for agency in agency_list %}
-              <li><a href="{{agency.slug}}">{{agency.name}}</a></li>
-            {% endfor %}
-            </ul>
-            <br />
-            <h4><a href="#searchresults--index">Back to top <span class="fa fa-arrow-up"></span></a></h4>
+
+      <header>
+       <h2 class="searchresults--letter" id="{{letter}}" tabindex="-1">{{letter}}</h2>
+       <h4 class="searchresults--back"><a href="#searchresults--index">Back to Top <span class="fa fa-arrow-up"></span></a></h4>
+      </header>
+
+      <ul>
+      {% for agency in agency_list %}
+        <li><a href="{{agency.slug}}">{{agency.name}}</a></li>
+      {% endfor %}
+      </ul>
         {% endfor %}
-  </fieldset>
   </section>
   </div>
   </div>
