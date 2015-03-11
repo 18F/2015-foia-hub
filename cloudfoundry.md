@@ -149,3 +149,12 @@ cf map-route foia open.foia.gov
 ```
 
 * Setting the host value in `/etc/hosts` locally for `open.foia.gov` to the IP address used by `cf.18f.us` should then cause `http://open.foia.gov` to show the deployed app in your browser.
+
+## Deploying
+
+To deploy the app while also running migrations and loading in the latest data:
+
+```bash
+cf push foia -c "bash cf.sh"
+```
+

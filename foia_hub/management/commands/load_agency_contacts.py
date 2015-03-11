@@ -1,30 +1,46 @@
 from django.core.management.base import BaseCommand
-from foia_hub.settings.base import BASE_DIR
+from foia_hub.settings.base import BASE_DIR, DEFAULT_DATA_REPO
 from foia_hub.scripts.load_agency_contacts import process_yamls
-
-# TODO: Figure out repo structure to make this generic.
-# Things are moving around, leaving this here for now.
-
-DEFAULT_YAML_FOLDER = 'foia/contacts/data'
-
-
-def _get_yaml_folder():
-    return BASE_DIR.rstrip('/foia_hub').rstrip('foia-') + DEFAULT_YAML_FOLDER
-
+import os
+import shutil
+import subprocess
 
 class Command(BaseCommand):
 
     help = """ Loads FOIA Contacts from YAML webscrape.
-    To run with default data directory:
+    To download the data automatically:
         django-admin.py load_agency_contacts
     Or to override the directory:
         django-admin.py load_agency_contacts path/to/data
     """
 
     def handle(self, *args, **options):
-        try:
+        if len(args) > 0:
             yaml_folder = args[0]
-        except IndexError:
-            yaml_folder = _get_yaml_folder()
+        else:
+            yaml_folder = download_data(self)
 
+        self.stdout.write("Data directory: %s" % yaml_folder)
+        self.stdout.write("Loading data...")
         process_yamls(yaml_folder)
+
+# Clone a new copy of the git repo, removing the dir if it exists.
+def download_data(command):
+    command.stdout.write("No directory given, checking out copy of data from version control.")
+    command.stdout.write("Note: this requires git to be installed.")
+
+    path = temp_home()
+    if os.path.exists(path):
+        command.stdout.write("Deleting old data checkout.")
+        shutil.rmtree(path)
+
+    command.stdout.write("Cloning repository at %s" % DEFAULT_DATA_REPO)
+    clone_repo(DEFAULT_DATA_REPO, path)
+
+    return os.path.join(path, "contacts", "data")
+
+def temp_home():
+    return os.path.join(BASE_DIR, "..", "temp-data")
+
+def clone_repo(repo, directory):
+    subprocess.check_call(["git", "clone", repo, directory], shell=False)
