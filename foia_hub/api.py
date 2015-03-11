@@ -3,6 +3,7 @@ import datetime
 from django.db import transaction
 from django.conf.urls import patterns, url
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from restless.dj import DjangoResource
 from restless.resources import skip_prepare
@@ -228,8 +229,17 @@ class AgencyResource(DjangoResource):
                     """,
                     [search_term, search_term])
                 agencies = dictfetchall(cursor)
+
+            # Defaults to extact text search if search fails
             except:
-                agencies = []
+                agencies = Agency.objects.filter(
+                    Q(abbreviation__icontains=q) |
+                    Q(name__icontains=q) |
+                    Q(slug__icontains=q) |
+                    Q(keywords__icontains=q) |
+                    Q(description__icontains=q)
+                )
+
         else:
             agencies = Agency.objects.all().order_by('name')
 
