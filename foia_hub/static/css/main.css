@@ -1005,7 +1005,8 @@ footer {
     color: #0067BA; }
   #main .searchresults header {
     border-bottom: 1px solid #323A45;
-    margin: 2em 0; }
+    margin: 2em 0;
+    padding-bottom: 0.25em; }
     #main .searchresults header:after {
       content: "";
       display: table;
