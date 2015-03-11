@@ -7,10 +7,6 @@
 @import "accessibility";
 @import "fonts";
 
-* {
-  margin: 0;
-}
-
 html, body {
   height: 100%;
 }
@@ -413,6 +409,7 @@ footer {
       @include media($medium) {
         @include span-columns(12);
         @include shift(0);
+        margin-bottom: 2em;
       }
 
       @include media($small) {

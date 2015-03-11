@@ -705,9 +705,6 @@ html {
   font-style: italic;
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot");
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
-* {
-  margin: 0; }
-
 html, body {
   height: 100%; }
 
@@ -1127,7 +1124,8 @@ footer {
       display: block;
       margin-right: 2.12766%;
       width: 100%;
-      margin-left: 0%; }
+      margin-left: 0%;
+      margin-bottom: 2em; }
       #main.landing .department .resources:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
