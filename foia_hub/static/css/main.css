@@ -1001,6 +1001,13 @@ footer {
     margin-top: 0.5em; }
   #main .searchresults a .fa {
     color: #0067BA; }
+  #main .searchresults header {
+    border-bottom: 1px solid #CCCCCC;
+    margin: 2em 0; }
+    #main .searchresults header:after {
+      content: "";
+      display: table;
+      clear: both; }
   #main .searchresults .searchresults--list em {
     color: #0096B5;
     font-style: normal;
@@ -1012,10 +1019,14 @@ footer {
     font-weight: 700;
     font-size: 1.2em; }
   #main .searchresults .searchresults--letter {
-    margin: 2em 0 0; }
+    float: left;
+    line-height: 1.5em; }
     #main .searchresults .searchresults--letter h2 {
       font-size: 1.2em;
       color: #323A45; }
+  #main .searchresults .searchresults--back {
+    text-align: right;
+    line-height: 2em; }
 
 .breadcrumbs_container {
   background: white;
@@ -1026,7 +1037,7 @@ footer {
   font-size: 0.8em; }
 
 #main h1, #main h2 {
-  margin-bottom: 0.8em; }
+  margin-bottom: 1.2em; }
 #main h3, #main h4, #main h5, #main h6 {
   margin-bottom: 1.25; }
   .department #main h3, .department #main h4, .department #main h5, .department #main h6 {

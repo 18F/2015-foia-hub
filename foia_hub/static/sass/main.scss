@@ -258,6 +258,11 @@ footer {
   a .fa {
     color: $blue;
   }
+  header {
+    border-bottom: 1px solid $medium-gray;
+    margin: 2em 0;
+    @include clearfix();
+  }
   .searchresults--list {
     em {
       color: $medium-blue;
@@ -276,11 +281,17 @@ footer {
     }
   }
   .searchresults--letter {
-    margin: 2em 0 0;
+    // margin: 2em 0 0;
+    float: left;
+    line-height: 1.5em;
     h2 {
       font-size: $base-font-size * 1.2;
       color: $dark-gray;
     }
+  }
+  .searchresults--back {
+    text-align: right;
+    line-height: 2em;
   }
 }
 
@@ -296,7 +307,7 @@ footer {
 
 #main {
   h1, h2 {
-    margin-bottom: 0.8em;
+    margin-bottom: 1.2em;
   }
   h3, h4, h5, h6 {
     margin-bottom: $header-line-height;
