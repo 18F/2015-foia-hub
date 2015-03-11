@@ -703,16 +703,14 @@ input.typeahead {
     padding-left: 2.2em;
   }
 
-  .search_icon,
+  .search-icon,
   input.submit {
     position: absolute;
     top: 0;
     z-index: 100;
   }
 
-  .search_icon {
-    left: .7em;
-    top: .7em;
+  .search-icon {
     color: $gray;
     .fa {
       color: inherit;
