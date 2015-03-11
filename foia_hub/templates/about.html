@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-{% import 'includes/breadcrumb.html' as breadcrumb %}
-{{breadcrumb.create([(url('about'), 'About this Project')]) }}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {{ breadcrumb.create([(url('about'), 'About this Project')]) }}
 {% endblock %}
 
 {% block body %}

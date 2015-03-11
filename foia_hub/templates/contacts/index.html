@@ -2,8 +2,8 @@
 {% block class %}agencies{% endblock %}
 
 {% block breadcrumb %}
-{% import 'includes/breadcrumb.html' as breadcrumb %}
-{{breadcrumb.create([(url('agencies'), 'Agencies')]) }}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {{breadcrumb.create([(url('agencies'), 'Agencies')]) }}
 {% endblock %}
 
 {% block body %}

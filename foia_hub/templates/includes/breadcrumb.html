@@ -28,7 +28,7 @@ This templates can be imported to create breadcrumbs. The last crumb should be t
 
 # Usage example
 % block breadcrumb %
-% import 'includes/breadcrumb.html' as breadcrumb %
-breadcrumb.create([(url('learn'), 'Understanding FOIA')])
+    % import 'includes/breadcrumb.html' as breadcrumb %
+    breadcrumb.create([(url('learn'), 'Understanding FOIA')])
 % endblock %
  -->
