@@ -776,11 +776,13 @@ body > header {
             body > header #topnav nav ul a {
               padding-bottom: 0; } }
         body > header #topnav nav ul a:hover,
+        body > header #topnav nav ul a.active {
+          text-decoration: none;
+          color: #323A45; }
+        body > header #topnav nav ul a:hover,
         body > header #topnav nav ul a.active,
         body > header #topnav nav ul a:active {
-          border-bottom: 0.3em solid #00BFE7;
-          color: #323A45 !important;
-          text-decoration: none !important; }
+          border-bottom: 0.3em solid #00BFE7; }
           @media screen and (max-width: 30em) {
             body > header #topnav nav ul a:hover,
             body > header #topnav nav ul a.active,
@@ -1029,21 +1031,25 @@ footer {
   margin-top: 1.6em;
   margin-bottom: 0.6em; }
 
-#main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6,
-#main .about .toc h1,
-#main .about .toc h2,
-#main .about .toc h3,
-#main .about .toc h4,
-#main .about .toc h5,
-#main .about .toc h6 {
-  margin: 0; }
+#main .learn section, #main .learn article,
+#main .about section,
+#main .about article {
+  padding-bottom: 1em;
+  margin-bottom: 3.5em;
+  border-bottom: 1px solid #CCCCCC; }
+  #main .learn section.last, #main .learn article.last,
+  #main .about section.last,
+  #main .about article.last {
+    border-bottom: none; }
 #main .learn h2,
 #main .about h2 {
   border-bottom: 1px solid #323A45;
   padding-bottom: 0.5em;
   display: block; }
-#main .learn .question,
-#main .about .question {
+
+#main .learn .toc h1, #main .learn .toc h2, #main .learn .toc h3, #main .learn .toc h4, #main .learn .toc h5, #main .learn .toc h6 {
+  margin: 0; }
+#main .learn .question {
   margin-top: 2em; }
 
 #main .about ul .fa {

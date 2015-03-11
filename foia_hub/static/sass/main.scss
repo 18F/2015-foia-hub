@@ -86,15 +86,20 @@ body > header {
         }
 
         a:hover,
+        a.active {
+          text-decoration: none;
+          color: $dark-gray;
+        }
+
+        a:hover,
         a.active,
         a:active {
           border-bottom: 0.3em solid $aqua-blue;
-          color: $dark-gray !important;
-          text-decoration: none !important;
           @include media($small) {
             border-bottom: 1px solid $aqua-blue;
           }
         }
+
         a:focus {
           // background: #cc2211;
           background: #fff;
@@ -301,9 +306,12 @@ footer {
 
 #main .learn,
 #main .about {
-  .toc {
-    h1, h2, h3, h4, h5, h6 {
-      margin: 0;
+  section, article {
+    padding-bottom: 1em;
+    margin-bottom: 3.5em;
+    border-bottom: 1px solid $medium-gray;
+    &.last {
+      border-bottom: none;
     }
   }
 
@@ -312,25 +320,32 @@ footer {
     padding-bottom: 0.5em;
     display: block;
   }
+}
 
+#main .learn {
+  .toc {
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+  }
   .question {
     margin-top: 2em;
   }
 }
 
-#main .about ul {
-  .fa {
-    text-align: center;
-    position: absolute;
-    width: 4rem;
-    margin-left: -4rem;
-    font-size: 1.4em;
+#main .about {
+  ul {
+    .fa {
+      text-align: center;
+      position: absolute;
+      width: 4rem;
+      margin-left: -4rem;
+      font-size: 1.4em;
+    }
+    li {
+      padding-left: 4rem;
+    }
   }
-  li {
-    padding-left: 4rem;
-  }
-
-
 }
 
 #main.landing {
