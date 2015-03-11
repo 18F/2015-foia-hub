@@ -1100,9 +1100,6 @@ footer {
       width: 100%; }
       #main.landing .department .department--container:last-child {
         margin-right: 0; } }
-#main.landing .department .details > hr {
-  border-bottom: 1px solid #323A45;
-  margin-top: 0; }
 #main.landing .department .resources {
   float: left;
   display: block;
@@ -1137,9 +1134,14 @@ footer {
       margin-left: 0%; }
       #main.landing .department .resources:last-child {
         margin-right: 0; } }
-#main.landing .department .description p {
-  margin-bottom: 1.2em;
-  font-size: 1.2em; }
+#main.landing .department .description {
+  margin-bottom: 2em; }
+  #main.landing .department .description p {
+    margin-bottom: 1.2em;
+    font-size: 1.2em; }
+#main.landing .department .details h2 {
+  padding-bottom: 1em;
+  border-bottom: 1px solid #323A45; }
 #main.landing .department .details .offices ul, #main.landing .department .details .offices li {
   list-style-type: none;
   list-style-position: outside;
@@ -1149,8 +1151,11 @@ footer {
   margin: 10px 0;
   font-size: 1.2em;
   line-height: 30px; }
-#main.landing .department .contact_type .fa {
-  font-size: 1.8em; }
+#main.landing .department .details .contact_type {
+  border-bottom: 1px solid #CCCCCC;
+  padding: 0.5em 0 1em; }
+  #main.landing .department .details .contact_type .fa {
+    font-size: 1.8em; }
 #main.landing .department .resource_type {
   padding-left: 1em; }
   #main.landing .department .resource_type .fa {

@@ -393,15 +393,9 @@ footer {
       }
     }
 
-    .details > hr {
-      border-bottom: 1px solid $dark-gray;
-      margin-top: 0;
-    }
-
     .resources {
       @include span-columns(8 of 24);
       @include shift(1);
-
       padding: 1em;
       background-color: white;
       @include prefixer(box-shadow, 4px 4px 8px $medium-gray, $vendor-prefixes);
@@ -418,12 +412,19 @@ footer {
       }    
     }
 
-    .description p {
-      margin-bottom: 1.2em;
-      font-size: $base-font-size * 1.2;
+    .description {
+      margin-bottom: 2em;
+      p {
+        margin-bottom: 1.2em;
+        font-size: $base-font-size * 1.2;
+      }
     }
 
     .details {
+      h2 {
+        padding-bottom: 1em;
+        border-bottom: 1px solid $dark-gray;
+      }
      .offices {
         ul, li {
           list-style-type: none;
@@ -437,12 +438,12 @@ footer {
           line-height: 30px;
         }
       }
-
-    }
-
-    .contact_type {
-      .fa {
-        font-size: 1.8em;
+      .contact_type {
+        border-bottom: 1px solid $medium-gray;
+        padding: 0.5em 0 1em;
+        .fa {
+          font-size: 1.8em;
+        }
       }
     }
 

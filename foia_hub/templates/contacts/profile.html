@@ -48,8 +48,6 @@
 
         <h2>Submit a request</h2>
 
-        <hr>
-
         {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
          <div class="webform contact_type">
             <div class="icon">
@@ -69,7 +67,6 @@
                     {% endif %}
                 </ul>
             </div>
-          <hr>
         </div>
         {% endif %}
 
@@ -92,7 +89,6 @@
                 {% endfor %}
               </ul>
             </div>
-          <hr>
           </div>
         {% endif %}
 
@@ -107,7 +103,6 @@
                 <li>{{ profile.fax }}</li>
               </ul>
             </div>
-            <hr>
           </div>
         {% endif %}
 
@@ -127,7 +122,6 @@
               {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
             </p>
           </div>
-          <hr>
         </div>
 
       </section><!--/details-->
