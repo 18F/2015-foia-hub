@@ -111,9 +111,20 @@ class AgencyAPITests(TestCase):
             'us-patent-and-trademark-office'],
             slugs)
 
+    @skipIf(custom_backend == 'postgresql_psycopg2',
+            'Test query in case postgres fails')
+    def test_list_query_sqlite3(self):
+        c = Client()
+        response = c.get('/api/agency/?query=industry')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'], 'department-of-commerce')
+
     @skipUnless(custom_backend == 'postgresql_psycopg2',
                 'Only postgres has tsearch2')
-    def test_list_query(self):
+    def test_list_query_postgres(self):
         """ Test that search works when backend is postgresql_psycopg2 """
 
         c = Client()
