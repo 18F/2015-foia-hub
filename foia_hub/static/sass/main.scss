@@ -150,6 +150,7 @@ body > header {
     background: $dark-gray;
     color: $light-gray;
     padding: 3.4em 0;
+    margin-bottom: 2em;
   }
 
   .search--content {
@@ -202,8 +203,7 @@ footer {
 }
 
 .hero {
-  background-color: $light-gray;
-  padding: 2em 0;
+//  padding: 2em 0;
   & > .container > .hero--content {
     @include inner(16);
     a.more {
@@ -220,12 +220,23 @@ footer {
 }
 
 #main.home {
-  hr {
-    margin: 1em 0 3em;
+  .tag h1 {
+    margin: 0.2em;
+  }
+  .tag,
+  .what,
+  .process {
+    padding: 2em 0;
+    border-bottom: 1px solid $medium-gray;
   }
 
   section.process {
-    ol { @extend %default-ol; }
+    ol {
+      @extend %default-ol;
+      li {
+        margin-bottom: 0.8em;
+      }
+    }
   }
 
   p,

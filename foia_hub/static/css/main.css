@@ -817,7 +817,8 @@ body > header {
 #main .search {
   background: #323A45;
   color: #EAEDF1;
-  padding: 3.4em 0; }
+  padding: 3.4em 0;
+  margin-bottom: 2em; }
 #main .search--content {
   float: left;
   display: block;
@@ -892,45 +893,49 @@ footer {
   display: table;
   clear: both; }
 
-.hero {
-  background-color: #EAEDF1;
-  padding: 2em 0; }
-  .hero > .container > .hero--content {
-    float: left;
-    display: block;
-    margin-right: 1.05263%;
-    width: 66.31579%;
-    margin-left: 16.84211%; }
-    .hero > .container > .hero--content:last-child {
-      margin-right: 0; }
-    @media screen and (max-width: 48em) {
-      .hero > .container > .hero--content {
-        margin-left: 8.51064%;
-        float: left;
-        display: block;
-        margin-right: 2.12766%;
-        width: 82.97872%; }
-        .hero > .container > .hero--content:last-child {
-          margin-right: 0; } }
-    @media screen and (max-width: 30em) {
-      .hero > .container > .hero--content {
-        margin-left: 0%;
-        float: left;
-        display: block;
-        margin-right: 6.66667%;
-        width: 100%; }
-        .hero > .container > .hero--content:last-child {
-          margin-right: 0; } }
-    .hero > .container > .hero--content a.more {
-      font-weight: 600; }
-      .hero > .container > .hero--content a.more .fa {
-        color: #0067BA; }
+.hero > .container > .hero--content {
+  float: left;
+  display: block;
+  margin-right: 1.05263%;
+  width: 66.31579%;
+  margin-left: 16.84211%; }
+  .hero > .container > .hero--content:last-child {
+    margin-right: 0; }
+  @media screen and (max-width: 48em) {
+    .hero > .container > .hero--content {
+      margin-left: 8.51064%;
+      float: left;
+      display: block;
+      margin-right: 2.12766%;
+      width: 82.97872%; }
+      .hero > .container > .hero--content:last-child {
+        margin-right: 0; } }
+  @media screen and (max-width: 30em) {
+    .hero > .container > .hero--content {
+      margin-left: 0%;
+      float: left;
+      display: block;
+      margin-right: 6.66667%;
+      width: 100%; }
+      .hero > .container > .hero--content:last-child {
+        margin-right: 0; } }
+  .hero > .container > .hero--content a.more {
+    font-weight: 600; }
+    .hero > .container > .hero--content a.more .fa {
+      color: #0067BA; }
 
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
-#main.home hr {
-  margin: 1em 0 3em; }
+#main.home .tag h1 {
+  margin: 0.2em; }
+#main.home .tag,
+#main.home .what,
+#main.home .process {
+  padding: 2em 0;
+  border-bottom: 1px solid #CCCCCC; }
+#main.home section.process ol li {
+  margin-bottom: 0.8em; }
 #main.home p,
 #main.home li {
   font-size: 1.2em; }
