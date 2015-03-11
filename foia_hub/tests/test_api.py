@@ -1,10 +1,17 @@
 import json
+from django.db import connection
 from django.test import TestCase, Client
+from django.utils.unittest import skipIf, skipUnless
+
 from foia_hub.models import Agency, ReadingRoomUrls, Office
 
 from foia_hub.api import agency_preparer, contact_preparer
 from foia_hub.api import foia_libraries_preparer
+from foia_hub.api import sanitize_search_term, dictfetchall
 from foia_hub.tests import helpers
+
+
+from foia_hub.settings.test import custom_backend
 
 
 class PreparerTests(TestCase):
@@ -54,6 +61,8 @@ class PreparerTests(TestCase):
         }
         self.assertEqual(ap, data)
 
+    @skipIf(custom_backend == 'postgresql_psycopg2',
+            'The order of the returned data changes with postgres')
     def test_reading_room_preparer(self):
         """ Ensure reading room urls are serialized correctly. """
 
@@ -61,10 +70,14 @@ class PreparerTests(TestCase):
             slug='department-of-commerce--census-bureau')
 
         rone = ReadingRoomUrls(
-            content_object=census, link_text='Url One', url='http://urlone.gov')
+            content_object=census,
+            link_text='Url One',
+            url='http://urlone.gov')
         rone.save()
         rtwo = ReadingRoomUrls(
-            content_object=census, link_text='Url Two', url='http://urltwo.gov')
+            content_object=census,
+            link_text='Url Two',
+            url='http://urltwo.gov')
         rtwo.save()
 
         data = foia_libraries_preparer(census)
@@ -98,7 +111,9 @@ class AgencyAPITests(TestCase):
             'us-patent-and-trademark-office'],
             slugs)
 
-    def test_list_query(self):
+    @skipIf(custom_backend == 'postgresql_psycopg2',
+            'Test query in case postgres fails')
+    def test_list_query_sqlite3(self):
         c = Client()
         response = c.get('/api/agency/?query=industry')
         self.assertEqual(200, response.status_code)
@@ -106,6 +121,199 @@ class AgencyAPITests(TestCase):
         self.assertEqual(len(content['objects']), 1)
         self.assertEqual(
             content['objects'][0]['slug'], 'department-of-commerce')
+
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
+    def test_list_query_postgres(self):
+        """ Test that search works when backend is postgresql_psycopg2 """
+
+        c = Client()
+        response = c.get('/api/agency/?query=emergency')
+        self.assertEqual(200, response.status_code)
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
+    def test_list_query_order_and_fields(self):
+        """
+        Test that non-exact queries work and with multiple fields.
+        """
+
+        c = Client()
+        # Test that search works with words not in order in title
+        response = c.get('/api/agency/?query=cybersecurity+chemical')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+        # Test that search works with words not in order in description
+        response = c.get('/api/agency/?query=Security+Homeland')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+        # Test that search works with abbeviations
+        response = c.get('/api/agency/?query=dhs')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+        # Test that search works with slugs
+        response = c.get(
+            '/api/agency/?query=department-of-homeland-security')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+        # Test that search works with keywords
+        response = c.get(
+            '/api/agency/?query=forests')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-commerce')
+
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
+    def test_list_query_quotes_errors(self):
+        """
+        Test quotes don't break the search.
+        """
+        c = Client()
+        # single single quotes don't break search
+        response = c.get("/api/agency/?query='test")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query=te'st")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query=test'")
+        self.assertEqual(response.status_code, 200)
+        response = c.get("/api/agency/?query='tes't test'")
+        self.assertEqual(response.status_code, 200)
+
+        # single double quotes don't break search
+        response = c.get('/api/agency/?query="test')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query=te"st')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query=test"')
+        self.assertEqual(response.status_code, 200)
+        response = c.get('/api/agency/?query="tes"t test"')
+        self.assertEqual(response.status_code, 200)
+
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
+    def test_list_query_and_or(self):
+        """
+        Test that or and and work correctly
+        """
+
+        # Using `AND` returns objects that contain both words
+        c = Client()
+        response = c.get('/api/agency/?query=vital+AND+homeland')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 1)
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'department-of-homeland-security')
+
+        # Using `OR` returns objects that contain at least one of the words
+        c = Client()
+        response = c.get('/api/agency/?query=patents+OR+technological')
+        content = helpers.json_from(response)
+        self.assertEqual(len(content['objects']), 2)
+
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
+    def test_list_query_weighting(self):
+        """
+        Test that search returns results with query in title first rather
+        than alphabetically
+        """
+        c = Client()
+        response = c.get('/api/agency/?query=trademark')
+        content = helpers.json_from(response)
+
+        # Any results with `trademark` are returned
+        self.assertEqual(len(content['objects']), 3)
+        # But results with `trademark` in name are first
+        self.assertEqual(
+            content['objects'][0]['slug'],
+            'us-patent-and-trademark-office')
+        # And results with `trademark` in the keywords returned last
+        self.assertEqual(
+            content['objects'][2]['slug'],
+            'department-of-homeland-security')
+
+    def test_dictfetchall(self):
+        """ Test that the raw sql converter works """
+
+        cursor = connection.cursor()
+        cursor.execute("select * from foia_hub_agency;")
+        data = dictfetchall(cursor)
+        self.assertEqual(len(data), 3)
+
+        # Lists rendered as strings in DB are brought back as lists
+        self.assertEqual(
+            data[1].get('keywords'),
+            ['business', 'industry', 'forests', 'petroleum'])
+
+    def test_sanitize_search_term(self):
+        """
+        Test that raw strings are cleaned correctly to be used by to_tsquery
+        """
+
+        # Single words are turned into ingestible string
+        test_term = sanitize_search_term('health')
+        self.assertEqual(test_term, 'health:*')
+
+        # Unspecified words connected with &
+        test_term = sanitize_search_term('health justice')
+        self.assertEqual(test_term, 'health:* & justice:*')
+
+        # Single punctuation doesn't stay except for '&', '|', '-'
+        test_term = sanitize_search_term("'he??alth justice")
+        self.assertEqual(test_term, "health:* & justice:*")
+
+        test_term = sanitize_search_term('health just#ice"')
+        self.assertEqual(test_term, "health:* & justice:*")
+
+        test_term = sanitize_search_term('health-justice"')
+        self.assertEqual(test_term, "health-justice:*")
+
+        test_term = sanitize_search_term('health & justice"')
+        self.assertEqual(test_term, "health:* & justice:*")
+
+        test_term = sanitize_search_term('health | justice"')
+        self.assertEqual(test_term, "health:* | justice:*")
+
+        test_term = sanitize_search_term('health|justice"')
+        self.assertEqual(test_term, "health:*|justice:*")
+
+        # Ands and Ors are converted
+        test_term = sanitize_search_term('health AND justice')
+        self.assertEqual(test_term, 'health:* & justice:*')
+        test_term = sanitize_search_term('health OR justice')
+        self.assertEqual(test_term, 'health:* | justice:*')
+
+        # Complex search remains intact, but without punctuation
+        test_term = sanitize_search_term(
+            '"health life" AND justice OR "Justice AND Peace"')
+        self.assertEqual(
+            test_term,
+            "health:* & life:* & justice:* | Justice:* & Peace:*")
 
     def test_detail(self):
         """ Check the detail view for an agency."""
