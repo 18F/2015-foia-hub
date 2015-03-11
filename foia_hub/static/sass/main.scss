@@ -163,7 +163,7 @@ body > header {
       margin-top: 1em;
       a {
         color: $aqua-blue;
-        font-weight: 800;
+        font-weight: 600;
       }
     }
   }
@@ -275,7 +275,7 @@ footer {
     em {
       color: $medium-blue;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 600;
     }
     li {
       padding: 0.5em 0;
@@ -284,7 +284,7 @@ footer {
   #searchresults--index {
     li {
       display: inline-block;
-      font-weight: 700;
+      font-weight: 600;
       font-size: $base-font-size * 1.2;
     }
   }
