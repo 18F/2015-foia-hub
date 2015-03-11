@@ -1028,8 +1028,9 @@ footer {
 #main h1, #main h2 {
   margin-bottom: 0.8em; }
 #main h3, #main h4, #main h5, #main h6 {
-  margin-top: 1.6em;
-  margin-bottom: 0.6em; }
+  margin-bottom: 1.25; }
+  .department #main h3, .department #main h4, .department #main h5, .department #main h6 {
+    margin-top: 0; }
 
 #main .learn section, #main .learn article,
 #main .about section,
@@ -1052,6 +1053,8 @@ footer {
 #main .learn .question {
   margin-top: 2em; }
 
+#main .about .last {
+  border-bottom: none; }
 #main .about ul .fa {
   text-align: center;
   position: absolute;
@@ -1059,7 +1062,11 @@ footer {
   margin-left: -4rem;
   font-size: 1.4em; }
 #main .about ul li {
-  padding-left: 4rem; }
+  padding: 1em 0 0 4em;
+  border-bottom: 1px solid #CCCCCC; }
+#main .about ul ul > li {
+  border-bottom: none;
+  padding-left: 0; }
 
 #main.landing .contact h3 {
   margin-top: 30px;

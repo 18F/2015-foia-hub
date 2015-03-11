@@ -299,8 +299,10 @@ footer {
     margin-bottom: 0.8em;
   }
   h3, h4, h5, h6 {
-    margin-top: 1.6em;
-    margin-bottom: 0.6em;
+    margin-bottom: $header-line-height;
+    .department & {
+      margin-top: 0;
+    }
   }
 }
 
@@ -334,6 +336,10 @@ footer {
 }
 
 #main .about {
+  .last {
+    border-bottom: none;
+  }
+
   ul {
     .fa {
       text-align: center;
@@ -343,7 +349,12 @@ footer {
       font-size: 1.4em;
     }
     li {
-      padding-left: 4rem;
+      padding: 1em 0 0 4em;
+      border-bottom: 1px solid $medium-gray;
+    }
+    ul > li {
+        border-bottom: none;
+        padding-left: 0;
     }
   }
 }
