@@ -20,3 +20,12 @@ django-localflavor
 boto
 # @see http://code.larlet.fr/django-storages/issue/155/python-3-support
 -e git+https://github.com/coagulant/django-storages-py3.git@py3#egg=django-storages
+
+# for using New Relic
+newrelic
+
+# deployed/hosted with waitress
+waitress==0.8.9
+
+# temporary, while we maintain an EC2 instance
+gunicorn

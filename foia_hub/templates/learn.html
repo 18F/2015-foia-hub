@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-{% include "includes/breadcrumb.html" %}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {{ breadcrumb.create([(url('learn'), 'Understanding FOIA')]) }}
 {% endblock %}
+
 
 {% block body %}
 <div class="container">
@@ -188,7 +190,6 @@
           Records Administration. </p>
         </div>
       </article>
-
     </div>
   </section>
 </div>
