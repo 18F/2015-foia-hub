@@ -243,4 +243,3 @@ class ContactUpdaterPageTests(TestCase):
 
         response = self.client.get('/update-contacts/')
         self.assertEqual(response.status_code, 200)
-
