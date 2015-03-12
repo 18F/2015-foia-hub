@@ -130,6 +130,8 @@ cf set-env foia DATABASE_URL [value]
 cf set-env foia FOIA_ANALYTICS_ID [value]
 cf set-env foia FOIA_SECRET_SESSION_KEY [value]
 cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+cf set-env foia NEW_RELIC_LICENSE_KEY=[value]
+cf set-env foia NEW_RELIC_APP_NAME=[value]
 ```
 
 * Moved the runtime down from `3.4.2` to `3.4.0`, as that's what 18F's CF currently supports.
