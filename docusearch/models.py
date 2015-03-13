@@ -2,6 +2,8 @@ import os
 
 from django.db import models
 from django.utils.timezone import now
+from storages.backends.s3boto import S3BotoStorage
+from foia_hub.settings.production import AWS_STORAGE_DOC_BUCKET
 
 
 def upload_original_to(instance, filename):
@@ -23,7 +25,11 @@ def upload_original_to(instance, filename):
 
 
 class Document(models.Model):
-    """ A model representing a document from an agency. """
+    """
+    A model representing a document from an agency. It also uploads documents
+    to a different bucket than the static files by setting a specific bucket
+    `storage=S3BotoStorage(bucket=AWS_STORAGE_DOC_BUCKET)`
+    """
 
     text = models.TextField(
         null=False, help_text='The full text of the document')
@@ -33,7 +39,8 @@ class Document(models.Model):
         max_length=100,
         help_text="Slug for the agency or office that released this document.")
     original_file = models.FileField(
-        upload_to=upload_original_to, blank=True, null=True)
+        upload_to=upload_original_to, blank=True, null=True,
+        storage=S3BotoStorage(bucket=AWS_STORAGE_DOC_BUCKET))
 
     def get_absolute_url(self):
         """ Return the canonical URL for a Document object. """
