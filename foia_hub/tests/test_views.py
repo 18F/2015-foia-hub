@@ -2,11 +2,14 @@ from datetime import date
 
 from django.core.urlresolvers import reverse
 from django.test import SimpleTestCase, TestCase
+from django.utils.unittest import skipUnless
 
 from foia_hub.models import Agency, FOIARequest, Office, Requester
 from foia_hub.models import ReadingRoomUrls
 from foia_hub.views import get_agency_list
 from foia_hub.templatetags.get_domain import get_domain
+
+from foia_hub.settings.test import custom_backend
 
 
 class RequestFormTests(SimpleTestCase):
@@ -147,8 +150,11 @@ class AgenciesPageTests(TestCase):
         content = response.content.decode('utf-8')
         self.assertTrue('Department of Homeland Security' in content)
 
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_agencies_search_list(self):
         """ The /agencies/ page should filter agencies by a search term. """
+
         query = "department"
         response = self.client.get(reverse('agencies') + "?query=" + query)
         self.assertEqual(response.status_code, 200)
@@ -158,25 +164,11 @@ class AgenciesPageTests(TestCase):
         self.assertTrue('Department of Commerce' in content)
         self.assertTrue('Patent and Trademark Office' not in content)
 
-    def test_agencies_search_one(self):
-        """ The /agencies/ page should redirect to an agency if there's only
-        one result. """
-
-        query = "dhs"
-        dhs = Agency.objects.filter(abbreviation='DHS')[0]
-        response = self.client.get(reverse('agencies') + "?query=" + query)
-        self.assertEqual(response.status_code, 302)
-
-        self.assertEqual(
-            "http://testserver" + reverse(
-                'contact_landing', kwargs={'slug': dhs.slug}),
-            response['Location']
-        )
-
+    @skipUnless(custom_backend == 'postgresql_psycopg2',
+                'Only postgres has tsearch2')
     def test_agencies_search_none(self):
         """ The /agencies/ page should display a message if there are no
         results. """
-
         query = "kjlasdhfjhsdfljsdhflkasdjh"
         response = self.client.get(reverse('agencies') + "?query=" + query)
         self.assertEqual(response.status_code, 200)
@@ -214,14 +206,20 @@ class ContactPageTests(TestCase):
         self.assertTrue('Request online' not in content)
 
     def test_reading_rooms(self):
-        rone = ReadingRoomUrls(link_text='Url One', url='http://urlone.gov')
-        rone.save()
-        rtwo = ReadingRoomUrls(link_text='Url Two', url='http://urltwo.gov')
-        rtwo.save()
-
         census = Office.objects.get(
             slug='department-of-commerce--census-bureau')
-        census.reading_room_urls.add(rone, rtwo)
+
+        rone = ReadingRoomUrls(
+            content_object=census,
+            link_text='Url One',
+            url='http://urlone.gov')
+        rone.save()
+
+        rtwo = ReadingRoomUrls(
+            content_object=census,
+            link_text='Url Two',
+            url='http://urltwo.gov')
+        rtwo.save()
 
         response = self.client.get(
             reverse(

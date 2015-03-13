@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="hero">
+  <div class="container">
+  <section class="searchresults">
+
+  <h1>Agencies</h1>
+
+  <fieldset>
+    <ul id="searchresults--index">
+        {% for letter in agencies|groupby('name.0') %}
+          <li><a href="#{{letter.grouper}}">{{letter.grouper}}</a></li>
+        {% endfor %}
+    </ul>
+
+   {% for letter, agency_list in agencies|groupby('name.0') %}
+         <h2 class="searchresults--letter"><a name="{{letter}}">{{letter}}</a></h2>
+         <hr/>
+            <ul>
+            {% for agency in agency_list %}
+              <li><a href="{{agency.slug}}">{{agency.name}}</a></li>
+            {% endfor %}
+            </ul>
+            <br />
+            <h4><a href="#searchresults--index">Back to top <span class="fa fa-arrow-up"></span></a></h4>
+        {% endfor %}
+  </fieldset>
+  </section>
+  </div>
+  </div>
+{% endblock %}

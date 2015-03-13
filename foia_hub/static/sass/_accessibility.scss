@@ -1,0 +1,29 @@
+// see: <http://18f.github.io/accessibility/links/>
+#skip-nav {
+  text-align: center;
+
+  a {
+    color: $light-blue;
+    @include sr-only(true);
+  }
+}
+
+.sr-only {
+  @include sr-only();
+}
+
+.sr-only--focus {
+  @include sr-only(true);
+}
+
+#logo-18f:focus {
+  text-decoration: none !important;
+  img {
+    @include prefixer(box-shadow, 0 0 5px #18f, $vendor-prefixes);
+  }
+}
+
+// remove focus ring for anchor links
+[tabindex="-1"] {
+  outline: none;
+}

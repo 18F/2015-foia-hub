@@ -1,0 +1,61 @@
+/* 
+ * Mixin: inner 
+ * $columns should always be an even number 
+ */
+@mixin inner($columns) {
+  @include span-columns( $columns );
+  @include shift( ( 24 - $columns ) / 2 );
+//  @include media($large) {
+//    @include shift(2);
+//    @include span-columns(20)
+//  }
+  @include media($medium) {
+    @include shift(1 of 12);
+    @include span-columns(10 of 12);
+  }
+  @include media($small) {
+    @include shift(0);
+    @include span-columns(4);
+  }  
+}
+
+/* 
+ * Mixin: fullbleed
+ * $columns should always be an even number 
+ */
+@mixin fullbleed($columns) {
+// vz: TO BE IMPLEMENTED
+}
+
+/* 
+ * Mixin: small
+ * $columns should always be an even number 
+ */
+@mixin small($columns) {
+  @include media($small) {
+    @include span-columns($columns);
+  }
+}
+
+// a mixin for screen-reader-specific content
+@mixin sr-only($focus:false) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  @if ($focus == true) {
+    &:focus,
+    &:active {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+    }
+  }
+}
