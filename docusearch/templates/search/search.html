@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block body %}
 
+{% block body %}
 <div class="search">
     <div class="container">
         <section class="search--content">
@@ -9,7 +9,7 @@
             <form class="agency" method="get" action=".">
                 <div class="search--box scrollable-dropdown-menu">
                         <input id="id_q" name="q" type="search" value="{{request.GET.q}}" />
-                        <button type="submit" name="search">Search</button>
+                        <button type="submit">Search</button>
                 </div>
             </form>
         </section>
@@ -24,13 +24,31 @@
 
         <div>
         <dl>
-        <h3><a href="?q={{request.GET.q}}&amp;order_by=date_released">Order By</a> </h3>
+        <dd>
+            {% if request.GET.order_by == 'date_released' %}
+            <a href="{{generate_get_req([
+                            ('q', request.GET.q),
+                            ('order_by', 'relevance'),
+                            ('selected_facets',  request.GET.selected_facets)
+                            ])}}">Order By Date Relevance</a>
+            {% else %}
+            <a href="{{generate_get_req([
+                            ('q', request.GET.q),
+                            ('order_by', 'date_released'),
+                            ('selected_facets',  request.GET.selected_facets)
+                            ])}}">Order By Date Released</a>
+            {% endif %}
+        </dd>
         {% if facets.fields.foia_agency %}
             <dt>Agencies</dt>
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    <a href="?q={{request.GET.q}}&amp;order_by={{request.GET.order_by}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    <a href="{{generate_get_req([
+                        ('q', request.GET.q),
+                        ('order_by', request.GET.order_by),
+                        ('selected_facets', 'foia_agency_exact:' + agency.0|urlencode )
+                        ])}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                 </dd>
             {% endfor %}
         {% endif %}
