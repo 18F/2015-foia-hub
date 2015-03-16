@@ -234,3 +234,12 @@ class ContactPageTests(TestCase):
     def test_get_domain(self):
         test_url = 'http://www.google.com/testtesttestest'
         self.assertEqual('www.google.com/...', get_domain(test_url))
+
+
+class ContactUpdaterPageTests(TestCase):
+    fixtures = ['agencies_test.json', 'offices_test.json']
+
+    def test_get_page(self):
+
+        response = self.client.get('/update-contacts/')
+        self.assertEqual(response.status_code, 200)

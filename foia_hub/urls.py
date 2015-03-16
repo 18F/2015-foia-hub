@@ -50,7 +50,7 @@ if settings.SHOW_WEBFORM:
 # Contact updater
 urlpatterns += patterns(
     '',
-    url(r'^contact_updater/', include(contact_updater_urls)),
+    url(r'^update-contacts/', include(contact_updater_urls)),
 )
 
 # Admin
