@@ -192,7 +192,13 @@ Work with the right "org" and "space":
 cf target -o foia -s hub
 ```
 
-Set the app's environment variables.
+#### Two production environments
+
+To ensure zero downtime deploys, 18F uses two production environments, `foia-a` and `foia-b`.
+
+A new deploy pushes code to the production environment not in use, and when the deploy has been concluded, URL routes are remapped to instantly switch from one app to another.
+
+For each environment, set the app's environment variables.
 
 * `DATABASE_URL`: connection string to Postgres.
 * `FOIA_ANALYTICS_ID`: A Google Analytics profile ID.
@@ -200,35 +206,52 @@ Set the app's environment variables.
 * `DJANGO_SETTINGS_MODULE`: Set to `foia_hub.settings.dev` in development, and to `foia_hub.settings.production` in production.
 
 ```
-cf set-env foia DATABASE_URL [value]
-cf set-env foia FOIA_ANALYTICS_ID [value]
-cf set-env foia FOIA_SECRET_SESSION_KEY [value]
-cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+cf set-env foia-a DATABASE_URL [value]
+cf set-env foia-a FOIA_ANALYTICS_ID [value]
+cf set-env foia-a FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia-a DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+
+cf set-env foia-b DATABASE_URL [value]
+cf set-env foia-b FOIA_ANALYTICS_ID [value]
+cf set-env foia-b FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia-b DJANGO_SETTINGS_MODULE foia_hub.settings.dev
 ```
 
 Deploy the app with:
 
 ```bash
-cf push foia -c "bash cf.sh"
+./deploy.sh
 ```
 
 This will:
 
+* Decide whether to deploy to `foia-a` or `foia-b`, based on whether `foia-a` is currently `started`.
 * Deploy the app **from the directory you run the command** (the server does not check out the app from source control).
 * Migrate the database.
 * Check out the latest data from [`18f/foia`](https://github.com/18f/foia) and load the data into the database.
 * Start the app.
+* If the app successfully starts, the route will be mapped to the new environment, and the previous production environment will have its route unmapped, and then be stopped.
 
-You can tail the logs during the process with:
+You can also do a quicker deployment that avoids data loading:
+
+```
+./deploy.sh quick
+```
+
+This will use `cf-quick.sh` as the init script instead of `cf.sh`, which skips data loading.
+
+#### Watching the logs
+
+You can tail the logs for a given production environment during the process with:
 
 ```bash
-cf logs foia
+cf logs foia-a
 ```
 
 Tailing the logs doesn't show past logs. To view recent logs (without tailing), run:
 
 ```bash
-cf logs foia --recent
+cf logs foia-a --recent
 ```
 
 ## Public domain
