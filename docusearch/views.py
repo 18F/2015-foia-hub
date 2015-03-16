@@ -20,8 +20,13 @@ def details(request, document_id):
     return render(request, 'docusearch/detail.html', context)
 
 
-sqs = SearchQuerySet().models(Document).highlight().facet('')
 def search(request):
+
+    sqs = SearchQuerySet().models(Document).highlight().facet('foia_agency')
+
+    if request.GET.get('order_by') == 'date_released':
+        sqs = sqs.order_by('date_released')
+
     view = search_view_factory(
         view_class=FacetedSearchView,
         template='search/search.html',

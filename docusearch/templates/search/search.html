@@ -24,12 +24,13 @@
 
         <div>
         <dl>
+        <h3><a href="?q={{request.GET.q}}&amp;order_by=date_released">Order By</a> </h3>
         {% if facets.fields.foia_agency %}
             <dt>Agencies</dt>
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    <a href="?q={{request.GET.q}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    <a href="?q={{request.GET.q}}&amp;order_by={{request.GET.order_by}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                 </dd>
             {% endfor %}
         {% endif %}

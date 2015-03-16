@@ -9,8 +9,6 @@ from .views import details, search
 from .models import Document
 
 
-sqs = SearchQuerySet().models(Document).highlight().facet('foia_agency')
-
 urlpatterns = patterns(
     'haystack.views',
     url(r'^$', TemplateView.as_view(template_name='search/index.html'), name="home"),
