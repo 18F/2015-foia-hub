@@ -5,6 +5,7 @@ from foia_hub.scripts.load_agency_contacts import (
     load_data, update_reading_rooms, add_request_time_statistics,
     extract_tty_phone, extract_non_tty_phone, build_abbreviation)
 
+
 example_office1 = {
     'address': {
         'address_lines': ['line 1', 'line 2'],
@@ -164,18 +165,22 @@ class LoadingTest(TestCase):
         # Retrieve saved
         dhs = Agency.objects.get(slug='department-of-homeland-security')
         self.assertEqual(2, len(dhs.reading_room_urls.all()))
+        reading_room_1 = dhs.reading_room_urls.get(
+            link_text='Electronic Reading Room')
         self.assertEqual(
             'Electronic Reading Room',
-            dhs.reading_room_urls.all()[0].link_text)
+            reading_room_1.link_text)
         self.assertEqual(
             'http://agency.gov/err/',
-            dhs.reading_room_urls.all()[0].url)
+            reading_room_1.url)
+        reading_room_2 = dhs.reading_room_urls.get(
+            link_text='Pre-2000 Reading Room')
         self.assertEqual(
             'Pre-2000 Reading Room',
-            dhs.reading_room_urls.all()[1].link_text)
+            reading_room_2.link_text)
         self.assertEqual(
             'http://agency.gov/pre-2000/rooms',
-            dhs.reading_room_urls.all()[1].url)
+            reading_room_2.url)
 
     def test_add_delete_reading_rooms(self):
         """ Add a reading room. Then, remove a reading room (by omission)

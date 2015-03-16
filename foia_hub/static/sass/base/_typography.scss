@@ -13,7 +13,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $header-font-family;
   font-weight: $header-font-weight;
   line-height: $header-line-height;
   margin: 0;
@@ -54,7 +53,7 @@ p {
 }
 
 a {
-  @include transition(color 0.1s linear);
+  // @include transition(color 0.1s linear);
   color: $base-link-color;
   text-decoration: none;
 

@@ -4,31 +4,34 @@
 {% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
 
 {% if profile.description %}
-{% block description %}
-{{ profile.description }}
-{% endblock %}
+    {% block description %}
+        {{ profile.description }}
+    {% endblock %}
 {% endif %}
+
+{% block breadcrumb %}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {% if profile.is_a == "agency" and not profile.parent %}
+        {{breadcrumb.create([
+        (url('contact_landing', profile.slug), profile.name),
+        ])}}
+    {% elif profile.is_a == "agency" and profile.parent %}
+        {{breadcrumb.create([
+        (url('contact_landing', profile.parent.slug), profile.parent.name),
+        (url('contact_landing', profile.slug), profile.name),
+        ])}}
+    {% else %}
+        {{breadcrumb.create([
+        (url('contact_landing', profile.agency_slug), profile.agency_name),
+        (url('contact_landing', profile.slug), profile.name),
+        ])}}
+    {% endif %}
+{% endblock %}
+
 
 {% block body %}
 
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
-
-<div class="breadcrumbs_container">
-  <div class="container">
-    <section class="breadcrumbs">
-      <a href="{{ url('home') }}">Home &gt;</a>
-      {% if profile.parent %}
-        <a href="{{ url('contact_landing', profile.parent.slug) }}">
-          {{ profile.parent.name }} &gt;
-        </a>
-      {% elif profile.is_a == "office" %}
-        <a href="{{ url('contact_landing', profile.agency_slug) }}">
-          {{ profile.agency_name }} &gt;
-        </a>
-      {% endif %}
-    </section>
-  </div>
-</div>
 
 <div class="container">
   <section class="department">
@@ -47,8 +50,6 @@
       <section class="details">
 
         <h2>Submit a request</h2>
-
-        <hr>
 
         {% if profile.request_form_url or (profile.emails|length > 0 and show_webform) %}
          <div class="webform contact_type">
@@ -69,7 +70,6 @@
                     {% endif %}
                 </ul>
             </div>
-          <hr>
         </div>
         {% endif %}
 
@@ -92,7 +92,6 @@
                 {% endfor %}
               </ul>
             </div>
-          <hr>
           </div>
         {% endif %}
 
@@ -107,7 +106,6 @@
                 <li>{{ profile.fax }}</li>
               </ul>
             </div>
-            <hr>
           </div>
         {% endif %}
 
@@ -127,7 +125,6 @@
               {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}
             </p>
           </div>
-          <hr>
         </div>
 
       </section><!--/details-->
