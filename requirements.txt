@@ -27,5 +27,8 @@ newrelic
 # deployed/hosted with waitress
 waitress==0.8.9
 
+# enforce HTTPS in production
+django-secure
+
 # temporary, while we maintain an EC2 instance
 gunicorn
