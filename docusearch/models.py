@@ -38,9 +38,14 @@ class Document(models.Model):
     release_agency_slug = models.CharField(
         max_length=100,
         help_text="Slug for the agency or office that released this document.")
-    original_file = models.FileField(
-        upload_to=upload_original_to, blank=True, null=True,
-        storage=S3BotoStorage(bucket=AWS_STORAGE_DOC_BUCKET))
+
+    if os.getenv("DJANGO_SETTINGS_MODULE") == 'foia_hub.settings.production':
+        original_file = models.FileField(
+            upload_to=upload_original_to, blank=True, null=True,
+            storage=S3BotoStorage(bucket=AWS_STORAGE_DOC_BUCKET))
+    else:
+        original_file = models.FileField(
+            upload_to=upload_original_to, blank=True, null=True)
 
     def get_absolute_url(self):
         """ Return the canonical URL for a Document object. """
