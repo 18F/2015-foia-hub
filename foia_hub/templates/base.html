@@ -30,6 +30,7 @@
 {% block breadcrumb %}{% endblock %}
 <div id="main" class="{% block class %}{% endblock %}" tabindex="-1">
   {% block body %}This is not seen.{% endblock %}
+  <div class="push"></div>
 </div>
 {% block footer %}
 {% include "includes/footer.html" %}
