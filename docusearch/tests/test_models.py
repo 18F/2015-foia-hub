@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from datetime import date
 from docusearch.models import Document, upload_original_to
 
 
@@ -11,6 +11,7 @@ class DocumentTests(TestCase):
         doc.text = "This is the full-text of the document"
         doc.title = "Useful Document"
         doc.release_agency_slug = "department-of-justice--information"
+        doc.date_released = date.today()
 
         doc.save()
 
@@ -24,6 +25,7 @@ class DocumentTests(TestCase):
         doc.text = "This is the full-text of the document"
         doc.title = "Useful Document"
         doc.release_agency_slug = "department-of-justice--information"
+        doc.date_released = date.today()
 
         doc.save()
 
@@ -39,6 +41,7 @@ class DocumentTests(TestCase):
         doc.text = "This is the full-text of the document"
         doc.title = "Useful Document"
         doc.release_agency_slug = "department-of-justice--information"
+        doc.date_released = date.today()
         doc.save()
 
         url = doc.get_absolute_url()

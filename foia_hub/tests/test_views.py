@@ -111,7 +111,7 @@ class MainPageTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
         content = response.content.decode('utf-8')
-        self.assertTrue('What is FOIA?' in content)
+        self.assertTrue('Freedom of Information Act' in content)
 
     def test_analytics_id(self):
         """Verify that the analytics id appears *somewhere* on the page"""
