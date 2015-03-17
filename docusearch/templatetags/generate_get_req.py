@@ -3,6 +3,7 @@ from django_jinja import library
 
 @library.global_function
 def generate_get_req(parameters):
+    """ Givin a list of parameters, creates a GET string """
     list_of_params = []
     for param in parameters:
         if param[1]:
