@@ -2,8 +2,8 @@ language: python
 python:
   - "3.4"
 install:
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -r requirements-dev.txt --use-mirrors
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
 script:
   - coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
 

@@ -9,7 +9,7 @@
             "description": "The Department of Homeland Security has a vital mission: to secure the nation from the many threats we face. This requires the dedication of more than 230,000 employees in jobs that range from aviation and border security to emergency response, from cybersecurity analyst to chemical facility inspector",
             "emails": ["foia@hq.dhs.gov"],
             "fax": "202-343-1743",
-            "keywords": null,
+            "keywords": ["trademark"],
             "name": "Department of Homeland Security",
             "office_url": "http://www.dhs.gov/freedom-information-act-foia",
             "parent": null,
@@ -23,18 +23,10 @@
             "state": "DC",
             "street": "245 Murray Lane, SW",
             "toll_free_phone": null,
-            "zip_code": 20528 
+            "zip_code": 20528
         },
         "model": "foia_hub.agency",
         "pk": 15
-    },
-    {
-        "fields": {
-            "link_text": "The Electronic Reading Room",
-            "url": "http://www.doc.gov/err/"
-        },
-        "model": "foia_hub.readingroomurls",
-        "pk": 175
     },
     {
         "fields": {
@@ -43,7 +35,7 @@
             "address_lines": [],
             "chief_name": null,
             "city": "",
-            "description": "The historic mission of the Department of Commerce is \"to foster, promote, and develop the foreign and domestic commerce\" of the United States. This has evolved, as a result of legislative and administrative additions, to encompass broadly the responsibility to foster, serve, and promote the Nation's economic development and technological advancement.",
+            "description": "The historic mission of the Department of Commerce is \"to foster, promote, and develop the foreign and domestic commerce\" of the United States. This has evolved, as a result of legislative and administrative additions, to encompass broadly the responsibility to foster, serve, and promote the Nation's economic development, tax, technological advancement and trademark",
             "emails": ["foia@doc.gov"],
             "fax": null,
             "keywords": ["business", "industry", "forests", "petroleum"],
@@ -55,7 +47,6 @@
             "public_liaison_email": null,
             "public_liaison_name": null,
             "public_liaison_phone": null,
-            "reading_room_urls": [175],
             "request_form_url": null,
             "slug": "department-of-commerce",
             "state": "",
@@ -68,15 +59,25 @@
     },
     {
         "fields": {
+            "link_text": "The Electronic Reading Room",
+            "url": "http://www.doc.gov/err/",
+            "object_id": 17,
+            "content_type": ["foia_hub", "agency"]
+        },
+        "model": "foia_hub.readingroomurls",
+        "pk": 175
+    },
+    {
+        "fields": {
             "TTY_phone": null,
             "abbreviation": "USPTO",
             "address_lines": [],
             "chief_name": null,
             "city": "",
-            "description": "The U.S. Patent and Trademark Office is the agency responsible for granting U.S. patents and registering trademarks.",
+            "description": "The U.S. Patent and Trademark Office is the agency responsible for granting U.S. patents and registering trademarks for the taxpayer",
             "emails": [],
             "fax": null,
-            "keywords": null,
+            "keywords": [],
             "name": "U.S. Patent and Trademark Office",
             "office_url": null,
             "parent": 17,

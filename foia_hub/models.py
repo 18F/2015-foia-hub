@@ -2,6 +2,9 @@ import logging
 
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
 
 from jsonfield import JSONField
 from localflavor.us.models import PhoneNumberField, USPostalCodeField
@@ -41,20 +44,21 @@ class ReadingRoomUrls(models.Model):
     """ Reading rooms are where agencies and offices put their disclosed
     documents. """
 
+    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType)
+    content_object = GenericForeignKey('content_type', 'object_id')
     link_text = models.CharField(
         max_length=512,
         help_text="This is the text associated with the reading room URL. ")
     url = models.URLField(
         null=True, help_text="The URL to an agency's reading room.")
 
+
     def __unicode__(self):
         return '%s %s' % (self.link_text, self.url)
 
     def __str__(self):
         return self.__unicode__()
-
-    class Meta:
-        unique_together = (("link_text", "url"),)
 
 
 class Contactable(USAddress):
@@ -72,8 +76,7 @@ class Contactable(USAddress):
         null=True,
         help_text='A FOIA specific URL for the office or the agency.')
 
-    reading_room_urls = models.ManyToManyField(
-        ReadingRoomUrls, related_name="%(app_label)s_%(class)s_related")
+    reading_room_urls = GenericRelation(ReadingRoomUrls)
 
     request_form_url = models.URLField(
         null=True,
