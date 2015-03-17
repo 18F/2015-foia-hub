@@ -59,7 +59,13 @@
         {% for result in page.object_list %}
             <li>
                 <div class="agencies--name">
-                    <h3><a href="{{ result.object.get_absolute_url() }}">{{result.object.title}}</a></h3>
+                    <h3><a href="{{ result.object.get_absolute_url() }}">
+                    {% if result.object.title %}
+                    {{result.object.title}}
+                    {% elif result.object.original_file %}
+                    {{ get_filename(result.object.original_file.name) }}
+                    {% endif %}
+                    </a></h3>
                 </div>
 
                 <div class="agencies--description">
