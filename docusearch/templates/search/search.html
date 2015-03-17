@@ -64,6 +64,8 @@
                     {{result.object.title}}
                     {% elif result.object.original_file %}
                     {{ get_filename(result.object.original_file.name) }}
+                    {% else %}
+                    Document
                     {% endif %}
                     </a></h3>
                 </div>

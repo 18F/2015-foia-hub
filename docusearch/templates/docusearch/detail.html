@@ -10,6 +10,8 @@
     <h2>{{document.title}}</h2>
     {% elif document.original_file %}
     <h2>{{ get_filename(document.original_file.name) }}</h2>
+    {% else %}
+    <h2>Document</h2>
     {% endif %}
 
     {% if document.original_file %}
