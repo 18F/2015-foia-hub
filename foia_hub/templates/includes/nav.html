@@ -1,9 +1,13 @@
 <header>
   <div id="usa">
+    <div id="skip-nav">
+      <a tabindex="0" href="#main">Skip navigation</a>
+    </div>
+
     <div class="container">
       <div class="usa--content">
-        <span class="official"><img alt="US flag signifying that this is a United States Federal Government website" src="/static/images/us_flag_small.png" class="flag">&nbsp;&nbsp;An official website of the U.S. Government</span>
-        <span class="alpha">This website is in alpha. <a href="/about">Help us improve <i class="fa fa-arrow-right"></i></a></span>
+        <span class="official"><img alt="US flag signifying that this is a United States Federal Government website" src="{{ static("images/us_flag_small.png")}}" class="flag">&nbsp;&nbsp;An official website of the U.S. Government</span>
+        <span class="alpha">This website is in alpha. <a href="/about#feedback">Help us improve <i class="fa fa-arrow-right"></i></a></span>
       </div>
     </div>
   </div>
@@ -11,22 +15,22 @@
     <div class="container">
       <div id="logo">
         <a href="/">
-          FOIA<em><strong>HUB</strong></em>
+          <h4>open<em>FOIA</em></h4>
         </a>
       </div>
 
       <nav>
         <ul>
-          <li><a
-            {% if request and ('/agencies/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+            {% if request and ('/agencies/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/agencies/">Federal Agencies
           </a></li>
-          <li><a
-              {% if request and ('/learn/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+              {% if request and ('/learn/' == request.path) %}class="active" aria-selected="true"{% endif %}
               href="/learn/">Understanding FOIA
             </a></li>
-          <li><a
-            {% if request and ('/about/' == request.path) %}class="active"{% endif %}
+          <li><a role="tab"
+            {% if request and ('/about/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/about/">About This Project
           </a></li>
         </ul>

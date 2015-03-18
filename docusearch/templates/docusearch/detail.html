@@ -10,7 +10,7 @@
 
 
     <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
-        View the <a href="{{ static(document.path) }}">original document</a>
+        View the <a href="{{ document.original_file.url }}">original document</a>
     </object>
 
     <p>
@@ -19,7 +19,7 @@
 
     {% if similar_documents %}
         <h2> Similar documents (more like this one): </h2>
-        <ul> 
+        <ul>
             {% for similar_doc in similar_documents %}
                 <li> <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title}}</a> </li>
             {% endfor %}

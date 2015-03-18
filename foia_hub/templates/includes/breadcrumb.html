@@ -1,0 +1,34 @@
+{% macro create(pages) -%}
+<div class="breadcrumbs_container">
+  <div class="container">
+    <section class="breadcrumbs">
+      <a href="{{ url('home') }}">Home </a> &gt;
+      {% if pages %}
+          {% for page in pages %}
+            {% if loop.index == pages|length %}
+            {{page.1}}
+            {% else %}
+             <a href="{{ page.0 }}">{{page.1}} </a> &gt;
+            {% endif %}
+          {% endfor %}
+      {% endif %}
+    </section>
+  </div>
+</div>
+{%- endmacro %}
+
+<!--
+This templates can be imported to create breadcrumbs. The last crumb should be the current pages and is not linked
+
+# Import
+% import 'includes/breadcrumb.html' as breadcrumb %
+
+# Function parameters
+ breadcrumb.create([( <<reverse url>>, <<display text>> ), (<<reverse url>>, <<display text>> ), ..., ...]
+
+# Usage example
+% block breadcrumb %
+    % import 'includes/breadcrumb.html' as breadcrumb %
+    breadcrumb.create([(url('learn'), 'Understanding FOIA')])
+% endblock %
+ -->

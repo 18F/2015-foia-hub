@@ -1,10 +1,10 @@
 body {
-  -webkit-font-smoothing: antialiased;
   background-color: $base-background-color;
   color: $base-font-color;
   font-family: $base-font-family;
   font-size: $base-font-size;
   line-height: $base-line-height;
+  font-weight: $base-font-weight;
 }
 
 h1,
@@ -13,12 +13,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $header-font-family;
   font-weight: $header-font-weight;
   line-height: $header-line-height;
   margin: 0;
   text-rendering: optimizeLegibility; // Fix the character spacing for headings
-  display: inline-block;
   em {
     border-bottom: 0.15em solid $aqua-blue;
     line-height: $header-line-height * 1.25;
@@ -55,12 +53,13 @@ p {
 }
 
 a {
-  @include transition(color 0.1s linear);
+  // @include transition(color 0.1s linear);
   color: $base-link-color;
   text-decoration: none;
 
   &:hover {
     color: $hover-link-color;
+    text-decoration: underline;
   }
 
   &:active, &:focus {
