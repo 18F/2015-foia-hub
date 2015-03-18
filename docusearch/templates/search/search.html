@@ -24,12 +24,13 @@
 
         <div>
         <dl>
+        <h3><a href="?q={{request.GET.q}}&amp;order_by=date_released">Order By</a> </h3>
         {% if facets.fields.foia_agency %}
             <dt>Agencies</dt>
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    <a href="{{ request.get_full_path }}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    <a href="?q={{request.GET.q}}&amp;order_by={{request.GET.order_by}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                 </dd>
             {% endfor %}
         {% endif %}
@@ -70,7 +71,7 @@
 
         {% if page.has_previous() or page.has_next() %}
             <div>
-                {% if page.has_previous() %} 
+                {% if page.has_previous() %}
                     <a href="?q={{query}}&amp;page={{page.previous_page_number}}">{%endif%}&laquo; Previous {% if page.has_previous%}</a>
                 {% endif %}
                 {% if page.has_next() %}

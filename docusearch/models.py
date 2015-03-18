@@ -34,7 +34,16 @@ class Document(models.Model):
     text = models.TextField(
         null=False, help_text='The full text of the document')
     title = models.TextField(null=True)
-    date = models.DateField(null=True)
+    date_created = models.DateField(
+        blank=True, null=True,
+        help_text='Date the document was created by agency')
+    date_released = models.DateField(
+        blank=True, null=True,
+        help_text='Date the document was released by agency')
+    pages = models.IntegerField(
+        blank=True, null=True, help_text='Number of pages in the document')
+    file_type = models.CharField(
+        max_length=4, help_text='File type stored in lower case ie pdf, xlsx')
     release_agency_slug = models.CharField(
         max_length=100,
         help_text="Slug for the agency or office that released this document.")
