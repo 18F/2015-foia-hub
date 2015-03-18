@@ -1,27 +1,23 @@
 {% extends "base.html" %}
 {% block class %}landing{% endblock %}
 
-{% block title %}{{ profile.name }} &gt; Freedom of Information Act{% endblock %}
+{% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
 
 {% if profile.description %}
-{% block description %}
-{{ profile.description }}
-{% endblock %}
+    {% block description %}
+        {{ profile.description }}
+    {% endblock %}
 {% endif %}
+
+{% block breadcrumb %}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {{breadcrumb.create([(url('contact_landing', profile.slug), profile.name)]) }}
+{% endblock %}
+
 
 {% block body %}
 
 {# 'profile' here is known to be an agency with sub-offices. #}
-
-<div class="breadcrumbs_container">
-  <div class="container">
-    <div class="breadcrumbs">
-      <a href="/">
-        Home &gt;
-      </a>
-    </div>
-  </div>
-</div>
 
 <div class="container">
   <section class="department department__decentralized">

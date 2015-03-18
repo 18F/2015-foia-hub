@@ -120,7 +120,7 @@ $(document).ready(function() {
 
   // when the clear button is clicked, clear the input and
   // trigger the change handler to toggle the tt-filled class
-  form.select('.clear')
+  form.find('.clear')
     .on('click', function() {
       typeahead
         .typeahead('val', '')

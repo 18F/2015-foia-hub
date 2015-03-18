@@ -12,6 +12,61 @@ from restless.exceptions import BadRequest
 
 from foia_hub.models import Agency, Office, Requester, FOIARequest
 
+from django.db import connection
+
+import re
+import string
+from json import loads
+
+
+def dictfetchall(cursor):
+    """
+    Returns all rows from a cursor as a dict this function appears in the
+    django documentation
+    """
+    desc = cursor.description
+    data = []
+    for row in cursor.fetchall():
+        agency = dict(zip([col[0] for col in desc], row))
+        keywords = agency.get('keywords')
+        # change keywords back to list
+        if keywords:
+            agency['keywords'] = loads(keywords)
+        data.append(agency)
+    return data
+
+
+def sanitize_search_term(term):
+    """
+    Cleans search in a format to_tsquery can ingest
+    modified from http://dlo.me/archives/2014/09/01/postgresql-fts/
+    """
+    # Replace ANDs and ORs with correct punction
+    term = term.replace(" AND ", " & ").replace(" OR ", ' | ')
+
+    # Replace all puncuation with spaces.
+    allowed_punctuation = set(['&', '|', '-'])
+    all_punctuation = set(string.punctuation)
+    punctuation = "".join(all_punctuation - allowed_punctuation)
+    term = re.sub(r"[{}]+".format(re.escape(punctuation)), "", term)
+    term = term.strip()
+
+    # Generate regex strings
+    space_between_words_re = re.compile(r'([^ &|])[ ]+([^ &|])')
+    spaces_surrounding_letter_re = re.compile(r'[ ]+([^ &|])[ ]+')
+    multiple_operator_re = re.compile(r"[ &]+(&|\|)[ &]+")
+
+    # Surround single letters with &'s
+    term = spaces_surrounding_letter_re.sub(r' & \1 & ', term)
+    # Specify '&' between words that have neither | or & specified.
+    term = space_between_words_re.sub(r'\1 & \2', term)
+    # Add a prefix wildcard to every search term.
+    term = re.sub(r'([^ &|]+)', r'\1:*', term)
+    # Replace ampersands or pipes surrounded by ampersands.
+    term = multiple_operator_re.sub(r" \1 ", term)
+
+    return term
+
 
 def contact_preparer():
     return FieldsPreparer(fields={
@@ -124,27 +179,71 @@ class AgencyResource(DjangoResource):
         return data
 
     def list(self, q=None):
-        """ This lists all Agency objects, optionally filtered by a given
+        """
+        This lists all Agency objects, optionally filtered by a given
         query parameter. It doesn't provide every field for every object,
         instead limiting the output to useful fields. To see the detail for
-        each object, use the detail endpoint. """
+        each object, use the detail endpoint.
+
+        Full-text-search - queries are made in Postgres tsearch2.
+
+        Capabilities
+        - Fields Searched: name, slug, abbreviation, description
+        - Weighting:
+            First - name, slug, abbreviation
+            Second - description
+        - Boolean operators:  “OR”/”|” and “AND”/”&”
+        - Relative Search: i.e. search for `taxes` will also match tax and
+            taxpayer
+
+        Limitations
+            - Parenthesis are removed and have no effect
+            - Quotes are removed and have no effect
+            - all keywords must at least have an empty list `[]`
+        """
 
         # Use request 'query' parameter if it exists
         if self.request and 'query' in self.request.GET:
             q = self.request.GET.get('query', None)
 
         if q:
-            agencies = Agency.objects.filter(
-                Q(abbreviation__icontains=q) |
-                Q(name__icontains=q) |
-                Q(slug__icontains=q) |
-                Q(keywords__icontains=q) |
-                Q(description__icontains=q)
-            )
-        else:
-            agencies = Agency.objects.all()
+            search_term = sanitize_search_term(q)
+            cursor = connection.cursor()
+            # full text search weighted in following order:
+            # abbreviation, name, description, keywords
+            try:
+                cursor.execute(
+                    """
+        SELECT *
+        FROM (
+            SELECT * ,
+                setweight(to_tsvector('simple', slug), 'A') ||
+                setweight(to_tsvector('english', name), 'A') ||
+                setweight(to_tsvector('simple', abbreviation), 'A') ||
+                setweight(to_tsvector('english', description), 'B') ||
+                setweight(to_tsvector('simple', keywords), 'C') as tsvect
+            FROM foia_hub_agency
+            ) as results
+        WHERE results.tsvect @@ to_tsquery('english', %s)
+        ORDER BY ts_rank(results.tsvect, to_tsquery('english', %s)) DESC;
+                    """,
+                    [search_term, search_term])
+                agencies = dictfetchall(cursor)
 
-        return agencies.order_by('name')
+            # Defaults to extact text search if search fails
+            except:
+                agencies = Agency.objects.filter(
+                    Q(abbreviation__icontains=q) |
+                    Q(name__icontains=q) |
+                    Q(slug__icontains=q) |
+                    Q(keywords__icontains=q) |
+                    Q(description__icontains=q)
+                )
+
+        else:
+            agencies = Agency.objects.all().order_by('name')
+
+        return agencies
 
     @skip_prepare
     def detail(self, slug):
@@ -163,7 +262,7 @@ class AgencyResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class OfficeResource(DjangoResource):
@@ -213,7 +312,7 @@ class OfficeResource(DjangoResource):
                 r'^(?P<slug>[\w-]+)/$',
                 cls.as_view('detail'),
                 name=cls.build_url_name('detail', name_prefix)),
-            ) + urlpatterns
+        ) + urlpatterns
 
 
 class FOIARequestResource(DjangoResource):

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-{% include "includes/breadcrumb.html" %}
+    {% import 'includes/breadcrumb.html' as breadcrumb %}
+    {{ breadcrumb.create([(url('learn'), 'Understanding FOIA')]) }}
 {% endblock %}
+
 
 {% block body %}
 <div class="container">
@@ -23,9 +25,9 @@
         </ul>
       </nav>
 
-      <h2 id="what" tabindex="-1" class="question">What is FOIA?</h2>
+      <article id="what">
+        <h2 tabindex="-1" class="question">What is FOIA?</h2>
 
-      <div class="answer">
         <p>Since 1966, the Freedom of Information Act (FOIA) has granted the
         public the right to request access to records from any federal agency.  Under FOIA,
         federal agencies are required to disclose any information requested unless it
@@ -37,161 +39,157 @@
         for information disclosure in the United States. Records released
         under FOIA have led to the publication of many important news stories
         and greater public awareness around government activities.</p>
-      </div>
+      </article>
+      <article id="why">
+        <h2 tabindex="-1" class="question">Why would I make a FOIA request?</h2>
+        <div class="answer">
+          <p>While the Federal Government makes a lot of information
+          <a href="https://www.data.gov">available</a> in many
+          <a href="http://foia.state.gov/Search/Search.aspx">places</a>, you might 
+          still want to access information that has not already been publicly released.
+          FOIA makes it possible to access records that are not yet publicly
+          available.</p>
+        </div>
+      </article>
 
-      <hr>
+      <article id="ask">
+        <h2 tabindex="-1" class="question">What can I ask for?</h2>
 
-      <h2 id="why" tabindex="-1" class="question">Why would I make a FOIA request?</h2>
-      <div class="answer">
-        <p>While the Federal Government makes a lot of information
-        <a href="https://www.data.gov">available</a> in many
-        <a href="http://foia.state.gov/Search/Search.aspx">places</a>, you might 
-        still want to access information that has not already been publicly released.
-        FOIA makes it possible to access records that are not yet publicly
-        available.</p>
-      </div>
-
-      <hr>
-
-      <h2 id="ask" tabindex="-1" class="question">What can I ask for?</h2>
-
-      <div class="answer">
-      
-        <p>You can file a FOIA request for any “agency record.” This is a broad
-        term that covers things like books, papers, maps, photographs, emails,
-        machine-readable materials, and other documentary materials.</p>
-
-        <p> You can also specify whether you would like to receive these
-        records in electronic or paper formats as well. Not all records are
-        available in both formats, but agencies honor record format requests
-        when they can.</p>
-      </div>
-
-      <hr>
-
-      <h2 id="form" tabindex="-1" class="question">Is there a special form I have to use to make a FOIA request?</h2>
-
-      <div class="answer">
-      
-       <p>You do not need to use a specific form to make a request. All you
-       need is to do is write a description of the information you are seeking
-       and comply with any agency-specific requirements, which are described in
-       agencies' FOIA regulations. Once you've written your description and
-       made sure your request complies with requirements, you can send it to
-       the appropriate agency.</p>
-
-        <p>Your written description must be specific enough that agency FOIA
-        professionals can understand type of information you're seeking and
-        properly conduct a search. Information such as time periods, specific
-        names, topics, or keywords related are all helpful to the agency
-        representatives who will search and process your request. It's a good
-        practice to make your request as specific as you can.</p>
-
-      </div>
-
-      <hr>
-
-      <h2 id="how" tabindex="-1" class="question">How do I make a FOIA request?</h2>
-
-      <div class="answer">
-
-        <p> To make a FOIA request, write a complete and detailed description
-        of the information you're seeking and submit it to the agency you'd
-        like the information from. You may submit your request electronically
-        (via email) or in paper format. </p>
-
-        <p> The FOIA does not request agencies to do research for you, analyze
-        data, answer written questions that are unrelated to your request, or
-        create records in response to your request. That means you may need to
-        do some research before you file your request. An agency's own website
-        is a good place for you to start researching how best to write your
-        request; you may find that the information you're looking for is
-        already available on the agency's site. </p>
-      </div>
-
-      <hr>
-
-      <h2 id="after" tabindex="-1" class="question">What happens after I make my FOIA request?</h2>
-
-      <div class="answer">
+        <div class="answer">
         
-        <p> A lot happens behind the scenes after an agency receives your FOIA
-        request. Each agency has its own specific way of processing requests.
-        The first step an agency will take is to determine which offices may
-        have responsive records and then search for those records. Once an
-        office has located records and provided them back to the FOIA shop, the
-        FOIA team may consult subject matter experts, lawyers, or other agency
-        officials to review them for release. This step may also include
-        redacting any non-public information. Once the agency has completed
-        this process, any public records will be released to you. </p>
+          <p>You can file a FOIA request for any “agency record.” This is a broad
+          term that covers things like books, papers, maps, photographs, emails,
+          machine-readable materials, and other documentary materials.</p>
 
-      </div>
+          <p> You can also specify whether you would like to receive these
+          records in electronic or paper formats as well. Not all records are
+          available in both formats, but agencies honor record format requests
+          when they can.</p>
+        </div>
+      </article>
 
-      <hr>
+      <article id="form">
+        <h2 tabindex="-1" class="question">Is there a special form I have to use to make a FOIA request?</h2>
 
-      <h2 id="when" tabindex="-1" class="question">How long does it take to fulfill my request?</h2>
+        <div class="answer">
+        
+         <p>You do not need to use a specific form to make a request. All you
+         need is to do is write a description of the information you are seeking
+         and comply with any agency-specific requirements, which are described in
+         agencies' FOIA regulations. Once you've written your description and
+         made sure your request complies with requirements, you can send it to
+         the appropriate agency.</p>
 
-      <div class="answer">
+          <p>Your written description must be specific enough that agency FOIA
+          professionals can understand type of information you're seeking and
+          properly conduct a search. Information such as time periods, specific
+          names, topics, or keywords related are all helpful to the agency
+          representatives who will search and process your request. It's a good
+          practice to make your request as specific as you can.</p>
 
-        <p>How quickly you receive your information depends on what you've
-        requested (and from what agency). Response time varies among agencies
-        and also depends on the complexity of your request; more complicated
-        requests can take longer to fulfill. In general, most requests are
-        responded to within 20 business days. 
+        </div>
+      </article>
 
-        <p>Agencies may also request an extension in unusual or exceptional
-        circumstances and may pause the request clock to <a
-        href="http://www.justice.gov/oip/foiapost/2008foiapost29.htm">clarify
-        the request</a>.  If an agency gets an extension, it will notify you.
-        During this time, the agency will provide you the chance to modify the
-        scope of your request to help improve the response time. If you're
-        comfortable making your request less complex, you may be able to access
-        your requested information more quickly. </p>
+      <article id="how">
+        <h2 tabindex="-1" class="question">How do I make a FOIA request?</h2>
 
-        <p> If you're not comfortable changing the scope of your request, you
-        have the option to agree to a different timetable for processing the
-        request. You can work with the agency's FOIA Public Liaison or other
-        FOIA contacts to discuss this option. </p>
+        <div class="answer">
 
-        <p> If all cases, you should feel free to contact the agency to check
-        on the status of your request. Agencies are required to provide an
-        estimated response date upon request. </p>
-      </div>
+          <p> To make a FOIA request, write a complete and detailed description
+          of the information you're seeking and submit it to the agency you'd
+          like the information from. You may submit your request electronically
+          (via email) or in paper format. </p>
 
-      <hr>
+          <p> The FOIA does not request agencies to do research for you, analyze
+          data, answer written questions that are unrelated to your request, or
+          create records in response to your request. That means you may need to
+          do some research before you file your request. An agency's own website
+          is a good place for you to start researching how best to write your
+          request; you may find that the information you're looking for is
+          already available on the agency's site. </p>
+        </div>
+      </article>
 
-      <h2 id="dispute" tabindex="-1" class="question">What happens if I’m not satisfied with the response I received?</h2>
+      <article id="after">
+        <h2 tabindex="-1" class="question">What happens after I make my FOIA request?</h2>
 
-      <div class="answer">
+        <div class="answer">
+          
+          <p> A lot happens behind the scenes after an agency receives your FOIA
+          request. Each agency has its own specific way of processing requests.
+          The first step an agency will take is to determine which offices may
+          have responsive records and then search for those records. Once an
+          office has located records and provided them back to the FOIA shop, the
+          FOIA team may consult subject matter experts, lawyers, or other agency
+          officials to review them for release. This step may also include
+          redacting any non-public information. Once the agency has completed
+          this process, any public records will be released to you. </p>
 
-        <p> If you disagree with agency’s decision on your request — for
-        example, if you don’t receive as much information as you initially
-        requested — you can file an appeal by writing to the agency. When an
-        agency receives an appeal, it will conduct an independent review to
-        make sure your request was properly addressed. After completing this
-        review, the agency will let you know whether your request has been
-        granted or denied. FOIA requires that appeal requests receive a
-        response within 20 business days, but response times can vary based on
-        an agency’s workload and the complexity of your appeal. </p>
+        </div>
+      </article>
 
-        <p> Sometimes an appeal isn’t the best route. Before filing an appeal,
-        you might want to try contacting the agency that handled the request.
-        You can reach out directly to your FOIA contact, or you can contact the
-        agency’s FOIA public liaison, who will offer guidance throughout the
-        FOIA process and help resolve any disputes. Every agency provides
-        information about their FOIA public liaison on their <a href="{{
-        url('agencies') }}">own page or component pages</a>. </p>
+      <article id="when">
+        <h2 tabindex="-1" class="question">How long does it take to fulfill my request?</h2>
+
+        <div class="answer">
+
+          <p>How quickly you receive your information depends on what you've
+          requested (and from what agency). Response time varies among agencies
+          and also depends on the complexity of your request; more complicated
+          requests can take longer to fulfill. In general, most requests are
+          responded to within 20 business days.</p>
+
+          <p>Agencies may also request an extension in unusual or exceptional
+          circumstances and may pause the request clock to <a
+          href="http://www.justice.gov/oip/foiapost/2008foiapost29.htm">clarify
+          the request</a>.  If an agency gets an extension, it will notify you.
+          During this time, the agency will provide you the chance to modify the
+          scope of your request to help improve the response time. If you're
+          comfortable making your request less complex, you may be able to access
+          your requested information more quickly. </p>
+
+          <p> If you're not comfortable changing the scope of your request, you
+          have the option to agree to a different timetable for processing the
+          request. You can work with the agency's FOIA Public Liaison or other
+          FOIA contacts to discuss this option. </p>
+
+          <p> If all cases, you should feel free to contact the agency to check
+          on the status of your request. Agencies are required to provide an
+          estimated response date upon request. </p>
+        </div>
+      </article>
+
+      <article id="dispute">
+        <h2 tabindex="-1" class="question">What happens if I’m not satisfied with the response I received?</h2>
+
+        <div class="answer">
+
+          <p> If you disagree with agency’s decision on your request — for
+          example, if you don’t receive as much information as you initially
+          requested — you can file an appeal by writing to the agency. When an
+          agency receives an appeal, it will conduct an independent review to
+          make sure your request was properly addressed. After completing this
+          review, the agency will let you know whether your request has been
+          granted or denied. FOIA requires that appeal requests receive a
+          response within 20 business days, but response times can vary based on
+          an agency’s workload and the complexity of your appeal. </p>
+
+          <p> Sometimes an appeal isn’t the best route. Before filing an appeal,
+          you might want to try contacting the agency that handled the request.
+          You can reach out directly to your FOIA contact, or you can contact the
+          agency’s FOIA public liaison, who will offer guidance throughout the
+          FOIA process and help resolve any disputes. Every agency provides
+          information about their FOIA public liaison on their <a href="{{
+          url('agencies') }}">own page or component pages</a>. </p>
 
 
-        <p> If the appeal process is complete and you’re still not satisfied
-        with the result, you can also seek mediation services from the FOIA
-        Ombudsman’s office, the <a href="https://ogis.archives.gov/">Office of
-        Government Information Services</a> at the National Archives and
-        Records Administration. </p>
-      </div>
-
-      <hr>
-
+          <p> If the appeal process is complete and you’re still not satisfied
+          with the result, you can also seek mediation services from the FOIA
+          Ombudsman’s office, the <a href="https://ogis.archives.gov/">Office of
+          Government Information Services</a> at the National Archives and
+          Records Administration. </p>
+        </div>
+      </article>
     </div>
   </section>
 </div>
