@@ -15,6 +15,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+DEFAULT_DATA_REPO = "https://github.com/18F/foia.git"
 
 DATABASES = {}
 HAYSTACK_CONNECTIONS = {'default': {}}
@@ -29,14 +30,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangosecure',
     'corsheaders',
     'haystack',
     'storages',
     'foia_hub',
+    'contact_updater',
     'docusearch',
 )
 
 MIDDLEWARE_CLASSES = (
+    'djangosecure.middleware.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -69,7 +73,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "foia_hub.context_processors.google_analytics.google_analytics")
 
 INSTALLED_APPS += ('django_jinja',)
-
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
 
 # Enable bytecode cache (default: False)
@@ -94,19 +97,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 # turn on CORS for everything (will be locked down later)
 CORS_ORIGIN_ALLOW_ALL = True
 
 ANALYTICS_ID = ""
 
-# Uses s3boto
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-AWS_STORAGE_BUCKET_NAME = 'krangdocuments'
-
 # Don't add complex authentication related query parameters for requests
 AWS_QUERYSTRING_AUTH = False
+
+# Don't allow client-side JS to access CSRF cookie
+CSRF_COOKIE_HTTPONLY = True

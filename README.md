@@ -31,56 +31,31 @@ Instead, our tool will focus on a small, US-focused user experience, and API-dri
 
 This is a Django app that uses [Postgres](http://www.postgresql.org/) and [Elasticsearch](http://www.elasticsearch.org/), and depends on [Python 3](https://docs.python.org/3/).
 
-**Installing Python 3**: There are multiple approaches to installing Python 3, depending on your personal setup and preferences.
-
-1. You can use [`pyenv`](https://github.com/yyuu/pyenv) to download and install any version of Python to your home directory, and to switch easily between them. This separates your system Pythons from your development Pythons.
-2. You can install Python 3 to your system. On OS X, install [Homebrew](http://brew.sh), then run `brew install Python3`. On Ubuntu, install using `apt-get install python3`.
-
-**Installing Postgres**: You can `brew install postgres` (OS X) or `apt-get install postgresql` (Ubuntu).
-
-**Installing Elasticsearch**: You can `brew install elasticsearch` (OS X) or `apt-get install elasticsearch` (Ubuntu).
-
-The instructions below assume you use [pip](http://pip.readthedocs.org/en/latest/), [virtualenv](http://virtualenv.readthedocs.org/en/latest/), and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) to manage dependencies.
-
-### Project setup
-
-Create an environment to install Python dependencies, with virtualenvwrapper.
-
-* If you're using `pyenv`, activate Python 3 and run `mkvirtualenv foia-hub`.
-
-* If you're using a system Python, specify the path to Python like so:
-
-```bash
-mkvirtualenv --python=/path/to/python3 foia-hub
-```
-
-* Install project requirements.
-
-```bash
-pip install -r requirements.txt
-```
-
-* **If using Ubuntu**, run the following before psycopg2 installed correctly:
+* **If using Ubuntu**, you may need to install the following:
 
 ```bash
 sudo apt-get install libpq-dev python3-dev
 ```
 
-* Add the following to your `~/.bashrc` or `~/.bash_profile` (change `/path/to/hub` to your actual path, e.g. `$HOME/projects/foia-hub`):
+* Install project requirements. It's recommended you use a virtualenv.
 
 ```bash
-export PYTHONPATH=/path/to/hub:$PYTHONPATH
+pip install -r requirements.txt
 ```
 
-* Create a `local_settings.py` file inside `foia-hub/settings`. Start by copying the example:
+* Install [`autoenv`](https://github.com/kennethreitz/autoenv) to automatically load the contents of `.env` as environment variables. Do not use the `brew` version of `autoenv`.
+
+* Copy `env.example` to `.env` to get your settings started.
 
 ```bash
-cp foia_hub/settings/local_settings.py.example foia_hub/settings/local_settings.py
+cp env.example .env
 ```
 
-* In development, you may only need to update the password from `CHANGETHIS` to something else.
+### Using SQLite
 
-### Database setup
+If you're using SQLite, you're already done! Jump to [loading data](#loading-data).
+
+### Using Postgres
 
 * Switch to the `postgres` user:
 
@@ -111,16 +86,10 @@ psql -d foia -c "CREATE USER foia WITH PASSWORD '<<PASSWORD>>';"
 * Initialize your database schema:
 
 ```bash
-django-admin.py syncdb
+python manage.py syncdb
 ```
 
-* Finally, launch the server locally:
-
-```
-django-admin.py runserver
-```
-
-* The site should be running at [`http://localhost:8000`](http://localhost:8000).
+* Update the `DATABASE_URL` in `.env` with your Postgres connection string.
 
 ### Elasticsearch setup
 
@@ -131,6 +100,12 @@ elasticsearch
 
 ### Loading Contacts Data
 
+First, migrate the database:
+
+```bash
+python manage.py migrate
+```
+
 Agency contact data is stored in another repository as YAML files.
 
 Clone the repository:
@@ -139,15 +114,11 @@ Clone the repository:
 git clone git@github.com:18F/foia.git
 ```
 
-Then run the data loading script:
+Then run the data loading script, providing the path to `contacts/data/` inside the `foia` repo you checked out above:
 
 ```bash
-cd foia_hub
 python manage.py load_agency_contacts /path/to/foia/contacts/data/
 ```
-
-Note that the data repository is your local clone of:
-[https://github.com/18F/foia/tree/master/contacts/data](https://github.com/18F/foia/tree/master/contacts/data])
 
 There's a small bash script which will check for changes to the repository,
 and if found, import the new data. This can be useful if combined with a cron
@@ -159,9 +130,7 @@ foia-hub repository's root:
 ```
 
 No repository parameter is needed if both the foia and foia-hub projects are
-cloned into the same directory.
-
-Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api/agency/]), you'll the list of agencies in JSON format.
+cloned into the same directory. You should be able to run the server now:
 
 ### Loading Responsive Documents
 
@@ -171,26 +140,29 @@ Now if you access: [http://localhost:8000/api/agency/](http://localhost:8000/api
 python manage.py import_documents
 ```
 
+### Running the server
+
+* Launch the server locally:
+
+```
+python manage.py runserver
+```
+
+* The site should be running at [`http://localhost:8000`](http://localhost:8000).
+
+
 
 ### Front-end Dev Environment
 
-We use SASS, Bourbon, and Neat for our front-end stack. To set them up, you
-will need ruby (and gem) installed. On a Debian/Linux box, this can be
-accomplished via:
+We use [Sass](http://sass-lang.com/), [Bourbon](http://bourbon.io/) and [Neat](http://neat.bourbon.io/) for our front-end stack.
+
+You will need Ruby, and the following gems:
 
 ```bash
-sudo apt-get install ruby
+gem install sass bourbon neat
 ```
 
-You next need to install the appropriate ruby libraries. In this example, we
-will install them system wide, though you may prefer bundler, etc.
-
-```bash
-sudo gem install neat sass bourbon
-```
-
-You will then need to pull down the appropriate sass libraries for bourbon and
-neat:
+You will then need to pull down further Bourbon and Neat dependencies:
 
 ```bash
 cd foia_hub/static/sass
@@ -198,8 +170,7 @@ bourbon install
 neat install
 ```
 
-While developing you can trigger a recompile or run a "watch" script, which
-will recompile as you make Sass changes:
+While developing you can trigger a recompile or run a "watch" script, which will recompile as you make Sass changes:
 
 ```bash
 python manage.py scss   # one-off
@@ -207,34 +178,91 @@ python manage.py scss   # one-off
 python manage.py scss watch   # will run continuously
 ```
 
-During development, then, you will likely have both `scss watch` and
-`runserver`.
+During development, you will likely run both `scss watch` and `runserver`.
 
-## Deploying
+## Deploying to Cloud Foundry
 
-Install [Fabric](http://fabfile.org).
+18F deploys this app to a self-hosted instance of Cloud Foundry.
 
-Fabric requires **Python 2.7**, so you may wish to make a separate virtualenv (e.g. `fab`) with Python 2.7 locked in it, and then activate it (e.g. `workon fab`) for the purposes of running Fabric commands.
+You'll need to configure an app named `foia` in the space or org that makes sense for you. We already have a [`manifest.yml`](manifest.yml) that assumes the app is named `foia`, and sets a memory size of 1GB.
 
-```bash
-pip install fabric
-```
+#### 18F setup
 
-Make an entry in your `.ssh/config` file for the FOIA development server, and give it a name. Consult with the team if you need that information -- it's not sensitive, but it is subject to change.
-
-Assuming the `.ssh/config` entry is named `foia`, test your configuration  with:
+Point `cf` at 18F's API. You may need to use `--skip-ssl
 
 ```bash
-fab -H foia test
+cf api https://api.cf.18f.us
 ```
 
-Deploy the site with:
+If the `cf api` command below fails, add `--skip-ssl-validation` (this is temporary).
+
+Work with the right "org" and "space":
 
 ```bash
-fab -H foia deploy
+cf target -o foia -s hub
 ```
 
-This will check out a new copy of the site on the staging server, install dependencies and run migrations, and adjust some symlinks around to perform a zero-downtime deploy.
+#### Two production environments
+
+To ensure zero downtime deploys, 18F uses two production environments, `foia-a` and `foia-b`.
+
+A new deploy pushes code to the production environment not in use, and when the deploy has been concluded, URL routes are remapped to instantly switch from one app to another.
+
+For each environment, set the app's environment variables.
+
+* `DATABASE_URL`: connection string to Postgres.
+* `FOIA_ANALYTICS_ID`: A Google Analytics profile ID.
+* `FOIA_SECRET_SESSION_KEY`: A random high-entropy string. Should be strong and unique for production.
+* `DJANGO_SETTINGS_MODULE`: Set to `foia_hub.settings.dev` in development, and to `foia_hub.settings.production` in production.
+
+```
+cf set-env foia-a DATABASE_URL [value]
+cf set-env foia-a FOIA_ANALYTICS_ID [value]
+cf set-env foia-a FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia-a DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+
+cf set-env foia-b DATABASE_URL [value]
+cf set-env foia-b FOIA_ANALYTICS_ID [value]
+cf set-env foia-b FOIA_SECRET_SESSION_KEY [value]
+cf set-env foia-b DJANGO_SETTINGS_MODULE foia_hub.settings.dev
+```
+
+Deploy the app with:
+
+```bash
+./deploy.sh
+```
+
+This will:
+
+* Decide whether to deploy to `foia-a` or `foia-b`, based on whether `foia-a` is currently `started`.
+* Deploy the app **from the directory you run the command** (the server does not check out the app from source control).
+* Migrate the database.
+* Check out the latest data from [`18f/foia`](https://github.com/18f/foia) and load the data into the database.
+* Start the app.
+* If the app successfully starts, the route will be mapped to the new environment, and the previous production environment will have its route unmapped, and then be stopped.
+
+You can also do a quicker deployment that avoids data loading:
+
+```
+./deploy.sh quick
+```
+
+This will use `cf-quick.sh` as the init script instead of `cf.sh`, which skips data loading.
+
+#### Watching the logs
+
+You can tail the logs for a given production environment during the process with:
+
+```bash
+cf logs foia-a
+```
+
+Tailing the logs doesn't show past logs. To view recent logs (without tailing), run:
+
+```bash
+cf logs foia-a --recent
+```
 
 ## Public domain
 

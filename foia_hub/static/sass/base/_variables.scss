@@ -1,23 +1,21 @@
 // Typography
-$sans-serif: "proxima-nova", "proxima nova", "open sans", arial, sans-serif;
-// $serif: $georgia;
+$sans-serif: proximanova, "proxima-nova", "proxima nova", "Open Sans","Gill Sans MT","Gill Sans", Corbel, Arial,sans-serif;
+$serif: $georgia;
 $base-font-family: $sans-serif;
 $header-font-family: $base-font-family;
 
 // Font Sizes
 $base-font-size: 1em;
 $h1-font-size: $base-font-size * 2.25;
-// $h2-font-size: $base-font-size * 2;
 $h2-font-size: $base-font-size * 1.5;
-// $h3-font-size: $base-font-size * 1.75;
 $h3-font-size: $base-font-size * 1.125;
-$h4-font-size: $base-font-size * 1;
-$h5-font-size: $base-font-size * 1;
+$h4-font-size: $base-font-size;
+$h5-font-size: $base-font-size;
 $h6-font-size: $base-font-size;
 
 //Font Weights
 $header-font-weight: 600;
-
+$base-font-weight: 400;
 
 // Line height
 $base-line-height: 1.5;
@@ -41,6 +39,7 @@ $light-green: #E6EFC2;
 $dark-gray: #323A45; // Text/Rules
 $gray: #777777; // Text 2
 $blue: #0067BA; // Links
+$dark-blue: #005184;
 $aqua-blue: #00BFE7; // Graphics
 $medium-blue: #0096B5; // Rollover
 $light-blue: #CDEAF0; // Highlight
@@ -56,9 +55,9 @@ $base-accent-color: $blue;
 
 // Link Colors
 $base-link-color: $base-accent-color;
-$hover-link-color: darken($base-accent-color, 15);
-$base-button-color: $base-link-color;
-$hover-button-color: $hover-link-color;
+$hover-link-color: $dark-blue;
+$base-button-color: $aqua-blue;
+$hover-button-color: $aqua-blue;
 
 // Flash Colors
 $alert-color: $light-yellow;
@@ -79,3 +78,6 @@ $form-box-shadow: inset 0 1px 3px rgba(black,0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
 $form-font-size: $base-font-size;
 $form-font-family: $base-font-family;
+
+// for @include prefixer()
+$vendor-prefixes: webkit moz ms o spec;

@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 
 
 class Migration(migrations.Migration):
@@ -19,25 +18,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='document',
             name='date_created',
-            field=models.DateField(null=True, help_text='Date the document was created by agency'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='document',
-            name='file_type',
-            field=models.CharField(max_length=4, help_text='File type stored in lower case ie pdf, xlsx', default='pdf'),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='document',
-            name='pages',
-            field=models.IntegerField(blank=True, null=True, help_text='Number of pages in the document'),
+            field=models.DateField(help_text='Date the document was created by agency', blank=True, null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='document',
             name='date_released',
-            field=models.DateField(help_text='Date the document was released on this site', default=datetime.date(2015, 3, 13)),
+            field=models.DateField(help_text='Date the document was released by agency', blank=True, null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='file_type',
+            field=models.CharField(default='pdf', help_text='File type stored in lower case ie pdf, xlsx', max_length=4),
             preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='pages',
+            field=models.IntegerField(help_text='Number of pages in the document', blank=True, null=True),
+            preserve_default=True,
         ),
     ]
