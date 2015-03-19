@@ -1,7 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.http import QueryDict
 
 from docusearch.templatetags.get_filename import get_filename
+from docusearch.views import CustomSearchView
 
 
 class TestViews(TestCase):
@@ -33,6 +35,20 @@ class TestViews(TestCase):
         )
 
 
+class TestCustomSearchView(TestCase):
+
+    def test_remove_order_by(self):
+        """ Check if remove_order_by removes any order by queries """
+
+        test_query = QueryDict(
+            '?q=test&order_by=date_released&selected_facets=agency:test',
+            mutable=True)
+        view_class = CustomSearchView()
+        self.assertFalse(
+            'order_by=date_released' in view_class.remove_order_by(test_query)
+        )
+
+
 class TestTemplateTags(TestCase):
 
     def test_get_filename(self):
@@ -40,4 +56,8 @@ class TestTemplateTags(TestCase):
 
         original_data = '/filepath/filepath/filename.txt'
         expected_data = 'filename.txt'
+        self.assertEqual(get_filename(original_data), expected_data)
+
+        original_data = ''
+        expected_data = 'Document'
         self.assertEqual(get_filename(original_data), expected_data)
