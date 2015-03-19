@@ -1,4 +1,3 @@
-import os
 from django.shortcuts import render
 from django.http import QueryDict
 
@@ -41,10 +40,10 @@ class CustomSearchView(SearchView):
 
         return super(CustomSearchView, self).build_form(form_kwargs)
 
-    def clean_query(self, old_query=None):
+    def remove_order_by(self, old_query=None):
         """
-        Creates a clean query string to prevent duplicate GET queries
-        from entering request
+        Removes `order_by` from request.GET Querydict so only one order_by
+        type is passed into get requet
         """
         if not old_query:
             old_query = self.request.GET
@@ -61,7 +60,7 @@ class CustomSearchView(SearchView):
         extra = super(CustomSearchView, self).extra_context()
         extra['request'] = self.request
         extra['facets'] = self.results.facet_counts()
-        extra['cleaned_query'] = self.clean_query()
+        extra['no_orderby_req_str'] = self.remove_order_by()
         return extra
 
 

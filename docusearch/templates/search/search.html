@@ -26,9 +26,9 @@
         <dl>
         <dd>
             {% if request.GET.order_by == 'date_released' %}
-                <a href="?{{cleaned_query}}&amp;order_by=relevance ">Order By Date Relevance</a>
+                <a href="?{{no_orderby_req_str}}&amp;order_by=relevance ">Order By Relevance</a>
             {% else %}
-                <a href="?{{cleaned_query}}&amp;order_by=date_released">Order By Date Released</a>
+                <a href="?{{no_orderby_req_str}}&amp;order_by=date_released">Order By Date Released</a>
             {% endif %}
         </dd>
         {% if facets.fields.foia_agency %}
@@ -36,8 +36,8 @@
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    {% if "foia_agency_exact" not in cleaned_query %}
-                        <a href="?{{cleaned_query}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% if "foia_agency_exact" not in no_orderby_req_str %}
+                        <a href="?{{no_orderby_req_str}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                     {% else %}
                         {{agency.0|upper}} ({{ agency.1 }})
                     {% endif %}
@@ -50,36 +50,8 @@
 
         <ul>
         {% for result in page.object_list %}
-            <li>
-                <div class="agencies--name">
-                    <h3><a href="{{ result.object.get_absolute_url() }}">
-                    {% if result.object.title %}
-                    {{result.object.title}}
-                    {% elif result.object.original_file %}
-                    {{ get_filename(result.object.original_file.name) }}
-                    {% else %}
-                    Document
-                    {% endif %}
-                    </a></h3>
-                </div>
 
-                <div class="agencies--description">
-                <p>
-                {% for text in result.highlighted.text %}
-                    {{text}}
-                {% endfor %}
-                </p>
-                <p>
-                {% for htext in result.highlighted %}
-                    {% if loop.last %}
-                        {{htext|truncate(256)|lower|safe}}
-                    {% else %}
-                        ... {{htext|truncate(256)|lower|safe}} ... <br />
-                    {% endif %}
-                {% endfor %}
-                </p>
-                </div>
-            </li>
+            {% include 'search/search_result.html' %}
 
         {% else %}
             <p>No results found</p>
