@@ -6,16 +6,23 @@
 <div class="container">
     <section class="content">
     <h1><em>Document</em></h1>
-    <h2>{{document.title}}</h2>
 
+    {% if document.title %}
+        <h2>{{document.title}}</h2>
+    {% elif document.original_file %}
+        <h2>{{ get_filename(document.original_file.name) }}</h2>
+    {% else %}
+        <h2>Document</h2>
+    {% endif %}
 
-    <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
-        View the <a href="{{ document.original_file.url }}">original document</a>
-    </object>
-
-    <p>
-        <a href="{{ document.original_file.url }}">Download PDF</a>
-    </p>
+    {% if document.original_file %}
+        <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
+            View the <a href="{{ document.original_file.url }}">original document</a>
+        </object>
+        <p>
+            <a href="{{ document.original_file.url }}">Download PDF</a>
+        </p>
+    {% endif %}
 
     {% if similar_documents %}
         <h2> Similar documents (more like this one): </h2>
