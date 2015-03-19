@@ -26,9 +26,9 @@
         <dl>
         <dd>
             {% if request.GET.order_by == 'date_released' %}
-                <a href="?{{no_orderby_req_str}}&amp;order_by=relevance ">Order By Relevance</a>
+                <a href="?{{no_orderby_get_str}}&amp;order_by=relevance ">Order By Relevance</a>
             {% else %}
-                <a href="?{{no_orderby_req_str}}&amp;order_by=date_released">Order By Date Released</a>
+                <a href="?{{no_orderby_get_str}}&amp;order_by=date_released">Order By Date Released</a>
             {% endif %}
         </dd>
         {% if facets.fields.foia_agency %}
@@ -36,8 +36,8 @@
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    {% if "foia_agency_exact" not in no_orderby_req_str %}
-                        <a href="?{{no_orderby_req_str}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% if "foia_agency_exact" not in no_orderby_get_str %}
+                        <a href="?{{no_orderby_get_str}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                     {% else %}
                         {{agency.0|upper}} ({{ agency.1 }})
                     {% endif %}

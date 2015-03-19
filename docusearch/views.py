@@ -42,8 +42,7 @@ class CustomSearchView(SearchView):
 
     def remove_order_by(self, old_query=None):
         """
-        Removes `order_by` from request.GET Querydict so only one order_by
-        type is passed into get request
+        Removes `order_by` from request.GET Querydict
         """
         if not old_query:
             old_query = self.request.GET
@@ -60,7 +59,7 @@ class CustomSearchView(SearchView):
         extra = super(CustomSearchView, self).extra_context()
         extra['request'] = self.request
         extra['facets'] = self.results.facet_counts()
-        extra['no_orderby_req_str'] = self.remove_order_by()
+        extra['no_orderby_get_str'] = self.remove_order_by()
         return extra
 
 
