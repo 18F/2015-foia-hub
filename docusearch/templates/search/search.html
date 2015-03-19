@@ -26,9 +26,9 @@
         <dl>
         <dd>
             {% if request.GET.order_by == 'date_released' %}
-            <a href="?{{cleaned_query}}&amp;order_by=relevance ">Order By Date Relevance</a>
+                <a href="?{{cleaned_query}}&amp;order_by=relevance ">Order By Date Relevance</a>
             {% else %}
-            <a href="?{{cleaned_query}}&amp;order_by=date_released">Order By Date Released</a>
+                <a href="?{{cleaned_query}}&amp;order_by=date_released">Order By Date Released</a>
             {% endif %}
         </dd>
         {% if facets.fields.foia_agency %}
