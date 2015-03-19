@@ -16,12 +16,12 @@
     {% endif %}
 
     {% if document.original_file %}
-    <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
-        View the <a href="{{ document.original_file.url }}">original document</a>
-    </object>
-    <p>
-        <a href="{{ document.original_file.url }}">Download PDF</a>
-    </p>
+        <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
+            View the <a href="{{ document.original_file.url }}">original document</a>
+        </object>
+        <p>
+            <a href="{{ document.original_file.url }}">Download PDF</a>
+        </p>
     {% endif %}
 
     {% if similar_documents %}
