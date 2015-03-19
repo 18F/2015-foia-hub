@@ -1280,6 +1280,7 @@ input.typeahead {
     padding: 0 .8em;
     height: 100%;
     line-height: 100%;
+    color: #323A45;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -1291,6 +1292,8 @@ input.typeahead {
     border-top-right-radius: 1em; }
     #topnav .search .submit-button .fa {
       position: relative; }
+    #topnav .search .submit-button:hover, #topnav .search .submit-button:focus {
+      background: #92D6E5; }
 
 .search input[type=search] {
   color: #323A45;
@@ -1323,6 +1326,8 @@ input.typeahead {
   float: right;
   position: relative;
   top: -3em; }
+  .search input[type=submit]:focus, .search input[type=submit]:hover {
+    background-color: #92D6E5; }
 
 /* agency autocomplete */
 .twitter-typeahead {
@@ -1460,13 +1465,13 @@ input.typeahead {
     box-sizing: border-box; }
   #main .search form input.submit {
     right: 0;
-    color: #fff;
+    color: #323A45;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     padding-left: 1.5em;
     padding-right: 1.5em; }
     #main .search form input.submit:hover, #main .search form input.submit:focus {
-      color: #323A45; }
+      background: #CDEAF0; }
   #main .search form .twitter-typeahead {
     display: block !important;
     width: 100%; }
