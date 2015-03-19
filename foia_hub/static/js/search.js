@@ -106,7 +106,7 @@ $(document).ready(function() {
       minLength: 1
     }, agencyAdaptor, footerAdaptor)
     .on('keyup', onChange)
-    .on('keydown', onCursorChange)
+    // .on('keydown', onCursorChange)
     .on('typeahead:cursorchanged', onCursorChange)
     .on('typeahead:selected', onSelection);
 
