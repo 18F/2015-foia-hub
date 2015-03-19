@@ -758,13 +758,13 @@ input.typeahead {
 
   input.submit {
     right: 0;
-    color: $dark-gray;
+    color: #fff;
     @include border-left-radius(0);
     @include padding-horizontal(1.5em);
 
     &:hover,
     &:focus {
-      color: #fff;
+      color: $dark-gray;
     }
   }
 

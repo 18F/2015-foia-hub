@@ -1460,13 +1460,13 @@ input.typeahead {
     box-sizing: border-box; }
   #main .search form input.submit {
     right: 0;
-    color: #323A45;
+    color: #fff;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     padding-left: 1.5em;
     padding-right: 1.5em; }
     #main .search form input.submit:hover, #main .search form input.submit:focus {
-      color: #fff; }
+      color: #323A45; }
   #main .search form .twitter-typeahead {
     display: block !important;
     width: 100%; }
