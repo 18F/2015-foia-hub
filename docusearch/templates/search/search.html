@@ -4,7 +4,7 @@
 <div class="search">
     <div class="container">
         <section class="search--content">
-        <h2>Search Government Records</h2>
+        <h2>Search Government Records </h2>
 
             <form class="agency" method="get" action=".">
                 <div class="search--box scrollable-dropdown-menu">
@@ -26,17 +26,9 @@
         <dl>
         <dd>
             {% if request.GET.order_by == 'date_released' %}
-            <a href="{{generate_get_req([
-                            ('q', request.GET.q),
-                            ('order_by', 'relevance'),
-                            ('selected_facets',  request.GET.selected_facets)
-                            ])}}">Order By Date Relevance</a>
+            <a href="?{{cleaned_query}}&amp;order_by=relevance ">Order By Date Relevance</a>
             {% else %}
-            <a href="{{generate_get_req([
-                            ('q', request.GET.q),
-                            ('order_by', 'date_released'),
-                            ('selected_facets',  request.GET.selected_facets)
-                            ])}}">Order By Date Released</a>
+            <a href="?{{cleaned_query}}&amp;order_by=date_released">Order By Date Released</a>
             {% endif %}
         </dd>
         {% if facets.fields.foia_agency %}
@@ -44,11 +36,12 @@
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    <a href="{{generate_get_req([
-                        ('q', request.GET.q),
-                        ('order_by', request.GET.order_by),
-                        ('selected_facets', 'foia_agency_exact:' + agency.0|urlencode )
-                        ])}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% if "foia_agency_exact" not in cleaned_query %}
+                        <a href="?{{cleaned_query}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% else %}
+                        {{agency.0|upper}} ({{ agency.1 }})
+                    {% endif %}
+
                 </dd>
             {% endfor %}
         {% endif %}

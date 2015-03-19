@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from docusearch.templatetags.generate_get_req import generate_get_req
 from docusearch.templatetags.get_filename import get_filename
 
 
@@ -15,17 +14,6 @@ class TestViews(TestCase):
 
 
 class TestTemplateTags(TestCase):
-
-    def test_generate_get_req(self):
-        """ Test that the parameter generator works properly """
-
-        original_data = [('q', 'testquery')]
-        expected_data = '?q=testquery'
-        self.assertEqual(generate_get_req(original_data), expected_data)
-
-        original_data.append(('order_by', 'relevance'))
-        expected_data = '?q=testquery&order_by=relevance'
-        self.assertEqual(generate_get_req(original_data), expected_data)
 
     def test_get_filename(self):
         """ Test the function extract filename correctly """
