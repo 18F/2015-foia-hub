@@ -116,6 +116,7 @@ Right now, load it *locally* from your laptop, with a connection string pointed 
 
 ```bash
 ./manage.py load_agency_contacts /path/to/foia/contacts/data
+````
 
 Better instructions TBD!
 
@@ -125,7 +126,7 @@ Better instructions TBD!
 
 * Set the necessary environment variables:
 
-```
+```bash
 cf set-env foia DATABASE_URL [value]
 cf set-env foia FOIA_ANALYTICS_ID [value]
 cf set-env foia FOIA_SECRET_SESSION_KEY [value]
