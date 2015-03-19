@@ -734,14 +734,19 @@ body > header {
       font-size: 2em; }
     body > header #logo a {
       color: #0067BA; }
+      body > header #logo a span,
       body > header #logo a em {
-        color: #323A45;
-        border-bottom: none;
-        padding-bottom: 0.18em; }
+        padding-bottom: 0.18em;
+        border-bottom: none; }
+      body > header #logo a em {
+        color: #323A45; }
       body > header #logo a:hover, body > header #logo a:focus {
         text-decoration: none !important; }
+        body > header #logo a:hover span,
+        body > header #logo a:hover em, body > header #logo a:focus span,
+        body > header #logo a:focus em {
+          border-bottom: 0.15em solid #00BFE7; }
         body > header #logo a:hover em, body > header #logo a:focus em {
-          border-bottom: 0.15em solid #00BFE7;
           color: #323A45 !important; }
   body > header #topnav {
     margin: .8em 0 0.2em; }
