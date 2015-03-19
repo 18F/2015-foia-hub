@@ -65,8 +65,6 @@ body > header {
     nav {
       padding-top: 1em; // this should match #topnav { margin-top }
       ul {
-        @include span-columns(15);
-
         li {
           display: inline-block;
           padding: 0 2em 0 0;
@@ -139,6 +137,19 @@ body > header {
       }
     }
   }
+
+  #logo {
+    @include span-columns(4);
+  }
+
+  nav {
+    @include span-columns(14);
+  }
+
+  #search {
+    @include span-columns(6);
+  }
+
 }
 
 #main {
@@ -146,6 +157,7 @@ body > header {
     height: 3em;
   }
 
+  // TODO: consolidate this with `#main .search form` below
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -517,19 +529,69 @@ footer {
   @include inner(16);
 }
 
-.search_icon {
-  color: $gray;
-  // display: inline-block;
-  height: 3em;
-  // width: 2em;
-  position: absolute;
-  z-index: 100;
-//  background: white;
-//  @include border-left-radius(8px);
-  padding-top: 0.75em;
-  padding-left: 0.75em;
-  .fa-search {
+$search-height: 2em;
+
+input.typeahead {
+  color: $dark-gray;
+  background-color: white;
+  @include prefixer(box-sizing, border-box, $vendor-prefixes);
+  @include placeholder {
     color: $gray;
+  }
+}
+
+#topnav .search {
+  position: relative;
+  top: .3em;
+  height: $search-height;
+
+  input.typeahead {
+    height: $search-height;
+    padding-left: 2em;
+    margin-bottom: 0;
+
+    width: 100%;
+    display: block !important;
+    @include border-left-radius(1em);
+    @include border-right-radius(1em);
+  }
+
+  .fa {
+    color: inherit !important;
+  }
+
+  .search-icon {
+    color: $gray;
+    height: 100%;
+    width: 2em;
+    position: absolute;
+    top: 0;
+    left: .7em;
+    z-index: 100;
+
+    .fa {
+      color: inherit;
+      position: relative;
+      top: .25em;
+    }
+  }
+
+  .submit-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    padding: 0 .8em;
+    height: 100%;
+    line-height: 100%;
+
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+    @include border-left-radius(0);
+    @include border-right-radius(1em);
+
+    .fa {
+      position: relative;
+    }
   }
 }
 
@@ -579,7 +641,7 @@ footer {
 }
 
 .typeahead:focus {
-  border: none;
+  // border: none;
 }
 
 .tt-query {
@@ -616,4 +678,63 @@ footer {
 .tt-suggestion p,
 .tt-suggestion h5 {
   margin: 0;
+}
+
+#main .search form {
+  position: relative;
+  height: $search-height + 1em;
+
+  input.typeahead {
+    color: $dark-blue;
+    padding-left: 2.2em;
+  }
+
+  .search-icon,
+  input.submit {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+  }
+
+  .search-icon {
+    color: $gray;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
+    .fa {
+      color: inherit;
+    }
+  }
+
+  input.typeahead,
+  input.submit {
+    height: $search-height + 1em;
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+  }
+
+  input.submit {
+    right: 0;
+    color: $dark-gray;
+    @include border-left-radius(0);
+    @include padding-horizontal(1.5em);
+
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
+
+  .twitter-typeahead {
+    display: block !important;
+    width: 100%;
+  }
+
+  .tt-dropdown-menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+    min-width: auto;
+    max-width: auto;
+  }
 }
