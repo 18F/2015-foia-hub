@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block body %}
+ <div class="container">
+    <section class="breadcrumbs">
+        <a href="{{url('home')}}">Search Home </a> &gt; Search For:
+        {{request.GET.q|default("No Search")}}
+    </section>
+</div>
 <div class="search">
     <div class="container">
         <section class="search--content">
