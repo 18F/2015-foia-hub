@@ -89,7 +89,7 @@ $(document).ready(function() {
 
   onCursorChange = function(ev, suggestion) {
     if (suggestion) {
-      typeahead.val(suggestion.slug || suggestion.query);
+      typeahead.val(suggestion.name || suggestion.query);
     }
     var first = form
       .find('.tt-dataset-agencies .tt-suggestion, .tt-dataset-footer .tt-suggestion')
@@ -106,7 +106,7 @@ $(document).ready(function() {
       minLength: 1
     }, agencyAdaptor, footerAdaptor)
     .on('keyup', onChange)
-    .on('keydown', onCursorChange)
+    // .on('keydown', onCursorChange)
     .on('typeahead:cursorchanged', onCursorChange)
     .on('typeahead:selected', onSelection);
 

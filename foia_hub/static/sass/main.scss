@@ -45,15 +45,25 @@ body > header {
     }
     a {
       color: $blue;
+
+      span,
+      em {
+        padding-bottom: 0.18em;
+        border-bottom: none;
+      }
+
       em {
         color: $dark-gray;
-        border-bottom: none;
-        padding-bottom: 0.18em;
       }
-      &:hover, &:focus {
+
+      &:hover,
+      &:focus {
         text-decoration: none !important;
+        span,
         em {
           border-bottom: 0.15em solid $aqua-blue;
+        }
+        em {
           color: $dark-gray !important;
         }
       }
@@ -143,11 +153,11 @@ body > header {
   }
 
   nav {
-    @include span-columns(14);
+    @include span-columns(15);
   }
 
   #search {
-    @include span-columns(6);
+    @include span-columns(5);
   }
 
 }
@@ -220,7 +230,9 @@ footer {
     @include inner(16);
     a.more {
       font-weight: $header-font-weight;
-      .fa { color: $blue;}
+      .fa {
+        color: $blue;
+      }
     }
   }
 }
@@ -584,6 +596,7 @@ input.typeahead {
     padding: 0 .8em;
     height: 100%;
     line-height: 100%;
+    color: $dark-gray;
 
     @include prefixer(box-sizing, border-box, $vendor-prefixes);
     @include border-left-radius(0);
@@ -591,6 +604,11 @@ input.typeahead {
 
     .fa {
       position: relative;
+    }
+
+    &:hover,
+    &:focus {
+      background: $the-other-blue;
     }
   }
 }
@@ -618,8 +636,10 @@ input.typeahead {
   float:right;
   position: relative;
   top: -3em;
-  &:focus, &:hover {
-    // background-color: $medium-blue;
+
+  &:focus,
+  &:hover {
+    background-color: $the-other-blue;
   }
 }
 
@@ -631,9 +651,8 @@ input.typeahead {
 
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
-  overflow-y: auto;
   width: 100%;
-  margin-bottom: 100px;
+  min-width: 375px;
 }
 
 .typeahead {
@@ -653,31 +672,75 @@ input.typeahead {
 }
 
 .tt-dropdown-menu {
-//  width: 422px;
-  padding: 1em 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  @include border-top-radius(8px);
-  @include border-right-radius(8px);
-  @include border-bottom-radius(8px);
-  @include border-left-radius(8px);
+  @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
+  @include arrow-top(10px, #fff, 1px, $medium-gray);
+  padding: 0;
+  // position: absolute; // this is handled by typeahead.js
+  // make this thing stick out to the left
+  right: 0 !important;
+  left: auto !important;
+  width: 375px; // XXX: this will need to shrink on mobile
+  margin-top: 12px;
+
+  &.tt-cursor-first:after {
+    border-bottom-color: $light-blue;
+  }
+}
+
+.tt-dropdown-wrap {
+  position: relative;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .tt-suggestion {
-  color: $dark-gray;
-  padding: 8px 20px;
+  color: $dark-gray !important;
+  font-size: .9em;
+  line-height: 1.3em;
+  padding: .7em 1.2em;
+  cursor: pointer;
+}
+
+.tt-suggestion:first-child {
+  padding-top: .9em;
+}
+
+.tt-suggestion:last-child {
+  padding-bottom: .8em;
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf; // XXX: should this be $medium-blue?
+  color: $dark-blue;
+  background-color: $light-blue;
 }
 
-.tt-suggestion p,
-.tt-suggestion h5 {
+.tt-dataset-agencies .tt-suggestion:last-child {
+  border-bottom: 1px solid $medium-gray;
+}
+
+.tt-suggestion p {
   margin: 0;
+  padding: 0;
+}
+
+.search-prompt {
+  word-wrap: break-word;
+  .return {
+    color: #fff;
+    background: $medium-gray;
+    @include prefixer(border-radius, 4px, $vendor-prefixes);
+    font-size: .6em;
+    vertical-align: baseline;
+    margin-right: .5em;
+    padding: 4px 6px 2px;
+    position: relative;
+    top: -.1em;
+  }
+}
+
+.tt-cursor .return {
+  background: $dark-gray;
 }
 
 #main .search form {
@@ -721,7 +784,7 @@ input.typeahead {
 
     &:hover,
     &:focus {
-      color: #fff;
+      background: $light-blue;
     }
   }
 
