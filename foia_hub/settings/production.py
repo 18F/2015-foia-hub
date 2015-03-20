@@ -1,4 +1,5 @@
 from .base import *
+import os
 
 DEBUG = False
 TEMPLATE_DEBUG = False
@@ -24,7 +25,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-AWS_STORAGE_BUCKET_NAME = '18f-foia-static'
+AWS_STORAGE_BUCKET_NAME = os.getenv('FOIA_S3_STATIC_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
