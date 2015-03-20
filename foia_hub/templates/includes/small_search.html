@@ -1,0 +1,15 @@
+<form id="search" class="search" method="get" action="/agencies/">
+  <div class="agency search--box scrollable-dropdown-menu">
+    <span class="search-icon">
+      <span class="fa fa-search"><span class="sr-only">Search</span></span>
+    </span>
+    {% set search_placeholder = 'Search' %}
+    <input id="query" class="typeahead agency" name="query" type="search"
+      placeholder="{{ search_placeholder }}"
+      aria-label="{{ search_placeholder }}"
+      {% if query %}value="{{ query }}"{% endif %}>
+    <button type="submit" class="submit-button">
+      <span class="fa fa-arrow-right"><span class="sr-only">submit</span></span>
+    </button>
+  </div>
+</form>
