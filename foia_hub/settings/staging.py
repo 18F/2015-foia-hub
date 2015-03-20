@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = False
 SHOW_WEBFORM = False
 
 # Some possible hosts
-ALLOWED_HOSTS = ['foia.cf.18f.us']
+ALLOWED_HOSTS = ['openfoia-staging.cf.18f.us']
 
 AWS_STORAGE_BUCKET_NAME = os.getenv('FOIA_S3_STATIC_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
