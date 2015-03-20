@@ -3,6 +3,8 @@
 memory: 1G
 instances: 1
 applications:
-- name: foia
+- name: krang
   path: .
   timeout: 180
+  services:
+  - es
