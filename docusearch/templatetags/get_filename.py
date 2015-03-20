@@ -10,4 +10,3 @@ def get_filename(filepath):
     """
     if filepath:
         return os.path.basename(filepath)
-    return "No Document Title"
