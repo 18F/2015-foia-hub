@@ -20,7 +20,7 @@ class TestViews(TestCase):
         """ Document search should work properly """
 
         # Empty search returns nothing, but won't fail
-        response = self.client.get('/documents/search/?q=')
+        response = self.client.get(reverse('doc_search') + '?q=')
         self.assertEqual(response.status_code, 200)
 
     def test_details(self):
