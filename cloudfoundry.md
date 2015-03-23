@@ -161,3 +161,33 @@ To deploy the app while also running migrations and loading in the latest data:
 cf push foia -c "bash cf.sh"
 ```
 
+# Staging 
+
+To deploy a staging version of the application, deploy using the staging-manifest.yml (as follows):
+
+```bash
+cf push -f ./staging-manifest.yml -c "bash cf.sh"
+```
+
+Using the staging-manifest.yml ensures that the  application name is set
+correctly (and as expected). 
+
+There's also a staging.py settings file that sets up a production environment
+(Debug=False in Django) but does not include any of the HTTPS related
+configuration.
+
+
+At 18F:
+
+* In Cloud Foundry at 18F, the staging server is in a separate space called
+'staging' than the production instance. 
+
+* There's a separate S3 bucket for staging files. 
+
+* There's a separate RDS instance. 
+
+* There is no ELB instance used by the staging instance, since we don't
+* configure that with HTTPS. 
+
+
+
