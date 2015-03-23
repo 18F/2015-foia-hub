@@ -176,6 +176,18 @@ There's also a staging.py settings file that sets up a production environment
 (Debug=False in Django) but does not include any of the HTTPS related
 configuration.
 
-(In Cloud Foundry at 18F, the staging server is in a separate space called
-'staging' than the production instance). 
+
+At 18F:
+
+* In Cloud Foundry at 18F, the staging server is in a separate space called
+'staging' than the production instance. 
+
+* There's a separate S3 bucket for staging files. 
+
+* There's a separate RDS instance. 
+
+* There is no ELB instance used by the staging instance, since we don't
+* configure that with HTTPS. 
+
+
 
