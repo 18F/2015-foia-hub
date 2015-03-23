@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<div class="container">
+    <section class="content">
+        <h1> 404. Not Found. </h1>
+
+        <p> 
+            We're sorry, we could not find the page you're looking for. Please make sure the URL is correct. 
+        </p>
+
+        <p>
+            If you're looking for an agency, try searching by name, acronym or topic:
+        </p>
+        <p>
+            <form id="search" method="get" action="/agencies">
+                <input id="query" name="query" type="search">
+                <input class="submit" type="submit" value="Search">
+            </form>
+        </p>
+    </section>
+</div>
+{% endblock %}
