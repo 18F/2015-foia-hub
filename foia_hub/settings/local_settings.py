@@ -1,5 +1,6 @@
 from .base import *
 import os
+import json
 import dj_database_url
 
 # See env.example for an explanation of these settings.
@@ -12,11 +13,18 @@ ANALYTICS_ID = os.getenv("FOIA_ANALYTICS_ID")
 AWS_ACCESS_KEY_ID = os.getenv('FOIA_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('FOIA_AWS_SECRET_ACCESS_KEY')
 
+CF_SERVICES = os.getenv('VCAP_SERVICES')
+if CF_SERVICES:
+    CF_SERVICES = json.loads(CF_SERVICES)
+    ES_URL = CF_SERVICES['elasticsearch-0.20'][0]['credentials']['url']
+else:
+    ES_URL = 'http://127.0.0.1:9200/'
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
         'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
+        'URL': ES_URL,
         'INDEX_NAME': 'haystack',
     },
 }
