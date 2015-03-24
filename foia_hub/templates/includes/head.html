@@ -19,22 +19,15 @@
 <link rel="icon" type="image/png" href="{{ static("images/favicon/favicon-96x96.png") }}" sizes="96x96">
 <link rel="icon" type="image/png" href="{{ static("images/favicon/android-chrome-192x192.png") }}" sizes="192x192">
 <link rel="icon" type="image/png" href="{{ static("images/favicon/favicon-16x16.png") }}" sizes="16x16">
-<link rel="manifest" href="{{ static("images/favicon/manifest.json") }}">
 <link rel="shortcut icon" href="{{ static("images/favicon/favicon.ico") }}">
 <meta name="msapplication-TileColor" content="#ffc40d">
 <meta name="msapplication-TileImage" content="{{ static("images/favicon/mstile-144x144.png") }}">
-<meta name="msapplication-config" content="{{ static("images/favicon/browserconfig.xml") }}">
 <meta name="theme-color" content="#ffffff">
 
 <script src="{{ static("js/jquery-2.1.1.min.js") }}"></script>
 <!-- TODO: cache-bust main.js -->
 <script src="{{ static("js/main.js") }}"></script>
 
-<!-- pickadate: can get moved to only request page later -->
-<script src="{{ static("pickadate/picker.js") }}"></script>
-<script src="{{ static("pickadate/picker.date.js") }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ static("pickadate/classic.css") }}" />
-<link rel="stylesheet" type="text/css" href="{{ static("pickadate/classic.date.css") }}" />
 <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{ static("css/grids-responsive-old-ie-min.css") }}">
 <![endif]-->
