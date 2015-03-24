@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = False
 SHOW_WEBFORM = False
 
 # some possible hosts
-ALLOWED_HOSTS = ['foia.18f.us', 'open.foia.gov', 'foia.cf.18f.us']
+ALLOWED_HOSTS = ['foia.18f.us', 'open.foia.gov', 'foia.cf.18f.us', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us', 'openfoia-staging.cf.18f.us']
 
 # In production, force an HTTPS connection.
 # When testing production mode locally, this may require using ngrok.
