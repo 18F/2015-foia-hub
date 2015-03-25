@@ -1,19 +1,14 @@
 language: python
 python:
-  - "3.4"
+- '3.4'
 install:
-  - pip install -r requirements.txt
-  - pip install -r requirements-dev.txt
+- pip install -r requirements.txt
+- pip install -r requirements-dev.txt
 script:
-  - coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
-
-  # ignore:
-  # * E501 - line length limit
-  # * E302,E303 - too many blank lines (come on)
-  # * E123 - indentation on data structures (very restrictive)
-  - flake8 . --ignore=E501,E302,E303,E123 --exclude=foia_hub/settings,docs/source
-
-  # * F403 - "import *"
-  - flake8 foia_hub/settings --ignore=F403,E501,E302,E303,E123
+- coverage run --source=foia_hub manage.py test --settings=foia_hub.settings.test
+- flake8 . --ignore=E501,E302,E303,E123 --exclude=foia_hub/settings,docs/source
+- flake8 foia_hub/settings --ignore=F403,E501,E302,E303,E123
 after_success:
-  - coveralls
+- coveralls
+notifications:
+  webhooks: http://project-monitor.cf.18f.us/projects/foia-hub/status
