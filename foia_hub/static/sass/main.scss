@@ -11,6 +11,10 @@ html, body {
   height: 100%;
 }
 
+* {
+  @include prefixer(box-sizing, border-box, $vendor-prefixes);
+}
+
 #main {
   min-height: 100%;
   margin: 0 auto -4.8em; /* the bottom margin is the negative value of the footer's height */
@@ -36,7 +40,6 @@ body > header {
   border-bottom: 1px solid #dedede;
 
   #logo {
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
     float: left;
     color: $blue;
     padding-right: 2em; 
@@ -546,7 +549,6 @@ $search-height: 2em;
 input.typeahead {
   color: $dark-gray;
   background-color: white;
-  @include prefixer(box-sizing, border-box, $vendor-prefixes);
   @include placeholder {
     color: $gray;
   }
@@ -598,7 +600,6 @@ input.typeahead {
     line-height: 100%;
     color: $dark-gray;
 
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
     @include border-left-radius(0);
     @include border-right-radius(1em);
 
@@ -773,7 +774,6 @@ input.typeahead {
   input.typeahead,
   input.submit {
     height: $search-height + 1em;
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
   }
 
   input.submit {
