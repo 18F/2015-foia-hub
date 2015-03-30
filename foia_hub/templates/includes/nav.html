@@ -20,6 +20,7 @@
       </div>
 
       <nav>
+        <button class="expand"><span class="fa fa-chevron-down"></span> Navigation</button>
         <ul>
           <li><a role="tab"
             {% if request and ('/agencies/' == request.path) %}class="active" aria-selected="true"{% endif %}
@@ -35,6 +36,7 @@
           </a></li>
         </ul>
       </nav>
+      <script src="{{ static('js/nav.js') }}"></script>
 
       {% if not view or view.template_name != 'index.html' %}
         {% include 'includes/small_search.html' %}
