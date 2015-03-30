@@ -64,7 +64,7 @@ $(document).ready(function() {
       longestText = currentText;
     } else if (currentText.length === 0 && longestText.length > 0) {
       //  blanked out the text after initially typing something
-      ga('send', 'event', 'contacts', 'did-not-want', longestText);
+      ga('send', 'event', $('#query')[0].getAttribute('search-type'), 'did-not-want', longestText);
       longestText = '';
     }
     form.toggleClass('tt-filled', currentText.length > 0);
@@ -82,7 +82,7 @@ $(document).ready(function() {
             window.location = '/contacts/' + suggestion.slug + '/';
           },
           timeout = setTimeout(callback, gaTimeout);
-      ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
+      ga('send', 'event', $('#query')[0].getAttribute('search-type'), 'select-' + suggestion.slug,
          currentText, {'hitCallback': callback});
     }
   };
@@ -98,17 +98,27 @@ $(document).ready(function() {
       .toggleClass('tt-cursor-first', first.hasClass('tt-cursor'));
   };
 
-  //  Initialize typeahead
-  typeahead = $('#query')
-    .typeahead({
-      hint: false,
-      highlight: true,
-      minLength: 1
-    }, agencyAdaptor, footerAdaptor)
-    .on('keyup', onChange)
-    // .on('keydown', onCursorChange)
-    .on('typeahead:cursorchanged', onCursorChange)
-    .on('typeahead:selected', onSelection);
+  // Initialize typeahead, but does not connect agency contacts
+  // when the app is not defined
+  if (typeof app === 'undefined' )
+    typeahead = $('#query')
+      .typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+      }, agencyAdaptor, footerAdaptor)
+      .on('keyup', onChange)
+      // .on('keydown', onCursorChange)
+      .on('typeahead:cursorchanged', onCursorChange)
+      .on('typeahead:selected', onSelection);
+  else
+    typeahead = $('#query')
+      .typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+      })
+      .on('keyup', onChange)
 
   // uuuuugggghhhhh
   var menu = $('.tt-dropdown-menu')

@@ -11,7 +11,8 @@
             <input id="query" class="typeahead agency" name="query" type="search"
               placeholder="{{ search_placeholder }}"
               aria-label="{{ search_placeholder }}"
-              {% if query %}value="{{ query }}"{% endif %}>
+              {% if query %}value="{{ query }}"{% endif %}
+              search-type="bigSearch{{app}}">
             <input class="submit" type="submit" value="Search">
           </form>
         </div>
