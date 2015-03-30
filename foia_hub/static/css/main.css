@@ -723,105 +723,177 @@ footer, .push {
 a:focus {
   text-decoration: underline !important; }
 
+#logo {
+  color: #0067BA;
+  padding-right: 2em; }
+  #logo h4 {
+    font-size: 2em;
+    display: inline-block; }
+  #logo a {
+    color: #0067BA; }
+    #logo a span,
+    #logo a em {
+      border-bottom: none; }
+    #logo a em {
+      color: #323A45; }
+    #logo a:hover, #logo a:focus {
+      text-decoration: none !important; }
+      #logo a:hover span,
+      #logo a:hover em, #logo a:focus span,
+      #logo a:focus em {
+        border-bottom: 0.15em solid #00BFE7; }
+      #logo a:hover em, #logo a:focus em {
+        color: #323A45 !important; }
+
+div#usa {
+  background-color: #323A45;
+  color: #EAEDF1;
+  padding: 0.25em 0; }
+  div#usa .usa--content {
+    font-size: 0.8em;
+    font-weight: 400; }
+  div#usa .official {
+    float: left; }
+  div#usa .alpha {
+    float: right; }
+  div#usa .official,
+  div#usa .alpha {
+    display: inline-block; }
+    div#usa .official a,
+    div#usa .alpha a {
+      color: #00BFE7; }
+    @media screen and (max-width: 48em) {
+      div#usa .official,
+      div#usa .alpha {
+        float: none;
+        display: block;
+        text-align: center; } }
+
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede; }
-  body > header #logo {
-    float: left;
-    color: #0067BA;
-    padding-right: 2em; }
-    body > header #logo h4 {
-      font-size: 2em; }
-    body > header #logo a {
-      color: #0067BA; }
-      body > header #logo a span,
-      body > header #logo a em {
-        padding-bottom: 0.18em;
-        border-bottom: none; }
-      body > header #logo a em {
-        color: #323A45; }
-      body > header #logo a:hover, body > header #logo a:focus {
-        text-decoration: none !important; }
-        body > header #logo a:hover span,
-        body > header #logo a:hover em, body > header #logo a:focus span,
-        body > header #logo a:focus em {
-          border-bottom: 0.15em solid #00BFE7; }
-        body > header #logo a:hover em, body > header #logo a:focus em {
-          color: #323A45 !important; }
-  body > header #topnav {
-    margin: .8em 0 0.2em; }
-    body > header #topnav nav {
-      padding-top: 1em; }
-      body > header #topnav nav ul li {
+  body > header .container {
+    position: relative; }
+  body > header a {
+    font-weight: 600; }
+  @media (max-width: 30em) {
+    body > header #topnav {
+      padding-top: .5em;
+      padding-bottom: 1em; }
+    body > header nav {
+      margin-top: -3em;
+      text-align: right;
+      margin-bottom: 1em; }
+      body > header nav button.expand {
+        position: relative;
+        top: .6em;
         display: inline-block;
-        padding: 0 2em 0 0;
+        padding: .3em;
+        color: #323A45;
+        background: #EAEDF1;
+        vertical-align: bottom;
+        margin-bottom: 1em; }
+      body > header nav ul li {
+        display: block; }
+      body > header nav a {
         font-weight: 600; }
-      body > header #topnav nav ul a {
-        color: #777777;
+      body > header nav a.active {
+        color: #323A45;
+        border-bottom: 1px solid #00BFE7; }
+      body > header nav a:hover {
+        text-decoration: none; }
+      body > header nav.collapsed > * {
+        display: none; }
+    body > header #search {
+      position: relative; }
+      body > header #search input {
+        position: absolute !important;
+        top: 0; } }
+  @media (min-width: 29em) {
+    body > header #logo {
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 100%;
+      margin-top: .5em;
+      margin-bottom: .4em; }
+      body > header #logo:last-child {
+        margin-right: 0; }
+    body > header nav {
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 100%;
+      margin-bottom: .8em; }
+      body > header nav:last-child {
+        margin-right: 0; }
+      body > header nav button.expand {
+        display: none; }
+      body > header nav ul li {
+        display: inline-block;
+        padding-right: .5em; }
+      body > header nav ul a {
         padding-bottom: 0.75em; }
-        @media screen and (max-width: 30em) {
-          body > header #topnav nav ul a {
-            padding-bottom: 0; } }
-      body > header #topnav nav ul a:hover,
-      body > header #topnav nav ul a.active {
+      body > header nav ul a.active {
         text-decoration: none;
         color: #323A45; }
-      body > header #topnav nav ul a:hover,
-      body > header #topnav nav ul a.active,
-      body > header #topnav nav ul a:active {
-        border-bottom: 0.3em solid #00BFE7; }
-        @media screen and (max-width: 30em) {
-          body > header #topnav nav ul a:hover,
-          body > header #topnav nav ul a.active,
-          body > header #topnav nav ul a:active {
-            border-bottom: 1px solid #00BFE7; } }
-      body > header #topnav nav ul a:focus {
+      body > header nav ul a:focus {
         background: #fff;
         color: #18f; }
-  body > header div#usa {
-    background-color: #323A45;
-    color: #EAEDF1;
-    padding: 0.25em 0; }
-    body > header div#usa .usa--content {
-      font-size: 0.8em;
-      font-weight: 400; }
-    body > header div#usa .official {
-      float: left; }
-    body > header div#usa .alpha {
-      float: right; }
-    body > header div#usa .official,
-    body > header div#usa .alpha {
-      display: inline-block; }
-      body > header div#usa .official a,
-      body > header div#usa .alpha a {
-        color: #00BFE7; }
-      @media screen and (max-width: 48em) {
-        body > header div#usa .official,
-        body > header div#usa .alpha {
-          float: none;
-          display: block;
-          text-align: center; } }
-  body > header #logo {
-    float: left;
-    display: block;
-    margin-right: 1.05263%;
-    width: 15.78947%; }
-    body > header #logo:last-child {
-      margin-right: 0; }
-  body > header nav {
-    float: left;
-    display: block;
-    margin-right: 1.05263%;
-    width: 62.10526%; }
-    body > header nav:last-child {
-      margin-right: 0; }
-  body > header #search {
-    float: left;
-    display: block;
-    margin-right: 1.05263%;
-    width: 20%; }
-    body > header #search:last-child {
-      margin-right: 0; }
+      body > header nav ul a:hover {
+        text-decoration: none;
+        color: #323A45; }
+      body > header nav ul a:hover,
+      body > header nav ul a.active,
+      body > header nav ul a:active {
+        border-bottom: 0.3em solid #00BFE7; }
+    body > header #search {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      left: auto;
+      width: 16em;
+      max-width: 50%; } }
+  @media (min-width: 48em) {
+    body > header nav ul li {
+      padding-right: 1em; } }
+  @media (min-width: 61.25em) {
+    body > header #logo {
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 15.78947%;
+      margin-top: 0;
+      margin-bottom: 0; }
+      body > header #logo:last-child {
+        margin-right: 0; }
+      body > header #logo a em,
+      body > header #logo a span {
+        padding-bottom: 0.18em; }
+    body > header nav {
+      clear: none;
+      padding-top: 1em;
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 62.10526%; }
+      body > header nav:last-child {
+        margin-right: 0; }
+      body > header nav ul li {
+        padding-right: 2em; }
+    body > header #search {
+      position: relative;
+      top: .7em;
+      right: auto;
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 20%; }
+      body > header #search:last-child {
+        margin-right: 0; }
+    body > header #topnav {
+      margin: .8em 0 0.1em;
+      position: relative; } }
 
 #main .search--box {
   height: 3em; }
@@ -1245,8 +1317,6 @@ input.typeahead {
     color: #777777; }
 
 #topnav .search {
-  position: relative;
-  top: .3em;
   height: 2em; }
   #topnav .search input.typeahead {
     height: 2em;

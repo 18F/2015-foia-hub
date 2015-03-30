@@ -35,65 +35,184 @@ a:focus {
   text-decoration: underline !important;
 }
 
+#logo {
+  color: $blue;
+  padding-right: 2em; 
+  h4 {
+    font-size: $base-font-size * 2;
+    display: inline-block;
+  }
+
+  a {
+    color: $blue;
+
+    span,
+    em {
+      border-bottom: none;
+    }
+
+    em {
+      color: $dark-gray;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: none !important;
+      span,
+      em {
+        border-bottom: 0.15em solid $aqua-blue;
+      }
+      em {
+        color: $dark-gray !important;
+      }
+    }
+  }
+}
+
+div#usa {
+  background-color: $dark-gray;
+  color: $light-gray;
+  padding: 0.25em 0;
+
+  .usa--content {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+
+  .official {
+    float: left;
+  }
+
+  .alpha {
+    float: right;
+  }
+
+  .official,
+  .alpha {
+    display: inline-block;
+
+    a {
+      color: $aqua-blue;
+    }
+
+    @include media($medium) {
+      float: none;
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
 body > header {
   background-color: white;
   border-bottom: 1px solid #dedede;
 
-  #logo {
-    float: left;
-    color: $blue;
-    padding-right: 2em; 
-    h4 {
-      font-size: $base-font-size * 2;
+  .container {
+    position: relative;
+  }
+
+  a {
+    font-weight: 600;
+  }
+
+  // border: 3px solid red;
+
+  // small layout (default)
+  @media (screen and max-width: $small-screen) {
+
+    #topnav {
+      padding-top: .5em;
+      padding-bottom: 1em;
     }
-    a {
-      color: $blue;
 
-      span,
-      em {
-        padding-bottom: 0.18em;
-        border-bottom: none;
-      }
+    nav {
+      margin-top: -3em;
+      text-align: right;
+      margin-bottom: 1em;
 
-      em {
+      button.expand {
+        position: relative;
+        top: .6em;
+        // width: 2.5em;
+        display: inline-block;
+        padding: .3em;
         color: $dark-gray;
+        background: $light-gray;
+        vertical-align: bottom;
+        margin-bottom: 1em;
       }
 
-      &:hover,
-      &:focus {
-        text-decoration: none !important;
-        span,
-        em {
-          border-bottom: 0.15em solid $aqua-blue;
-        }
-        em {
-          color: $dark-gray !important;
-        }
+      ul li {
+        display: block;
+      }
+
+      a {
+        font-weight: 600;
+      }
+
+      a.active {
+        color: $dark-gray;
+        border-bottom: 1px solid $aqua-blue;
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      &.collapsed > * {
+        display: none;
+      }
+    }
+
+    #search {
+      position: relative;
+      input {
+        position: absolute !important;
+        top: 0;
       }
     }
   }
 
-  #topnav {
-    margin: .8em 0 0.2em;
+  // small < width < medium
+  @media (screen and min-width: $small-screen - 1) {
+    // border-color: orange;
+
+    #logo {
+      @include span-columns(24);
+      margin-top: .5em;
+      // give the nav below some breathing room
+      margin-bottom: .4em;
+    }
+
     nav {
-      padding-top: 1em; // this should match #topnav { margin-top }
+      @include span-columns(24);
+      margin-bottom: .8em;
+
+      button.expand {
+        display: none;
+      }
       ul {
         li {
           display: inline-block;
-          padding: 0 2em 0 0;
-          font-weight: 600;
+          padding-right: .5em;
         }
 
         a {
-          color: $gray;
           padding-bottom: 0.75em;
-          @include media($small) {
-            padding-bottom: 0;
-          }
         }
 
-        a:hover,
         a.active {
+          text-decoration: none;
+          color: $dark-gray;
+        }
+
+        a:focus {
+          // background: #cc2211;
+          background: #fff;
+          color: #18f;
+        }
+
+        a:hover {
           text-decoration: none;
           color: $dark-gray;
         }
@@ -102,65 +221,73 @@ body > header {
         a.active,
         a:active {
           border-bottom: 0.3em solid $aqua-blue;
-          @include media($small) {
-            border-bottom: 1px solid $aqua-blue;
-          }
         }
 
-        a:focus {
-          // background: #cc2211;
-          background: #fff;
-          color: #18f;
-        }
+      }
+    }
+
+    #search {
+      @include reset-all;
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      left: auto;
+      width: 16em;
+      max-width: 50%;
+    }
+  }
+
+  // medium
+  @media (screen and min-width: $medium-screen) {
+    nav {
+      ul li {
+        padding-right: 1em;
       }
     }
   }
 
-  div#usa {
+  // medium layout
+  @media (screen and min-width: $large-screen) {
+    // border-color: yellow;
 
-    background-color: $dark-gray;
-    color: $light-gray;
-    padding: 0.25em 0;
-
-    .usa--content {
-      font-size: 0.8em;
-      font-weight: 400;
-    }
-
-    .official {
-      float: left;
-    }
-
-    .alpha {
-      float: right;
-    }
-
-    .official,
-    .alpha {
-      display: inline-block;
+    #logo {
+      @include span-columns(4);
+      margin-top: 0;
+      margin-bottom: 0;
 
       a {
-        color: $aqua-blue;
-      }
-
-      @include media($medium) {
-        float: none;
-        display: block;
-        text-align: center;
+        em,
+        span {
+          padding-bottom: 0.18em;
+        }
       }
     }
-  }
 
-  #logo {
-    @include span-columns(4);
-  }
+    nav {
+      clear: none;
+      padding-top: 1em;
+      @include span-columns(15);
 
-  nav {
-    @include span-columns(15);
-  }
+      ul li {
+        padding-right: 2em;
+      }
+    }
 
-  #search {
-    @include span-columns(5);
+    #search {
+      position: relative;
+      top: .7em;
+      right: auto;
+      @include span-columns(5);
+    }
+
+    #topnav {
+      margin: .8em 0 0.1em;
+      position: relative;
+
+      nav {
+      } // end nav
+
+    } // end #topnav
   }
 
 }
@@ -555,8 +682,6 @@ input.typeahead {
 }
 
 #topnav .search {
-  position: relative;
-  top: .3em;
   height: $search-height;
 
   input.typeahead {
