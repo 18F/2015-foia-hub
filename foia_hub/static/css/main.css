@@ -752,22 +752,22 @@ div#usa {
   div#usa .usa--content {
     font-size: 0.8em;
     font-weight: 400; }
-  div#usa .official {
-    float: left; }
-  div#usa .alpha {
-    float: right; }
   div#usa .official,
   div#usa .alpha {
-    display: inline-block; }
+    display: block;
+    text-align: center; }
     div#usa .official a,
     div#usa .alpha a {
       color: #00BFE7; }
-    @media screen and (min-width: 640px) {
-      div#usa .official,
-      div#usa .alpha {
-        float: none;
-        display: block;
-        text-align: center; } }
+  @media (min-width: 640px) {
+    div#usa .official,
+    div#usa .alpha {
+      display: inline-block;
+      text-align: left; }
+    div#usa .official {
+      float: left; }
+    div#usa .alpha {
+      float: right; } }
 
 body > header {
   background-color: white;
@@ -775,7 +775,8 @@ body > header {
   body > header .container {
     position: relative; }
   body > header a {
-    font-weight: 600; }
+    font-weight: 600;
+    color: #777777; }
   @media (max-width: 479px) {
     body > header #topnav {
       padding-top: .5em;

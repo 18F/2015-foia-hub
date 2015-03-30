@@ -79,26 +79,29 @@ div#usa {
     font-weight: 400;
   }
 
-  .official {
-    float: left;
-  }
-
-  .alpha {
-    float: right;
-  }
-
   .official,
   .alpha {
-    display: inline-block;
+    display: block;
+    text-align: center;
 
     a {
       color: $aqua-blue;
     }
+  }
 
-    @include media($medium) {
-      float: none;
-      display: block;
-      text-align: center;
+  @media (screen and min-width: $medium-screen) {
+    .official,
+    .alpha {
+      display: inline-block;
+      text-align: left;
+    }
+
+    .official {
+      float: left;
+    }
+
+    .alpha {
+      float: right;
     }
   }
 }
@@ -113,6 +116,7 @@ body > header {
 
   a {
     font-weight: 600;
+    color: $gray;
   }
 
   // border: 3px solid red;
