@@ -14,18 +14,18 @@
   function resize() {
     var width = window.innerWidth;
     var shouldCollapse = width < COLLAPSE_THRESHOLD;
-    console.log(width, 'should collapse?', shouldCollapse, 'is collapsed?', collapsed);
+    // console.log(width, 'should collapse?', shouldCollapse, 'is collapsed?', collapsed);
 
     if (shouldCollapse && !collapsed) {
-      console.log('collapsing nav');
+      // console.log('collapsing nav');
       nav.addClass(KLASS).data(KLASS, true);
       collapsed = true;
     } else if (!shouldCollapse && collapsed) {
-      console.log('expanding nav');
+      // console.log('expanding nav');
       nav.removeClass(KLASS).data(KLASS, false);
       collapsed = false;
     } else {
-      console.log('no state change (', shouldCollapse, collapsed, ')');
+      // console.log('no state change (', shouldCollapse, collapsed, ')');
     }
     updateIcon();
   }
