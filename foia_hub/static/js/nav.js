@@ -1,6 +1,6 @@
 (function() {
 
-  var COLLAPSE_THRESHOLD = 480,
+  var COLLAPSE_THRESHOLD = 480, // XXX
       KLASS = 'collapsed',
       collapsed = false;
 
@@ -13,7 +13,7 @@
 
   function resize() {
     var width = window.innerWidth;
-    var shouldCollapse = width < COLLAPSE_THRESHOLD;
+    var shouldCollapse = width <= COLLAPSE_THRESHOLD;
     // console.log(width, 'should collapse?', shouldCollapse, 'is collapsed?', collapsed);
 
     if (shouldCollapse && !collapsed) {

@@ -118,7 +118,7 @@ body > header {
   // border: 3px solid red;
 
   // small layout (default)
-  @media (screen and max-width: $small-screen) {
+  @media (screen and max-width: $small-screen - 1) {
 
     #topnav {
       padding-top: .5em;
@@ -174,8 +174,8 @@ body > header {
   }
 
   // small < width < medium
-  @media (screen and min-width: $small-screen - 1) {
-    // border-color: orange;
+  @media (screen and min-width: $small-screen) {
+    border: 1px solid orange;
 
     #logo {
       @include span-columns(24);
@@ -191,6 +191,7 @@ body > header {
       button.expand {
         display: none;
       }
+
       ul {
         li {
           display: inline-block;
