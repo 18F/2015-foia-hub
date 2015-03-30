@@ -175,7 +175,7 @@ body > header {
 
   // small < width < medium
   @media (screen and min-width: $small-screen) {
-    border: 1px solid orange;
+    // border: 1px solid orange;
 
     #logo {
       @include span-columns(24);
