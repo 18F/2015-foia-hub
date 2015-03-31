@@ -1,0 +1,7 @@
+<!-- Template for more like this documents -->
+<p>
+    <a href="{{ similar_doc.object.get_absolute_url() }}">{{similar_doc.object.title|default(get_filename(similar_doc.object.original_file.name))}} </a>
+    {{similar_doc.foia_agency|upper}}
+    {{similar_doc.object.file_type}}
+    {{similar_doc.object.date_released|default('Not Available')}}
+</p>

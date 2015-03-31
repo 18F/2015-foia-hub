@@ -1,0 +1,32 @@
+
+<li>
+    <div class="agencies--name">
+        <h3><a href="{{ result.object.get_absolute_url() }}">
+            {{result.object.title|default(get_filename(result.object.original_file.name))}}
+        </a></h3>
+    </div>
+    <ul>
+        <li>{{result.foia_agency|upper}}</li>
+        <li>{{result.object.file_type|upper}}</li>
+        <li>{{result.object.date_released}}</li>
+        <li>{{result.object.date_created}}</li>
+    </ul>
+
+
+    <div class="agencies--description">
+    <p>
+        {% for text in result.highlighted.text %}
+            {{text}}
+        {% endfor %}
+    </p>
+    <p>
+    {% for htext in result.highlighted %}
+        {% if loop.last %}
+            {{htext|truncate(256)|lower|safe}}
+        {% else %}
+            ... {{htext|truncate(256)|lower|safe}} ... <br />
+        {% endif %}
+    {% endfor %}
+    </p>
+    </div>
+</li>

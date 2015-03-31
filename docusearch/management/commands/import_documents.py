@@ -1,7 +1,7 @@
 import os
 import subprocess
 import tempfile
-from datetime import datetime
+from datetime import datetime, date
 
 from django.core.management.base import BaseCommand
 from django.core.files import File
@@ -65,7 +65,10 @@ def create_basic_document(document, release_slug):
     if 'title' in details['document']:
         d.title = details['document']['title']
     if 'document_date' in details['document']:
-        d.date = text_to_date(details['document']['document_date'])
+        d.date_created = text_to_date(details['document']['document_date'])
+
+    # Should change to only update if release date does not exist
+    d.date_released = date.today()
 
     d.release_agency_slug = release_slug
     return d

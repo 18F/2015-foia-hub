@@ -1,0 +1,10 @@
+---
+# all applications use these settings and services
+memory: 1G
+instances: 1
+applications:
+- name: krang
+  path: .
+  timeout: 180
+  services:
+  - es

@@ -1,15 +1,21 @@
 {% extends "base.html" %}
-{% block body %}
 
+{% block body %}
+ <div class="container">
+    <section class="breadcrumbs">
+        <a href="{{url('home')}}">Search Home </a> &gt; Search For:
+        {{request.GET.q|default("No Search")}}
+    </section>
+</div>
 <div class="search">
     <div class="container">
         <section class="search--content">
-        <h2>Search Government Records</h2>
+        <h2>Search Government Records </h2>
 
             <form class="agency" method="get" action=".">
                 <div class="search--box scrollable-dropdown-menu">
                         <input id="id_q" name="q" type="search" value="{{request.GET.q}}" />
-                        <button type="submit" name="search">Search</button>
+                        <button type="submit">Search</button>
                 </div>
             </form>
         </section>
@@ -24,12 +30,24 @@
 
         <div>
         <dl>
+        <dd>
+            {% if request.GET.order_by == 'date_released' %}
+                <a href="?{{no_orderby_get_str}}&amp;order_by=relevance ">Order By Relevance</a>
+            {% else %}
+                <a href="?{{no_orderby_get_str}}&amp;order_by=date_released">Order By Date Released</a>
+            {% endif %}
+        </dd>
         {% if facets.fields.foia_agency %}
             <dt>Agencies</dt>
 
             {% for agency in facets.fields.foia_agency %}
                 <dd>
-                    <a href="{{ request.get_full_path }}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% if "foia_agency_exact" not in no_orderby_get_str %}
+                        <a href="?{{no_orderby_get_str}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
+                    {% else %}
+                        {{agency.0|upper}} ({{ agency.1 }})
+                    {% endif %}
+
                 </dd>
             {% endfor %}
         {% endif %}
@@ -38,23 +56,8 @@
 
         <ul>
         {% for result in page.object_list %}
-            <li>
-                <div class="agencies--name">
-                    <h3><a href="{{ result.object.get_absolute_url() }}">{{result.object.title}}</a></h3>
-                </div>
 
-                <div class="agencies--description">
-                <p>
-                {% for htext in result.highlighted %}
-                    {% if loop.last %}
-                        ... {{htext|safe|lower}} 
-                    {% else %}
-                        ... {{htext|safe|lower}} ... <br />
-                    {% endif %}
-                {% endfor %}
-                </p>
-                </div>
-            </li>
+            {% include 'search/search_result.html' %}
 
         {% else %}
             <p>No results found</p>
@@ -65,7 +68,7 @@
 
         {% if page.has_previous() or page.has_next() %}
             <div>
-                {% if page.has_previous() %} 
+                {% if page.has_previous() %}
                     <a href="?q={{query}}&amp;page={{page.previous_page_number}}">{%endif%}&laquo; Previous {% if page.has_previous%}</a>
                 {% endif %}
                 {% if page.has_next() %}

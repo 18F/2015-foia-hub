@@ -3,23 +3,37 @@ Django==1.7
 psycopg2==2.5.3
 django-jinja==1.0.4
 django-jsonfield==0.9.13
-
 django-cors-headers
+dj-static==0.0.6
+django-localflavor
+
+# For API resources
 restless==2.0.1
 
 # PyYAML is for contact loading
 PyYAML==3.11
 
-# deployed/hosted with gunicorn
-gunicorn
-dj-static
-
-django-localflavor
+# use database strings instead of dicts
+dj-database-url==0.3.0
 
 # Used for Krang
 django-haystack
 elasticsearch
+
+# For s3 buckets
 boto
 # @see http://code.larlet.fr/django-storages/issue/155/python-3-support
 -e git+https://github.com/coagulant/django-storages-py3.git@py3#egg=django-storages
 -e git+https://github.com/18F/doc_processing_toolkit.git#egg=doc_processing_toolkit
+
+# for using New Relic
+newrelic
+
+# deployed/hosted with waitress
+waitress==0.8.9
+
+# enforce HTTPS in production
+django-secure
+
+# temporary, while we maintain an EC2 instance
+gunicorn
