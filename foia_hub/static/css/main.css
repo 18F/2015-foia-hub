@@ -770,8 +770,7 @@ div#usa {
       float: right; } }
 
 body > header {
-  background-color: white;
-  border-bottom: 1px solid #dedede; }
+  background-color: white; }
   body > header .container {
     position: relative; }
   body > header a {
@@ -834,7 +833,7 @@ body > header {
         display: inline-block;
         padding-right: .5em; }
       body > header nav ul a {
-        padding-bottom: 0.75em; }
+        padding-bottom: 0.7em; }
       body > header nav ul a.active {
         text-decoration: none;
         color: #323A45; }
@@ -870,7 +869,7 @@ body > header {
         margin-right: 0; }
       body > header #logo a em,
       body > header #logo a span {
-        padding-bottom: 0.18em; }
+        padding-bottom: 0.15em; }
     body > header nav {
       clear: none;
       padding-top: 1em;
@@ -893,7 +892,7 @@ body > header {
       body > header #search:last-child {
         margin-right: 0; }
     body > header #topnav {
-      margin: .8em 0 0.1em;
+      margin-top: .8em;
       position: relative; } }
 
 #main .search--box {
@@ -1116,6 +1115,7 @@ footer {
     line-height: 2em; }
 
 .breadcrumbs_container {
+  border-top: 1px solid #EAEDF1;
   background: white;
   margin-bottom: 1.5em; }
 

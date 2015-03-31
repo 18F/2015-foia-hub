@@ -108,7 +108,6 @@ div#usa {
 
 body > header {
   background-color: white;
-  border-bottom: 1px solid #dedede;
 
   .container {
     position: relative;
@@ -203,7 +202,7 @@ body > header {
         }
 
         a {
-          padding-bottom: 0.75em;
+          padding-bottom: 0.7em;
         }
 
         a.active {
@@ -263,7 +262,7 @@ body > header {
       a {
         em,
         span {
-          padding-bottom: 0.18em;
+          padding-bottom: 0.15em;
         }
       }
     }
@@ -286,7 +285,7 @@ body > header {
     }
 
     #topnav {
-      margin: .8em 0 0.1em;
+      margin-top: .8em;
       position: relative;
 
       nav {
@@ -463,6 +462,7 @@ footer {
 }
 
 .breadcrumbs_container {
+  border-top: 1px solid $light-gray;
   background: white;
   margin-bottom: 1.5em;
 }
