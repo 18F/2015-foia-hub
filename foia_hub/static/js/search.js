@@ -98,9 +98,7 @@ $(document).ready(function() {
       .toggleClass('tt-cursor-first', first.hasClass('tt-cursor'));
   };
 
-  // Initialize typeahead, but does not connect agency contacts
-  // when the app is not defined
-
+  //  Initialize typeahead
   typeahead = $('#query')
     .typeahead({
       hint: false,
@@ -111,7 +109,6 @@ $(document).ready(function() {
     // .on('keydown', onCursorChange)
     .on('typeahead:cursorchanged', onCursorChange)
     .on('typeahead:selected', onSelection);
-
 
   // uuuuugggghhhhh
   var menu = $('.tt-dropdown-menu')
