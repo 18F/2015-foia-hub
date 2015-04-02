@@ -36,6 +36,7 @@ def copy_and_extract_documents(agency_directory, d):
         doc_path = os.path.join(date_dir, document['doc_location'])
         root, ext = os.path.splitext(doc_path)
         text_doc_path = root + '.txt'
+        # Check if the text file actually exists
         if os.path.exists(text_doc_path):
             text_contents = open(root + '.txt', 'r').read()
             yield(document, doc_path, text_contents)
@@ -84,6 +85,8 @@ def create_basic_document(document, release_slug):
     d.release_agency_slug = release_slug
 
     file_type = details.get('file_type')
+
+    # Only save pdfs for now
     if file_type == 'pdf':
         d.file_type = file_type
         return d
@@ -142,6 +145,7 @@ def process_date_documents(
     def process():
         for document in copy_and_extract_documents(
                 parent_directory, date_directory):
+            # Only import documents that have text file
             if document:
                 create_document(document, release_slug)
 
