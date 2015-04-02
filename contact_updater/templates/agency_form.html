@@ -1,15 +1,5 @@
-{% extends "base.html" %}
-{% block head %}
-    {{super()}}
-<script type="text/javascript">
-    function getContent(){
-        data_array = document.querySelectorAll("div[contentEditable='true']")
-        for(var i = 0; i < data_array.length; i++){
-            document.getElementById(data_array[i].getAttribute("name")).value = data_array[i].innerHTML;
-        }
 
-    }
-</script>
+{% block head %}
 <style>
 .errorlist {
   color: red;
@@ -17,11 +7,8 @@
 }
 </style>
 {% endblock %}
-{% block body %}
-    <div class="hero">
-    <div class="container">
-    <section class="hero--content">
 
+{% block body %}
 
     {% if validated  %}
         <h3>Instructions</h3>
@@ -29,17 +16,16 @@
         <h5>Please review the current information and make updates as needed</h5>
     {% endif %}
 
-    <form action="" method="post" onsubmit="getContent()">
+    <form action="" method="post">
         {% csrf_token %}
         {{management_form|safe}}
-        <fieldset>
         {% if validated %}
             <!-- insert list items orderd list not working -->
             <ol class="default">
-                <li>1. Make sure that all the updated information is correct. The contact information you have entered will appear on your agency’s page. </li>
-                <li>2. Download the contact_data.json file.</li>
-                <li>3. Agency web managers will need to place the contact_data.json file in the <strong>/foia/quarterly/</strong> directory of the agency's website. For example, the Department of Justice will place its file at <strong>www.justice.gov/foia/quarterly/contact_data.json</strong>. In some cases, the <strong>/foia/quarterly/</strong> directory may not yet exist, and web managers will first need to create it.</li>
-                <li>4. Within 2 days your updates should appear on your agency’s page. Please double-check to make sure your changes have been implemented. If not, please email us at <a href="mailto:18f-foia@gsa.gov">18f-foia@gsa.gov</a></li>
+                <li>Make sure that all the updated information is correct. The contact information you have entered will appear on your agency’s page. </li>
+                <li>Download the contact_data.json file.</li>
+                <li>Agency web managers will need to place the contact_data.json file in the <code>/foia/quarterly/</code> directory of the agency's website. For example, the Department of Justice will place its file at <code>www.justice.gov/foia/quarterly/contact_data.json</code>. In some cases, the <code>/foia/quarterly/</code> directory may not yet exist, and web managers will first need to create it.</li>
+                <li>Within 2 days your updates should appear on your agency’s page. Please double-check to make sure your changes have been implemented. If not, please email us at <a href="mailto:18f-foia@gsa.gov">18f-foia@gsa.gov</a></li>
             </ol>
 
             {% for agency, form in data %}
@@ -63,31 +49,14 @@
             {% endfor %}
         {% endif %}
         <br>
-        </fieldset>
-
-        <center>
         {% if validated %}
-         <input type="submit" name="download" value="Download">
+         <input type="submit" name="download" value="Download" />
          <input type="submit" name="return" value="Return" />
         {% else %}
-        <input type="submit" value="Finished" />
+        <input type="submit" value="Submit" />
         {% endif %}
-        </center>
+
 
     </form>
 
-    </section>
-    </div>
-    </div>
-{% endblock %}
-
-
-{% block footer %}
-    {{super()}}
-    <script type="text/javascript">
-        $( document ).ready(function() {
-        $( ":input[id^=id_form-]" ).hide();
-        $('.editable').show();
-    });
-    </script>
 {% endblock %}
