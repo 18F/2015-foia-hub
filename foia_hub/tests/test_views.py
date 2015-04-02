@@ -94,11 +94,6 @@ class RequestFormTests(SimpleTestCase):
         self.assertNotContains(response, self.office2.name)
         self.assertNotContains(response, list_fingerprint)
 
-    def test_learn(self):
-        """The /learn/ page should load without errors."""
-        response = self.client.get(reverse('learn'))
-        self.assertEqual(response.status_code, 200)
-
     def test_about(self):
         """The /about/ page should load without errors."""
         response = self.client.get(reverse('about'))
