@@ -27,15 +27,11 @@ $base-spacing: $base-line-height * 1em;
 $base-z-index: 0;
 
 // Colors
-$blue: #477DCA;
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #DDD;
 $light-red: #FBE3E4;
 $light-yellow: #FFF6BF;
 $light-green: #E6EFC2;
 
-// FOIA Hub Colors
+// openFOIA Colors
 $dark-gray: #323A45; // Text/Rules
 $gray: #777777; // Text 2
 $blue: #0067BA; // Links
@@ -45,6 +41,8 @@ $medium-blue: #0096B5; // Rollover
 $light-blue: #CDEAF0; // Highlight
 $light-gray: #EAEDF1; // Background
 $medium-gray: #CCCCCC; // Rules 2
+// for submit button hover/focus background
+$the-other-blue: #92D6E5;
 
 // Background Color
 $base-background-color: $light-gray;

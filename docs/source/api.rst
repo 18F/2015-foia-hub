@@ -54,78 +54,134 @@ The information returned for each entity is like the following::
     }
 
 """"""""""""""""""""""""""""""
-GET /api/agency/?query=privacy
+GET /api/agency/?query={{search terms}}
 """"""""""""""""""""""""""""""
 
-To search agencies, you can provide query parameter called 'query'. This will
-initiate a search for your query across the following Agency fields: name,
-abbreviation, slug, keywords, description.
+To search agencies, you can provide the parameter 'query'. A GET request with this query string will initiate a full-text search across the following Agency fields weighted in the following order: name, abbreviation, slug, description, and keywords.
 
+By default, search terms are connect with boolean "AND"; hence, the queries "/api/agency/?query=justice+punishment" and "/api/agency/?query=justice+AND+punishment" only return agencies that have both terms::
+
+    {
+       "objects": [
+          {
+             "keywords": [
+                "Accounting",
+                "Administrative practice and procedure",
+                ...
+             ],
+             "description": "The Department of Justice works to enforce federal law, to seek just punishment for the guilty, and to ensure the fair and impartial administration of justice.",
+             "common_requests": "[]",
+             "name": "Department of Justice",
+             "abbreviation": "DOJ",
+             "slug": "department-of-justice"
+          }
+       ]
+    }
+
+Explicitly using "OR" as in "/api/agency/?query=justice+OR+punishment" expands the search to include agencies that have at least one of the keywords::
+
+    {
+       "objects": [
+          {
+             "keywords": [
+                "Accounting",
+                "Administrative practice and procedure",
+                ...
+             ],
+             "description": "The Department of Justice works to enforce federal law, to seek just punishment for the guilty, and to ensure the fair and impartial administration of justice.",
+             "common_requests": "[]",
+             "name": "Department of Justice",
+             "abbreviation": "DOJ",
+             "slug": "department-of-justice"
+          },
+          {
+             "keywords": [
+                "Intergovernmental relations",
+                "Investigations",
+                ...
+             ],
+             "description": "As an intelligence-driven and a threat-focused national security organization with both intelligence and law enforcement responsibilities, the mission of the FBI is to protect and defend the United States against terrorist and foreign intelligence threats, to uphold and enforce the criminal laws of the United States, and to provide leadership and criminal justice services to federal, state, municipal, and international agencies and partners.",
+             "common_requests": "[]",
+             "name": "Federal Bureau of Investigation",
+             "abbreviation": "FBI",
+             "slug": "federal-bureau-of-investigation"
+          },
+          {
+             "keywords": [
+                "Accountants",
+                "Accounting",
+                ...
+             ],
+             "description": "The Department of the Treasury manages Federal finances by collecting taxes and paying bills and by managing currency, government accounts and public debt. The Department of the Treasury also enforces finance and tax laws.",
+             "common_requests": "[]",
+             "name": "Department of the Treasury",
+             "abbreviation": "Treasury",
+             "slug": "department-of-the-treasury"
+          }
+          ...(more agencies)
+       ]
+    }
 
 """"""""""""""""""""""""""""""""""
 GET /api/agency/{{slug}}
 """"""""""""""""""""""""""""""""""
 
-where {{slug}} is a slug that identifies an agency.
+Where {{slug}} is a slug that identifies an agency.
 
-This returns the following::
+This returns the following agency data::
 
     {
-        "no_records_about": [
+       "toll_free_phone": null,
+       "description": "The Social Security Administration assigns social security numbers; administers the retirement, survivors, and disability insurance programs known as Social Security; and administers the Supplemental Security Income program for the aged, blind, and disabled.",
+       "fax": "410-966-0869",
+       "street": "617 Altmeyer Building",
+       "is_a": "agency",
+       "city": "Baltimore",
+       "address_lines": [
+          "Dawn S. Wiggins",
+          "Principal Public FOIA Liaison",
+          "Office of the General Counsel, Office of Privacy and Disclosure"
+       ],
+       "phone": "410-965-1727",
+       "foia_libraries": [
+          {
+             "url": "http: //www.ssa.gov/foia/readingroom.html",
+             "link_text": "FOIA Library"
+          }
+       ],
+       "complex_processing_time": 45.0,
+       "no_records_about": [
 
-        ],
-        "keywords": [
-            "Accounting",
-            "Administrative practice and procedure",
-            "Aged",
-            "Air traffic controllers",
-            "Alcoholism",
-            "Alimony",
-            "Archives and records",
-            ...
-        ],
-        "request_form_url": "https://secure.ssa.gov/apps9/eFOIA-FEWeb/internet/main.jsp?action=OPD",
-        "office_url": "http://www.ssa.gov/foia/",
-        "is_a": "agency",
-        "phone": "410-965-1727",
-        "zip_code": "21235",
-        "name": "Social Security Administration",
-        "agency_slug": "social-security-administration",
-        "abbreviation": "SSA",
-        "public_liaison_email": null,
-        "state": "MD",
-        "address_lines": [
-            "Dawn S. Wiggins",
-            "Principal Public FOIA Liaison",
-            "Office of the General Counsel, Office of Privacy and Disclosure"
-        ],
-        "city": "Baltimore",
-        "slug": "social-security-administration",
-        "emails": [
-            "Foia.pa.officers@ssa.gov"
-        ],
-        "toll_free_phone": null,
-        "street": "617 Altmeyer Building",
-        "agency_name": "Social Security Administration",
-        "person_name": "Rhonda Smith",
-        "offices": [
+       ],
+       "request_form_url": "https: //secure.ssa.gov/apps9/eFOIA-FEWeb/internet/main.jsp?action=OPD",
+       "abbreviation": "SSA",
+       "agency_slug": "social-security-administration",
+       "person_name": "Rhonda Smith",
+       "agency_name": "Social Security Administration",
+       "offices": [
 
-        ],
-        "simple_processing_time": 18.0,
-        "public_liaison_phone": "410 965-1727",
-        "common_requests": [
+       ],
+       "office_url": "http: //www.ssa.gov/foia/",
+       "common_requests": [
 
-        ],
-        "fax": "410-966-0869",
-        "description": "The Social Security Administration's mission is to deliver Social Security services that meet the changing needs of the public.",
-        "foia_libraries": [
-            {
-                "url": "http://www.ssa.gov/foia/readingroom.html",
-                "link_text": "FOIA Library"
-            }
-        ],
-        "complex_processing_time": 45.0,
-        "public_liaison_name": "Dawn S. Wiggins"
+       ],
+       "keywords": [
+          "Accounting",
+          "Administrative practice and procedure",
+          "Adult education",
+          ...
+       ],
+       "simple_processing_time": 18.0,
+       "zip_code": "21235",
+       "emails": [
+          "Foia.pa.officers@ssa.gov"
+       ],
+       "public_liaison_name": "Dawn S. Wiggins",
+       "public_liaison_email": null,
+       "name": "Social Security Administration",
+       "public_liaison_phone": "410-965-1727",
+       "state": "MD",
+       "slug": "social-security-administration"
     }
 
 
@@ -162,41 +218,43 @@ have multiple FOIA libraries.
 GET /api/office/{{slug}}
 """"""""""""""""""""""""""""""""""
 
-where {{slug}} is a slug that identifies an office (a component of an Agency).
+Where {{slug}} is a slug that identifies an office (a component of an agency).
 
-This returns the following::
+This returns the following office information::
 
     {
-        "office_url": "http://www.ntia.doc.gov/ntiahome/occ/foia.html",
-        "agency_description": "The historic mission of the Department of Commerce is \"to foster, promote, and develop the foreign and domestic commerce\" of the United States. This has evolved, as a result of legislative and administrative additions, to encompass broadly the responsibility to foster, serve, and promote the Nation's economic development and technological advancement.",
-        "request_form_url": "https://foiaonline.regulations.gov/foia/action/public/home",
-        "city": "Washington",
-        "is_a": "office",
-        "phone": "202-482-1816",
-        "zip_code": "20230",
-        "name": "National Telecommunications and Information Administration",
-        "agency_slug": "department-of-commerce",
-        "public_liaison_phone": "202 482-1816",
-        "state": "DC",
-        "address_lines": [
-            "Stacy Cheney",
-            "FOIA Officer, Office of the Chief Counsel",
-            "Room 4713"
-        ],
-        "public_liaison_email": null,
-        "office_slug": "national-telecommunications-and-information-admini",
-        "emails": [
-            "eFOIA@ntia.doc.gov"
-        ],
-        "toll_free_phone": null,
-        "id": 180,
-        "agency_name": "Department of Commerce",
-        "person_name": "Phone: (202) 482-1816",
-        "simple_processing_time": 7,
-        "slug": "department-of-commerce--national-telecommunications-and-information-admini",
-        "fax": "202-501-8013",
-        "street": "14th Street and Constitution Avenue, NW",
-        "foia_libraries": [],
-        "complex_processing_time": 18,
-        "public_liaison_name": "Stacy Cheney"
+       "toll_free_phone": null,
+       "fax": "202-501-8013",
+       "street": "14th Street and Constitution Avenue, NW",
+       "city": "Washington",
+       "address_lines": [
+          "Stacy Cheney",
+          "FOIA Officer, Office of the Chief Counsel",
+          "Room 4713"
+       ],
+       "phone": "202-482-1816",
+       "foia_libraries": [
+
+       ],
+       "complex_processing_time": 18.0,
+       "request_form_url": "https: //foiaonline.regulations.gov/foia/action/public/home",
+       "agency_slug": "department-of-commerce",
+       "person_name": null,
+       "agency_name": "Department of Commerce",
+       "agency_description": "The historic mission of the Department of Commerce is \"to foster, promote, and develop the foreign and domestic commerce\" of the United States. This has evolved, as a result of legislative and administrative additions, to encompass broadly the responsibility to foster, serve, and promote the Nation's economic development and technological advancement.",
+       "is_a": "office",
+       "office_url": "http: //www.ntia.doc.gov/ntiahome/occ/foia.html",
+       "office_slug": "national-telecommunications-and-information-admini",
+       "id": 174,
+       "simple_processing_time": 7.0,
+       "zip_code": "20230",
+       "emails": [
+          "eFOIA@ntia.doc.gov"
+       ],
+       "public_liaison_name": "Stacy Cheney",
+       "public_liaison_email": null,
+       "name": "National Telecommunications and Information Administration",
+       "public_liaison_phone": "202-482-1816",
+       "state": "DC",
+       "slug": "department-of-commerce--national-telecommunications-and-information-admini"
     }

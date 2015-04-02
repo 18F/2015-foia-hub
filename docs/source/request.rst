@@ -30,7 +30,7 @@ A JSON object with at least the following fields:
 +-----------+--------------------------------+
 | office    | The slug for the Office.       |
 +-----------+--------------------------------+
-| first_name    | The requester's first name |
+| first_name| The requester's first name     |
 +-----------+--------------------------------+
 | last_name | The requester's  last name     |
 +-----------+--------------------------------+
@@ -39,7 +39,7 @@ A JSON object with at least the following fields:
 | body      | The body of the FOIA request   |
 +-----------+--------------------------------+
 
-Either ``agency``, or ``agency`` and ``office``, must be provided. 
+Either ``agency``, or ``agency`` and ``office``, must be provided.
 
 Additional Fields
 
@@ -61,6 +61,25 @@ POST /api/request/
 
 This simply returns all the requests that have been created in the system.
 
-This currently returns:
+This currently returns::
 
-    {"objects": [{"tracking_id": 1, "status": "O"}, {"tracking_id": 2, "status": "O"}, {"tracking_id": 3, "status": "O"}, {"tracking_id": 4, "status": "O"}]}
+    {
+       "objects":[
+          {
+             "tracking_id":1,
+             "status":"O"
+          },
+          {
+             "tracking_id":2,
+             "status":"O"
+          },
+          {
+             "tracking_id":3,
+             "status":"O"
+          },
+          {
+             "tracking_id":4,
+             "status":"O"
+          }
+       ]
+    }
