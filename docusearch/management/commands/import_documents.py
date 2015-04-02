@@ -29,15 +29,18 @@ def copy_and_extract_documents(agency_directory, d):
     details and the extracted text. """
 
     date_dir = os.path.join(agency_directory, d)
-    manifest_path = os.path.join(date_dir, 'manifest.yml')
+    manifest_path = os.path.join(date_dir, 'manifest.yaml')
     manifest = yaml.load(open(manifest_path, 'r'))
 
     for document in manifest:
-        doc_filename = document['document']['document_id']
-        doc_path = os.path.join(date_dir, doc_filename)
-        text_path = convert_to_text(doc_filename, doc_path)
-        text_contents = open(text_path, 'r').read()
-        yield (document, doc_path, text_contents)
+        doc_path = os.path.join(date_dir, document['doc_location'])
+        root, ext = os.path.splitext(doc_path)
+        text_doc_path = root + '.txt'
+        if os.path.exists(text_doc_path):
+            text_contents = open(root + '.txt', 'r').read()
+            yield(document, doc_path, text_contents)
+        else:
+            yield None
 
 
 def convert_to_text(file_name, doc_path):
@@ -62,31 +65,34 @@ def create_basic_document(document, release_slug):
     d = Document()
     d.text = text_contents
 
-    if 'title' in details['document']:
-        d.title = details['document']['title']
-    if 'document_date' in details['document']:
-        d.date_created = text_to_date(details['document']['document_date'])
+    title = details.get('title')
+    if title:
+        d.title = title
 
-    # Should change to only update if release date does not exist
-    d.date_released = date.today()
+    date_created = details.get('date_created')
+    if date_created:
+        d.date_created = date_created
+
+    pages = details.get('pages')
+    if pages and pages != "null":
+        d.pages = pages
+
+    date_released = details.get('date_released')
+    if date_released:
+        d.date_released = date_released
 
     d.release_agency_slug = release_slug
-    return d
+
+    file_type = details.get('file_type')
+    if file_type == 'pdf':
+        d.file_type = file_type
+        return d
 
 
 def create_document(document, release_slug):
     """ Create a Document object representing the document. This also uploads
     the document into it's S3 location. """
 
-    #d = Document()
-    #d.text = text_contents
-
-    #if 'title' in details['document']:
-    #    d.title = details['document']['title']
-    #if 'document_date' in details['document']:
-    #    d.date = text_to_date(details['document']['document_date'])
-
-    #d.release_agency_slug = release_slug
     d = create_basic_document(document, release_slug)
     details, doc_path, text_contents = document
 
@@ -94,7 +100,8 @@ def create_document(document, release_slug):
     filename = os.path.basename(doc_path)
 
     # On save() django-storages uploads this file to S3
-    d.original_file.save(filename, doc_file, save=True)
+    if d:
+        d.original_file.save(filename, doc_file, save=True)
 
 
 def unprocessed_directory(date_directory, agency, office=None):
@@ -135,7 +142,8 @@ def process_date_documents(
     def process():
         for document in copy_and_extract_documents(
                 parent_directory, date_directory):
-            create_document(document, release_slug)
+            if document:
+                create_document(document, release_slug)
 
     import_log_decorator(date_directory, agency, office, process)
 
