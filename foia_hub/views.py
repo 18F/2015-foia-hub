@@ -19,7 +19,8 @@ def agencies(request):
         'contacts/index.html',
         {
             'agencies': agencies,
-            'query': query
+            'query': query,
+            'smallsearch': True
         })
 
 
@@ -39,7 +40,8 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM
+                'show_webform': settings.SHOW_WEBFORM,
+                'smallsearch': True
             })
     else:
         return render(
@@ -48,9 +50,9 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM
+                'show_webform': settings.SHOW_WEBFORM,
+                'smallsearch': True
             })
-
 
 ###
 # API endpoints
