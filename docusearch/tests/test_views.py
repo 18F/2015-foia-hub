@@ -59,5 +59,4 @@ class TestTemplateTags(TestCase):
         self.assertEqual(get_filename(original_data), expected_data)
 
         original_data = ''
-        expected_data = 'Document'
-        self.assertEqual(get_filename(original_data), expected_data)
+        self.assertEqual(get_filename(original_data), None)
