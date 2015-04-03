@@ -45,15 +45,25 @@ body > header {
     }
     a {
       color: $blue;
+
+      span,
+      em {
+        padding-bottom: 0.18em;
+        border-bottom: none;
+      }
+
       em {
         color: $dark-gray;
-        border-bottom: none;
-        padding-bottom: 0.18em;
       }
-      &:hover, &:focus {
+
+      &:hover,
+      &:focus {
         text-decoration: none !important;
+        span,
         em {
           border-bottom: 0.15em solid $aqua-blue;
+        }
+        em {
           color: $dark-gray !important;
         }
       }
@@ -65,8 +75,6 @@ body > header {
     nav {
       padding-top: 1em; // this should match #topnav { margin-top }
       ul {
-        @include span-columns(15);
-
         li {
           display: inline-block;
           padding: 0 2em 0 0;
@@ -139,6 +147,19 @@ body > header {
       }
     }
   }
+
+  #logo {
+    @include span-columns(4);
+  }
+
+  nav {
+    @include span-columns(15);
+  }
+
+  #search {
+    @include span-columns(5);
+  }
+
 }
 
 #main {
@@ -146,6 +167,7 @@ body > header {
     height: 3em;
   }
 
+  // TODO: consolidate this with `#main .search form` below
   .search {
     background: $dark-gray;
     color: $light-gray;
@@ -208,7 +230,9 @@ footer {
     @include inner(16);
     a.more {
       font-weight: $header-font-weight;
-      .fa { color: $blue;}
+      .fa {
+        color: $blue;
+      }
     }
   }
 }
@@ -517,19 +541,75 @@ footer {
   @include inner(16);
 }
 
-.search_icon {
-  color: $gray;
-  // display: inline-block;
-  height: 3em;
-  // width: 2em;
-  position: absolute;
-  z-index: 100;
-//  background: white;
-//  @include border-left-radius(8px);
-  padding-top: 0.75em;
-  padding-left: 0.75em;
-  .fa-search {
+$search-height: 2em;
+
+input.typeahead {
+  color: $dark-gray;
+  background-color: white;
+  @include prefixer(box-sizing, border-box, $vendor-prefixes);
+  @include placeholder {
     color: $gray;
+  }
+}
+
+#topnav .search {
+  position: relative;
+  top: .3em;
+  height: $search-height;
+
+  input.typeahead {
+    height: $search-height;
+    padding-left: 2em;
+    margin-bottom: 0;
+
+    width: 100%;
+    display: block !important;
+    @include border-left-radius(1em);
+    @include border-right-radius(1em);
+  }
+
+  .fa {
+    color: inherit !important;
+  }
+
+  .search-icon {
+    color: $gray;
+    height: 100%;
+    width: 2em;
+    position: absolute;
+    top: 0;
+    left: .7em;
+    z-index: 100;
+
+    .fa {
+      color: inherit;
+      position: relative;
+      top: .25em;
+    }
+  }
+
+  .submit-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    padding: 0 .8em;
+    height: 100%;
+    line-height: 100%;
+    color: $dark-gray;
+
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+    @include border-left-radius(0);
+    @include border-right-radius(1em);
+
+    .fa {
+      position: relative;
+    }
+
+    &:hover,
+    &:focus {
+      background: $the-other-blue;
+    }
   }
 }
 
@@ -556,8 +636,10 @@ footer {
   float:right;
   position: relative;
   top: -3em;
-  &:focus, &:hover {
-    // background-color: $medium-blue;
+
+  &:focus,
+  &:hover {
+    background-color: $the-other-blue;
   }
 }
 
@@ -569,9 +651,8 @@ footer {
 
 .scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 300px;
-  overflow-y: auto;
   width: 100%;
-  margin-bottom: 100px;
+  min-width: 375px;
 }
 
 .typeahead {
@@ -579,7 +660,7 @@ footer {
 }
 
 .typeahead:focus {
-  border: none;
+  // border: none;
 }
 
 .tt-query {
@@ -591,29 +672,132 @@ footer {
 }
 
 .tt-dropdown-menu {
-//  width: 422px;
-  padding: 1em 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  @include border-top-radius(8px);
-  @include border-right-radius(8px);
-  @include border-bottom-radius(8px);
-  @include border-left-radius(8px);
+  @include prefixer(border-radius, 3px, $vendor-prefixes);
   @include prefixer(box-shadow, 0 5px 10px rgba(0, 0, 0, 0.2), $vendor-prefixes);
+  @include arrow-top(10px, #fff, 1px, $medium-gray);
+  padding: 0;
+  // position: absolute; // this is handled by typeahead.js
+  // make this thing stick out to the left
+  right: 0 !important;
+  left: auto !important;
+  width: 375px; // XXX: this will need to shrink on mobile
+  margin-top: 12px;
+
+  &.tt-cursor-first:after {
+    border-bottom-color: $light-blue;
+  }
+}
+
+.tt-dropdown-wrap {
+  position: relative;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .tt-suggestion {
-  color: $dark-gray;
-  padding: 8px 20px;
+  color: $dark-gray !important;
+  font-size: .9em;
+  line-height: 1.3em;
+  padding: .7em 1.2em;
+  cursor: pointer;
+}
+
+.tt-suggestion:first-child {
+  padding-top: .9em;
+}
+
+.tt-suggestion:last-child {
+  padding-bottom: .8em;
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf; // XXX: should this be $medium-blue?
+  color: $dark-blue;
+  background-color: $light-blue;
 }
 
-.tt-suggestion p,
-.tt-suggestion h5 {
+.tt-dataset-agencies .tt-suggestion:last-child {
+  border-bottom: 1px solid $medium-gray;
+}
+
+.tt-suggestion p {
   margin: 0;
+  padding: 0;
+}
+
+.search-prompt {
+  word-wrap: break-word;
+  .return {
+    color: #fff;
+    background: $medium-gray;
+    @include prefixer(border-radius, 4px, $vendor-prefixes);
+    font-size: .6em;
+    vertical-align: baseline;
+    margin-right: .5em;
+    padding: 4px 6px 2px;
+    position: relative;
+    top: -.1em;
+  }
+}
+
+.tt-cursor .return {
+  background: $dark-gray;
+}
+
+#main .search form {
+  position: relative;
+  height: $search-height + 1em;
+
+  input.typeahead {
+    color: $dark-blue;
+    padding-left: 2.2em;
+  }
+
+  .search-icon,
+  input.submit {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+  }
+
+  .search-icon {
+    color: $gray;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
+    .fa {
+      color: inherit;
+    }
+  }
+
+  input.typeahead,
+  input.submit {
+    height: $search-height + 1em;
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+  }
+
+  input.submit {
+    right: 0;
+    color: $dark-gray;
+    @include border-left-radius(0);
+    @include padding-horizontal(1.5em);
+
+    &:hover,
+    &:focus {
+      background: $light-blue;
+    }
+  }
+
+  .twitter-typeahead {
+    display: block !important;
+    width: 100%;
+  }
+
+  .tt-dropdown-menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+    min-width: auto;
+    max-width: auto;
+  }
 }

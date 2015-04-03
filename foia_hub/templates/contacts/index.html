@@ -44,7 +44,7 @@
         </ul>
       </section>
     {% else %}
-      <h1><em>Find a Federal Agency</em></h1>
+      <h1><em>Federal Agencies</em></h1>
       <ul id="searchresults--index">
           <!--The loop below creates the letter list-->
           {% for letter in agencies|groupby('name.0') %}

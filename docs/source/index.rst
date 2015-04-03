@@ -12,14 +12,5 @@ Welcome to FOIA Modernization API's documentation!
    :maxdepth: 2
 
    api
-   request
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

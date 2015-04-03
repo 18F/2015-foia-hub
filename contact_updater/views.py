@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from foia_hub.api import AgencyResource, OfficeResource
+from foia_hub.models import Agency
 
 
 def form_index(request):
@@ -15,7 +16,7 @@ def form_index(request):
     This function renders the landing page of the contact updater, which
     contains a links to each agencies update form.
     """
-    agencies = AgencyResource().list()
+    agencies = Agency.objects.filter(parent__isnull=True).values()
     return render(
         request, "form_index.html", {'agencies': agencies})
 
