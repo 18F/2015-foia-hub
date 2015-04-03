@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import QueryDict
 
 from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
@@ -40,26 +39,10 @@ class CustomSearchView(SearchView):
 
         return super(CustomSearchView, self).build_form(form_kwargs)
 
-    def remove_order_by(self, old_query=None):
-        """
-        Removes `order_by` from request.GET Querydict
-        """
-        if not old_query:
-            old_query = self.request.GET
-
-        clean_query = QueryDict('', mutable=True)
-        clean_query.update(old_query)
-
-        if clean_query.get('order_by'):
-            del clean_query['order_by']
-
-        return clean_query.urlencode()
-
     def extra_context(self):
         extra = super(CustomSearchView, self).extra_context()
         extra['request'] = self.request
         extra['facets'] = self.results.facet_counts()
-        extra['no_orderby_get_str'] = self.remove_order_by()
         return extra
 
 

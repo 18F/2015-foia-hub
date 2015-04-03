@@ -33,12 +33,15 @@ def copy_and_extract_documents(agency_directory, d):
     manifest = yaml.load(open(manifest_path, 'r'))
 
     for document in manifest:
+
         doc_path = os.path.join(date_dir, document['doc_location'])
         root, ext = os.path.splitext(doc_path)
         text_doc_path = root + '.txt'
         # Check if the text file actually exists
         if os.path.exists(text_doc_path):
             text_contents = open(root + '.txt', 'r').read()
+            if len(text_contents) > 5000:
+                text_contents = text_contents[:5000]
             yield(document, doc_path, text_contents)
         else:
             yield None

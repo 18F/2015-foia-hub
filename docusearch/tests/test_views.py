@@ -1,9 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.http import QueryDict
 
 from docusearch.templatetags.get_filename import get_filename
-from docusearch.views import CustomSearchView
+from docusearch.templatetags.remove_from_query import remove_from_query
 
 
 class TestViews(TestCase):
@@ -14,7 +13,7 @@ class TestViews(TestCase):
         """ The /document/search/ page should load without errors. """
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "search and find documents released")
+        self.assertContains(response, "Improving the FOIA request")
 
     def test_search(self):
         """ Document search should work properly """
@@ -35,20 +34,6 @@ class TestViews(TestCase):
         )
 
 
-class TestCustomSearchView(TestCase):
-
-    def test_remove_order_by(self):
-        """ Check if remove_order_by removes any order by queries """
-
-        test_query = QueryDict(
-            '?q=test&order_by=date_released&selected_facets=agency:test',
-            mutable=True)
-        view_class = CustomSearchView()
-        self.assertFalse(
-            'order_by=date_released' in view_class.remove_order_by(test_query)
-        )
-
-
 class TestTemplateTags(TestCase):
 
     def test_get_filename(self):
@@ -60,4 +45,12 @@ class TestTemplateTags(TestCase):
 
         original_data = ''
         expected_data = 'Document'
-        self.assertEqual(get_filename(original_data), expected_data)
+        self.assertEqual(get_filename(original_data), None)
+
+    def test_remove_from_query(self):
+        """ Test that the remove query template tag removes the
+        correct query """
+
+        query = 'q=test&test=q'
+        new_query = remove_from_query(query, ['q'])
+        self.assertEqual(new_query, 'test=q')

@@ -75,10 +75,9 @@ class ImportTest(TestCase):
 
     def test_create_basic_document(self):
         doc_details = {
-            'document': {
-                'title': 'UFOs land on South Lawn',
-                'document_date': '19500113'
-            }
+            'title': 'UFOs land on South Lawn',
+            'document_date': '19500113',
+            'file_type': 'pdf'
         }
 
         text_contents = "We are not alone."

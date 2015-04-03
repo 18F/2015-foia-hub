@@ -12,14 +12,19 @@ class DocumentTests(TestCase):
         doc.text = "This is the full-text of the document"
         doc.title = "Useful Document"
         doc.release_agency_slug = "department-of-justice--information"
-        doc.date_released = date.today()
+        doc.date_created = datetime.date(2017, 5, 4)
+        doc.date_released = datetime.date(2017, 5, 5)
+        doc.pages = 100
+        doc.file_type = 'xlsx'
 
         doc.save()
 
         saved = Document.objects.get(title='Useful Document')
         self.assertEqual(saved.text, "This is the full-text of the document")
-        self.assertEqual(datetime.date(2015, 2, 3), saved.create_date)
-        self.assertEqual(datetime.date(2017, 5, 5), saved.release_date)
+        self.assertEqual(datetime.date(2017, 5, 5), saved.date_released)
+        self.assertEqual(datetime.date(2017, 5, 4), saved.date_created)
+        self.assertEqual(100, saved.pages)
+        self.assertEqual('xlsx', saved.file_type)
 
     def test_upload_original_to(self):
         """ Ensure the upload_original_to() returns a correct path. """
