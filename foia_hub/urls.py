@@ -15,8 +15,6 @@ import contact_updater.urls as contact_updater_urls
 urlpatterns = patterns(
     '',
     url(r'^$', TemplateView.as_view(template_name="index.html"), name='home'),
-    url(r'^learn/?$', TemplateView.as_view(
-        template_name="learn.html"), name='learn'),
     url(r'^about/?$', TemplateView.as_view(
         template_name="about.html"), name='about'),
     url(r'^agencies/?$', agencies, name='agencies'),
