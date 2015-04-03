@@ -1,4 +1,4 @@
-## FOIA Hub
+## openFOIA
 
 [![Coverage Status](https://coveralls.io/repos/18F/foia-hub/badge.png)](https://coveralls.io/r/18F/foia-hub)
 

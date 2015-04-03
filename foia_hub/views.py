@@ -1,7 +1,20 @@
 from django.conf import settings
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from foia_hub.api import AgencyResource, OfficeResource
+
+###
+# Custom TemplateView for adding small search
+###
+
+
+class SmallSearchView(TemplateView):
+
+    def get_context_data(self, **kwargs):
+            context = super(SmallSearchView, self).get_context_data(**kwargs)
+            context['smallsearch'] = True
+            return context
 
 
 ###
@@ -19,7 +32,8 @@ def agencies(request):
         'contacts/index.html',
         {
             'agencies': agencies,
-            'query': query
+            'query': query,
+            'smallsearch': True
         })
 
 
@@ -39,7 +53,8 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM
+                'show_webform': settings.SHOW_WEBFORM,
+                'smallsearch': True
             })
     else:
         return render(
@@ -48,13 +63,14 @@ def contact_landing(request, slug):
             {
                 'profile': data,
                 'slug': slug,
-                'show_webform': settings.SHOW_WEBFORM
+                'show_webform': settings.SHOW_WEBFORM,
+                'smallsearch': True
             })
-
 
 ###
 # API endpoints
 ###
+
 
 def get_agency_list():
     resource = AgencyResource()
