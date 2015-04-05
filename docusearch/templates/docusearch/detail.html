@@ -26,11 +26,11 @@
     </p>
 
     {% if document.original_file %}
-        <object data="{{ document.original_file.url }}" type="application/pdf" width="100%" height="100%">
-            View the <a href="{{ document.original_file.url }}">original document</a>
+        <object data="{{ document_location }}" type="application/pdf" width="100%" height="100%">
+            View the <a href="{{ document_location }}">original document</a>
         </object>
         <p>
-            <a href="{{ document.original_file.url }}">Download PDF</a>
+            <a href="{{ document_location }}">Download PDF</a>
         </p>
     {% endif %}
 

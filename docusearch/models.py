@@ -3,7 +3,8 @@ import os
 from django.db import models
 from django.utils.timezone import now
 from storages.backends.s3boto import S3BotoStorage
-from foia_hub.settings.production import AWS_STORAGE_DOC_BUCKET
+
+AWS_STORAGE_DOC_BUCKET = os.getenv('FOIA_S3_DOCS_BUCKET_NAME')
 
 
 def upload_original_to(instance, filename):
@@ -48,7 +49,7 @@ class Document(models.Model):
         max_length=100,
         help_text="Slug for the agency or office that released this document.")
 
-    if os.getenv("DJANGO_SETTINGS_MODULE") == 'foia_hub.settings.production':
+    if AWS_STORAGE_DOC_BUCKET:
         original_file = models.FileField(
             upload_to=upload_original_to, blank=True, null=True,
             storage=S3BotoStorage(bucket=AWS_STORAGE_DOC_BUCKET))
@@ -70,7 +71,7 @@ class ImportLog(models.Model):
 
     # This is typically a date, but if we have multiple directories on a day it
     # might have a suffix. E.g. 20150102-2
-    directory = models.CharField( max_length=100)
+    directory = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:

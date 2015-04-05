@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.conf import settings
 
 from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
@@ -16,6 +17,8 @@ def details(request, document_id):
         more_like_this = more_like_this[1:9]
 
     context['similar_documents'] = more_like_this
+    context['document_location'] = settings.DOC_URL + \
+        document.original_file.name
 
     return render(request, 'docusearch/detail.html', context)
 

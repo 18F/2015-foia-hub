@@ -10,9 +10,14 @@ SHOW_WEBFORM = False
 ALLOWED_HOSTS = ['openfoia-staging.cf.18f.us']
 
 AWS_STORAGE_BUCKET_NAME = os.getenv('FOIA_S3_STATIC_BUCKET_NAME')
+AWS_STORAGE_DOC_BUCKET = os.getenv('FOIA_S3_DOCS_BUCKET_NAME')
+
 AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+DOC_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_DOC_BUCKET
+DOC_URL = 'https://%s/' % DOC_DOMAIN
 
 # Don't add complex authentication related query parameters for requests
 AWS_QUERYSTRING_AUTH = False
