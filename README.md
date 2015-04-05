@@ -178,7 +178,7 @@ You'll need to configure an app named `foia` in the space or org that makes sens
 
 #### 18F setup
 
-Point `cf` at 18F's API. You may need to use `--skip-ssl
+Point `cf` at 18F's API. You may need to use `--skip-ssl`
 
 ```bash
 cf api https://api.cf.18f.us
