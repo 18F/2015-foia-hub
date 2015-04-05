@@ -99,6 +99,12 @@ python manage.py syncdb
 python manage.py runserver
 ```
 
+### Running the tests
+
+```
+python manage.py test --settings=foia_hub.settings.test
+```
+
 * The site should be running at [`http://localhost:8000`](http://localhost:8000).
 
 ### Loading Data
