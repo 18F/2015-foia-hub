@@ -1,4 +1,4 @@
- 
+
 {% if profile.foia_libraries %}
     <div class="reading_room resource_type">
         <div class="icon">
@@ -12,7 +12,7 @@
             {% endif %}
             {% for r in profile.foia_libraries %}
                 <ul>
-                    <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
+                    <li> <a class='foia-library' href="{{r.url}}">{{r.link_text}}</a></li>
                 </ul>
             {% endfor %}
         </div>
@@ -48,7 +48,7 @@
           <h3>Website</h3>
           <ul>
             <li>
-              <a href="{{ profile.office_url }}">
+              <a class="agency-site" href="{{ profile.office_url }}">
                 {{ get_domain(profile.office_url) }}
               </a>
             </li>

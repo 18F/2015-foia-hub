@@ -31,6 +31,15 @@
 
 {% block body %}
 
+<!-- script to track item clicks -->
+<script>
+$(function() {
+    $('.foia-library, .agency-email, .agency-site, .inacurate-info-email').on('click', function(item) {
+       ga('send', 'event', item.className + "_click", document.location.pathname);
+    });
+});
+</script>
+
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <div class="container">
@@ -85,7 +94,7 @@
               <ul>
                 {% for email in profile.emails %}
                   <li>
-                    <a href="mailto:{{ email }}">
+                    <a class='agency-email' href="mailto:{{ email }}">
                       {{ email }}
                     </a>
                   </li>
@@ -162,7 +171,7 @@
 
   <section class="inaccurate">
     <p>
-      Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
+      Inaccurate information here? Email us at <a class='inacurate-info-email' href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
     </p>
   </section>
 </div>
