@@ -222,7 +222,7 @@ class ContactPageTests(TestCase):
                 args=['department-of-commerce--census-bureau']))
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
-        self.assertTrue('FOIA Libraries' in content)
+        self.assertTrue("Browse the agency's" in content)
         self.assertTrue('Url One' in content)
         self.assertTrue('Url Two' in content)
 
