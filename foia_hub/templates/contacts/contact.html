@@ -1,44 +1,3 @@
-
-{% if profile.foia_libraries %}
-    <div class="reading_room resource_type">
-        <div class="icon">
-            <span class="fa fa-bookmark"></span>
-        </div>
-        <div class="subdetails">
-            {% if profile.foia_libraries|length > 1 %}
-            <h3>FOIA Libraries</h3>
-            {% else %}
-            <h3>FOIA Library</h3>
-            {% endif %}
-            {% for r in profile.foia_libraries %}
-                <ul>
-                    <li> <a class='foia-library' href="{{r.url}}">{{r.link_text}}</a></li>
-                </ul>
-            {% endfor %}
-        </div>
-    </div>
-{% endif %}
-
-{% if profile.public_liaison_name %}
-  <div class="liaison resource_type">
-    <div class="icon">
-      <span class="fa fa-question-circle"></span>
-    </div>
-    <div class="subdetails">
-      <h3>Public liaison</h3>
-      <ul>
-        <li>{{ profile.public_liaison_name }}</li>
-        {% if profile.public_liaison_phone %}
-          <li>{{ profile.public_liaison_phone }}</li>
-        {% endif %}
-        {% if profile.public_liaison_email %}
-          <li>{{ profile.public_liaison_email }}</li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-{% endif %}
-
 {% if profile.office_url %}
       <div class="website resource_type">
         <div class="icon">
@@ -57,20 +16,58 @@
       </div>
 {% endif %}
 
-{% if profile.phone %}
+{% if profile.simple_processing_time or profile.complex_processing_time %}
+<div class="processing resource_type">
+  <div class="icon">
+    <span class="fa fa-clock-o"></span>
+  </div>
+  <div class="subdetails">
+    <h3>Median processing time</h3>
+    <ul>
+      {% if profile.simple_processing_time %}
+        <li>
+          {{ profile.simple_processing_time|int }} working days for simple requests
+        </li>
+      {% endif %}
+
+      {% if profile.complex_processing_time %}
+        <li>
+          {{ profile.complex_processing_time|int }} working days for complex requests
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% if profile.phone or profile.public_liaison_name %}
       <div class="phone resource_type">
         <div class="icon">
-          <span class="fa fa-phone"></span>
+          <span class="fa fa-user"></span>
         </div>
         <div class="subdetails">
-          <h3>Phone</h3>
+          <h3>Have questions?</h3>
           <ul>
-            <li><a href="tel:{{profile.phone }}">
+            <li>FOIA Requester Service Center<a href="tel:{{profile.phone }}">
               {{ profile.phone }}
             </a></li>
+
+            {% if profile.public_liaison_name %}
+            <li>{{profile.public_liaison_name}}, Public Liaison
+
+            {% if profile.public_liaison_phone %}
+                <a href="tel:{{profile.public_liaison_phone}}">
+                  {{ profile.public_liaison_phone}}
+                </a>
+            {% endif %}
+
+            {% if profile.public_liaison_email %}
+                {{ profile.public_liaison_email }}
+            {% endif %}
+
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
 {% endif %}
-
-
