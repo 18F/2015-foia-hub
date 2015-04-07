@@ -34,8 +34,8 @@
 <!-- script to track item clicks -->
 <script>
 $(function() {
-    $('.foia-library, .agency-email, .agency-site, .inacurate-info-email').on('click', function(item) {
-       ga('send', 'event', item.className + "_click", document.location.pathname);
+    $('.foia-library, .agency-email, .agency-site, .inacurate-info-email, .request-site-link, .request-site-email, .foiaorg-search-link, .service-phone, .liaison-phone').on('click', function(item) {
+       ga('send', 'event', this.className + "-click", document.location.pathname);
     });
 });
 </script>
@@ -67,7 +67,7 @@ $(function() {
                     {% for r in profile.foia_libraries %}
                         <a class='foia-library' href="{{r.url}}">{{r.link_text}}</a>,
                     {% endfor %}
-                    or <a
+                    or <a class='foiaorg-search-link'
                     href="http://search.foia.gov/search?affiliate=foia.gov&m=true">search
                     at FOIA.gov</a> to see if the information you're looking
                     for is already online
@@ -75,7 +75,7 @@ $(function() {
                 {% endif %}
 
                 {% if profile.office_url %}
-                    <li> Check the <a href="{{ profile.office_url }}">agency's
+                    <li> Check the <a class='agency-site' href="{{ profile.office_url }}">agency's
                     website</a> for instructions on making a request </li>
                 {% endif %}
             </ul>
@@ -96,11 +96,11 @@ $(function() {
                 <ul>
                     {% if profile.request_form_url %}
                         <li>
-                            <a href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
+                            <a class='request-site-link' href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
                         </li>
                     {% elif profile.emails|length>0 %}
                         <li>
-                            <a href="{{url('form', slug)}}">Use our web form</a>
+                            <a class='request-site-email' href="{{url('form', slug)}}">Use our web form</a>
                         </li>
                     {% endif %}
                 </ul>

@@ -48,7 +48,7 @@
         <div class="subdetails">
           <h3>Have questions?</h3>
           <ul>
-            <li>FOIA Requester Service Center<a href="tel:{{profile.phone }}">
+            <li>FOIA Requester Service Center<a class="service-phone" href="tel:{{profile.phone }}">
               {{ profile.phone }}
             </a></li>
 
@@ -56,7 +56,7 @@
             <li>{{profile.public_liaison_name}}, Public Liaison
 
             {% if profile.public_liaison_phone %}
-                <a href="tel:{{profile.public_liaison_phone}}">
+                <a class="liaison-phone" href="tel:{{profile.public_liaison_phone}}">
                   {{ profile.public_liaison_phone}}
                 </a>
             {% endif %}
