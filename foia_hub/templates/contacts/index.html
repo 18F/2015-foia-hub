@@ -12,7 +12,7 @@
 {% macro format_agency(agency) -%}
 <li>
   <div class="agencies--name">
-    <h3><a class="agency-link" href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
+    <h3><a class="agency--link" href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
   </div>
   <div class="agencies--description">
     <p>
@@ -29,9 +29,9 @@
 <!-- script to track position of click on the agency description  -->
 <script>
 window.onload = function () {
-    $('.agency-link').each(function(number) {
+    $('.agency--link').each(function(number) {
       this.onclick = function(){
-      ga('send', 'event', 'agency_link_click',
+      ga('send', 'event', 'agency--link--click',
         'position_' + number + '_' + this.text , document.location.search);
       }
     })
