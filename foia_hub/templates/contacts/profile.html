@@ -2,14 +2,7 @@
 
 {% block head %}
 {{ super() }}
-<!-- script to track item clicks -->
-<script>
-$(function() {
-    $('.foialibrary, .agency--email, .agency--site, .inaccurateinfo--email, .request--link, .request--email, .foiagov--search--link, .servicecenter--phone, .liaison--phone').on('click', function(item) {
-       ga('send', 'event', this.className + "--click", document.location.pathname);
-    });
-});
-</script>
+<script src="{{ static('js/contacts_profile_gatracker.js') }}"></script>
 {% endblock %}
 
 {% block class %}landing{% endblock %}

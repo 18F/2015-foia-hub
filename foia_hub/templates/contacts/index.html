@@ -2,17 +2,7 @@
 
 {% block head %}
 {{ super() }}
-<!-- script to track position of click on the agency description  -->
-<script>
-window.onload = function () {
-    $('.agency--link').each(function(number) {
-      this.onclick = function(){
-      ga('send', 'event', 'agency--link--click',
-        'position_' + number + '_' + this.text , document.location.search);
-      }
-    })
-  }
-</script>
+<script src="{{ static('js/contacts_index_gatracker.js') }}"></script>
 {% endblock %}
 
 {% block class %}agencies{% endblock %}
