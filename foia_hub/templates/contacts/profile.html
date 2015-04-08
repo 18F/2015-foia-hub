@@ -1,4 +1,17 @@
 {% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<!-- script to track item clicks -->
+<script>
+$(function() {
+    $('.foialibrary, .agency--email, .agency--site, .inaccurateinfo--email, .request--link, .request--email, .foiagov--search--link, .servicecenter--phone, .liaison--phone').on('click', function(item) {
+       ga('send', 'event', this.className + "--click", document.location.pathname);
+    });
+});
+</script>
+{% endblock %}
+
 {% block class %}landing{% endblock %}
 
 {% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
@@ -30,16 +43,6 @@
 
 
 {% block body %}
-
-<!-- script to track item clicks -->
-<script>
-$(function() {
-    $('.foialibrary, .agency--email, .agency--site, .inaccurateinfo--email, .request--link, .request--email, .foiagov--search--link, .servicecenter--phone, .liaison--phone').on('click', function(item) {
-       ga('send', 'event', this.className + "--click", document.location.pathname);
-    });
-});
-</script>
-
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <div class="container">
