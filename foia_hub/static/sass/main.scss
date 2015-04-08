@@ -11,6 +11,10 @@ html, body {
   height: 100%;
 }
 
+* {
+  @include prefixer(box-sizing, border-box, $vendor-prefixes);
+}
+
 #main {
   min-height: 100%;
   margin: 0 auto -4.8em; /* the bottom margin is the negative value of the footer's height */
@@ -31,97 +35,65 @@ a:focus {
   text-decoration: underline !important;
 }
 
-body > header {
-  background-color: white;
-  border-bottom: 1px solid #dedede;
+#logo {
+  color: $blue;
+  padding-right: 2em; 
+  h4 {
+    font-size: $base-font-size * 2;
+    display: inline-block;
+  }
 
-  #logo {
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
-    float: left;
+  a {
     color: $blue;
-    padding-right: 2em; 
-    h4 {
-      font-size: $base-font-size * 2;
-    }
-    a {
-      color: $blue;
 
+    span,
+    em {
+      border-bottom: none;
+    }
+
+    em {
+      color: $dark-gray;
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: none !important;
       span,
       em {
-        padding-bottom: 0.18em;
-        border-bottom: none;
+        border-bottom: 0.15em solid $aqua-blue;
       }
-
       em {
-        color: $dark-gray;
-      }
-
-      &:hover,
-      &:focus {
-        text-decoration: none !important;
-        span,
-        em {
-          border-bottom: 0.15em solid $aqua-blue;
-        }
-        em {
-          color: $dark-gray !important;
-        }
+        color: $dark-gray !important;
       }
     }
   }
+}
 
-  #topnav {
-    margin: .8em 0 0.2em;
-    nav {
-      padding-top: 1em; // this should match #topnav { margin-top }
-      ul {
-        li {
-          display: inline-block;
-          padding: 0 2em 0 0;
-          font-weight: 600;
-        }
+div#usa {
+  background-color: $dark-gray;
+  color: $light-gray;
+  padding: 0.25em 0;
 
-        a {
-          color: $gray;
-          padding-bottom: 0.75em;
-          @include media($small) {
-            padding-bottom: 0;
-          }
-        }
+  .usa--content {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
 
-        a:hover,
-        a.active {
-          text-decoration: none;
-          color: $dark-gray;
-        }
+  .official,
+  .alpha {
+    display: block;
+    text-align: center;
 
-        a:hover,
-        a.active,
-        a:active {
-          border-bottom: 0.3em solid $aqua-blue;
-          @include media($small) {
-            border-bottom: 1px solid $aqua-blue;
-          }
-        }
-
-        a:focus {
-          // background: #cc2211;
-          background: #fff;
-          color: #18f;
-        }
-      }
+    a {
+      color: $aqua-blue;
     }
   }
 
-  div#usa {
-
-    background-color: $dark-gray;
-    color: $light-gray;
-    padding: 0.25em 0;
-
-    .usa--content {
-      font-size: 0.8em;
-      font-weight: 400;
+  @media (screen and min-width: $medium-screen) {
+    .official,
+    .alpha {
+      display: inline-block;
+      text-align: left;
     }
 
     .official {
@@ -131,33 +103,195 @@ body > header {
     .alpha {
       float: right;
     }
+  }
+}
 
-    .official,
-    .alpha {
-      display: inline-block;
+body > header {
+  background-color: white;
 
-      a {
-        color: $aqua-blue;
+  .container {
+    position: relative;
+  }
+
+  a {
+    font-weight: 600;
+    color: $gray;
+  }
+
+  // border: 3px solid red;
+
+  // small layout (default)
+  @media (screen and max-width: $small-screen - 1) {
+
+    #topnav {
+      padding-top: .5em;
+      padding-bottom: 1em;
+    }
+
+    nav {
+      margin-top: -3em;
+      text-align: right;
+      margin-bottom: 1em;
+
+      button.expand {
+        position: relative;
+        top: .6em;
+        // width: 2.5em;
+        display: inline-block;
+        padding: .3em;
+        color: $dark-gray;
+        background: $light-gray;
+        vertical-align: bottom;
+        margin-bottom: 1em;
       }
 
-      @include media($medium) {
-        float: none;
+      ul li {
         display: block;
-        text-align: center;
+      }
+
+      a {
+        font-weight: 600;
+      }
+
+      a.active {
+        color: $dark-gray;
+        border-bottom: 1px solid $aqua-blue;
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      &.collapsed > * {
+        display: none;
+      }
+    }
+
+    #search {
+      position: relative;
+      input {
+        position: absolute !important;
+        top: 0;
       }
     }
   }
 
-  #logo {
-    @include span-columns(4);
+  // small < width < medium
+  @media (screen and min-width: $small-screen) {
+    // border: 1px solid orange;
+
+    #logo {
+      @include span-columns(24);
+      margin-top: .5em;
+      // give the nav below some breathing room
+      margin-bottom: .4em;
+    }
+
+    nav {
+      @include span-columns(24);
+      margin-bottom: .8em;
+
+      button.expand {
+        display: none;
+      }
+
+      ul {
+        li {
+          display: inline-block;
+          padding-right: .5em;
+        }
+
+        a {
+          padding-bottom: 0.7em;
+        }
+
+        a.active {
+          text-decoration: none;
+          color: $dark-gray;
+        }
+
+        a:focus {
+          // background: #cc2211;
+          background: #fff;
+          color: #18f;
+        }
+
+        a:hover {
+          text-decoration: none;
+          color: $dark-gray;
+        }
+
+        a:hover,
+        a.active,
+        a:active {
+          border-bottom: 0.3em solid $aqua-blue;
+        }
+
+      }
+    }
+
+    #search {
+      @include reset-all;
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      left: auto;
+      width: 16em;
+      max-width: 50%;
+    }
   }
 
-  nav {
-    @include span-columns(15);
+  // medium
+  @media (screen and min-width: $medium-screen) {
+    nav {
+      ul li {
+        padding-right: 1em;
+      }
+    }
   }
 
-  #search {
-    @include span-columns(5);
+  // medium layout
+  @media (screen and min-width: $large-screen) {
+    // border-color: yellow;
+
+    #logo {
+      @include span-columns(4);
+      margin-top: 0;
+      margin-bottom: 0;
+
+      a {
+        em,
+        span {
+          padding-bottom: 0.15em;
+        }
+      }
+    }
+
+    nav {
+      clear: none;
+      padding-top: 1em;
+      @include span-columns(15);
+
+      ul li {
+        padding-right: 2em;
+      }
+    }
+
+    #search {
+      position: relative;
+      top: .7em;
+      right: auto;
+      @include span-columns(5);
+    }
+
+    #topnav {
+      margin-top: .8em;
+      position: relative;
+
+      nav {
+      } // end nav
+
+    } // end #topnav
   }
 
 }
@@ -328,6 +462,7 @@ footer {
 }
 
 .breadcrumbs_container {
+  border-top: 1px solid $light-gray;
   background: white;
   margin-bottom: 1.5em;
 }
@@ -546,15 +681,12 @@ $search-height: 2em;
 input.typeahead {
   color: $dark-gray;
   background-color: white;
-  @include prefixer(box-sizing, border-box, $vendor-prefixes);
   @include placeholder {
     color: $gray;
   }
 }
 
 #topnav .search {
-  position: relative;
-  top: .3em;
   height: $search-height;
 
   input.typeahead {
@@ -598,7 +730,6 @@ input.typeahead {
     line-height: 100%;
     color: $dark-gray;
 
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
     @include border-left-radius(0);
     @include border-right-radius(1em);
 
@@ -773,7 +904,6 @@ input.typeahead {
   input.typeahead,
   input.submit {
     height: $search-height + 1em;
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
   }
 
   input.submit {

@@ -1,35 +1,17 @@
-@import "../neat/neat-helpers"; // or "../neat/neat-helpers" when not in Rails
+@import "neat/neat-helpers";
 
-// Neat Overrides
-// $column: 90px;
-// $gutter: 30px;
-// $grid-columns: 12;
-// $max-width: em(1088);
+$max-width: 1024px;
+// $visual-grid: true;
 
 // Neat Breakpoints
-// $medium-screen: em(640);
-// $large-screen: em(860);
-
-// $medium-screen-up: new-breakpoint(min-width $medium-screen 4);
-// $large-screen-up: new-breakpoint(min-width $large-screen 8);
-
-
-// Krang Overrides
-
-// $visual-grid: true;
-// $visual-grid-index: front;
-
-$column: 90px;
-$gutter: 30px;
 $grid-columns: 24;
-$max-width: em(1088);
 
-$extra-small-screen: em(320);
-$small-screen: em(480);
-$medium-screen: em(768);
-$large-screen: em(980);
+$extra-small-screen: 320px;
+$small-screen: 480px;
+$medium-screen: 640px;
+$large-screen: 980px;
 
-$large: new-breakpoint(max-width $large-screen 24);
-$medium: new-breakpoint(max-width $medium-screen 12);
-$small: new-breakpoint(max-width $small-screen 4);
 $extra-small: new-breakpoint(max-width $extra-small-screen 4);
+$small: new-breakpoint(max-width $small-screen 4);
+$medium: new-breakpoint(min-width $medium-screen 12);
+$large: new-breakpoint(min-width $large-screen 24);
