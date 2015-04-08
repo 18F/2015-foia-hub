@@ -1,17 +1,34 @@
 {% extends "base.html" %}
 
+
 {% block body %}
-<div class="container">
-    <section class="content">
-        <h1> 500. Error. </h1>
+<div id="main">
+  <div class="search search__error">
+    <div class="container">
+        <section class="content">
+            <h1><em>500. Error.</em></h1>
 
-        <p> 
-            Looks like something went wrong. 
-        </p>
+            <h2>We're sorry, something went wrong.</h2>
 
-        <p>
-            Please go back and try again, or try reloading this page. 
-        </p>
-    </section>
+            <p>If you're looking for a FOIA contact information, try searching:</p>
+
+            <form class="agency" method="get" action="/agencies/">
+              <div class="search--box scrollable-dropdown-menu">
+                <form id="search">
+                  <div class="search-icon"><span class="fa fa-search"></span></div>
+                  {% set search_placeholder = 'Search for an agency by name, abbreviation or keyword.' %}
+                  <input id="query" class="typeahead agency" name="query" type="search"
+                    placeholder="{{ search_placeholder }}"
+                    aria-label="{{ search_placeholder }}"
+                    {% if query %}value="{{ query }}"{% endif %}
+                    search-type="bigSearch">
+                  <input class="submit" type="submit" value="Search">
+                </form>
+              </div>
+            </form>
+
+        </section>
+    </div>
+  </div>
 </div>
 {% endblock %}
