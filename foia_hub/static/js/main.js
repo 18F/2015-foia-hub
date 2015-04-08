@@ -31,10 +31,10 @@ Utils = {
 
 $(document).ready(function(){
     $("#close").click(function(){
-        $("#notice").hide();
+        $("#notice").slideUp();
     });
     $("#notice_toggle").click(function(){
-        $("#notice").toggle();
+        $("#notice").slideToggle();
     });
 });
 
