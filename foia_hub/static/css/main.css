@@ -838,12 +838,12 @@ body > header {
           width: 100%; }
           body > header #notice .notice--content:last-child {
             margin-right: 0; } }
-    body > header #notice #close {
+    body > header #notice #notice--close {
       cursor: pointer;
       text-align: right;
       float: right;
       font-size: 1.4em; }
-      body > header #notice #close i {
+      body > header #notice #notice--close i {
         color: #323A45; }
   body > header #logo {
     float: left;

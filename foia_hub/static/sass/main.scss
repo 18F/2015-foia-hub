@@ -170,7 +170,7 @@ body > header {
             @include span-columns(12);
       }
     }
-    #close {
+    #notice--close {
       cursor: pointer;
       text-align: right;
       float:right;

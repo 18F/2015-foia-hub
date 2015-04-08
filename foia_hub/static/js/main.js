@@ -30,10 +30,10 @@ Utils = {
 };
 
 $(document).ready(function(){
-    $("#close").click(function(){
+    $("#notice--close").click(function(){
         $("#notice").slideUp();
     });
-    $("#notice_toggle").click(function(){
+    $("#notice--toggle").click(function(){
         $("#notice").slideToggle();
     });
 });
