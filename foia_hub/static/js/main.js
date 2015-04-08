@@ -1,7 +1,7 @@
 // global variables for the app
 
 Env = {
-}
+};
 
 Utils = {
   substringMatcher: function(strs) {
@@ -27,4 +27,14 @@ Utils = {
       cb(matches);
     };
   }
-}
+};
+
+$(document).ready(function(){
+    $("#close").click(function(){
+        $("#notice").hide();
+    });
+    $("#notice_toggle").click(function(){
+        $("#notice").toggle();
+    });
+});
+

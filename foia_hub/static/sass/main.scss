@@ -124,16 +124,21 @@ body > header {
       font-weight: 400;
     }
 
-    .official {
+    .alpha {
+      padding-left: 1em;
+    }
+
+    .official, .alpha {
       float: left;
     }
 
-    .alpha {
+    .foiagov {
       float: right;
     }
 
     .official,
-    .alpha {
+    .alpha,
+    .foiagov {
       display: inline-block;
 
       a {
@@ -144,6 +149,34 @@ body > header {
         float: none;
         display: block;
         text-align: center;
+      }
+    }
+  }
+
+  #notice {
+    background: $aqua-blue;
+    padding: 1.2em 0;
+    box-shadow: 0 6px 3px -3px $medium-gray;
+    .notice--content {
+      a {
+      color: $dark-gray;
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        color: $light-gray;
+      }
+      }
+      @include span-columns(18);
+      @include media($medium) {
+            @include span-columns(12);
+      }
+    }
+    #close {
+      cursor: pointer;
+      text-align: right;
+      float:right;
+      font-size: $base-font-size * 1.4;
+      i {
+       color: $dark-gray; 
       }
     }
   }
