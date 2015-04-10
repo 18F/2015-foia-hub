@@ -53,6 +53,7 @@ $(document).ready(function(){
     // if someone tabs to the close button and hits enter, trigger
     // a click event
     $bannerCloseButton.keypress(function(e){
+        // no need to check for e.keyCode vs e.which, jQuery fills which
         if (e.which === 13) {
             $(e.target).click();
         }
