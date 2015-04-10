@@ -30,6 +30,9 @@ Utils = {
 };
 
 $(document).ready(function(){
+    // if this browser supports localstorage, check for the value
+    // that gets set to keep the banner closed once a user has clicked
+    // the close button. if not present, show the banner.
     if (window.localStorage !== 'undefined') {
         if (window.localStorage.getItem('keep-banner-closed') !== '1') {
             $('#notice').removeClass('hidden');
@@ -38,6 +41,9 @@ $(document).ready(function(){
     $("#notice--close").click(function(){
         $("#notice").slideUp();
 
+        // when a user clicks or tabs to and hits enter on the banner 
+        // close button, set a local storage value that gets checked
+        // on page load and determines whether banner is shown
         if (window.localStorage !== 'undefined') {
             window.localStorage.setItem('keep-banner-closed', '1');
         }
