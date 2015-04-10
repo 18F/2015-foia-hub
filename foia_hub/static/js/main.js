@@ -30,7 +30,7 @@ Utils = {
 };
 
 $(document).ready(function(){
-    if (window.localStorage !== 'undefined') {
+    if (typeof window.localStorage !== 'undefined') {
         if (window.localStorage.getItem('keep-banner-closed') !== '1') {
             $('#notice').removeClass('hidden');
         }
@@ -38,7 +38,7 @@ $(document).ready(function(){
     $("#notice--close").click(function(){
         $("#notice").slideUp();
 
-        if (window.localStorage !== 'undefined') {
+        if (typeof window.localStorage !== 'undefined') {
             window.localStorage.setItem('keep-banner-closed', '1');
         }
     });
