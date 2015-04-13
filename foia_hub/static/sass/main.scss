@@ -13,7 +13,7 @@ html, body {
 
 #main {
   min-height: 100%;
-  margin: 0 auto -4.8em; /* the bottom margin is the negative value of the footer's height */
+  margin: 1em auto -4.8em; /* the bottom margin is the negative value of the footer's height */
   @include media($small) {
     margin-bottom: -5.5em;
   }
@@ -174,7 +174,11 @@ body > header {
     padding: 3.4em 0;
     margin-bottom: 1em;
   }
-
+  .search.search__error {
+    background: none;
+    padding: 1em 0;
+    color: $dark-gray;
+  }
   .search--content {
     @include inner(16);
     h2 {
@@ -244,6 +248,7 @@ footer {
 }
 
 #main.home {
+  margin-top: 0;
   .tag h1 {
     margin: 0.2em;
   }
@@ -329,7 +334,6 @@ footer {
 
 .breadcrumbs_container {
   background: white;
-  margin-bottom: 1.5em;
 }
 
 .breadcrumbs {
