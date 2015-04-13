@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = False
 SHOW_WEBFORM = False
 
 # Some possible hosts
-ALLOWED_HOSTS = ['openfoia-staging.cf.18f.us']
+ALLOWED_HOSTS = ['openfoia-staging.cf.18f.us', 'krang-staging.cf.18f.us']
 
 AWS_STORAGE_BUCKET_NAME = os.getenv('FOIA_S3_STATIC_BUCKET_NAME')
 AWS_STORAGE_DOC_BUCKET = os.getenv('FOIA_S3_DOCS_BUCKET_NAME')
