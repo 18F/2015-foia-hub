@@ -10,22 +10,7 @@
 
             <h2>We're sorry, something went wrong.</h2>
 
-            <p>If you're looking for a FOIA contact information, try searching:</p>
-
-            <form class="agency" method="get" action="/agencies/">
-              <div class="search--box scrollable-dropdown-menu">
-                <form id="search">
-                  <div class="search-icon"><span class="fa fa-search"></span></div>
-                  {% set search_placeholder = 'Search for an agency by name, abbreviation or keyword.' %}
-                  <input id="query" class="typeahead agency" name="query" type="search"
-                    placeholder="{{ search_placeholder }}"
-                    aria-label="{{ search_placeholder }}"
-                    {% if query %}value="{{ query }}"{% endif %}
-                    search-type="bigSearch">
-                  <input class="submit" type="submit" value="Search">
-                </form>
-              </div>
-            </form>
+            <p>Try reloading, or check again later.</p>
 
         </section>
     </div>
