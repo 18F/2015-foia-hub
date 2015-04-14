@@ -1,20 +1,20 @@
 <div class="search">
   <div class="container">
     <section class="search--content">
-      <h2>
+      <h1>
         <label for="query">
             <em> 
             Begin your federal Freedom of Information Act request by connecting
             with the agency that has the information you’re seeking.
             </em>
         </label>
-    </h2>
+    </h1>
 
       <form class="agency" method="get" action="/agencies/">
         <div class="search--box scrollable-dropdown-menu">
           <form id="search">
             <div class="search-icon"><span class="fa fa-search"></span></div>
-            {% set search_placeholder = 'Search for an agency by name, abbreviation or keyword.' %}
+            {% set search_placeholder = 'Search for an agency' %}
             <input id="query" class="typeahead agency" name="query" type="search"
               placeholder="{{ search_placeholder }}"
               aria-label="{{ search_placeholder }}"
