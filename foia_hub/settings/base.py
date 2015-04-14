@@ -18,6 +18,7 @@ STATICFILES_DIRS = (
 DEFAULT_DATA_REPO = "https://github.com/18F/foia.git"
 
 DATABASES = {}
+HAYSTACK_CONNECTIONS = {'default': {}}
 
 # ALLOWED_HOSTS = []
 
@@ -29,12 +30,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'djangosecure',
     'corsheaders',
+    'haystack',
     'storages',
     'foia_hub',
-    'contact_updater'
+    'contact_updater',
+    'docusearch',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,8 +75,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 INSTALLED_APPS += ('django_jinja',)
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
 
-
-
 # Enable bytecode cache (default: False)
 # JINJA2_BYTECODE_CACHE_ENABLE = False
 
@@ -104,6 +104,9 @@ STATIC_ROOT = 'staticfiles'
 CORS_ORIGIN_ALLOW_ALL = True
 
 ANALYTICS_ID = ""
+
+# Don't add complex authentication related query parameters for requests
+AWS_QUERYSTRING_AUTH = False
 
 # Don't allow client-side JS to access CSRF cookie
 CSRF_COOKIE_HTTPONLY = True

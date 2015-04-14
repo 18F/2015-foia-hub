@@ -109,7 +109,7 @@ class MainPageTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
         content = response.content.decode('utf-8')
-        self.assertTrue('What is FOIA?' in content)
+        self.assertTrue('Improving the FOIA request experience' in content)
 
     def test_analytics_id(self):
         """Verify that the analytics id appears *somewhere* on the page"""
@@ -229,6 +229,44 @@ class ContactPageTests(TestCase):
     def test_get_domain(self):
         test_url = 'http://www.google.com/testtesttestest'
         self.assertEqual('www.google.com/...', get_domain(test_url))
+
+
+class TestSmallSeach(TestCase):
+    fixtures = ['agencies_test.json', 'offices_test.json']
+
+    def test_small_search_exists(self):
+        """ Test that small search exists on pages where it should be """
+
+        search_html = 'agency search--box scrollable-dropdown-menu'
+
+        response = self.client.get(reverse('learn'))
+        self.assertContains(response, search_html)
+
+        response = self.client.get(reverse('about'))
+        self.assertContains(response, search_html)
+
+        response = self.client.get(reverse('agencies'))
+        self.assertContains(response, search_html)
+
+        response = self.client.get(reverse('developers'))
+        self.assertContains(response, search_html)
+
+        response = self.client.get(reverse('developer'))
+        self.assertContains(response, search_html)
+
+        response = self.client.get(
+            reverse(
+                'contact_landing',
+                args=['department-of-commerce--census-bureau']))
+        self.assertContains(response, search_html)
+
+    def test_small_search_dne(self):
+        """ Test that small search is missing on pages where it should be """
+
+        search_html = 'agency search--box scrollable-dropdown-menu'
+
+        response = self.client.get(reverse('home'))
+        self.assertNotContains(response, search_html)
 
 
 class ContactUpdaterPageTests(TestCase):

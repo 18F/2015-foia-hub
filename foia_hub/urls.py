@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 from foia_hub.views import (
-    contact_landing, agencies,
+    SmallSearchView, contact_landing, agencies,
     request_form, request_noop)
 
 from foia_hub.api import AgencyResource, OfficeResource, FOIARequestResource
@@ -15,22 +15,24 @@ import contact_updater.urls as contact_updater_urls
 urlpatterns = patterns(
     '',
     url(r'^$', TemplateView.as_view(template_name="index.html"), name='home'),
-    url(r'^about/?$', TemplateView.as_view(
+    url(r'^learn/?$', SmallSearchView.as_view(
+        template_name="learn.html"), name='learn'),
+    url(r'^about/?$', SmallSearchView.as_view(
         template_name="about.html"), name='about'),
     url(r'^agencies/?$', agencies, name='agencies'),
-    url(r'^developers/?$', TemplateView.as_view(
+    url(r'^developers/?$', SmallSearchView.as_view(
         template_name="developers.html"), name='developers'),
     # Add in the singular version as well.
-    url(r'^developer/?$', TemplateView.as_view(
+    url(r'^developer/?$', SmallSearchView.as_view(
         template_name="developers.html"), name='developer'),
     url(r'^contacts/(?P<slug>[-\w]+)/?$', contact_landing,
         name='contact_landing'),
+    url(r'^documents/', include('docusearch.urls')),
     url(r'^request/noop/$', request_noop, name='noop'),
     url(r'^request/(?P<slug>[-\w]+)/$', request_form, name='form'),
     url(r'^robots\.txt$',
         TemplateView.as_view(
             template_name='robots.txt', content_type='text/plain')),
-
 )
 
 # APIs

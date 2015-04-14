@@ -31,8 +31,7 @@
           </a></li>
         </ul>
       </nav>
-
-      {% if not view or view.template_name != 'index.html' %}
+      {% if smallsearch %}
         {% include 'includes/small_search.html' %}
       {% endif %}
     </div>

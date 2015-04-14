@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="search">
+    <div class="container">
+        <section class="search--content">
+        <h2>Search Government Records</h2>
+
+            <form class="agency" method="get" action="/documents/search">
+                <div class="search--box scrollable-dropdown-menu">
+                        <input id="id_q" name="q" type="search" value="{{request.GET.q}}" />
+                        <button type="submit">Search</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="container">
+        <section class="hero--content">
+            <h1><em>FOIA Hub makes it easy to search and find documents released through the FOIA process</em></h1>
+
+            <h2> Agencies make FOIA responsive records and other proactively
+            disclosed documents available online. </h2>
+
+            <h2> We make them searchable, and link related documents from other
+            agencies together &mdash; helping you better find the records you
+            are looking for. </h2>
+        </section>
+    </div>
+</div>
+
+{% endblock body%}
