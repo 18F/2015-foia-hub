@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+  <script src="{{ static('js/contacts_index_gatracker.js') }}"></script>
+{% endblock %}
+
 {% block class %}agencies{% endblock %}
 
 {% block breadcrumb %}
@@ -12,7 +18,7 @@
 {% macro format_agency(agency) -%}
 <li>
   <div class="agencies--name">
-    <h3><a href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
+    <h3><a class="agency--link" href="/contacts/{{agency.slug }}">{{ agency.name }}</a></h3>
   </div>
   <div class="agencies--description">
     <p>

@@ -36,34 +36,37 @@ def dictfetchall(cursor):
     return data
 
 
+# Compile regex patterns
+space_between_words_re = re.compile(r'([^ &|])[ ]+([^ &|])')
+spaces_surrounding_letter_re = re.compile(r'[ ]+([^ &|])[ ]+')
+multiple_operator_re = re.compile(r'[ &]+(&|\|)[ &]+')
+prefix_wildcard_re = re.compile(r'([^ &|]+)')
+
+allowed_punctuation = set(['&', '|', '-'])
+all_punctuation = set(string.punctuation)
+punctuation = ''.join(all_punctuation - allowed_punctuation)
+punctuation_re = re.compile('[{0}]'.format(re.escape(punctuation)))
+
 def sanitize_search_term(term):
     """
     Cleans search in a format to_tsquery can ingest
     modified from http://dlo.me/archives/2014/09/01/postgresql-fts/
     """
     # Replace ANDs and ORs with correct punction
-    term = term.replace(" AND ", " & ").replace(" OR ", ' | ')
+    term = term.replace(' AND ', ' & ').replace(' OR ', ' | ')
 
     # Replace all puncuation with spaces.
-    allowed_punctuation = set(['&', '|', '-'])
-    all_punctuation = set(string.punctuation)
-    punctuation = "".join(all_punctuation - allowed_punctuation)
-    term = re.sub(r"[{}]+".format(re.escape(punctuation)), "", term)
+    term = punctuation_re.sub('', term)
     term = term.strip()
-
-    # Generate regex strings
-    space_between_words_re = re.compile(r'([^ &|])[ ]+([^ &|])')
-    spaces_surrounding_letter_re = re.compile(r'[ ]+([^ &|])[ ]+')
-    multiple_operator_re = re.compile(r"[ &]+(&|\|)[ &]+")
 
     # Surround single letters with &'s
     term = spaces_surrounding_letter_re.sub(r' & \1 & ', term)
     # Specify '&' between words that have neither | or & specified.
     term = space_between_words_re.sub(r'\1 & \2', term)
     # Add a prefix wildcard to every search term.
-    term = re.sub(r'([^ &|]+)', r'\1:*', term)
+    term = prefix_wildcard_re.sub(r'\1:*', term)
     # Replace ampersands or pipes surrounded by ampersands.
-    term = multiple_operator_re.sub(r" \1 ", term)
+    term = multiple_operator_re.sub(r' \1 ', term)
 
     return term
 

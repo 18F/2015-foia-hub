@@ -64,7 +64,9 @@ $(document).ready(function() {
       longestText = currentText;
     } else if (currentText.length === 0 && longestText.length > 0) {
       //  blanked out the text after initially typing something
-      ga('send', 'event', 'contacts', 'did-not-want', longestText);
+      ga('send', 'event',
+        $('#query')[0].getAttribute('search-type') + document.location.pathname,
+        'did-not-want', longestText);
       longestText = '';
     }
     form.toggleClass('tt-filled', currentText.length > 0);
@@ -82,7 +84,9 @@ $(document).ready(function() {
             window.location = '/contacts/' + suggestion.slug + '/';
           },
           timeout = setTimeout(callback, gaTimeout);
-      ga('send', 'event', 'contacts', 'select-' + suggestion.slug,
+      ga('send', 'event',
+        $('#query')[0].getAttribute('search-type') + document.location.pathname
+        , 'select-' + suggestion.slug,
          currentText, {'hitCallback': callback});
     }
   };

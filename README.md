@@ -98,6 +98,17 @@ python manage.py syncdb
 elasticsearch
 ```
 
+python manage.py runserver
+```
+
+### Running the tests
+
+```
+python manage.py test --settings=foia_hub.settings.test
+```
+
+* The site should be running at [`http://localhost:8000`](http://localhost:8000).
+
 ### Loading Contacts Data
 
 First, migrate the database:
@@ -188,7 +199,7 @@ You'll need to configure an app named `foia` in the space or org that makes sens
 
 #### 18F setup
 
-Point `cf` at 18F's API. You may need to use `--skip-ssl
+Point `cf` at 18F's API. You may need to use `--skip-ssl`
 
 ```bash
 cf api https://api.cf.18f.us

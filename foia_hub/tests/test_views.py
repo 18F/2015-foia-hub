@@ -94,11 +94,6 @@ class RequestFormTests(SimpleTestCase):
         self.assertNotContains(response, self.office2.name)
         self.assertNotContains(response, list_fingerprint)
 
-    def test_learn(self):
-        """The /learn/ page should load without errors."""
-        response = self.client.get(reverse('learn'))
-        self.assertEqual(response.status_code, 200)
-
     def test_about(self):
         """The /about/ page should load without errors."""
         response = self.client.get(reverse('about'))
@@ -227,7 +222,7 @@ class ContactPageTests(TestCase):
                 args=['department-of-commerce--census-bureau']))
         self.assertTrue(200, response.status_code)
         content = response.content.decode('utf-8')
-        self.assertTrue('FOIA Libraries' in content)
+        self.assertTrue("Browse the agency's" in content)
         self.assertTrue('Url One' in content)
         self.assertTrue('Url Two' in content)
 
