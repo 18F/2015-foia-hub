@@ -826,8 +826,8 @@ body > header {
     body > header #notice .notice--content {
       float: left;
       display: block;
-      margin-right: 1.05263%;
-      width: 74.73684%; }
+      margin-right: 1.0526315789%;
+      width: 74.7368421053%; }
       body > header #notice .notice--content a {
         color: #323A45;
         text-decoration: underline; }
@@ -839,7 +839,7 @@ body > header {
         body > header #notice .notice--content {
           float: left;
           display: block;
-          margin-right: 2.12766%;
+          margin-right: 2.1276595745%;
           width: 100%; }
           body > header #notice .notice--content:last-child {
             margin-right: 0; } }
@@ -855,21 +855,21 @@ body > header {
   body > header #logo {
     float: left;
     display: block;
-    margin-right: 1.05263%;
-    width: 15.78947%; }
+    margin-right: 1.0526315789%;
+    width: 15.7894736842%; }
     body > header #logo:last-child {
       margin-right: 0; }
   body > header nav {
     float: left;
     display: block;
-    margin-right: 1.05263%;
-    width: 62.10526%; }
+    margin-right: 1.0526315789%;
+    width: 62.1052631579%; }
     body > header nav:last-child {
       margin-right: 0; }
   body > header #search {
     float: left;
     display: block;
-    margin-right: 1.05263%;
+    margin-right: 1.0526315789%;
     width: 20%; }
     body > header #search:last-child {
       margin-right: 0; }
@@ -888,18 +888,18 @@ body > header {
 #main .search--content {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
   #main .search--content:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     #main .search--content {
-      margin-left: 8.51064%;
+      margin-left: 8.5106382979%;
       float: left;
       display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
       #main .search--content:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
@@ -907,7 +907,7 @@ body > header {
       margin-left: 0%;
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%; }
       #main .search--content:last-child {
         margin-right: 0; } }
@@ -945,7 +945,7 @@ footer {
 .row {
   float: left;
   display: block;
-  margin-right: 1.05263%;
+  margin-right: 1.0526315789%;
   width: 100%; }
   .row:last-child {
     margin-right: 0; }
@@ -962,18 +962,18 @@ footer {
 .hero > .container > .hero--content {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
   .hero > .container > .hero--content:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     .hero > .container > .hero--content {
-      margin-left: 8.51064%;
+      margin-left: 8.5106382979%;
       float: left;
       display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
       .hero > .container > .hero--content:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
@@ -981,7 +981,7 @@ footer {
       margin-left: 0%;
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%; }
       .hero > .container > .hero--content:last-child {
         margin-right: 0; } }
@@ -1012,21 +1012,21 @@ footer {
   color: #00BFE7; }
 
 .content {
-  margin-left: 106.66667%;
+  margin-left: 106.6666666667%;
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
   .content:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     .content {
-      margin-left: 8.51064%;
+      margin-left: 8.5106382979%;
       float: left;
       display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
       .content:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
@@ -1034,7 +1034,7 @@ footer {
       margin-left: 0%;
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%; }
       .content:last-child {
         margin-right: 0; } }
@@ -1042,18 +1042,18 @@ footer {
 #main .searchresults {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
   #main .searchresults:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     #main .searchresults {
-      margin-left: 8.51064%;
+      margin-left: 8.5106382979%;
       float: left;
       display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
       #main .searchresults:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
@@ -1061,7 +1061,7 @@ footer {
       margin-left: 0%;
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%; }
       #main .searchresults:last-child {
         margin-right: 0; } }
@@ -1161,24 +1161,24 @@ footer {
 #main.landing .department .department--container {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 62.10526%; }
+  margin-right: 1.0526315789%;
+  width: 62.1052631579%; }
   #main.landing .department .department--container:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     #main.landing .department .department--container {
       float: left;
       display: block;
-      margin-right: 2.12766%;
+      margin-right: 2.1276595745%;
       width: 100%; }
       #main.landing .department .department--container:last-child {
         margin-right: 0; } }
 #main.landing .department .resources {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 32.63158%;
-  margin-left: 4.21053%;
+  margin-right: 1.0526315789%;
+  width: 32.6315789474%;
+  margin-left: 4.2105263158%;
   padding: 1em;
   background-color: white;
   -webkit-box-shadow: 4px 4px 8px #CCCCCC;
@@ -1192,7 +1192,7 @@ footer {
     #main.landing .department .resources {
       float: left;
       display: block;
-      margin-right: 2.12766%;
+      margin-right: 2.1276595745%;
       width: 100%;
       margin-left: 0%;
       margin-bottom: 2em; }
@@ -1202,16 +1202,14 @@ footer {
     #main.landing .department .resources {
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%;
       margin-left: 0%; }
       #main.landing .department .resources:last-child {
         margin-right: 0; } }
-#main.landing .department .description {
-  margin-bottom: 3em; }
-  #main.landing .department .description p {
-    margin-bottom: 1.2em;
-    font-size: 1.2em; }
+#main.landing .department .description p {
+  margin-bottom: 1.2em;
+  font-size: 1.2em; }
 #main.landing .department .details h2 {
   padding-bottom: 1em;
   border-bottom: 1px solid #323A45; }
@@ -1280,18 +1278,18 @@ footer {
 .department__decentralized {
   float: left;
   display: block;
-  margin-right: 1.05263%;
-  width: 66.31579%;
-  margin-left: 16.84211%; }
+  margin-right: 1.0526315789%;
+  width: 66.3157894737%;
+  margin-left: 16.8421052632%; }
   .department__decentralized:last-child {
     margin-right: 0; }
   @media screen and (max-width: 48em) {
     .department__decentralized {
-      margin-left: 8.51064%;
+      margin-left: 8.5106382979%;
       float: left;
       display: block;
-      margin-right: 2.12766%;
-      width: 82.97872%; }
+      margin-right: 2.1276595745%;
+      width: 82.9787234043%; }
       .department__decentralized:last-child {
         margin-right: 0; } }
   @media screen and (max-width: 30em) {
@@ -1299,7 +1297,7 @@ footer {
       margin-left: 0%;
       float: left;
       display: block;
-      margin-right: 6.66667%;
+      margin-right: 6.6666666667%;
       width: 100%; }
       .department__decentralized:last-child {
         margin-right: 0; } }
