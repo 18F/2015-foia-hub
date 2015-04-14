@@ -125,11 +125,12 @@ body > header {
     }
 
     .alpha {
-      padding-left: 1em;
+      padding-left: 1.5em;
     }
 
     .official, .alpha {
       float: left;
+      display: none;
     }
 
     .foiagov {
@@ -151,12 +152,19 @@ body > header {
         text-align: center;
       }
     }
+
+    .hidden {
+      display: none;
+    }
   }
 
   #notice {
     background: $aqua-blue;
     padding: 1.2em 0;
     box-shadow: 0 6px 3px -3px $medium-gray;
+    h2 {
+      margin-bottom: 0.5em;
+    }
     .notice--content {
       a {
       color: $dark-gray;

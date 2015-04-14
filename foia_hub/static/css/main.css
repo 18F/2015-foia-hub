@@ -596,10 +596,19 @@ input[type="submit"] {
   vertical-align: middle;
   white-space: nowrap; }
 
-* {
+/* Neat 1.7.0
+ * http://neat.bourbon.io
+ * Copyright 2012-2014 thoughtbot, inc.
+ * MIT License */
+html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit; }
 
 /* 
  * Mixin: inner 
@@ -785,9 +794,10 @@ body > header {
       font-size: 0.8em;
       font-weight: 400; }
     body > header div#usa .alpha {
-      padding-left: 1em; }
+      padding-left: 1.5em; }
     body > header div#usa .official, body > header div#usa .alpha {
-      float: left; }
+      float: left;
+      display: none; }
     body > header div#usa .foiagov {
       float: right; }
     body > header div#usa .official,
@@ -805,10 +815,14 @@ body > header {
           float: none;
           display: block;
           text-align: center; } }
+    body > header div#usa .hidden {
+      display: none; }
   body > header #notice {
     background: #00BFE7;
     padding: 1.2em 0;
     box-shadow: 0 6px 3px -3px #CCCCCC; }
+    body > header #notice h2 {
+      margin-bottom: 0.5em; }
     body > header #notice .notice--content {
       float: left;
       display: block;
