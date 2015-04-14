@@ -1229,6 +1229,18 @@ footer {
   padding: 0.5em 0 1em; }
   #main.landing .department .details .contact_type .fa {
     font-size: 1.8em; }
+#main.landing .department .librarynudge {
+  border: 1px solid #CCCCCC;
+  background: #e0e3e6;
+  padding: 1.8em 2.2em;
+  margin-bottom: 2em; }
+  #main.landing .department .librarynudge ul, #main.landing .department .librarynudge li {
+    list-style-type: disc;
+    list-style-position: outside;
+    margin-left: 0.6em;
+    padding-left: 0.6em; }
+  #main.landing .department .librarynudge li {
+    margin-bottom: 0.2em; }
 #main.landing .department .resource_type {
   padding-left: 1em; }
   #main.landing .department .resource_type .fa {
@@ -1253,8 +1265,12 @@ footer {
     list-style-position: outside;
     margin: 0;
     padding: 0; }
+  #main.landing .department .resource_type li,
+  #main.landing .department .contact_type li {
+    margin-bottom: 0.3em; }
 #main.landing .department .resource_type h3 {
-  font-size: 1em; }
+  font-size: 1em;
+  margin-bottom: 0.5em; }
 #main.landing .department .contact_type h3 {
   margin-bottom: 5px; }
 #main.landing .inaccurate {

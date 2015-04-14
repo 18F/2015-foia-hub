@@ -531,6 +531,22 @@ footer {
       }
     }
 
+    .librarynudge {
+      border: 1px solid $medium-gray;
+      background: #e0e3e6;
+      padding: 1.8em 2.2em;
+      margin-bottom: 2em;
+      ul, li {
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-left: 0.6em;
+        padding-left: 0.6em;
+      }
+      li {
+        margin-bottom: 0.2em;
+      }
+    }
+
     .resource_type {
         padding-left: 1em;
         .fa {
@@ -564,11 +580,15 @@ footer {
         margin: 0;
         padding: 0;
       }
+      li {
+        margin-bottom: 0.3em;
+      }
     }
 
     .resource_type {
       h3 {
         font-size: 1em;
+        margin-bottom: 0.5em;
       }
     }
 
