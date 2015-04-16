@@ -7,18 +7,22 @@ from haystack.views import SearchView, search_view_factory
 
 from .models import Document
 
+# Import the location of the s3 bucket that contains the documents
+if hasattr(settings, 'DOC_URL'):
+    DOC_URL = settings.DOC_URL
+else:
+    DOC_URL = ''
+
 
 def details(request, document_id):
+
     document = Document.objects.get(id=document_id)
     context = {'document': document}
-
     more_like_this = SearchQuerySet().more_like_this(document).models(Document)
     if more_like_this.count() > 10:
         more_like_this = more_like_this[1:9]
-
     context['similar_documents'] = more_like_this
-    context['document_location'] = settings.DOC_URL + \
-        document.original_file.name
+    context['document_location'] = DOC_URL + document.original_file.name
 
     return render(request, 'docusearch/detail.html', context)
 

@@ -15,8 +15,6 @@ try:
 except ImportError:
     pass
 
-DOC_URL = ''
-
 DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r"^(?!debug_toolbar/).*"
 
 INTERNAL_IPS = ('127.0.0.1',)
