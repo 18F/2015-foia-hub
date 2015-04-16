@@ -29,6 +29,7 @@ Utils = {
   }
 };
 
+var times_toggled = 0;
 $(document).ready(function(){
     var $bannerCloseButton = $("#notice--close");
 
@@ -41,9 +42,12 @@ $(document).ready(function(){
         }
     }
     $bannerCloseButton.click(function(){
-        $("#notice").slideUp();
+        $("#notice").slideUp(function () {
+          times_toggled++
+          console.log('send', 'event', 'close--banner', times_toggled, document.location.pathname);
+        });
 
-        // when a user clicks or tabs to and hits enter on the banner 
+        // when a user clicks or tabs to and hits enter on the banner
         // close button, set a local storage value that gets checked
         // on page load and determines whether banner is shown
         if (typeof window.localStorage !== 'undefined') {
@@ -59,7 +63,13 @@ $(document).ready(function(){
         }
     });
     $("#notice--toggle").click(function(){
-        $("#notice").slideToggle();
+        $("#notice").slideToggle("slow", function() {
+          times_toggled++
+          if ($(this).is(":hidden"))
+            console.log('send', 'event', 'hide--banner', times_toggled, document.location.pathname);
+          else
+            console.log('send', 'event', 'show--banner', times_toggled, document.location.pathname);
+      });
     });
 });
 
