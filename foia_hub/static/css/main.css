@@ -1205,19 +1205,15 @@ footer {
     list-style-position: outside;
     margin: 0;
     padding: 0; }
-    #main.landing .department .resource_type ul.hidden,
-    #main.landing .department .resource_type li.hidden,
-    #main.landing .department .contact_type ul.hidden,
-    #main.landing .department .contact_type li.hidden {
-      display: none; }
-    #main.landing .department .resource_type ul.expandable,
-    #main.landing .department .resource_type li.expandable,
-    #main.landing .department .contact_type ul.expandable,
-    #main.landing .department .contact_type li.expandable {
-      padding: 5%;
-      margin: 5% 0;
-      background-color: #f7f8f9;
-      font-size: .8em; }
+  #main.landing .department .resource_type li.hidden,
+  #main.landing .department .contact_type li.hidden {
+    display: none; }
+  #main.landing .department .resource_type li.expandable,
+  #main.landing .department .contact_type li.expandable {
+    padding: 5%;
+    margin: 5% 0;
+    background-color: #f7f8f9;
+    font-size: .8em; }
 #main.landing .department .resource_type h3 {
   font-size: 1em; }
 #main.landing .department .contact_type h3 {

@@ -525,7 +525,9 @@ footer {
         list-style-position: outside;
         margin: 0;
         padding: 0;
+      }
 
+      li {
         &.hidden {
           display:none
         }
