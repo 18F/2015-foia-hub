@@ -26,13 +26,19 @@
     <ul>
       {% if profile.simple_processing_time %}
         <li>
-          {{ profile.simple_processing_time|int }} working days for simple requests
+          {{ profile.simple_processing_time|int }} working days for <a href="#" class="slidedown">simple requests <span class="fa fa-question-circle"></span></a>
+        </li>
+        <li class="hidden expandable">
+            Here, let me explain this to you.
         </li>
       {% endif %}
 
       {% if profile.complex_processing_time %}
         <li>
-          {{ profile.complex_processing_time|int }} working days for complex requests
+          {{ profile.complex_processing_time|int }} working days for <a href="#" class="slidedown">complex requests <span class="fa fa-question-circle"></span></a>
+        </li>
+        <li class="hidden expandable">
+            Here, let me explain this to you.
         </li>
       {% endif %}
     </ul>
@@ -48,12 +54,19 @@
         <div class="subdetails">
           <h3>Have questions?</h3>
           <ul>
-            <li>FOIA Requester Service Center<a class="servicecenter--phone" href="tel:{{profile.phone }}">
-              {{ profile.phone }}
-            </a></li>
+            <li><a href="#" class="slidedown">FOIA Requester Service Center <span class="fa fa-question-circle"></span></a>
+                <a class="servicecenter--phone" href="tel:{{profile.phone }}">
+                    {{ profile.phone }}
+                </a>
+            </li>
+            <li class="hidden expandable">
+                This is your primary contact at the agency, where you can call and ask questions
+                about the FOIA process or your pending request. 
+            </li>
 
             {% if profile.public_liaison_name %}
-            <li>{{profile.public_liaison_name}}, Public Liaison
+            <li><a href="#" class="slidedown">{{profile.public_liaison_name}}, Public Liaison <span class="fa fa-question-circle"></span></a>
+
 
             {% if profile.public_liaison_phone %}
                 <a class="liaison--phone" href="tel:{{profile.public_liaison_phone}}">
@@ -65,6 +78,9 @@
                 {{ profile.public_liaison_email }}
             {% endif %}
 
+            </li>
+            <li class="hidden expandable">
+                Here, let me explain this to you.
             </li>
             {% endif %}
           </ul>
