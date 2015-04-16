@@ -304,6 +304,10 @@ footer {
   }
 
   section.process {
+    h2 {
+      padding-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
     ol {
       @extend %default-ol;
       li {
@@ -440,7 +444,8 @@ footer {
       font-size: 1.4em;
     }
     li {
-      padding: 1em 0 0 4em;
+      padding: 0 0 1em 4em;
+      margin: 2em 0;
       border-bottom: 1px solid $medium-gray;
     }
     ul > li {
