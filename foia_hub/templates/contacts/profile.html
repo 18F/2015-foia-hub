@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+  <script src="{{ static('js/contacts_profile_gatracker.js') }}"></script>
+{% endblock %}
+
 {% block class %}landing{% endblock %}
 
 {% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
@@ -30,7 +36,6 @@
 
 
 {% block body %}
-
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <div class="container">
@@ -84,11 +89,11 @@
                 <ul>
                     {% if profile.request_form_url %}
                         <li>
-                            <a href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
+                            <a class='request--link' href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
                         </li>
                     {% elif profile.emails|length>0 %}
                         <li>
-                            <a href="{{url('form', slug)}}">Use our web form</a>
+                            <a class='request--email' href="{{url('form', slug)}}">Use our web form</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -108,7 +113,7 @@
               <ul>
                 {% for email in profile.emails %}
                   <li>
-                    <a href="mailto:{{ email }}">
+                    <a class='agency--email' href="mailto:{{ email }}">
                       {{ email }}
                     </a>
                   </li>
@@ -160,7 +165,7 @@
 
   <section class="inaccurate">
     <p>
-      Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
+      Inaccurate information here? Email us at <a class='inaccurateinfo--email' href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
     </p>
   </section>
 </div>

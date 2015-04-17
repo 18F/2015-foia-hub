@@ -7,7 +7,7 @@
           <h3>Website</h3>
           <ul>
             <li>
-              <a href="{{ profile.office_url }}">
+              <a class="agency--site" href="{{ profile.office_url }}">
                 {{ get_domain(profile.office_url) }}
               </a>
             </li>
@@ -48,15 +48,15 @@
         <div class="subdetails">
           <h3>Have questions?</h3>
           <ul>
-            <li>FOIA Requester Service Center<br /><a href="tel:{{profile.phone }}">
+            <li>FOIA Requester Service Center<a class="servicecenter--phone" href="tel:{{profile.phone }}">
               {{ profile.phone }}
             </a></li>
 
             {% if profile.public_liaison_name %}
-            <li>{{profile.public_liaison_name}}, Public Liaison 
-            
+            <li>{{profile.public_liaison_name}}, Public Liaison
+
             {% if profile.public_liaison_phone %}
-                <br /><a href="tel:{{profile.public_liaison_phone}}">
+                <a class="liaison--phone" href="tel:{{profile.public_liaison_phone}}">
                   {{ profile.public_liaison_phone}}
                 </a>
             {% endif %}
@@ -64,7 +64,7 @@
             {% if profile.public_liaison_email %}
                 {{ profile.public_liaison_email }}
             {% endif %}
-           
+
             </li>
             {% endif %}
           </ul>
