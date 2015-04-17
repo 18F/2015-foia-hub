@@ -784,22 +784,65 @@ body > header {
     body > header div#usa .usa--content {
       font-size: 0.8em;
       font-weight: 400; }
-    body > header div#usa .official {
-      float: left; }
     body > header div#usa .alpha {
+      padding-left: 1.5em; }
+    body > header div#usa .official, body > header div#usa .alpha {
+      float: left;
+      display: none; }
+    body > header div#usa .foiagov {
       float: right; }
     body > header div#usa .official,
-    body > header div#usa .alpha {
+    body > header div#usa .alpha,
+    body > header div#usa .foiagov {
       display: inline-block; }
       body > header div#usa .official a,
-      body > header div#usa .alpha a {
+      body > header div#usa .alpha a,
+      body > header div#usa .foiagov a {
         color: #00BFE7; }
       @media screen and (max-width: 48em) {
         body > header div#usa .official,
-        body > header div#usa .alpha {
+        body > header div#usa .alpha,
+        body > header div#usa .foiagov {
           float: none;
           display: block;
           text-align: center; } }
+    body > header div#usa .hidden {
+      display: none; }
+  body > header #notice {
+    background: #00BFE7;
+    padding: 1.2em 0;
+    box-shadow: 0 6px 3px -3px #CCCCCC; }
+    body > header #notice h2 {
+      margin-bottom: 0.5em; }
+    body > header #notice .notice--content {
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 74.73684%; }
+      body > header #notice .notice--content a {
+        color: #323A45;
+        text-decoration: underline; }
+        body > header #notice .notice--content a:hover, body > header #notice .notice--content a:active, body > header #notice .notice--content a:focus {
+          color: #EAEDF1; }
+      body > header #notice .notice--content:last-child {
+        margin-right: 0; }
+      @media screen and (max-width: 48em) {
+        body > header #notice .notice--content {
+          float: left;
+          display: block;
+          margin-right: 2.12766%;
+          width: 100%; }
+          body > header #notice .notice--content:last-child {
+            margin-right: 0; } }
+    body > header #notice.hidden {
+      display: none; }
+    body > header #notice #notice--close {
+      cursor: pointer;
+      text-align: right;
+      float: right;
+      font-size: 1.4em; }
+      body > header #notice #notice--close i {
+        color: #323A45; }
   body > header #logo {
     float: left;
     display: block;
