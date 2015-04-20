@@ -536,6 +536,12 @@ footer {
         .fa {
           font-size: 1.5em;
         }
+
+        .fa-question-circle,
+        .fa-times-circle {
+          color: $blue;
+          font-size: 1em;
+        }
     }
 
     .resource_type,
@@ -563,6 +569,19 @@ footer {
         list-style-position: outside;
         margin: 0;
         padding: 0;
+      }
+
+      li {
+        &.hidden {
+          display:none
+        }
+
+        &.expandable {
+          padding: 5%;
+          margin: 5% 0;
+          background-color: $light-light-gray;
+          font-size: .8em;
+        }
       }
     }
 
