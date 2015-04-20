@@ -46,7 +46,7 @@
                     {% if "foia_agency_exact" not in request.GET.urlencode() %}
                         <a href="?{{remove_from_query(request.GET.urlencode(), ['page'])}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
                     {% else %}
-                        {{agency.0|upper}} ({{ agency.1 }})
+                        {{agency.0|replace("-", " ")}} ({{ agency.1 }})
                     {% endif %}
 
                 </dd>
