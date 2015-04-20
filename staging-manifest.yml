@@ -3,6 +3,8 @@
 memory: 1G
 instances: 1
 applications:
-- name: openfoia-staging
+- name: krang-staging
   path: .
   timeout: 180
+  services:
+  - es

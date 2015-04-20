@@ -25,8 +25,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE':
         'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
         'URL': ES_URL,
-        'INDEX_NAME': 'haystack',
+        'INDEX_NAME': 'documents',
         'TIMEOUT': 60 * 5,
-        'INCLUDE_SPELLING': True,
     },
 }
