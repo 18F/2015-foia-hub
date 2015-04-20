@@ -152,10 +152,6 @@ body > header {
         text-align: center;
       }
     }
-
-    .hidden {
-      display: none;
-    }
   }
 
   #notice {
@@ -304,6 +300,10 @@ footer {
   }
 
   section.process {
+    h2 {
+      padding-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
     ol {
       @extend %default-ol;
       li {
@@ -440,7 +440,8 @@ footer {
       font-size: 1.4em;
     }
     li {
-      padding: 1em 0 0 4em;
+      padding: 0 0 1em 4em;
+      margin: 2em 0;
       border-bottom: 1px solid $medium-gray;
     }
     ul > li {
@@ -497,7 +498,6 @@ footer {
     }
 
     .description {
-      margin-bottom: 3em;
       p {
         margin-bottom: 1.2em;
         font-size: $base-font-size * 1.2;
@@ -528,6 +528,22 @@ footer {
         .fa {
           font-size: 1.8em;
         }
+      }
+    }
+
+    .librarynudge {
+      border: 1px solid $medium-gray;
+      background: #e0e3e6;
+      padding: 1.8em 2.2em;
+      margin-bottom: 2em;
+      ul, li {
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-left: 0.6em;
+        padding-left: 0.6em;
+      }
+      li {
+        margin-bottom: 0.2em;
       }
     }
 
@@ -570,8 +586,8 @@ footer {
         margin: 0;
         padding: 0;
       }
-
       li {
+        margin-bottom: 0.3em;
         &.hidden {
           display:none
         }
@@ -588,6 +604,7 @@ footer {
     .resource_type {
       h3 {
         font-size: 1em;
+        margin-bottom: 0.5em;
       }
     }
 
