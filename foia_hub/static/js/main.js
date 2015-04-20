@@ -29,8 +29,8 @@ Utils = {
   }
 };
 
-var times_toggled = 0;
 $(document).ready(function(){
+    var times_toggled = 0;
     var $bannerCloseButton = $("#notice--close");
 
     // if this browser supports localstorage, check for the value
