@@ -15,7 +15,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     foia_agency = indexes.CharField(
         model_attr='release_agency_slug', faceted=True)
 
-    date_released = indexes.DateField(model_attr='date_released')
+    date_released = indexes.DateField(model_attr='date_released', null=True)
 
     def get_model(self):
         return Document
