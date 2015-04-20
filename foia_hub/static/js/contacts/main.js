@@ -13,8 +13,8 @@ $(document).ready(function() {
                 $icon.removeClass('fa-question-circle').addClass('fa-times-circle');
                 ga('send', {
                   'hitType': 'event',
-                  'eventCategory': 'open--info',
-                  'eventAction': 'open--info' + document.location.pathname,
+                  'eventCategory': 'extrainfo--open',
+                  'eventAction': 'openon' + document.location.pathname,
                   'eventLabel': this.id,
                 });
             }
@@ -22,8 +22,8 @@ $(document).ready(function() {
                 $icon.removeClass('fa-times-circle').addClass('fa-question-circle');
                 ga('send', {
                   'hitType': 'event',
-                  'eventCategory': 'close--info',
-                  'eventAction': 'open--info' + document.location.pathname,
+                  'eventCategory': 'extrainfo--close',
+                  'eventAction': 'closeon' + document.location.pathname,
                   'eventLabel': this.id,
                 });
             }

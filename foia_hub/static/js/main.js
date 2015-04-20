@@ -46,7 +46,7 @@ $(document).ready(function(){
           times_toggled++
             ga('send', {
               'hitType': 'event',
-              'eventCategory': 'close--banner',
+              'eventCategory': 'banner--close',
               'eventAction': 'toggledon' + document.location.pathname,
               'eventLabel': 'toggled-' + times_toggled,
             });
@@ -74,7 +74,7 @@ $(document).ready(function(){
           {
             ga('send', {
               'hitType': 'event',
-              'eventCategory': 'hide--banner',
+              'eventCategory': 'banner--hide',
               'eventAction': 'toggledon' + document.location.pathname,
               'eventLabel': 'toggled-' + times_toggled,
             });
@@ -83,7 +83,7 @@ $(document).ready(function(){
           {
             ga('send', {
               'hitType': 'event',
-              'eventCategory': 'show--banner',
+              'eventCategory': 'banner--show',
               'eventAction': 'toggledon' + document.location.pathname,
               'eventLabel': 'toggled-' + times_toggled,
             });

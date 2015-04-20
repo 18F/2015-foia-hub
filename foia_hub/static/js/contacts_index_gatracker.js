@@ -4,9 +4,9 @@ window.onload = function () {
       this.onclick = function(){
         ga('send', {
           'hitType': 'event',
-          'eventCategory': 'agency--link--click/' + document.location.search,
-          'eventAction': 'position-' + number,
-          'eventLabel': this.text
+          'eventCategory': 'agency--link',
+          'eventAction': 'click--agency--' + document.location.search,
+          'eventLabel': this.text + '--' + number
         });
       }
     })

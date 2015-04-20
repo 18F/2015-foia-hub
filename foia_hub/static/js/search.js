@@ -66,10 +66,9 @@ $(document).ready(function() {
       //  blanked out the text after initially typing something
       ga('send', {
           'hitType': 'event',
-          'eventCategory': $('#query')[0].getAttribute('search-type') +
-              document.location.pathname,
-          'eventAction': 'did-not-want',
-          'eventLabel': longestText});
+          'eventCategory': $('#query')[0].getAttribute('search-type'),
+          'eventAction': 'did-not-want--' + longestText,
+          'eventLabel': document.location.pathname});
       longestText = '';
     }
     form.toggleClass('tt-filled', currentText.length > 0);
@@ -89,10 +88,9 @@ $(document).ready(function() {
           timeout = setTimeout(callback, gaTimeout);
       ga('send', {
           'hitType': 'event',
-          'eventCategory': $('#query')[0].getAttribute('search-type') +
-              document.location.pathname,
-          'eventAction': 'select-agency',
-          'eventLabel': longestText + ":" + suggestion.slug},
+          'eventCategory': $('#query')[0].getAttribute('search-type'),
+          'eventAction': 'select-agency--' + suggestion.slug,
+          'eventLabel': document.location.pathname},
           {'hitCallback': callback});
     }
   };
