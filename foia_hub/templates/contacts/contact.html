@@ -28,8 +28,11 @@
         <li>
           {{ profile.simple_processing_time|int }} working days for <a href="#" class="slidedown">simple requests <span class="fa fa-question-circle"></span></a>
         </li>
+
         <li class="hidden expandable">
-            Here, let me explain this to you.
+            A FOIA request that an agency anticipates will involve a small
+            volume of material or which will be able to be processed relatively
+            quickly. 
         </li>
       {% endif %}
 
@@ -37,9 +40,12 @@
         <li>
           {{ profile.complex_processing_time|int }} working days for <a href="#" class="slidedown">complex requests <span class="fa fa-question-circle"></span></a>
         </li>
+
         <li class="hidden expandable">
-            Here, let me explain this to you.
+            A FOIA request that an agency anticipates will involve a voluminous
+            amount of material or will be time consuming to process. 
         </li>
+
       {% endif %}
     </ul>
   </div>
@@ -61,7 +67,7 @@
             </li>
             <li class="hidden expandable">
                 This is your primary contact at the agency, where you can call and ask questions
-                about the FOIA process or your pending request. 
+                about the FOIA process or your pending FOIA request. 
             </li>
 
             {% if profile.public_liaison_name %}
@@ -79,9 +85,13 @@
             {% endif %}
 
             </li>
+
             <li class="hidden expandable">
-                Here, let me explain this to you.
+                If you have any issues with how an agency or office is handling
+                your request, you can contact the FOIA public liaison, who will
+                work to address your concerns. 
             </li>
+
             {% endif %}
           </ul>
         </div>
