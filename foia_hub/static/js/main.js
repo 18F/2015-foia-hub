@@ -44,7 +44,12 @@ $(document).ready(function(){
     $bannerCloseButton.click(function(){
         $("#notice").slideUp(function () {
           times_toggled++
-          console.log('send', 'event', 'close--banner', times_toggled, document.location.pathname);
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'close--banner',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
         });
 
         // when a user clicks or tabs to and hits enter on the banner
@@ -66,9 +71,23 @@ $(document).ready(function(){
         $("#notice").slideToggle("slow", function() {
           times_toggled++
           if ($(this).is(":hidden"))
-            console.log('send', 'event', 'hide--banner', times_toggled, document.location.pathname);
+          {
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'hide--banner',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
+          }
           else
-            console.log('send', 'event', 'show--banner', times_toggled, document.location.pathname);
+          {
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'show--banner',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
+          }
       });
     });
 });

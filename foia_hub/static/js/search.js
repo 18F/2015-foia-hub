@@ -12,7 +12,7 @@ $(document).ready(function() {
       typeahead,
       form,
       // how long we'll give Google Analytics to record a an action
-      // before just going ahead with it, in milliseconds
+     // before just going ahead with it, in milliseconds
       gaTimeout = 500;
 
   //  Set up the agency data source
@@ -64,9 +64,12 @@ $(document).ready(function() {
       longestText = currentText;
     } else if (currentText.length === 0 && longestText.length > 0) {
       //  blanked out the text after initially typing something
-      ga('send', 'event',
-        $('#query')[0].getAttribute('search-type') + document.location.pathname,
-        'did-not-want', longestText);
+      ga('send', {
+          'hitType': 'event',
+          'eventCategory': $('#query')[0].getAttribute('search-type') +
+              document.location.pathname,
+          'eventAction': 'did-not-want',
+          'eventLabel': longestText});
       longestText = '';
     }
     form.toggleClass('tt-filled', currentText.length > 0);
@@ -84,10 +87,13 @@ $(document).ready(function() {
             window.location = '/contacts/' + suggestion.slug + '/';
           },
           timeout = setTimeout(callback, gaTimeout);
-      ga('send', 'event',
-        $('#query')[0].getAttribute('search-type') + document.location.pathname
-        , 'select-' + suggestion.slug,
-         currentText, {'hitCallback': callback});
+      ga('send', {
+          'hitType': 'event',
+          'eventCategory': $('#query')[0].getAttribute('search-type') +
+              document.location.pathname,
+          'eventAction': 'select-agency',
+          'eventLabel': longestText + ":" + suggestion.slug},
+          {'hitCallback': callback});
     }
   };
 
