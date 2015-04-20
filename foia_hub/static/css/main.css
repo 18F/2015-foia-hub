@@ -492,7 +492,7 @@ label {
     display: none; }
 
 textarea,
-input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="time"], input[type="week"],
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea,
 select[multiple=multiple] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -510,11 +510,11 @@ select[multiple=multiple] {
   padding: 0.5em 0.5em;
   width: 100%; }
   textarea:hover,
-  input[type="email"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="url"]:hover, input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="month"]:hover, input[type="time"]:hover, input[type="week"]:hover,
+  input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, textarea:hover,
   select[multiple=multiple]:hover {
     border-color: #b3b3b3; }
   textarea:focus,
-  input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus,
+  input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus,
   select[multiple=multiple]:focus {
     border-color: #0067BA;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(0, 89, 161, 0.7);
@@ -596,18 +596,10 @@ input[type="submit"] {
   vertical-align: middle;
   white-space: nowrap; }
 
-/* Neat 1.7.0
- * http://neat.bourbon.io
- * Copyright 2012-2014 thoughtbot, inc.
- * MIT License */
 html {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-*, *:before, *:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
+*, *::after, *::before {
   box-sizing: inherit; }
 
 /* 
@@ -683,28 +675,24 @@ html {
 
 @font-face {
   font-family: "proximanova";
-  font-weight: 400;
   font-style: normal;
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.eot");
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.svg#proximanova") format("svg"); }
-@font-face {
-  font-family: "proximanova";
-  font-weight: 600;
-  font-style: normal;
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.eot");
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.svg#proximanova") format("svg"); }
-@font-face {
-  font-family: "proximanova";
   font-weight: 400;
-  font-style: italic;
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.eot");
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.svg#proximanova") format("svg"); }
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@400.svg#proximanova") format("svg"); }
 @font-face {
   font-family: "proximanova";
+  font-style: normal;
   font-weight: 600;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova@600.svg#proximanova") format("svg"); }
+@font-face {
+  font-family: "proximanova";
   font-style: italic;
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot");
-  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
+  font-weight: 400;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@400.svg#proximanova") format("svg"); }
+@font-face {
+  font-family: "proximanova";
+  font-style: italic;
+  font-weight: 600;
+  src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff2") format("woff2"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
 html, body {
   height: 100%; }
 
@@ -937,10 +925,10 @@ footer {
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem; }
-  .container:after {
+  .container::after {
+    clear: both;
     content: "";
-    display: table;
-    clear: both; }
+    display: table; }
 
 .row {
   float: left;
@@ -949,15 +937,15 @@ footer {
   width: 100%; }
   .row:last-child {
     margin-right: 0; }
-  .row:after {
+  .row::after {
+    clear: both;
     content: "";
-    display: table;
-    clear: both; }
+    display: table; }
 
-.clearfix:after {
+.clearfix::after {
+  clear: both;
   content: "";
-  display: table;
-  clear: both; }
+  display: table; }
 
 .hero > .container > .hero--content {
   float: left;
@@ -1075,10 +1063,10 @@ footer {
     border-bottom: 1px solid #323A45;
     margin: 2em 0 1em 0;
     padding-bottom: 0.25em; }
-    #main .searchresults header:after {
+    #main .searchresults header::after {
+      clear: both;
       content: "";
-      display: table;
-      clear: both; }
+      display: table; }
   #main .searchresults .searchresults--list em {
     color: #0096B5;
     font-style: normal;
@@ -1233,6 +1221,10 @@ footer {
   padding-left: 1em; }
   #main.landing .department .resource_type .fa {
     font-size: 1.5em; }
+  #main.landing .department .resource_type .fa-question-circle,
+  #main.landing .department .resource_type .fa-times-circle {
+    color: #0067BA;
+    font-size: 1em; }
 #main.landing .department .resource_type,
 #main.landing .department .contact_type {
   margin: 15px 0; }
@@ -1253,6 +1245,15 @@ footer {
     list-style-position: outside;
     margin: 0;
     padding: 0; }
+  #main.landing .department .resource_type li.hidden,
+  #main.landing .department .contact_type li.hidden {
+    display: none; }
+  #main.landing .department .resource_type li.expandable,
+  #main.landing .department .contact_type li.expandable {
+    padding: 5%;
+    margin: 5% 0;
+    background-color: #f7f8f9;
+    font-size: .8em; }
 #main.landing .department .resource_type h3 {
   font-size: 1em; }
 #main.landing .department .contact_type h3 {
@@ -1315,10 +1316,10 @@ input.typeahead {
     margin-bottom: 0;
     width: 100%;
     display: block !important;
-    border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em; }
+    border-top-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-right-radius: 1em; }
   #topnav .search .fa {
     color: inherit !important; }
   #topnav .search .search-icon {
@@ -1347,10 +1348,10 @@ input.typeahead {
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
     box-sizing: border-box;
-    border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em; }
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 1em;
+    border-top-right-radius: 1em; }
     #topnav .search .submit-button .fa {
       position: relative; }
     #topnav .search .submit-button:hover, #topnav .search .submit-button:focus {
@@ -1362,10 +1363,10 @@ input.typeahead {
   height: 3em;
   padding-left: 2em;
   margin-bottom: 0;
-  border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px; }
+  border-top-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px; }
   .search input[type=search]::-webkit-input-placeholder {
     color: #777777; }
   .search input[type=search]::-moz-placeholder {
@@ -1377,10 +1378,10 @@ input.typeahead {
 
 .search input[type=submit] {
   color: #323A45;
-  border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  border-top-left-radius: 0;
+  border-top-right-radius: 3px;
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
   height: 3em;
   width: 6em;
   text-align: center;
@@ -1527,8 +1528,8 @@ input.typeahead {
   #main .search form input.submit {
     right: 0;
     color: #323A45;
-    border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
     padding-left: 1.5em;
     padding-right: 1.5em; }
     #main .search form input.submit:hover, #main .search form input.submit:focus {
