@@ -552,6 +552,12 @@ footer {
         .fa {
           font-size: 1.5em;
         }
+
+        .fa-question-circle,
+        .fa-times-circle {
+          color: $blue;
+          font-size: 1em;
+        }
     }
 
     .resource_type,
@@ -582,6 +588,16 @@ footer {
       }
       li {
         margin-bottom: 0.3em;
+        &.hidden {
+          display:none
+        }
+
+        &.expandable {
+          padding: 5%;
+          margin: 5% 0;
+          background-color: $light-light-gray;
+          font-size: .8em;
+        }
       }
     }
 

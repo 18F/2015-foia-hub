@@ -1245,6 +1245,10 @@ footer {
   padding-left: 1em; }
   #main.landing .department .resource_type .fa {
     font-size: 1.5em; }
+  #main.landing .department .resource_type .fa-question-circle,
+  #main.landing .department .resource_type .fa-times-circle {
+    color: #0067BA;
+    font-size: 1em; }
 #main.landing .department .resource_type,
 #main.landing .department .contact_type {
   margin: 15px 0; }
@@ -1268,6 +1272,15 @@ footer {
   #main.landing .department .resource_type li,
   #main.landing .department .contact_type li {
     margin-bottom: 0.3em; }
+    #main.landing .department .resource_type li.hidden,
+    #main.landing .department .contact_type li.hidden {
+      display: none; }
+    #main.landing .department .resource_type li.expandable,
+    #main.landing .department .contact_type li.expandable {
+      padding: 5%;
+      margin: 5% 0;
+      background-color: #f7f8f9;
+      font-size: .8em; }
 #main.landing .department .resource_type h3 {
   font-size: 1em;
   margin-bottom: 0.5em; }
@@ -1558,5 +1571,3 @@ input.typeahead {
     width: 100%;
     min-width: auto;
     max-width: auto; }
-
-/*# sourceMappingURL=main.css.map */
