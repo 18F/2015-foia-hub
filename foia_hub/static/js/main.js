@@ -30,6 +30,7 @@ Utils = {
 };
 
 $(document).ready(function(){
+    var times_toggled = 0;
     var $bannerCloseButton = $("#notice--close");
 
     // if this browser supports localstorage, check for the value
@@ -41,9 +42,17 @@ $(document).ready(function(){
         }
     }
     $bannerCloseButton.click(function(){
-        $("#notice").slideUp();
+        $("#notice").slideUp(function () {
+          times_toggled++
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'banner--close',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
+        });
 
-        // when a user clicks or tabs to and hits enter on the banner 
+        // when a user clicks or tabs to and hits enter on the banner
         // close button, set a local storage value that gets checked
         // on page load and determines whether banner is shown
         if (typeof window.localStorage !== 'undefined') {
@@ -59,7 +68,27 @@ $(document).ready(function(){
         }
     });
     $("#notice--toggle").click(function(){
-        $("#notice").slideToggle();
+        $("#notice").slideToggle("slow", function() {
+          times_toggled++
+          if ($(this).is(":hidden"))
+          {
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'banner--hide',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
+          }
+          else
+          {
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': 'banner--show',
+              'eventAction': 'toggledon' + document.location.pathname,
+              'eventLabel': 'toggled-' + times_toggled,
+            });
+          }
+      });
     });
 });
 

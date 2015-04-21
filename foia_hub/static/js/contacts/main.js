@@ -11,9 +11,21 @@ $(document).ready(function() {
             var $icon = $link.find('span');
             if ($messageBox.is(':visible')) {
                 $icon.removeClass('fa-question-circle').addClass('fa-times-circle');
+                ga('send', {
+                  'hitType': 'event',
+                  'eventCategory': 'extrainfo--open',
+                  'eventAction': 'openon' + document.location.pathname,
+                  'eventLabel': this.id,
+                });
             }
             else {
                 $icon.removeClass('fa-times-circle').addClass('fa-question-circle');
+                ga('send', {
+                  'hitType': 'event',
+                  'eventCategory': 'extrainfo--close',
+                  'eventAction': 'closeon' + document.location.pathname,
+                  'eventLabel': this.id,
+                });
             }
         });
     });

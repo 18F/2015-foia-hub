@@ -2,8 +2,12 @@
 window.onload = function () {
     $('.agency--link').each(function(number) {
       this.onclick = function(){
-      ga('send', 'event', 'agency--link--click',
-        'position--' + number + '--' + this.text , document.location.search);
+        ga('send', {
+          'hitType': 'event',
+          'eventCategory': 'agency--link',
+          'eventAction': 'click--agency--' + document.location.search,
+          'eventLabel': this.text + '--' + number
+        });
       }
     })
 }

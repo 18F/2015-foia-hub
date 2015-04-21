@@ -26,13 +26,13 @@
     <ul>
       {% if profile.simple_processing_time %}
         <li>
-          {{ profile.simple_processing_time|int }} working days for <a href="#" class="slidedown">simple requests <span class="fa fa-question-circle"></span></a>
+          {{ profile.simple_processing_time|int }} working days for <a href="#" class="slidedown"> simple requests <span class="fa fa-question-circle"></span></a>
         </li>
 
-        <li class="hidden expandable">
+        <li class="hidden expandable" id="processing-times--simple">
             A FOIA request that an agency anticipates will involve a small
             volume of material or which will be able to be processed relatively
-            quickly. 
+            quickly.
         </li>
       {% endif %}
 
@@ -41,9 +41,9 @@
           {{ profile.complex_processing_time|int }} working days for <a href="#" class="slidedown">complex requests <span class="fa fa-question-circle"></span></a>
         </li>
 
-        <li class="hidden expandable">
+        <li class="hidden expandable" id="processing-times--complex">
             A FOIA request that an agency anticipates will involve a voluminous
-            amount of material or will be time consuming to process. 
+            amount of material or will be time consuming to process.
         </li>
 
       {% endif %}
@@ -65,9 +65,9 @@
                     {{ profile.phone }}
                 </a>
             </li>
-            <li class="hidden expandable">
+            <li class="hidden expandable" id="service-center">
                 This is your primary contact at the agency, where you can call and ask questions
-                about the FOIA process or your pending FOIA request. 
+                about the FOIA process or your pending FOIA request.
             </li>
 
             {% if profile.public_liaison_name %}
@@ -86,10 +86,10 @@
 
             </li>
 
-            <li class="hidden expandable">
+            <li class="hidden expandable" id="public-liaison--name">
                 If you have any issues with how an agency or office is handling
                 your request, you can contact the FOIA public liaison, who will
-                work to address your concerns. 
+                work to address your concerns.
             </li>
 
             {% endif %}
