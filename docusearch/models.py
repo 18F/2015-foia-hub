@@ -35,6 +35,9 @@ class Document(models.Model):
     text = models.TextField(
         null=False, help_text='The full text of the document')
     title = models.TextField(null=True)
+    date_added = models.DateField(
+        blank=False, null=False,
+        help_text='Date the document was added to database')
     date_created = models.DateField(
         blank=True, null=True,
         help_text='Date the document was created by agency')
