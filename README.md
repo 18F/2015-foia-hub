@@ -238,14 +238,6 @@ This will:
 * Start the app.
 * If the app successfully starts, the route will be mapped to the new environment, and the previous production environment will have its route unmapped, and then be stopped.
 
-You can also do a quicker deployment that avoids data loading:
-
-```
-./deploy.sh quick
-```
-
-This will use `cf-quick.sh` as the init script instead of `cf.sh`, which skips data loading.
-
 #### Watching the logs
 
 You can tail the logs for a given production environment during the process with:
