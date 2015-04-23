@@ -204,9 +204,8 @@ def process_yamls(folder):
     """
     Loops through each agency yaml file and loads it into the database
     """
-    for item in iglob(folder + "/*.yaml"):
-        data_file = os.path.join(folder, item)
-        data = yaml.load(open(data_file))
+    for item in iglob(os.path.join(folder, '*.yaml')):
+        data = yaml.load(open(item))
         load_data(data)
 
 if __name__ == "__main__":

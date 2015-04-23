@@ -7,7 +7,17 @@
     <div class="container">
       <div class="usa--content">
         <span class="official"><img alt="US flag signifying that this is a United States Federal Government website" src="{{ static("images/us_flag_small.png")}}" class="flag">&nbsp;&nbsp;An official website of the U.S. Government</span>
-        <span class="alpha">This website is in alpha. <a href="/about#feedback">Help us improve.</i></a></span>
+        <span class="alpha">This website is in development. <a id="notice--toggle" href="#">Learn more</a></span>
+        <span class="foiagov"><a href="///www.foia.gov">Go to FOIA.gov</a></span>
+      </div>
+    </div>
+  </div>
+  <div id="notice" class="hidden">
+    <div class="container">
+      <div id="notice--close" tabindex="0" aria-label='Select to hide banner'><i class="fa fa-times"></i></div>
+      <div class="notice--content">
+        <h2>This site is in development. Tell us what you think!</h2>
+        <p>We're working hard to make openFOIA a useful addition to the resources available at <a href="http://foia.gov">FOIA.gov</a>. Your feedback is important to us as we build this site. Email <a href="mailto:18f-foia@gsa.gov">18f-foia@gsa.gov</a> and let us know how it's working for you.</p>
       </div>
     </div>
   </div>
@@ -25,10 +35,6 @@
             {% if request and ('/agencies/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/agencies/">Federal Agencies
           </a></li>
-          <li><a role="tab"
-              {% if request and ('/learn/' == request.path) %}class="active" aria-selected="true"{% endif %}
-              href="/learn/">Understanding FOIA
-            </a></li>
           <li><a role="tab"
             {% if request and ('/about/' == request.path) %}class="active" aria-selected="true"{% endif %}
             href="/about/">About This Project
