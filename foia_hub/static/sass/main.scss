@@ -94,7 +94,8 @@ body > header {
           margin-bottom: .3em;
         }
 
-        a.active {
+        a.active, a:hover {
+          text-decoration: none !important;
           color: $dark-gray;
           border-bottom: 4px solid $aqua-blue;
         }
