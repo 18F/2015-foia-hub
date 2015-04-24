@@ -492,7 +492,7 @@ label {
     display: none; }
 
 textarea,
-input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea,
+input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="time"], input[type="week"],
 select[multiple=multiple] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -510,11 +510,11 @@ select[multiple=multiple] {
   padding: 0.5em 0.5em;
   width: 100%; }
   textarea:hover,
-  input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, textarea:hover,
+  input[type="email"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="url"]:hover, input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="month"]:hover, input[type="time"]:hover, input[type="week"]:hover,
   select[multiple=multiple]:hover {
     border-color: #b3b3b3; }
   textarea:focus,
-  input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus,
+  input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus,
   select[multiple=multiple]:focus {
     border-color: #0067BA;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(0, 89, 161, 0.7);
@@ -597,13 +597,9 @@ input[type="submit"] {
   white-space: nowrap; }
 
 html {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-*, *:before, *:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
+*, *::after, *::before {
   box-sizing: inherit; }
 
 /* 
@@ -702,7 +698,7 @@ html, body {
 
 #main {
   min-height: 100%;
-  margin: 0 auto -4.8em;
+  margin: 1em auto -4.8em;
   /* the bottom margin is the negative value of the footer's height */ }
   @media screen and (max-width: 30em) {
     #main {
@@ -785,22 +781,63 @@ body > header {
     body > header div#usa .usa--content {
       font-size: 0.8em;
       font-weight: 400; }
-    body > header div#usa .official {
-      float: left; }
     body > header div#usa .alpha {
+      padding-left: 1.5em; }
+    body > header div#usa .official, body > header div#usa .alpha {
+      float: left;
+      display: none; }
+    body > header div#usa .foiagov {
       float: right; }
     body > header div#usa .official,
-    body > header div#usa .alpha {
+    body > header div#usa .alpha,
+    body > header div#usa .foiagov {
       display: inline-block; }
       body > header div#usa .official a,
-      body > header div#usa .alpha a {
+      body > header div#usa .alpha a,
+      body > header div#usa .foiagov a {
         color: #00BFE7; }
       @media screen and (max-width: 48em) {
         body > header div#usa .official,
-        body > header div#usa .alpha {
+        body > header div#usa .alpha,
+        body > header div#usa .foiagov {
           float: none;
           display: block;
           text-align: center; } }
+  body > header #notice {
+    background: #00BFE7;
+    padding: 1.2em 0;
+    box-shadow: 0 6px 3px -3px #CCCCCC; }
+    body > header #notice h2 {
+      margin-bottom: 0.5em; }
+    body > header #notice .notice--content {
+      float: left;
+      display: block;
+      margin-right: 1.05263%;
+      width: 74.73684%; }
+      body > header #notice .notice--content a {
+        color: #323A45;
+        text-decoration: underline; }
+        body > header #notice .notice--content a:hover, body > header #notice .notice--content a:active, body > header #notice .notice--content a:focus {
+          color: #EAEDF1; }
+      body > header #notice .notice--content:last-child {
+        margin-right: 0; }
+      @media screen and (max-width: 48em) {
+        body > header #notice .notice--content {
+          float: left;
+          display: block;
+          margin-right: 2.12766%;
+          width: 100%; }
+          body > header #notice .notice--content:last-child {
+            margin-right: 0; } }
+    body > header #notice.hidden {
+      display: none; }
+    body > header #notice #notice--close {
+      cursor: pointer;
+      text-align: right;
+      float: right;
+      font-size: 1.4em; }
+      body > header #notice #notice--close i {
+        color: #323A45; }
   body > header #logo {
     float: left;
     display: block;
@@ -830,6 +867,10 @@ body > header {
   color: #EAEDF1;
   padding: 3.4em 0;
   margin-bottom: 1em; }
+#main .search.search__error {
+  background: none;
+  padding: 1em 0;
+  color: #323A45; }
 #main .search--content {
   float: left;
   display: block;
@@ -862,7 +903,7 @@ body > header {
     margin-top: 1em; }
     #main .search--content .browse a {
       color: #00BFE7;
-      font-weight: 800; }
+      font-weight: 600; }
 
 footer {
   background-color: white;
@@ -938,18 +979,23 @@ footer {
 @media screen and (max-width: 30em) {
   .hero {
     padding: 2em 0; } }
-#main.home .tag h1 {
-  margin: 0.2em; }
-#main.home .tag,
-#main.home .what,
-#main.home .process {
-  padding: 2em 0;
-  border-bottom: 1px solid #CCCCCC; }
-#main.home section.process ol li {
-  margin-bottom: 0.8em; }
-#main.home p,
-#main.home li {
-  font-size: 1.2em; }
+#main.home {
+  margin-top: 0; }
+  #main.home .tag h1 {
+    margin: 0.2em; }
+  #main.home .tag,
+  #main.home .what,
+  #main.home .process {
+    padding: 2em 0;
+    border-bottom: 1px solid #CCCCCC; }
+  #main.home section.process h2 {
+    padding-top: 0.5em;
+    margin-bottom: 0.5em; }
+  #main.home section.process ol li {
+    margin-bottom: 0.8em; }
+  #main.home p,
+  #main.home li {
+    font-size: 1.2em; }
 
 .fa {
   color: #00BFE7; }
@@ -1025,12 +1071,12 @@ footer {
   #main .searchresults .searchresults--list em {
     color: #0096B5;
     font-style: normal;
-    font-weight: 700; }
+    font-weight: 600; }
   #main .searchresults .searchresults--list li {
     padding: 0.5em 0; }
   #main .searchresults #searchresults--index li {
     display: inline-block;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.2em; }
   #main .searchresults .searchresults--letter {
     float: left;
@@ -1043,8 +1089,7 @@ footer {
     line-height: 2em; }
 
 .breadcrumbs_container {
-  background: white;
-  margin-bottom: 1.5em; }
+  background: white; }
 
 .breadcrumbs {
   padding: 0.5em 0;
@@ -1087,7 +1132,8 @@ footer {
   margin-left: -4rem;
   font-size: 1.4em; }
 #main .about ul li {
-  padding: 1em 0 0 4em;
+  padding: 0 0 1em 4em;
+  margin: 2em 0;
   border-bottom: 1px solid #CCCCCC; }
 #main .about ul ul > li {
   border-bottom: none;
@@ -1151,11 +1197,9 @@ footer {
       margin-left: 0%; }
       #main.landing .department .resources:last-child {
         margin-right: 0; } }
-#main.landing .department .description {
-  margin-bottom: 3em; }
-  #main.landing .department .description p {
-    margin-bottom: 1.2em;
-    font-size: 1.2em; }
+#main.landing .department .description p {
+  margin-bottom: 1.2em;
+  font-size: 1.2em; }
 #main.landing .department .details h2 {
   padding-bottom: 1em;
   border-bottom: 1px solid #323A45; }
@@ -1173,10 +1217,26 @@ footer {
   padding: 0.5em 0 1em; }
   #main.landing .department .details .contact_type .fa {
     font-size: 1.8em; }
+#main.landing .department .librarynudge {
+  border: 1px solid #CCCCCC;
+  background: #e0e3e6;
+  padding: 1.8em 2.2em;
+  margin-bottom: 2em; }
+  #main.landing .department .librarynudge ul, #main.landing .department .librarynudge li {
+    list-style-type: disc;
+    list-style-position: outside;
+    margin-left: 0.6em;
+    padding-left: 0.6em; }
+  #main.landing .department .librarynudge li {
+    margin-bottom: 0.2em; }
 #main.landing .department .resource_type {
   padding-left: 1em; }
   #main.landing .department .resource_type .fa {
     font-size: 1.5em; }
+  #main.landing .department .resource_type .fa-question-circle,
+  #main.landing .department .resource_type .fa-times-circle {
+    color: #0067BA;
+    font-size: 1em; }
 #main.landing .department .resource_type,
 #main.landing .department .contact_type {
   margin: 15px 0; }
@@ -1197,8 +1257,21 @@ footer {
     list-style-position: outside;
     margin: 0;
     padding: 0; }
+  #main.landing .department .resource_type li,
+  #main.landing .department .contact_type li {
+    margin-bottom: 0.3em; }
+    #main.landing .department .resource_type li.hidden,
+    #main.landing .department .contact_type li.hidden {
+      display: none; }
+    #main.landing .department .resource_type li.expandable,
+    #main.landing .department .contact_type li.expandable {
+      padding: 5%;
+      margin: 5% 0;
+      background-color: #f7f8f9;
+      font-size: .8em; }
 #main.landing .department .resource_type h3 {
-  font-size: 1em; }
+  font-size: 1em;
+  margin-bottom: 0.5em; }
 #main.landing .department .contact_type h3 {
   margin-bottom: 5px; }
 #main.landing .inaccurate {

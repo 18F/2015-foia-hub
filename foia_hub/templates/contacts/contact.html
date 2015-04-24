@@ -1,44 +1,3 @@
- 
-{% if profile.foia_libraries %}
-    <div class="reading_room resource_type">
-        <div class="icon">
-            <span class="fa fa-bookmark"></span>
-        </div>
-        <div class="subdetails">
-            {% if profile.foia_libraries|length > 1 %}
-            <h3>FOIA Libraries</h3>
-            {% else %}
-            <h3>FOIA Library</h3>
-            {% endif %}
-            {% for r in profile.foia_libraries %}
-                <ul>
-                    <li> <a href="{{r.url}}">{{r.link_text}}</a></li>
-                </ul>
-            {% endfor %}
-        </div>
-    </div>
-{% endif %}
-
-{% if profile.public_liaison_name %}
-  <div class="liaison resource_type">
-    <div class="icon">
-      <span class="fa fa-question-circle"></span>
-    </div>
-    <div class="subdetails">
-      <h3>Public liaison</h3>
-      <ul>
-        <li>{{ profile.public_liaison_name }}</li>
-        {% if profile.public_liaison_phone %}
-          <li>{{ profile.public_liaison_phone }}</li>
-        {% endif %}
-        {% if profile.public_liaison_email %}
-          <li>{{ profile.public_liaison_email }}</li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-{% endif %}
-
 {% if profile.office_url %}
       <div class="website resource_type">
         <div class="icon">
@@ -48,7 +7,7 @@
           <h3>Website</h3>
           <ul>
             <li>
-              <a href="{{ profile.office_url }}">
+              <a class="agency--site" href="{{ profile.office_url }}">
                 {{ get_domain(profile.office_url) }}
               </a>
             </li>
@@ -57,20 +16,84 @@
       </div>
 {% endif %}
 
-{% if profile.phone %}
+{% if profile.simple_processing_time or profile.complex_processing_time %}
+<div class="processing resource_type">
+  <div class="icon">
+    <span class="fa fa-clock-o"></span>
+  </div>
+  <div class="subdetails">
+    <h3>Median processing time</h3>
+    <ul>
+      {% if profile.simple_processing_time %}
+        <li>
+          {{ profile.simple_processing_time|int }} working days for <a href="#" class="slidedown"> simple requests <span class="fa fa-question-circle"></span></a>
+        </li>
+
+        <li class="hidden expandable" id="processing-times--simple">
+            A FOIA request that an agency anticipates will involve a small
+            volume of material or which will be able to be processed relatively
+            quickly.
+        </li>
+      {% endif %}
+
+      {% if profile.complex_processing_time %}
+        <li>
+          {{ profile.complex_processing_time|int }} working days for <a href="#" class="slidedown">complex requests <span class="fa fa-question-circle"></span></a>
+        </li>
+
+        <li class="hidden expandable" id="processing-times--complex">
+            A FOIA request that an agency anticipates will involve a voluminous
+            amount of material or will be time consuming to process.
+        </li>
+
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% if profile.phone or profile.public_liaison_name %}
       <div class="phone resource_type">
         <div class="icon">
-          <span class="fa fa-phone"></span>
+          <span class="fa fa-user"></span>
         </div>
         <div class="subdetails">
-          <h3>Phone</h3>
+          <h3>Have questions?</h3>
           <ul>
-            <li><a href="tel:{{profile.phone }}">
-              {{ profile.phone }}
-            </a></li>
+            <li><a href="#" class="slidedown">FOIA Requester Service Center <span class="fa fa-question-circle"></span></a>
+                <a class="servicecenter--phone" href="tel:{{profile.phone }}">
+                    {{ profile.phone }}
+                </a>
+            </li>
+            <li class="hidden expandable" id="service-center">
+                This is your primary contact at the agency, where you can call and ask questions
+                about the FOIA process or your pending FOIA request.
+            </li>
+
+            {% if profile.public_liaison_name %}
+            <li><a href="#" class="slidedown">{{profile.public_liaison_name}}, Public Liaison <span class="fa fa-question-circle"></span></a>
+
+
+            {% if profile.public_liaison_phone %}
+                <a class="liaison--phone" href="tel:{{profile.public_liaison_phone}}">
+                  {{ profile.public_liaison_phone}}
+                </a>
+            {% endif %}
+
+            {% if profile.public_liaison_email %}
+                {{ profile.public_liaison_email }}
+            {% endif %}
+
+            </li>
+
+            <li class="hidden expandable" id="public-liaison--name">
+                If you have any issues with how an agency or office is handling
+                your request, you can contact the FOIA public liaison, who will
+                work to address your concerns.
+            </li>
+
+            {% endif %}
           </ul>
         </div>
       </div>
 {% endif %}
-
-

@@ -7,7 +7,8 @@
     <input id="query" class="typeahead agency" name="query" type="search"
       placeholder="{{ search_placeholder }}"
       aria-label="{{ search_placeholder }}"
-      {% if query %}value="{{ query }}"{% endif %}>
+      {% if query %}value="{{ query }}"{% endif %}
+      search-type="smallSearch">
     <button type="submit" class="submit-button">
       <span class="fa fa-arrow-right"><span class="sr-only">submit</span></span>
     </button>

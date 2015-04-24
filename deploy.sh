@@ -14,12 +14,7 @@
 ###
 
 ROUTE="open.foia.gov"
-
-if [[ $1 = "quick" ]]; then
-  PUSH="cf-quick.sh"
-else
-  PUSH="cf.sh"
-fi
+PUSH="cf.sh"
 
 # The first grep can't have -q or the second grep won't have anything to grep!
 if $(cf app foia-a | grep "requested state" | grep -q started)

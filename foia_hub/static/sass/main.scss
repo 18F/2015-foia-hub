@@ -13,7 +13,7 @@ html, body {
 
 #main {
   min-height: 100%;
-  margin: 0 auto -4.8em; /* the bottom margin is the negative value of the footer's height */
+  margin: 1em auto -4.8em; /* the bottom margin is the negative value of the footer's height */
   @include media($small) {
     margin-bottom: -5.5em;
   }
@@ -124,16 +124,22 @@ body > header {
       font-weight: 400;
     }
 
-    .official {
-      float: left;
+    .alpha {
+      padding-left: 1.5em;
     }
 
-    .alpha {
+    .official, .alpha {
+      float: left;
+      display: none;
+    }
+
+    .foiagov {
       float: right;
     }
 
     .official,
-    .alpha {
+    .alpha,
+    .foiagov {
       display: inline-block;
 
       a {
@@ -144,6 +150,40 @@ body > header {
         float: none;
         display: block;
         text-align: center;
+      }
+    }
+  }
+
+  #notice {
+    background: $aqua-blue;
+    padding: 1.2em 0;
+    box-shadow: 0 6px 3px -3px $medium-gray;
+    h2 {
+      margin-bottom: 0.5em;
+    }
+    .notice--content {
+      a {
+      color: $dark-gray;
+      text-decoration: underline;
+      &:hover, &:active, &:focus {
+        color: $light-gray;
+      }
+      }
+      @include span-columns(18);
+      @include media($medium) {
+            @include span-columns(12);
+      }
+    }
+    &.hidden {
+      display: none;
+    }
+    #notice--close {
+      cursor: pointer;
+      text-align: right;
+      float:right;
+      font-size: $base-font-size * 1.4;
+      i {
+       color: $dark-gray; 
       }
     }
   }
@@ -174,7 +214,11 @@ body > header {
     padding: 3.4em 0;
     margin-bottom: 1em;
   }
-
+  .search.search__error {
+    background: none;
+    padding: 1em 0;
+    color: $dark-gray;
+  }
   .search--content {
     @include inner(16);
     h2 {
@@ -244,6 +288,7 @@ footer {
 }
 
 #main.home {
+  margin-top: 0;
   .tag h1 {
     margin: 0.2em;
   }
@@ -255,6 +300,10 @@ footer {
   }
 
   section.process {
+    h2 {
+      padding-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
     ol {
       @extend %default-ol;
       li {
@@ -329,7 +378,6 @@ footer {
 
 .breadcrumbs_container {
   background: white;
-  margin-bottom: 1.5em;
 }
 
 .breadcrumbs {
@@ -392,7 +440,8 @@ footer {
       font-size: 1.4em;
     }
     li {
-      padding: 1em 0 0 4em;
+      padding: 0 0 1em 4em;
+      margin: 2em 0;
       border-bottom: 1px solid $medium-gray;
     }
     ul > li {
@@ -449,7 +498,6 @@ footer {
     }
 
     .description {
-      margin-bottom: 3em;
       p {
         margin-bottom: 1.2em;
         font-size: $base-font-size * 1.2;
@@ -483,10 +531,32 @@ footer {
       }
     }
 
+    .librarynudge {
+      border: 1px solid $medium-gray;
+      background: #e0e3e6;
+      padding: 1.8em 2.2em;
+      margin-bottom: 2em;
+      ul, li {
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-left: 0.6em;
+        padding-left: 0.6em;
+      }
+      li {
+        margin-bottom: 0.2em;
+      }
+    }
+
     .resource_type {
         padding-left: 1em;
         .fa {
           font-size: 1.5em;
+        }
+
+        .fa-question-circle,
+        .fa-times-circle {
+          color: $blue;
+          font-size: 1em;
         }
     }
 
@@ -516,11 +586,25 @@ footer {
         margin: 0;
         padding: 0;
       }
+      li {
+        margin-bottom: 0.3em;
+        &.hidden {
+          display:none
+        }
+
+        &.expandable {
+          padding: 5%;
+          margin: 5% 0;
+          background-color: $light-light-gray;
+          font-size: .8em;
+        }
+      }
     }
 
     .resource_type {
       h3 {
         font-size: 1em;
+        margin-bottom: 0.5em;
       }
     }
 
