@@ -771,15 +771,21 @@ body > header {
         font-size: 1.2em;
         font-weight: 800;
         margin-bottom: .3em; }
-      body > header #topnav nav ul li a.active, body > header #topnav nav ul li a:hover {
+      body > header #topnav nav ul li a.active, body > header #topnav nav ul li a:hover, body > header #topnav nav ul li a:focus {
         text-decoration: none !important;
         color: #323A45;
         border-bottom: 4px solid #00BFE7; }
+      body > header #topnav nav ul li a.active {
+        border-bottom: 4px solid #00BFE7; }
+      body > header #topnav nav ul li a:hover, body > header #topnav nav ul li a:focus {
+        border-bottom: 4px solid #0096B5; }
   @media (max-width: 48em) {
     body > header #topnav nav ul {
       margin: 0 -1rem;
       padding-left: 1rem;
-      padding-right: 1rem; } }
+      padding-right: 1rem; }
+    body > header #topnav li {
+      min-height: 2.4em; } }
   @media (min-width: 30em) {
     body > header #topnav {
       padding-bottom: 0; }

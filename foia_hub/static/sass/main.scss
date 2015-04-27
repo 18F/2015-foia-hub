@@ -94,10 +94,16 @@ body > header {
           margin-bottom: .3em;
         }
 
-        a.active, a:hover {
+        a.active, a:hover, a:focus {
           text-decoration: none !important;
           color: $dark-gray;
           border-bottom: 4px solid $aqua-blue;
+        }
+        a.active {
+          border-bottom: 4px solid $aqua-blue;
+        }
+        a:hover, a:focus {
+          border-bottom: 4px solid $medium-blue;
         }
       }
     }
@@ -110,6 +116,9 @@ body > header {
         margin: 0 -1rem;
         padding-left: 1rem;
         padding-right: 1rem;
+      }
+      li {
+        min-height: 2.4em;
       }
     }
   }
