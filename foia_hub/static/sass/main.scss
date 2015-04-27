@@ -35,86 +35,7 @@ body > header {
   background-color: white;
   border-bottom: 1px solid #dedede;
 
-  #logo {
-    @include prefixer(box-sizing, border-box, $vendor-prefixes);
-    float: left;
-    color: $blue;
-    padding-right: 2em; 
-    h4 {
-      font-size: $base-font-size * 2;
-    }
-    a {
-      color: $blue;
-
-      span,
-      em {
-        padding-bottom: 0.18em;
-        border-bottom: none;
-      }
-
-      em {
-        color: $dark-gray;
-      }
-
-      &:hover,
-      &:focus {
-        text-decoration: none !important;
-        span,
-        em {
-          border-bottom: 0.15em solid $aqua-blue;
-        }
-        em {
-          color: $dark-gray !important;
-        }
-      }
-    }
-  }
-
-  #topnav {
-    margin: .8em 0 0.2em;
-    nav {
-      padding-top: 1em; // this should match #topnav { margin-top }
-      ul {
-        li {
-          display: inline-block;
-          padding: 0 2em 0 0;
-          font-weight: 600;
-        }
-
-        a {
-          color: $gray;
-          padding-bottom: 0.75em;
-          @include media($small) {
-            padding-bottom: 0;
-          }
-        }
-
-        a:hover,
-        a.active {
-          text-decoration: none;
-          color: $dark-gray;
-        }
-
-        a:hover,
-        a.active,
-        a:active {
-          border-bottom: 0.3em solid $aqua-blue;
-          @include media($small) {
-            border-bottom: 1px solid $aqua-blue;
-          }
-        }
-
-        a:focus {
-          // background: #cc2211;
-          background: #fff;
-          color: #18f;
-        }
-      }
-    }
-  }
-
   div#usa {
-
     background-color: $dark-gray;
     color: $light-gray;
     padding: 0.25em 0;
@@ -154,6 +75,144 @@ body > header {
     }
   }
 
+  #topnav {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    nav ul {
+      border-top: 1px solid $medium-gray;
+      padding-top: .8em;
+      padding-bottom: .5em;
+
+      li {
+        a {
+          display: inline-block;
+          color: $gray;
+          font-size: 1.2em;
+          font-weight: 800;
+          // border: 1px dotted red;
+          margin-bottom: .3em;
+        }
+
+        a.active, a:hover {
+          text-decoration: none !important;
+          color: $dark-gray;
+          border-bottom: 4px solid $aqua-blue;
+        }
+      }
+    }
+
+  }
+
+  @media (screen and max-width: $medium-screen) {
+    #topnav {
+      nav ul {
+        margin: 0 -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  }
+
+  @media (screen and min-width: $small-screen) {
+    #topnav {
+      // XXX
+      padding-bottom: 0;
+
+      .container {
+        position: relative;
+      }
+
+      #search {
+        position: absolute;
+        top: .3em;
+        right: 1em;
+      }
+    }
+  }
+
+  @media (screen and min-width: $medium-screen) {
+    #topnav {
+      padding-bottom: 0;
+
+      nav ul {
+        border-top: none;
+        padding-top: 0;
+        padding-bottom: .6em;
+
+        li {
+          display: inline-block;
+          margin-right: 1em;
+
+          a {
+            display: inline;
+            padding-bottom: .5em;
+          }
+        }
+      }
+    }
+  }
+
+  @media (screen and min-width: $large-screen) {
+    #topnav {
+      @include outer-container();
+
+      #logo {
+        position: absolute;
+      }
+
+      nav {
+        @include shift(4);
+        @include inner(16);
+
+        padding-bottom: 1em;
+
+        ul {
+          position: relative;
+          top: 1em;
+
+          li {
+          }
+        }
+      }
+    }
+  }
+
+  #logo {
+    @include prefixer(box-sizing, border-box, $vendor-prefixes);
+    color: $blue;
+
+    h4 {
+      font-size: $base-font-size * 2;
+    }
+
+    a {
+      color: $blue;
+
+      span,
+      em {
+        padding-bottom: 0.18em;
+        border-bottom: none;
+      }
+
+      em {
+        color: $dark-gray;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: none !important;
+        span,
+        em {
+          border-bottom: 0.15em solid $aqua-blue;
+        }
+        em {
+          color: $dark-gray !important;
+        }
+      }
+    }
+  }
+
   #notice {
     background: $aqua-blue;
     padding: 1.2em 0;
@@ -186,18 +245,6 @@ body > header {
        color: $dark-gray; 
       }
     }
-  }
-
-  #logo {
-    @include span-columns(4);
-  }
-
-  nav {
-    @include span-columns(15);
-  }
-
-  #search {
-    @include span-columns(5);
   }
 
 }
