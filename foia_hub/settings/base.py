@@ -39,7 +39,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'djangosecure.middleware.SecurityMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware', 
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,7 +78,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 INSTALLED_APPS += ('django_jinja',)
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
-
 
 
 # Enable bytecode cache (default: False)

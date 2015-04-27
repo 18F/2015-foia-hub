@@ -1,7 +1,7 @@
 from .base import *
 
-# There are common settings between staging and production. This puts them 
-# all in one place. 
+# There are common settings between staging and production. This puts them
+# all in one place.
 
 CACHES = {
     'default': {
@@ -13,5 +13,3 @@ CACHES = {
         },
     }
 }
-
-
