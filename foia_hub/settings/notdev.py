@@ -6,7 +6,7 @@ from .base import *
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION':  '/tmp',
+        'LOCATION': '/tmp',
         'TIMEOUT': 1440,
         'OPTIONS': {
             'MAX_ENTRIES': 1000
