@@ -27,8 +27,3 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Don't add complex authentication related query parameters for requests
 AWS_QUERYSTRING_AUTH = False
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass

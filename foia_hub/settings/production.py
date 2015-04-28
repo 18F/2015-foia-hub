@@ -20,3 +20,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # In production we will have HTTPS setup.
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
