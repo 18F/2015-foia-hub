@@ -1,8 +1,10 @@
 from .notdev import *
-import os
 
 # Some possible hosts
-ALLOWED_HOSTS = ['open.foia.gov', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us', 'openfoia-staging.cf.18f.us']
+ALLOWED_HOSTS = [
+    'open.foia.gov', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us',
+    'openfoia-staging.cf.18f.us'
+]
 
 # Force an HTTPS connection.
 # When testing production mode locally, this may require using ngrok.
