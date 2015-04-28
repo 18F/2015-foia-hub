@@ -1,4 +1,4 @@
-from .base import *
+from .notdev import *
 import os
 
 DEBUG = False
