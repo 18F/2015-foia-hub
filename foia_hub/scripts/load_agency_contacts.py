@@ -86,7 +86,10 @@ def add_request_time_statistics(data, agency, office=None):
     """Load stats data about agencies into the database."""
 
     # Delete old stats before adding
-    Stats.objects.filter(agency=agency, office=office).delete()
+    stats = Stats.objects.filter(agency__name=agency.name)
+    if office:
+        stats = stats.filter(office__name=office.name)
+    stats.delete()
 
     if data.get('request_time_stats'):
         latest_year = sorted(
