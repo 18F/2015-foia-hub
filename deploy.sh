@@ -28,7 +28,7 @@ fi
 
 echo "Pushing new app to $NEW, using $PUSH, and disabling $OLD."
 
-cf push $NEW -c "bash $PUSH"
+cf push $NEW -c "bash $PUSH" -i 4
 
 if [[ $? -ne 0 ]]; then
   echo "Error pushing to $NEW."
