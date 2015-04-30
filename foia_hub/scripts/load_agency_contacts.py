@@ -3,7 +3,6 @@
 import logging
 import os
 import string
-import sys
 
 import yaml
 from glob import iglob
