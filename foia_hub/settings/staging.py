@@ -7,7 +7,11 @@ TEMPLATE_DEBUG = False
 SHOW_WEBFORM = False
 
 # Some possible hosts
-ALLOWED_HOSTS = ['openfoia-staging.cf.18f.us', 'krang-staging.cf.18f.us']
+ALLOWED_HOSTS = [
+    'openfoia-staging.cf.18f.us',
+    'krang-staging.cf.18f.us',
+    'localhost'
+]
 
 # Importing bucket names
 AWS_STORAGE_STATIC_BUCKET = os.getenv('FOIA_S3_STATIC_BUCKET_NAME')

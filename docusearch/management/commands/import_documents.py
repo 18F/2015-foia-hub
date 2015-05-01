@@ -88,11 +88,9 @@ def create_basic_document(document, release_slug):
     d.release_agency_slug = release_slug
 
     file_type = details.get('file_type')
+    d.file_type = file_type
 
-    # Only save pdfs for now
-    if file_type == 'pdf':
-        d.file_type = file_type
-        return d
+    return d
 
 
 def create_document(document, release_slug):
@@ -105,9 +103,7 @@ def create_document(document, release_slug):
     doc_file = File(open(doc_path, 'rb'))
     filename = os.path.basename(doc_path)
 
-    # On save() django-storages uploads this file to S3
-    if d:
-        d.original_file.save(filename, doc_file, save=True)
+    d.original_file.save(filename, doc_file, save=True)
 
 
 def unprocessed_directory(date_directory, agency, office=None):
