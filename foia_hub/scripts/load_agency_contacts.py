@@ -73,6 +73,8 @@ def add_request_time_statistics(data, agency, office=None):
     stats = Stats.objects.filter(agency__name=agency.name)
     if office:
         stats = stats.filter(office__name=office.name)
+    else:
+        stats = stats.filter(office__isnull=True)
     stats.delete()
 
     if data.get('request_time_stats'):
