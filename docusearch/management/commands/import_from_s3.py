@@ -38,7 +38,6 @@ class Command(BaseCommand):
             manifest = yaml.load(manifest_key.get_contents_as_string())
             return manifest
 
-    #we might want to rename this to: "read_manifest"
     def process_date_documents(self, agency, date_directory, directory_prefix):
         """ 
         agency example: 'department-of-commerce/'
@@ -50,7 +49,8 @@ class Command(BaseCommand):
         """
 
         manifest = self.read_manifest(directory_prefix)
-        print(manifest)
+
+        for document in manifest:
 
 
     def handle(self, *args, **options):
