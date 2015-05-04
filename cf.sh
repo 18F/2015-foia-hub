@@ -6,4 +6,4 @@ if [ $CF_INSTANCE_INDEX = "0" ]; then
     echo "----- Loading Agency Contacts -----"
     python manage.py load_agency_contacts
 fi
-waitress-serve --port=$VCAP_APP_PORT foia_hub.wsgi:application
+gunicorn foia_hub.wsgi:application --log-file -
