@@ -1,17 +1,12 @@
 from boto.s3.connection import S3Connection
-from boto.s3.key import Key
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from django.core.files import File
 
 import yaml
-import os
-import tempfile
 
 from .document_importer import is_date
 from .import_documents import unprocessed_directory, mark_directory_processed
-from .import_documents import create_basic_document
 
 
 def last_name_in_path(path):
@@ -50,38 +45,6 @@ class Command(BaseCommand):
         if manifest_key:
             manifest = yaml.load(manifest_key.get_contents_as_string())
             return manifest
-
-    def copy_and_extract_documents(self, date_directory,
-                                   directory_prefix, manifest):
-        """ Extract text from documents, and return a tuple contain documentation
-        details and the extracted text. """
-
-        for document in manifest:
-            doc_path = os.path.join(
-                directory_prefix.name, document['doc_location'])
-            root, ext = os.path.splitext(doc_path)
-            k = Key(self.bucket)
-            k.key = root + ".txt"
-            text_contents = k.get_contents_as_string()
-            yield(document, doc_path, text_contents)
-
-    def create_document(self, document, release_slug):
-        """ Create a Document object representing the document.
-        This also uploads the document into it's S3 location. """
-
-        d = create_basic_document(document, release_slug)
-        details, doc_path, text_contents = document
-
-        filename = os.path.basename(doc_path)
-
-        with tempfile.TemporaryDirectory() as tmpdirname:
-            k = Key(self.bucket)
-            k.key = doc_path
-            temp_path = os.path.join(tmpdirname, filename)
-            k.get_contents_to_filename(temp_path)
-            doc_file = File(open(temp_path, 'rb'))
-            print('new doc')
-            d.original_file.save(filename, doc_file, save=True)
 
     # we might want to rename this to: "read_manifest"
     def process_date_documents(self, agency, date_directory, directory_prefix):
