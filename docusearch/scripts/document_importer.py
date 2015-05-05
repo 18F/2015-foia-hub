@@ -67,9 +67,7 @@ class DocImporter:
         d = self.create_basic_document(document, release_slug)
         details, doc_path, text_contents = document
         doc_file, filename = self.get_raw_document(doc_path)
-
-        print("getdoc")
-        # d.original_file.save(filename, doc_file, save=True)
+        d.original_file.save(filename, doc_file, save=True)
 
     def create_basic_document(self, document, release_slug):
         """ Create a basic Document object (without the file upload
@@ -112,7 +110,6 @@ class DocImporter:
         that the text has been extracted"""
         manifest, documents_path = self.get_manifest_data(date_directory)
         for document in manifest:
-
             doc_path = os.path.join(documents_path, document['doc_location'])
             root, ext = os.path.splitext(doc_path)
             text_contents = self.open_text_content(root + '.txt')

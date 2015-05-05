@@ -1,13 +1,13 @@
 import os
 
 from django.test import TestCase
-from docusearch.scripts.document_importer import DocImporter
+from docusearch.scripts.document_importer import DocImporter, DocImporterS3
 from docusearch.models import ImportLog
 
 LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-class ImportTest(TestCase):
+class DocImporterTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -53,6 +53,8 @@ class ImportTest(TestCase):
         self._connection.office = None
 
     def test_mark_directory_processed(self):
+        """ Check that mark_directory_processed correctly marks specified
+        dirs """
         self.assertTrue(self._connection.unprocessed_directory('20150302'))
         self._connection.mark_directory_processed('20150302')
         self.assertFalse(self._connection.unprocessed_directory('20150302'))
@@ -75,6 +77,8 @@ class ImportTest(TestCase):
         self.assertEqual(filler, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 
     def test_create_basic_document(self):
+        """ Verify that Document object correctly created """
+
         doc_details = {
             'title': 'UFOs land on South Lawn',
             'document_date': '19500113',
@@ -87,3 +91,53 @@ class ImportTest(TestCase):
             doc_tuple, 'state-department')
         self.assertEqual(document.title, 'UFOs land on South Lawn')
         self.assertEqual(document.text, 'We are not alone.')
+
+    def test_agency_iterator(self):
+        """ Test that iterator loops through agency directory """
+
+        date_dir_list = list(self._connection.agency_iterator())
+        self.assertEqual(date_dir_list[0], '20150331')
+
+    def test_get_manifest_data(self):
+        """ Test that get_manifest_data correctly returns manifest data
+        and basepath """
+        manifest, path = self._connection.get_manifest_data('20150331')
+        self.assertEqual(len(manifest), 3)
+        path = os.path.split(path)[-1]
+        self.assertEqual(path, '20150331')
+
+    def test_open_text_content(self):
+        """ Test that open_text_content opens a local text document
+        and returns text as string """
+
+        text_path = os.path.join(
+            LOCAL_PATH, 'fixtures',
+            'national-archives-and-records-administration', '20150331',
+            '090004d2804eb1ab', 'record.txt')
+
+        text = self._connection.open_text_content(text_path)
+        self.assertEqual(len(text), 714001)
+
+    def test_get_documents(self):
+        """ Test that the get_documents function iterates over
+        document records based on the manifest and returns doc tuple """
+
+        doc_iterator = self._connection.get_documents('20150331')
+        self.assertEqual(len(list(doc_iterator)), 3)
+
+
+class DocImporterS3Test(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        """ Setting up class to test internal functions """
+        agency = 'national-archives-and-records-administration'
+        cls._connection = DocImporterS3(s3_bucket='', agency=agency)
+
+    def test_last_name_in_path(self):
+        """ Verify that last name in path is returned """
+
+        last_name = self._connection.last_name_in_path('doc/20150301/abc.pdf')
+        self.assertEqual(last_name, 'abc.pdf')
+        last_name = self._connection.last_name_in_path('doc/20150301/')
+        self.assertEqual(last_name, '20150301')
