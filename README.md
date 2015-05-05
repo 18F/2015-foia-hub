@@ -98,6 +98,12 @@ python manage.py syncdb
 elasticsearch
 ```
 
+### Running the tests
+
+```
+python manage.py test --settings=foia_hub.settings.test
+```
+
 ### Loading Contacts Data
 
 First, migrate the database:
@@ -188,7 +194,7 @@ You'll need to configure an app named `foia` in the space or org that makes sens
 
 #### 18F setup
 
-Point `cf` at 18F's API. You may need to use `--skip-ssl
+Point `cf` at 18F's API. You may need to use `--skip-ssl`
 
 ```bash
 cf api https://api.cf.18f.us
@@ -241,14 +247,6 @@ This will:
 * Check out the latest data from [`18f/foia`](https://github.com/18f/foia) and load the data into the database.
 * Start the app.
 * If the app successfully starts, the route will be mapped to the new environment, and the previous production environment will have its route unmapped, and then be stopped.
-
-You can also do a quicker deployment that avoids data loading:
-
-```
-./deploy.sh quick
-```
-
-This will use `cf-quick.sh` as the init script instead of `cf.sh`, which skips data loading.
 
 #### Watching the logs
 

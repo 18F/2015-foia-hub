@@ -19,6 +19,13 @@ DEFAULT_JINJA2_TEMPLATE_INTERCEPT_RE = r"^(?!debug_toolbar/).*"
 
 INTERNAL_IPS = ('127.0.0.1',)
 
+# We don't want to use a cache for testing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
