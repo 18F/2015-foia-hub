@@ -1,10 +1,4 @@
-from .base import *
-
-DEBUG = False
-TEMPLATE_DEBUG = False
-
-# Flag to determine whether the FOIA request form gets shown.
-SHOW_WEBFORM = False
+from .notdev import *
 
 # Some possible hosts
 ALLOWED_HOSTS = [

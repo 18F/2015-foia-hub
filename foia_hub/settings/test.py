@@ -15,6 +15,13 @@ if custom_backend:
 else:
     ENGINE = "django.db.backends.sqlite3"
 
+# We don't want to use a cache for testing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 DATABASES = {
     'default': {
         'ENGINE': ENGINE

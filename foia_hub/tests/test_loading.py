@@ -209,7 +209,7 @@ class LoadingTest(TestCase):
         rr_count = census.reading_room_urls.all().count()
         self.assertEqual(2, rr_count)
 
-    def test_add_stats(self):
+    def test_add_agency_stats(self):
         """
         Confirms all latest records are loaded, no empty records
         are created, and records with a value of `less than one`
@@ -246,6 +246,29 @@ class LoadingTest(TestCase):
 
         # Verify latest old data is overwritten when new data is updated
         self.assertEqual(len(agency.stats_set.all()), 2)
+
+    def test_add_office_stats(self):
+        """ Check that office stats are added correctly and verify that adding
+        Agency stats after office stats does not delete office stats."""
+
+        # Adding office stats
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        slug = 'department-of-homeland-security--'
+        slug += 'federal-emergency-management-agency'
+        office = Office.objects.get(slug=slug)
+        data = {'request_time_stats': {
+            '2015': {'simple_median_days': '3',
+                     'complex_median_days': '3'}}}
+        add_request_time_statistics(data, agency, office)
+        self.assertEqual(len(office.stats_set.all()), 2)
+
+        # Adding agency stats
+        data = {'request_time_stats': {
+            '2015': {'simple_median_days': '300',
+                     'complex_median_days': '300'}}}
+        add_request_time_statistics(data, agency, office)
+        self.assertEqual(len(agency.stats_set.all()), 2)
+        self.assertEqual(len(office.stats_set.all()), 2)
 
     def test_extract_tty_phone(self):
         """ Test: from a service center entry, extract the TTY phone if it

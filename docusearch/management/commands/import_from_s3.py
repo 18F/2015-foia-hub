@@ -6,6 +6,9 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
 
+    help = """Import documents from your document source S3 bucket,
+    into docusearch. """
+
     def handle(self, *args, **options):
 
         aws_connection = S3Connection(
