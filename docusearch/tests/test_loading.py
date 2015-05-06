@@ -1,5 +1,6 @@
 import os
-
+import mock
+from boto.s3.key import Key
 from django.test import TestCase
 from docusearch.scripts.document_importer import DocImporter, DocImporterS3
 from docusearch.models import ImportLog
@@ -82,7 +83,10 @@ class DocImporterTest(TestCase):
         doc_details = {
             'title': 'UFOs land on South Lawn',
             'document_date': '19500113',
-            'file_type': 'pdf'
+            'file_type': 'pdf',
+            'date_created': '2014-01-01',
+            'date_released': '2014-01-01',
+            'pages': 22
         }
 
         text_contents = "We are not alone."
@@ -91,6 +95,9 @@ class DocImporterTest(TestCase):
             doc_tuple, 'state-department')
         self.assertEqual(document.title, 'UFOs land on South Lawn')
         self.assertEqual(document.text, 'We are not alone.')
+        self.assertEqual(document.date_created, '2014-01-01')
+        self.assertEqual(document.date_released, '2014-01-01')
+        self.assertEqual(document.pages, 22)
 
     def test_agency_iterator(self):
         """ Test that iterator loops through agency directory """
@@ -126,6 +133,15 @@ class DocImporterTest(TestCase):
         self.assertEqual(len(list(doc_iterator)), 3)
 
 
+def mock_s3_key_gcas(func):
+    """ A mock decorator for boto's s3 get_contents_as_string """
+    def _mock_s3_key(*args, **kwargs):
+        with mock.patch.object(
+                Key, 'get_contents_as_string', return_value='test'):
+            return func(*args, **kwargs)
+    return _mock_s3_key
+
+
 class DocImporterS3Test(TestCase):
 
     @classmethod
@@ -141,3 +157,32 @@ class DocImporterS3Test(TestCase):
         self.assertEqual(last_name, 'abc.pdf')
         last_name = self._connection.last_name_in_path('doc/20150301/')
         self.assertEqual(last_name, '20150301')
+
+    @mock_s3_key_gcas
+    def test_get_manifest_data(self):
+        """ Test that function opens manifest and returns the manifest data
+        along with path where the documents are located """
+        manifest, location = self._connection.get_manifest_data('20150301')
+        self.assertEqual(manifest, 'test')
+        self.assertEqual(
+            location,
+            'national-archives-and-records-administration/20150301')
+
+    @mock_s3_key_gcas
+    def test_open_text_content(self):
+        """ Verify that function reads the content of a text file """
+        text = self._connection.open_text_content('')
+        self.assertEqual(text, 'test')
+
+    def test_agency_iterator(self):
+        """ Verify that iterator loops through folders inside
+        an agency folder """
+        # Create Mocks for the s3 bucket
+        class FakeS3(object):
+            pass
+        a = FakeS3()
+        a.name = '20150331'
+        self._connection.s3_bucket = mock.MagicMock()
+        self._connection.s3_bucket.list = mock.MagicMock(return_value=[a])
+        date_dir_list = list(self._connection.agency_iterator())
+        self.assertEqual(date_dir_list[0], '20150331')

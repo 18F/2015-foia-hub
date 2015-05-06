@@ -173,8 +173,7 @@ class DocImporterS3(DocImporter):
             return path_split[-1]
 
     def agency_iterator(self):
-        """ Loops through folders inside of a agency documents """
-
+        """ Loops through folders inside of a agency folder """
         agency_directory = self.s3_bucket.list(self.agency + '/', "/")
         for date_dir in agency_directory:
             yield self.last_name_in_path(date_dir.name)
