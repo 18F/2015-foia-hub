@@ -15,6 +15,10 @@ class DocImporter:
         self.agency = agency
         self.office = office
 
+        self.local_dir = self.agency
+        if self.office:
+            self.local_dir = self.office
+
     def is_date(self, d):
         """ If 'd' is all digits, return True as in our system this
         signifies it represents a date. """
@@ -23,7 +27,8 @@ class DocImporter:
     def agency_iterator(self):
         """ Loops through folders inside of a agency documents in a local
         directory """
-        agency_directory = os.path.join(self.documents_directory, self.agency)
+        agency_directory = os.path.join(
+            self.documents_directory, self.local_dir)
         for date_dir in os.listdir(agency_directory):
             yield date_dir
 
@@ -31,7 +36,7 @@ class DocImporter:
         """ Opens manifest and returns the manifest data along with path
         where the documents are located """
         documents_path = os.path.join(
-            self.documents_directory, self.agency, date_directory)
+            self.documents_directory, self.local_dir, date_directory)
         manifest_path = os.path.join(documents_path, 'manifest.yaml')
         return yaml.load(open(manifest_path, 'r')), documents_path
 
@@ -65,9 +70,10 @@ class DocImporter:
         """ Create a Document object representing the document. This
         also uploads the document into it's S3 location. """
         d = self.create_basic_document(document, release_slug)
+        d.save()
         details, doc_path, text_contents = document
         doc_file, filename = self.get_raw_document(doc_path)
-        d.original_file.save(filename, doc_file, save=True)
+        return d, filename, doc_file
 
     def create_basic_document(self, document, release_slug):
         """ Create a basic Document object (without the file upload
@@ -131,23 +137,25 @@ class DocImporter:
 
         def process():
             for document in self.get_documents(date_directory):
-                self.create_document(document, release_slug)
+                d, filename, doc = self.create_document(document, release_slug)
+                d.original_file.save(filename, doc, save=True)
 
         self.import_log_decorator(date_directory, process)
+
+    def new_processor(self, office):
+        """ Spawn a child of the same class """
+        new_location = os.path.join(self.documents_directory, self.agency)
+        return DocImporter(new_location, self.agency, office)
 
     def import_docs(self):
         """ An Agency directory can either have sub-Office directories, or date
         named directories that contain actual documents. This processes both
         appropriately. """
-
         for date_dir in self.agency_iterator():
             if self.is_date(date_dir):
                 self.process_date_documents(date_dir)
             else:
-                office_directory = os.path.join(
-                    self.agency_directory, date_dir)
-                office_processor = DocImporter(
-                    office_directory, self.agency, date_dir)
+                office_processor = self.new_processor(date_dir)
                 office_processor.import_docs()
 
 
@@ -157,6 +165,10 @@ class DocImporterS3(DocImporter):
         self.s3_bucket = s3_bucket
         documents_directory = ''
         super().__init__(documents_directory, agency, office)
+
+        self.local_dir = self.agency
+        if self.office:
+            self.local_dir = os.path.join(self.local_dir, self.office)
 
     def last_name_in_path(self, path):
         """
@@ -174,7 +186,7 @@ class DocImporterS3(DocImporter):
 
     def agency_iterator(self):
         """ Loops through folders inside of a agency folder """
-        agency_directory = self.s3_bucket.list(self.agency + '/', "/")
+        agency_directory = self.s3_bucket.list(self.local_dir + '/', "/")
         for date_dir in agency_directory:
             yield self.last_name_in_path(date_dir.name)
 
@@ -182,7 +194,7 @@ class DocImporterS3(DocImporter):
         """ Opens manifest and returns the manifest data along with path
         where the documents are located """
         documents_path = os.path.join(
-            self.documents_directory, self.agency, date_directory)
+            self.documents_directory, self.local_dir, date_directory)
         manifest_path = os.path.join(documents_path, 'manifest.yaml')
         k = Key(self.s3_bucket)
         k.key = manifest_path
@@ -193,6 +205,11 @@ class DocImporterS3(DocImporter):
         k = Key(self.s3_bucket)
         k.key = text_path
         return k.get_contents_as_string()
+
+    def new_processor(self, office):
+        """ Spawn a child of the same class """
+
+        return DocImporterS3(self.s3_bucket, self.agency, office)
 
     def get_raw_document(self, doc_path):
         """ Returns the document file and file name """

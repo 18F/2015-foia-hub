@@ -1,11 +1,42 @@
+import builtins
 import os
 import mock
+
 from boto.s3.key import Key
+from django.core.files import File
+from django.db import models
 from django.test import TestCase
 from docusearch.scripts.document_importer import DocImporter, DocImporterS3
-from docusearch.models import ImportLog
+from docusearch.models import ImportLog, Document
 
 LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
+
+
+def mock_s3_key_gcas(func):
+    """ A mock decorator for boto's s3 get_contents_as_string """
+    def _mock_gcas(*args, **kwargs):
+        with mock.patch.object(
+                Key, 'get_contents_as_string', return_value='test'):
+            return func(*args, **kwargs)
+    return _mock_gcas
+
+
+def mock_s3_key_gctf(func):
+    """ A mock decorator for boto's s3 get_contents_to_filename """
+    def _mock_gctf(*args, **kwargs):
+        with mock.patch.object(
+                Key, 'get_contents_to_filename', return_value=None):
+            return func(*args, **kwargs)
+    return _mock_gctf
+
+
+def mock_s3_key_scff(func):
+    """ A mock decorator for boto's s3 set_contents_from_filename """
+    def _mock_scff(*args, **kwargs):
+        with mock.patch.object(
+                Key, 'set_contents_from_filename', return_value=None):
+            return func(*args, **kwargs)
+    return _mock_scff
 
 
 class DocImporterTest(TestCase):
@@ -99,6 +130,26 @@ class DocImporterTest(TestCase):
         self.assertEqual(document.date_released, '2014-01-01')
         self.assertEqual(document.pages, 22)
 
+    def test_create_document(self):
+        doc_details = {
+            'title': 'UFOs land on South Lawn',
+            'document_date': '19500113',
+            'file_type': 'pdf',
+            'date_created': '2014-01-01',
+            'date_released': '2014-01-01',
+            'pages': 22
+        }
+        slug = 'national-archives-and-records-administration'
+        text_contents = "We are not alone."
+        doc_path = os.path.join(
+            LOCAL_PATH, 'fixtures', slug, '20150331', '090004d280039e4a',
+            'record.pdf')
+        doc_tuple = (doc_details, doc_path, text_contents)
+        d, name, doc_file = self._connection.create_document(doc_tuple, slug)
+        self.assertIsInstance(d, Document)
+        self.assertEqual(name, 'record.pdf')
+        self.assertIsInstance(doc_file, File)
+
     def test_agency_iterator(self):
         """ Test that iterator loops through agency directory """
 
@@ -132,14 +183,20 @@ class DocImporterTest(TestCase):
         doc_iterator = self._connection.get_documents('20150331')
         self.assertEqual(len(list(doc_iterator)), 3)
 
+    def test_new_processor(self):
+        """ Test to ensure that function spawns a child with the same agency
+        but different office """
+        test_child = self._connection.new_processor('test-office')
+        self.assertEqual(
+            test_child.agency, 'national-archives-and-records-administration')
+        self.assertEqual(test_child.office, 'test-office')
 
-def mock_s3_key_gcas(func):
-    """ A mock decorator for boto's s3 get_contents_as_string """
-    def _mock_s3_key(*args, **kwargs):
-        with mock.patch.object(
-                Key, 'get_contents_as_string', return_value='test'):
-            return func(*args, **kwargs)
-    return _mock_s3_key
+    def test_import_docs(self):
+        """ Test that documents are correctly injested """
+        with mock.patch.object(models.fields.files.FieldFile, 'save'):
+            self._connection.import_docs()
+            docs = Document.objects.all()
+            self.assertEqual(len(docs), 3)
 
 
 class DocImporterS3Test(TestCase):
@@ -147,8 +204,15 @@ class DocImporterS3Test(TestCase):
     @classmethod
     def setUpClass(cls):
         """ Setting up class to test internal functions """
+        # Create Mocks for the s3 bucket
+        class MockKey(object):
+            pass
+        k = MockKey()
+        k.name = '20150331'
+        s3_bucket = mock.MagicMock()
+        s3_bucket.list.return_value = [k]
         agency = 'national-archives-and-records-administration'
-        cls._connection = DocImporterS3(s3_bucket='', agency=agency)
+        cls._connection = DocImporterS3(s3_bucket=s3_bucket, agency=agency)
 
     def test_last_name_in_path(self):
         """ Verify that last name in path is returned """
@@ -177,12 +241,20 @@ class DocImporterS3Test(TestCase):
     def test_agency_iterator(self):
         """ Verify that iterator loops through folders inside
         an agency folder """
-        # Create Mocks for the s3 bucket
-        class FakeS3(object):
-            pass
-        a = FakeS3()
-        a.name = '20150331'
-        self._connection.s3_bucket = mock.MagicMock()
-        self._connection.s3_bucket.list = mock.MagicMock(return_value=[a])
         date_dir_list = list(self._connection.agency_iterator())
         self.assertEqual(date_dir_list[0], '20150331')
+
+    @mock_s3_key_gctf
+    def test_get_raw_document(self):
+        """ Verify that function returns the document file and file name """
+
+        with mock.patch.object(builtins, 'open'):
+            doc, filename = self._connection.get_raw_document('')
+            self.assertIsInstance(doc, File)
+            self.assertEqual(filename, '')
+
+    def test_new_processor(self):
+        """ Test to ensure that function spawns a child with the same bucket
+        but different office """
+        test_child = self._connection.new_processor('test-office')
+        self.assertEqual(test_child.office, 'test-office')
