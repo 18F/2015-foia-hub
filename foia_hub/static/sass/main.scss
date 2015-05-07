@@ -379,11 +379,14 @@ footer {
 }
 
 .content {
-  @include shift(4);
   @include inner(16);
 }
 
-#main .searchresults {
+.content--record {
+
+}
+
+#main .searchresults--contacts {
   @include inner(16);
   h2 {
     margin-bottom: 0;
@@ -429,6 +432,62 @@ footer {
   .searchresults--back {
     text-align: right;
     line-height: 2em;
+  }
+}
+
+  
+
+#main .recordsearch--content {
+  form .recordsearch--box input.submit {
+    right: 356px; /** FIX THIS -VZ **/
+  }
+  .recordsearch--box {
+    @media (screen and min-width: $medium-screen) {
+      @include span-columns(16 of 24);
+    }
+  }
+  .recordsearch--filter {
+    @media (screen and min-width: $medium-screen) {
+      @include span-columns(6 of 24);
+    }
+  }
+}
+
+#main .searchresults--records {
+  header {
+    border-bottom: 1px solid $dark-gray;
+    h1 {
+      @include span-columns(18 of 24);
+    }
+    .searchresults--sort {
+      @include span-columns(6 of 24);
+      float:right;
+    }
+  }
+  .searchresults--list {
+    p em {
+      font-weight: 800;
+      font-style: normal;
+    }
+  }
+  .searchresult {
+    border-bottom: 1px solid $medium-gray;
+    padding: 2em 0;
+    display:block;
+    list-style: none;
+    list-style-type: none;
+  }
+  .searchresult--content {
+    @media (screen and min-width: $medium-screen) {
+      @include shift(2);
+      @include span-columns(16 of 24);
+    }
+  }
+  .searchresult--metadata {
+      display: block;
+      @media (screen and min-width: $medium-screen) {
+        @include span-columns(6 of 24);
+      }
   }
 }
 

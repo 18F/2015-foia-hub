@@ -7,55 +7,62 @@
         {{request.GET.q|default("No Search")}}
     </section>
 </div>
+
 <div class="search">
     <div class="container">
-        <section class="search--content">
-        <h2>Search Government Records </h2>
 
-            <form class="agency" method="get" action=".">
-                <div class="search--box scrollable-dropdown-menu">
-                        <input id="id_q" name="q" type="search" value="{{request.GET.q}}" />
-                        <button type="submit">Search</button>
-                </div>
-            </form>
+
+        <section class="recordsearch--content">
+
+          <form class="recordsearch" method="get" action=".">
+            <div class="recordsearch--box">
+              <form id="search">
+                <div class="search-icon"><span class="fa fa-search"></span></div>
+                <input id="query id_q" name="q" type="search" value="{{request.GET.q}}" />
+                <input class="submit" type="submit" value="Search">
+              </form>
+            </div>
+            <div class="recordsearch--filter">
+                <h4>Filter by Agency</h4>
+                <select>
+                {% if facets.fields.foia_agency %}
+                {% for agency in facets.fields.foia_agency %}
+                        {% if "foia_agency_exact" not in request.GET.urlencode() %}
+                            <option value="{{agency.0|upper}}">{{agency.0|upper}}</option>
+                            <!--<a href="?{{remove_from_query(request.GET.urlencode(), ['page'])}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a>-->
+                            ({{ agency.1 }})
+                        {% else %}
+                            {{agency.0|replace("-", " ")}} ({{ agency.1 }})
+                        {% endif %}
+                {% endfor %}
+                {% endif %}
+                </select>
+            </div>
+          </form>
         </section>
     </div>
 </div>
 
 <div class="container">
-    <section class="searchresults">
+    <section class="searchresults--records">
     {% if query %}
-        <hr />
-        <h2>Displaying {{page.paginator.count}} Results</h2>
+        <header class="clearfix">
+            <h1><em>{{page.paginator.count}} results for &ldquo;{{request.GET.q}}&rdquo;</em></h1>
 
-        <div>
-        <dl>
-        <dd>
+            <div class="searchresults--sort">
+                <dl>
+                    <dd>
+                        {% if request.GET.order_by == 'date_released' %}
+                            <a href="?{{remove_from_query(request.GET.urlencode(), ['order_by', 'page'])}}&amp;order_by=relevance">Order by relevance</a>
+                        {% else %}
+                            <a href="?{{remove_from_query(request.GET.urlencode(), ['order_by', 'page'])}}&amp;order_by=date_released">Order by release date</a>
+                        {% endif %}
+                    </dd>
+                </dl>
+            </div>
+        </header>
 
-            {% if request.GET.order_by == 'date_released' %}
-                <a href="?{{remove_from_query(request.GET.urlencode(), ['order_by', 'page'])}}&amp;order_by=relevance">Order By Relevance</a>
-            {% else %}
-                <a href="?{{remove_from_query(request.GET.urlencode(), ['order_by', 'page'])}}&amp;order_by=date_released">Order By Date Released</a>
-            {% endif %}
-        </dd>
-        {% if facets.fields.foia_agency %}
-            <dt>Agencies</dt>
-
-            {% for agency in facets.fields.foia_agency %}
-                <dd>
-                    {% if "foia_agency_exact" not in request.GET.urlencode() %}
-                        <a href="?{{remove_from_query(request.GET.urlencode(), ['page'])}}&amp;selected_facets=foia_agency_exact:{{agency.0|urlencode}}">{{agency.0|upper}}</a> ({{ agency.1 }})
-                    {% else %}
-                        {{agency.0|replace("-", " ")}} ({{ agency.1 }})
-                    {% endif %}
-
-                </dd>
-            {% endfor %}
-        {% endif %}
-        </dl>
-        </div>
-
-        <ul>
+        <ul class="searchresults--list">
         {% for result in page.object_list %}
 
             {% include 'search/search_result.html' %}
@@ -64,8 +71,6 @@
             <p>No results found</p>
         {% endfor %}
         </ul>
-
-        <hr />
 
         {% if page.has_previous() or page.has_next() %}
             <div>
@@ -81,6 +86,6 @@
 
     {# Show some example queries to run, maybe query syntax, something else? #}
     {% endif %}
-</section>
+    </section>
 </div>
 {% endblock %}

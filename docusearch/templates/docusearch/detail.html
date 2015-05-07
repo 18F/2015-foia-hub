@@ -9,7 +9,7 @@
         <a href="{{url('home')}}">Search Home </a> &gt; Document Details
     </section>
 
-    <section class="content">
+    <section class="content--record">
     <h1><em>Document</em></h1>
 
     <h2>{{document.title|default(get_filename(document.original_file.name))}}</h2>
@@ -26,7 +26,7 @@
     </p>
 
     {% if document.original_file %}
-        <object data="{{ document_location }}" type="application/pdf" width="100%" height="100%">
+        <object data="{{ document_location }}" type="application/pdf" width="535px" height="695px%">
             View the <a href="{{ document_location }}">original document</a>
         </object>
         <p>

@@ -1,32 +1,30 @@
+<li class="searchresult clearfix">
+    <div class="searchresult--content">
+        <div class="searchresult--name">
+            <h2><a href="{{ result.object.get_absolute_url() }}">
+                {{result.object.title|default(get_filename(result.object.original_file.name))}}
+            </a></h2>
+        </div>
 
-<li>
-    <div class="agencies--name">
-        <h3><a href="{{ result.object.get_absolute_url() }}">
-            {{result.object.title|default(get_filename(result.object.original_file.name))}}
-        </a></h3>
+        <div class="searchresult--description">
+                {% for text in result.highlighted.text %}
+                    <p>{{text}}</p>
+                {% endfor %}
+            <p>&hellip;
+            {% for htext in result.highlighted %}
+                {% if loop.last %}
+                    {{htext|truncate(256)|lower|safe}}&nbsp;&hellip;
+                {% else %}
+                    {{htext|truncate(256)|lower|safe}}&nbsp;&hellip;
+                {% endif %}
+            {% endfor %}
+            </p>
+        </div>
     </div>
-    <ul>
-        <li>{{result.foia_agency|upper}}</li>
-        <li>{{result.object.file_type|upper}}</li>
-        <li>{{result.object.date_released}}</li>
-        <li>{{result.object.date_created}}</li>
+    <ul class="searchresult--metadata">
+        <li><i class="fa fa-university"></i>&nbsp;&nbsp; {{result.foia_agency|upper}}</li>
+        <li><i class="fa fa-file-o"></i>&nbsp;&nbsp; {{result.object.file_type|upper}}</li>
+        <li><i class="fa fa-calendar"></i>&nbsp;&nbsp; Created {{result.object.date_created}}</li>
+        <li><i class="fa fa-calendar"></i>&nbsp;&nbsp; Released {{result.object.date_released}}</li>
     </ul>
-
-
-    <div class="agencies--description">
-    <p>
-        {% for text in result.highlighted.text %}
-            {{text}}
-        {% endfor %}
-    </p>
-    <p>
-    {% for htext in result.highlighted %}
-        {% if loop.last %}
-            {{htext|truncate(256)|lower|safe}}
-        {% else %}
-            ... {{htext|truncate(256)|lower|safe}} ... <br />
-        {% endif %}
-    {% endfor %}
-    </p>
-    </div>
 </li>
