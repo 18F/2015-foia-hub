@@ -9,6 +9,8 @@ from docusearch.models import Document, ImportLog
 
 class DocImporter:
 
+    """ Import documents from a local directory """
+
     def __init__(self, documents_directory, agency, office=None):
 
         self.documents_directory = documents_directory
@@ -111,9 +113,9 @@ class DocImporter:
         return open(text_path, 'r').read()
 
     def get_documents(self, date_directory):
-        """ Extract text from documents, and return a tuple contain
-        documentation details and the extracted text. This function assumes
-        that the text has been extracted"""
+        """ Get document text, and return a tuple contain documentation
+        details and the extracted text. This function assumes that the text
+        has been extracted """
         manifest, documents_path = self.get_manifest_data(date_directory)
         for document in manifest:
             doc_path = os.path.join(documents_path, document['doc_location'])
@@ -143,7 +145,7 @@ class DocImporter:
         self.import_log_decorator(date_directory, process)
 
     def new_processor(self, office):
-        """ Spawn a child of the same class """
+        """ Spawn a child of the same class for ingesting office docs """
         new_location = os.path.join(self.documents_directory, self.agency)
         return DocImporter(new_location, self.agency, office)
 
@@ -160,6 +162,8 @@ class DocImporter:
 
 
 class DocImporterS3(DocImporter):
+
+    """ Import documents from an s3 bucket """
 
     def __init__(self, s3_bucket, agency, office=None):
         self.s3_bucket = s3_bucket
@@ -207,8 +211,7 @@ class DocImporterS3(DocImporter):
         return k.get_contents_as_string()
 
     def new_processor(self, office):
-        """ Spawn a child of the same class """
-
+        """ Spawn a child of the same class for ingesting office docs """
         return DocImporterS3(self.s3_bucket, self.agency, office)
 
     def get_raw_document(self, doc_path):
