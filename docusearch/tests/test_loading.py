@@ -8,6 +8,7 @@ from django.db import models
 from django.test import TestCase
 from docusearch.scripts.document_importer import DocImporter, DocImporterS3
 from docusearch.models import ImportLog, Document
+from foia_hub.models import Agency
 
 LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -191,12 +192,26 @@ class DocImporterTest(TestCase):
             test_child.agency, 'national-archives-and-records-administration')
         self.assertEqual(test_child.office, 'test-office')
 
+    def test_import_docs_fail(self):
+        """ Test that documents are not injested if the agency doesn't
+        exist """
+        with mock.patch.object(models.fields.files.FieldFile, 'save'):
+            error_occured = False
+            try:
+                self._connection.import_docs()
+            except:
+                error_occured = True
+            self.assertTrue(error_occured)
+
     def test_import_docs(self):
         """ Test that documents are correctly injested """
+        a = Agency(name='National Archives and Records Administration')
+        a.save()
         with mock.patch.object(models.fields.files.FieldFile, 'save'):
             self._connection.import_docs()
             docs = Document.objects.all()
             self.assertEqual(len(docs), 3)
+        a.delete()
 
 
 class DocImporterS3Test(TestCase):

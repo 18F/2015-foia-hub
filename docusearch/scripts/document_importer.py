@@ -5,6 +5,7 @@ import yaml
 from boto.s3.key import Key
 from django.core.files import File
 from docusearch.models import Document, ImportLog
+from foia_hub.models import Agency, Office
 
 
 class DocImporter:
@@ -20,6 +21,17 @@ class DocImporter:
         self.local_dir = self.agency
         if self.office:
             self.local_dir = self.office
+
+    def agency_or_office_exists(self):
+        """ Check if the agency or office slug is in the database """
+
+        agency = Agency.objects.filter(slug=self.agency)
+        if len(agency) != 1:
+            raise Exception("Agency does not exist")
+        if self.office:
+            office = Office.objects.filter(slug=self.office)
+            if len(office) != 1:
+                raise Exception("Office does not exist")
 
     def is_date(self, d):
         """ If 'd' is all digits, return True as in our system this
@@ -153,6 +165,7 @@ class DocImporter:
         """ An Agency directory can either have sub-Office directories, or date
         named directories that contain actual documents. This processes both
         appropriately. """
+        self.agency_or_office_exists()
         for date_dir in self.agency_iterator():
             if self.is_date(date_dir):
                 self.process_date_documents(date_dir)
