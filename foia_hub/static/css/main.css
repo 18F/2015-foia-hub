@@ -1067,6 +1067,31 @@ footer {
       .content:last-child {
         margin-right: 0; } }
 
+.content--record .preview {
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 57.8947368421%; }
+  .content--record .preview:last-child {
+    margin-right: 0; }
+.content--record .sidebar {
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 36.8421052632%; }
+  .content--record .sidebar:last-child {
+    margin-right: 0; }
+.content--record .similardocuments {
+  padding-top: 1em;
+  float: left;
+  display: block;
+  margin-right: 1.0526315789%;
+  width: 100%; }
+  .content--record .similardocuments:last-child {
+    margin-right: 0; }
+  .content--record .similardocuments h2 {
+    border-bottom: 1px solid #323A45; }
+
 #main .searchresults--contacts {
   float: left;
   display: block;

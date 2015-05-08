@@ -383,7 +383,19 @@ footer {
 }
 
 .content--record {
-
+  .preview {
+      @include span-columns(14);
+  }
+  .sidebar {
+      @include span-columns(9);
+  }
+  .similardocuments {
+      padding-top: 1em;
+      @include span-columns(24);
+      h2 {
+        border-bottom: 1px solid $dark-gray;
+      }      
+  }
 }
 
 #main .searchresults--contacts {

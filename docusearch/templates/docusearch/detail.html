@@ -6,42 +6,41 @@
 <div class="container">
 
     <section class="breadcrumbs">
-        <a href="{{url('home')}}">Search Home </a> &gt; Document Details
+        <a href="{{url('home')}}">Search Home </a> &gt; Document
     </section>
 
     <section class="content--record">
-    <h1><em>Document</em></h1>
 
-    <h2>{{document.title|default(get_filename(document.original_file.name))}}</h2>
+        <h1><em>{{document.title|default(get_filename(document.original_file.name))}}</em></h1>
+        <div>
+            <div class="preview">
+                {% if document.original_file %}
+                    <object data="{{ document_location }}" type="application/pdf" width="535px" height="695px%">
+                        View the <a href="{{ document_location }}">original document</a>
+                    </object>
+                {% endif %}
+            </div>
 
-    <h2>Details</h2>
-    <p>
-        <ul>
-            <li>Agency: {{document.release_agency_slug|upper}}</li>
-            <li><a href="{{url('contact_landing', document.release_agency_slug)}}">Agency Contact Information</a></li>
-            <li>Date Created: {{document.date_created|default("Not Available")}}</li>
-            <li>Date Released: {{document.date_released|default("Not Available")}}</li>
-            <li>Pages: {{document.pages|default("Not Available")}}</li>
-        </ul>
-    </p>
+            <div class="sidebar">
+                    <a href="{{ document_location }}">Download PDF</a>
+                    <ul>
+                        <li>Agency: {{document.release_agency_slug|upper}}</li>
+                        <li><a href="{{url('contact_landing', document.release_agency_slug)}}">Agency Contact Information</a></li>
+                        <li>Date Created: {{document.date_created|default("Not Available")}}</li>
+                        <li>Date Released: {{document.date_released|default("Not Available")}}</li>
+                        <li>Pages: {{document.pages|default("Not Available")}}</li>
+                    </ul>
+            </div>
+        </div>
+        {% if similar_documents %}
+        <div class="similardocuments">
+            <h2>Related documents</h2>
 
-    {% if document.original_file %}
-        <object data="{{ document_location }}" type="application/pdf" width="535px" height="695px%">
-            View the <a href="{{ document_location }}">original document</a>
-        </object>
-        <p>
-            <a href="{{ document_location }}">Download PDF</a>
-        </p>
-    {% endif %}
-
-    {% if similar_documents %}
-        <h2> Similar documents (more like this one): </h2>
-
-            {% for similar_doc in similar_documents %}
-                {% include 'docusearch/more_like_this.html' %}
-            {% endfor %}
-
-    {% endif %}
+                {% for similar_doc in similar_documents %}
+                    {% include 'docusearch/more_like_this.html' %}
+                {% endfor %}
+        </div>
+        {% endif %}
 
     </section>
 </div>
