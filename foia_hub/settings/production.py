@@ -1,14 +1,10 @@
-from .base import *
-import os
-
-DEBUG = False
-TEMPLATE_DEBUG = False
-
-# Flag to determine whether the FOIA request form gets shown.
-SHOW_WEBFORM = False
+from .notdev import *
 
 # Some possible hosts
-ALLOWED_HOSTS = ['open.foia.gov', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us', 'openfoia-staging.cf.18f.us']
+ALLOWED_HOSTS = [
+    'open.foia.gov', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us',
+    'openfoia-staging.cf.18f.us'
+]
 
 # Force an HTTPS connection.
 # When testing production mode locally, this may require using ngrok.

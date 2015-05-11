@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings  # For debugging.
-from django.contrib import admin
 from django.views.generic import TemplateView
 
 from foia_hub.views import (
@@ -53,12 +52,6 @@ urlpatterns += patterns(
     url(r'^update-contacts/', include(contact_updater_urls)),
 )
 
-# Admin
-admin.autodiscover()
-urlpatterns += patterns(
-    '',
-    url(r'^admin/', include(admin.site.urls)),
-)
 
 # For development
 if settings.DEBUG:
