@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+  <script src="{{ static('js/contacts_profile_gatracker.js') }}"></script>
+  <script src="{{ static('js/contacts/main.js') }}"></script>
+{% endblock %}
+
 {% block class %}landing{% endblock %}
 
 {% block title %}{{ profile.name }} > Freedom of Information Act{% endblock %}
@@ -30,7 +37,6 @@
 
 
 {% block body %}
-
 {# 'profile' here can be an office, or an agency with no sub-offices. #}
 
 <div class="container">
@@ -47,6 +53,32 @@
         </p>
       </div>
 
+      <section class="librarynudge">
+        <p>
+            Before you submit a FOIA request:
+
+            <ul>
+                {% if profile.foia_libraries %}
+                    <li>
+                    Browse the agency's
+                    {% for r in profile.foia_libraries %}
+                        <a class='foialibrary' href="{{r.url}}">{{r.link_text}}</a>,
+                    {% endfor %}
+                    or <a class='foiagov--search--link'
+                    href="http://search.foia.gov/search?affiliate=foia.gov&m=true">search
+                    at FOIA.gov</a> to see if the information you're looking
+                    for is already online
+                    </li>
+                {% endif %}
+
+                {% if profile.office_url %}
+                    <li> Check the <a class='agency--site' href="{{ profile.office_url }}">agency's
+                    website</a> for instructions on making a request </li>
+                {% endif %}
+            </ul>
+        </p>
+      </section>
+
       <section class="details">
 
         <h2>Submit a request</h2>
@@ -61,11 +93,11 @@
                 <ul>
                     {% if profile.request_form_url %}
                         <li>
-                            <a href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
+                            <a class='request--link' href="{{profile.request_form_url}}">{{profile.request_form_url}}</a>
                         </li>
                     {% elif profile.emails|length>0 %}
                         <li>
-                            <a href="{{url('form', slug)}}">Use our web form</a>
+                            <a class='request--email' href="{{url('form', slug)}}">Use our web form</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -85,7 +117,7 @@
               <ul>
                 {% for email in profile.emails %}
                   <li>
-                    <a href="mailto:{{ email }}">
+                    <a class='agency--email' href="mailto:{{ email }}">
                       {{ email }}
                     </a>
                   </li>
@@ -127,42 +159,17 @@
           </div>
         </div>
 
-      </section><!--/details-->
-    </div><!--/department--container-->
+      </section><!-- /details -->
+    </div><!-- /department--container -->
     <div class="resources">
       {% include 'contacts/contact.html' %}
 
-      {% if profile.simple_processing_time or profile.complex_processing_time %}
-        <div class="processing resource_type">
-          <div class="icon">
-            <span class="fa fa-clock-o"></span>
-          </div>
-          <div class="subdetails">
-            <h3>Median processing time</h3>
-            <ul>
-              {% if profile.simple_processing_time %}
-                <li>
-                  Simple requests:
-                  {{ profile.simple_processing_time|int }} working days
-                </li>
-              {% endif %}
-
-              {% if profile.complex_processing_time %}
-                <li>
-                  Complex requests:
-                  {{ profile.complex_processing_time|int }} working days
-                </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      {% endif %}
     </div>
   </section><!--/department-->
 
   <section class="inaccurate">
     <p>
-      Inaccurate information here? Email us at <a href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
+      Inaccurate information here? Email us at <a class='inaccurateinfo--email' href="mailto:18f-foia@gsa.gov?subject=Inaccurate information for {{profile.slug}}">18f-foia@gsa.gov</a> so we can fix it.
     </p>
   </section>
 </div>
