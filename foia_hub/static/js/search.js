@@ -15,6 +15,11 @@ $(document).ready(function() {
      // before just going ahead with it, in milliseconds
       gaTimeout = 500;
 
+  // Prepare the endpoint for type-ahead to work with contact-updater
+  if (typeof endpoint == 'undefined'){
+    endpoint = '/contacts/';
+  }
+
   //  Set up the agency data source
   agencyDatasource = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -83,7 +88,7 @@ $(document).ready(function() {
     } else {
       var callback = function() {
             clearTimeout(timeout);
-            window.location = '/contacts/' + suggestion.slug + '/';
+            window.location = endpoint + suggestion.slug + '/';
           },
           timeout = setTimeout(callback, gaTimeout);
       ga('send', {
