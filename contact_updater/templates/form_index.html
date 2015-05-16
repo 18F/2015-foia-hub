@@ -3,27 +3,20 @@
 <!-- JS scripts needed for general functionality  -->
 <script src="{{ static("js/jquery-2.1.1.min.js") }}"></script>
 <script src="{{ static("js/main.js") }}"></script>
-<!-- Insert var into js overwrite type-ahead location -->
-<script type="text/javascript">
-   var endpoint = {{ request.path }}
-</script>
 
 <div class="search--box scrollable-dropdown-menu">
-  <form id="search">
     <div class="search-icon"><span class="fa fa-search"></span></div>
     {% set search_placeholder = 'Search for an agency' %}
-    <input id="query" class="typeahead agency" name="query" type="search"
+    <input id="contact" class="typeahead agency" type="search"
       placeholder="{{ search_placeholder }}"
       aria-label="{{ search_placeholder }}"
       search-type="contactSearch">
-    <input class="submit" type="submit" value="Go">
-  </form>
 </div>
 
 <!-- JS scripts needed for search -->
 <script src="{{ static("js/typeahead.bundle.js") }}"></script>
 <script src="{{ static("js/handlebars-v1.2.0.js") }}"></script>
-<script src="{{ static("js/search.js") }}"></script>
+<script src="{{ static("js/contact-search.js") }}"></script>
 
 
 {% endblock %}

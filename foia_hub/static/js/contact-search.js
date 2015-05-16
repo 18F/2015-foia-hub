@@ -53,7 +53,7 @@ $(document).ready(function() {
       }
     },
     templates: {
-      suggestion: Handlebars.compile('<p class="search-prompt"><strong class="return">&#9166;</strong> Search for "{{query}}" in keywords and descriptions</p>')
+      suggestion: Handlebars.compile("Can't find your agency email us at <a class='noclass--email' href='mailto:18f-foia@gsa.gov?subject=Missing Agency' onmousedown='_sendEvent('Outbound MailTo','18f-foia@gsa.gov','',0);'>18f-foia@gsa.gov</a>")
     }
   };
 
@@ -79,11 +79,12 @@ $(document).ready(function() {
   onSelection = function(ev, suggestion) {
     if (suggestion.isFooter) {
       typeahead.val(suggestion.query);
-      form.submit();
+      window.location = 'mailto:18f-foia@gsa.gov?subject=Missing Agency'
+
     } else {
       var callback = function() {
             clearTimeout(timeout);
-            window.location = '/contacts/' + suggestion.slug + '/';
+            window.location = '/update-contacts/' + suggestion.slug + '/';
           },
           timeout = setTimeout(callback, gaTimeout);
       ga('send', {
@@ -107,7 +108,7 @@ $(document).ready(function() {
   };
 
   //  Initialize typeahead
-  typeahead = $('#query')
+  typeahead = $('#contact')
     .typeahead({
       hint: false,
       highlight: true,
