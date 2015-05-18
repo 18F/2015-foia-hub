@@ -37,7 +37,7 @@ def unpack_libraries(libraries):
     if libraries:
         return libraries[0].get('url')
     else:
-        return 'http://'
+        return ''
 
 
 def join_array(array):

@@ -49,7 +49,7 @@ class AgencyForm(forms.Form):
     zip_code = USZipCodeField(required=False)
 
     office_url = forms.URLField(
-        label="Website URL", required=False, initial='http://')
+        label="Website URL", required=False)
     emails = forms.EmailField(label='Email', required=False)
 
     fax = forms.RegexField(
@@ -60,11 +60,11 @@ class AgencyForm(forms.Form):
 
     # Other
     component_url = forms.URLField(
-        label="Agency/component website", required=False, initial='http://')
+        label="Agency/component website", required=False)
     foia_libraries = forms.URLField(
-        label="Reading room website", required=False, initial='http://')
+        label="Reading room website", required=False)
     regulations_website = forms.URLField(
-        label="Regulations Website", required=False, initial='http://')
+        label="Regulations Website", required=False)
     common_requests = forms.CharField(
         label='Commonly requested topics',
         required=False, widget=forms.Textarea(attrs={'rows': 4}))

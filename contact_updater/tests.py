@@ -99,7 +99,7 @@ class HelpFunctionTests(TestCase):
         self.assertEqual(views.unpack_libraries(library_dict), expected_output)
 
         # Test no libraries
-        self.assertEqual(views.unpack_libraries([]), 'http://')
+        self.assertEqual(views.unpack_libraries([]), '')
 
     def test_join_array(self):
         """ Validate the array is joined using `\n` """
