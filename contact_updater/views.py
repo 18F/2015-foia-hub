@@ -1,7 +1,7 @@
 import json
 import time
 
-from contact_updater.forms import AgencyData
+from contact_updater.forms import AgencyForm
 
 from django.forms.formsets import formset_factory
 from django.shortcuts import render
@@ -34,7 +34,6 @@ def download_data(request):
 
 def unpack_libraries(libraries):
     """ Given a list of libraries returns url """
-
     if libraries:
         return libraries[0].get('url')
 
@@ -47,7 +46,6 @@ def join_array(array):
 
 def transform_data(data):
     """ Returns only first email """
-
     emails = data.get('emails')
     if emails:
         data['emails'] = emails[0]
@@ -61,8 +59,7 @@ def transform_data(data):
 def get_agency_data(slug):
     """
     Given an agency slug parse through the agency API and collect agency
-    info to populate agency form
-    """
+    info to populate agency form. """
     agency_resource = AgencyResource()
     agency_data = [transform_data(agency_resource.detail(slug).value)]
     if agency_data[0].get('offices'):
@@ -82,9 +79,9 @@ def prepopulate_agency(request, slug):
     populate the form. If POST request responds an attachment
     """
     return_data = {}
-    agency_form_set = formset_factory(AgencyData)
 
     agency_data = get_agency_data(slug=slug)
+    agency_form_set = formset_factory(AgencyForm)
 
     if request.method == 'POST':
         formset = agency_form_set(request.POST)
@@ -94,14 +91,14 @@ def prepopulate_agency(request, slug):
                 return download_data(request=request)
             elif request.POST.get('return'):
                 return_data['validated'] = False
-
     else:
         formset = agency_form_set(initial=agency_data)
 
     management_form = formset.management_form
     return_data.update(
         {
-            'data': zip(agency_data, formset),
+            'agency_names': [item.get('name') for item in agency_data],
+            'forms': formset[:-1],
             'management_form': management_form,
         })
     return render(request, "agency_form.html", return_data)

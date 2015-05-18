@@ -1,0 +1,26 @@
+<!-- Agency Description -->
+<h1>{{agency_names[0]}}</h1>
+{{forms[0].description}}
+{{forms[0].slug.as_hidden()}}
+
+<!-- Office Selector -->
+<select id="form_selector">
+<option value="------"> Select Office
+{% for office in agency_names[1:] %}
+  <option value="{{loop.index}}">{{office}}
+{% endfor %}
+</select>
+
+<!-- Office Forms -->
+{% for form in forms[1:] %}
+    <div id="office_{{loop.index}}" style="display: none;">
+        {% for field in form.visible_fields() %}
+            <h5>{{field.label}}</h5>
+            {{ field.errors }}
+            {{field}}
+        {% endfor %}
+        {% for field in form.hidden_fields() %}
+            {{field}}
+        {% endfor %}
+    </div>
+{% endfor %}
