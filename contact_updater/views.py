@@ -36,6 +36,8 @@ def unpack_libraries(libraries):
     """ Given a list of libraries returns url """
     if libraries:
         return libraries[0].get('url')
+    else:
+        return 'http://'
 
 
 def join_array(array):
@@ -44,15 +46,31 @@ def join_array(array):
         return "\n".join(array)
 
 
-def transform_data(data):
-    """ Returns only first email """
-    emails = data.get('emails')
+def prepare_address_lines(lines):
+    """ Splits address lines into two lines for form """
+    data = {}
+    if len(lines) > 0:
+        data['address_line_1'] = lines[0]
+    if len(lines) > 1:
+        data['address_line_2'] = " ".join(lines[1:])
+    return data
+
+
+def prepare_emails(emails):
+    """ Returns only the first email, else returns a blank line """
+    data = {'emails': ''}
     if emails:
         data['emails'] = emails[0]
+    return data
+
+
+def transform_data(data):
+    """ Returns only first email """
     data['foia_libraries'] = unpack_libraries(data.get('foia_libraries'))
     data['common_requests'] = join_array(data.get('common_requests'))
     data['no_records_about'] = join_array(data.get('no_records_about'))
-    data['address_lines'] = join_array(data.get('address_lines'))
+    data.update(prepare_address_lines(data.get('address_lines')))
+    data.update(prepare_emails(data.get('emails')))
     return data
 
 

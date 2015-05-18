@@ -14,13 +14,6 @@
 <!-- Office Forms -->
 {% for form in forms[1:] %}
     <div id="office_{{loop.index}}" style="display: none;">
-        {% for field in form.visible_fields() %}
-            <h5>{{field.label}}</h5>
-            {{ field.errors }}
-            {{field}}
-        {% endfor %}
-        {% for field in form.hidden_fields() %}
-            {{field}}
-        {% endfor %}
+        {% include 'centralized.html' %}
     </div>
 {% endfor %}

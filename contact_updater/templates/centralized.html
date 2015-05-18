@@ -1,11 +1,28 @@
-<h1>{{agency_names.0}}</h1>
-{% for form in forms %}
-    {% for field in form.visible_fields() %}
-        <h5>{{field.label}}</h5>
-        {{ field.errors }}
-        {{field}}
-    {% endfor %}
-    {% for field in form.hidden_fields() %}
-        {{field}}
-    {% endfor %}
-{% endfor %}
+{{form.slug}}
+{{form.description}}
+
+<p>Public liaison</p>
+{{form.public_liaison_name}}
+{{form.public_liaison_email}}
+{{form.public_liaison_phone}}
+
+<p>Foia Request Service Center</p>
+{{form.phone}}
+
+<p>Foia Request Submission</p>
+{{form.address_line_1}}
+{{form.address_line_2}}
+{{form.city}}
+{{form.state}}
+{{form.zip_code}}
+{{form.office_url}}
+{{form.emails}}
+{{form.fax}}
+
+<p>Other</p>
+{{form.component_url}}
+{{form.foia_libraries}}
+{{form.regulations_website}}
+{{form.common_requests}}
+{{form.no_records_about}}
+{{form.request_instructions}}

@@ -34,7 +34,7 @@ class AgencyForm(forms.Form):
         error_message=('Must contain a valid phone number'))
 
     # Request Center
-    service_center_phone = forms.RegexField(
+    phone = forms.RegexField(
         label='Phone Number',
         required=False,
         regex=PHONE_RE,
@@ -48,22 +48,23 @@ class AgencyForm(forms.Form):
         widget=forms.Select(choices=STATE_CHOICES), required=False)
     zip_code = USZipCodeField(required=False)
 
-    office_url = forms.URLField(label="Website URL", required=False)
-    public_liaison_email = forms.EmailField(label='Email', required=False)
+    office_url = forms.URLField(
+        label="Website URL", required=False, initial='http://')
+    emails = forms.EmailField(label='Email', required=False)
 
-    service_center_fax = forms.RegexField(
+    fax = forms.RegexField(
         label='Fax Number',
         required=False,
         regex=PHONE_RE,
         error_message=('Must contain a valid phone number'))
 
     # Other
-    office_url = forms.URLField(
-        label="Agency/component website", required=False)
-    reading_room = forms.URLField(
-        label="Reading room website", required=False)
+    component_url = forms.URLField(
+        label="Agency/component website", required=False, initial='http://')
+    foia_libraries = forms.URLField(
+        label="Reading room website", required=False, initial='http://')
     regulations_website = forms.URLField(
-        label="Regulations Website", required=False)
+        label="Regulations Website", required=False, initial='http://')
     common_requests = forms.CharField(
         label='Commonly requested topics',
         required=False, widget=forms.Textarea(attrs={'rows': 4}))
