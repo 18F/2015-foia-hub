@@ -44,15 +44,23 @@ class MainPageTests(TestCase):
 
         response = self.client.get(reverse('contact_updater_index'))
         self.assertEqual(response.status_code, 200)
-
-        content = response.content.decode('utf-8')
-        self.assertTrue('department-of-commerce' in content)
+        self.assertContains(response, 'typeahead agency')
 
 
 class FormPageTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_form_page_get(self):
+    def test_centralized_form_get(self):
+        """ Make sure the form populates correctly """
+
+        response = self.client.get(
+            reverse(
+                'contact_updater_form',
+                kwargs={'slug': 'us-patent-and-trademark-office'}))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'form_selector')
+
+    def test_decentralized_form_get(self):
         """ Make sure the form populates correctly """
 
         response = self.client.get(
@@ -60,9 +68,7 @@ class FormPageTests(TestCase):
                 'contact_updater_form',
                 kwargs={'slug': 'department-of-commerce'}))
         self.assertEqual(response.status_code, 200)
-
-        content = response.content.decode('utf-8')
-        self.assertTrue('<h2>Department of Commerce</h2>' in content)
+        self.assertContains(response, 'form_selector')
 
 
 class HelpFunctionTests(TestCase):
