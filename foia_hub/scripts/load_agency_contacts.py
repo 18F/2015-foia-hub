@@ -18,7 +18,7 @@ def extract_tty_phone(service_center):
     """ Extract a TTY phone number if one exists from the service_center
     entry in the YAML. """
 
-    tty_phones = [p for p in service_center['phone'] if 'TTY' in p]
+    tty_phones = [p for p in service_center.get('phone', []) if 'TTY' in p]
     if len(tty_phones) > 0:
         return tty_phones[0]
 
@@ -193,6 +193,9 @@ def process_yamls(folder):
     """
     Loops through each agency yaml file and loads it into the database
     """
+    # Delete all database before loading data
+    Office.objects.all().delete()
+    Agency.objects.all().delete()
     for item in iglob(os.path.join(folder, '*.yaml')):
         data = yaml.load(open(item))
         load_data(data)
