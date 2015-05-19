@@ -1,9 +1,12 @@
-from django.test import TestCase
+import glob
 
+from django.test import TestCase
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import (
     load_data, update_reading_rooms, add_request_time_statistics,
-    extract_tty_phone, extract_non_tty_phone, build_abbreviation)
+    extract_tty_phone, extract_non_tty_phone, build_abbreviation,
+    process_yamls)
+from mock import patch
 
 
 example_office1 = {
@@ -325,3 +328,20 @@ class LoadingTest(TestCase):
 
         sub_agency_name = "U.S. Customs & Border Protection"
         self.assertEqual("USCBP", build_abbreviation(sub_agency_name))
+
+    def test_process_yamls(self):
+        """ Verify that agency and office data is dropped before
+        yaml files are processed """
+        # Check that agency and office exist
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        office = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        self.assertEqual(agency.pk, 15)
+        self.assertEqual(office.pk, 33)
+        with patch.object(glob, 'iglob', return_value=None):
+            process_yamls(folder='mock_folder')
+        agency = Agency.objects.filter(slug='department-of-homeland-security')
+        office = Office.objects.filter(
+            slug='department-of-commerce--census-bureau')
+        self.assertEqual(agency.count(), 0)
+        self.assertEqual(office.count(), 0)
