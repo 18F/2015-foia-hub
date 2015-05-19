@@ -193,6 +193,9 @@ def process_yamls(folder):
     """
     Loops through each agency yaml file and loads it into the database
     """
+    # Delete all database before loading data
+    Office.objects.all().delete()
+    Agency.objects.all().delete()
     for item in iglob(os.path.join(folder, '*.yaml')):
         data = yaml.load(open(item))
         load_data(data)
