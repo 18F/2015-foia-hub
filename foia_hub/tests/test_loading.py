@@ -269,8 +269,8 @@ class LoadingTest(TestCase):
         data = {'request_time_stats': {
             '2015': {'simple_median_days': '300',
                      'complex_median_days': '300'}}}
-        add_request_time_statistics(data, agency, office)
-        self.assertEqual(len(agency.stats_set.all()), 2)
+        add_request_time_statistics(data, agency)
+        self.assertEqual(len(agency.stats_set.filter(office=None).all()), 2)
         self.assertEqual(len(office.stats_set.all()), 2)
 
     def test_extract_tty_phone(self):
