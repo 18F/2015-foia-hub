@@ -5,4 +5,5 @@ instances: 1
 applications:
 - name: foia
   path: .
+  stack: lucid64
   timeout: 180
