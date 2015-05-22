@@ -5,4 +5,5 @@ instances: 1
 applications:
 - name: openfoia-staging
   path: .
+  stack: lucid64
   timeout: 180
