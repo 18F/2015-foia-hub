@@ -1,9 +1,12 @@
-from django.test import TestCase
+import glob
 
+from django.test import TestCase
 from foia_hub.models import Agency, Office
 from foia_hub.scripts.load_agency_contacts import (
     load_data, update_reading_rooms, add_request_time_statistics,
-    extract_tty_phone, extract_non_tty_phone, build_abbreviation)
+    extract_tty_phone, extract_non_tty_phone, build_abbreviation,
+    process_yamls)
+from mock import patch
 
 
 example_office1 = {
@@ -266,8 +269,8 @@ class LoadingTest(TestCase):
         data = {'request_time_stats': {
             '2015': {'simple_median_days': '300',
                      'complex_median_days': '300'}}}
-        add_request_time_statistics(data, agency, office)
-        self.assertEqual(len(agency.stats_set.all()), 2)
+        add_request_time_statistics(data, agency)
+        self.assertEqual(len(agency.stats_set.filter(office=None).all()), 2)
         self.assertEqual(len(office.stats_set.all()), 2)
 
     def test_extract_tty_phone(self):
@@ -289,6 +292,13 @@ class LoadingTest(TestCase):
             '202-555-5555 (TTY)', '202-555-5552 (TTY)', '202-555-5551']
         tty_phone = extract_tty_phone(service_center)
         self.assertEqual('202-555-5555 (TTY)', tty_phone)
+
+    def test_extract_tty_phone_no_phone(self):
+        """ Test: from a service center entry, script doesn't break if
+        phone is missing. """
+        service_center = {'name': 'Test Person'}
+        tty_phone = extract_tty_phone(service_center)
+        self.assertEqual(None, tty_phone)
 
     def test_extract_non_tty_phone(self):
         """ Test that extract non-tty phone numbers from a list works. If there
@@ -318,3 +328,20 @@ class LoadingTest(TestCase):
 
         sub_agency_name = "U.S. Customs & Border Protection"
         self.assertEqual("USCBP", build_abbreviation(sub_agency_name))
+
+    def test_process_yamls(self):
+        """ Verify that agency and office data is dropped before
+        yaml files are processed """
+        # Check that agency and office exist
+        agency = Agency.objects.get(slug='department-of-homeland-security')
+        office = Office.objects.get(
+            slug='department-of-commerce--census-bureau')
+        self.assertEqual(agency.pk, 15)
+        self.assertEqual(office.pk, 33)
+        with patch.object(glob, 'iglob', return_value=None):
+            process_yamls(folder='mock_folder')
+        agency = Agency.objects.filter(slug='department-of-homeland-security')
+        office = Office.objects.filter(
+            slug='department-of-commerce--census-bureau')
+        self.assertEqual(agency.count(), 0)
+        self.assertEqual(office.count(), 0)
