@@ -44,15 +44,23 @@ class MainPageTests(TestCase):
 
         response = self.client.get(reverse('contact_updater_index'))
         self.assertEqual(response.status_code, 200)
-
-        content = response.content.decode('utf-8')
-        self.assertTrue('department-of-commerce' in content)
+        self.assertContains(response, 'typeahead agency')
 
 
 class FormPageTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_form_page_get(self):
+    def test_centralized_form_get(self):
+        """ Make sure the form populates correctly """
+
+        response = self.client.get(
+            reverse(
+                'contact_updater_form',
+                kwargs={'slug': 'us-patent-and-trademark-office'}))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'form_selector')
+
+    def test_decentralized_form_get(self):
         """ Make sure the form populates correctly """
 
         response = self.client.get(
@@ -60,9 +68,7 @@ class FormPageTests(TestCase):
                 'contact_updater_form',
                 kwargs={'slug': 'department-of-commerce'}))
         self.assertEqual(response.status_code, 200)
-
-        content = response.content.decode('utf-8')
-        self.assertTrue('<h2>Department of Commerce</h2>' in content)
+        self.assertContains(response, 'form_selector')
 
 
 class HelpFunctionTests(TestCase):
@@ -93,7 +99,7 @@ class HelpFunctionTests(TestCase):
         self.assertEqual(views.unpack_libraries(library_dict), expected_output)
 
         # Test no libraries
-        self.assertEqual(views.unpack_libraries([]), None)
+        self.assertEqual(views.unpack_libraries([]), '')
 
     def test_join_array(self):
         """ Validate the array is joined using `\n` """
@@ -124,6 +130,49 @@ class HelpFunctionTests(TestCase):
         self.assertEqual(
             transformed_data.get('no_records_about'),
             '\n'.join(['test 1', 'test 2']))
+
+    def test_prepare_address_lines(self):
+        """ Checks that address lines are coverted to a dict containing
+        two keys address_line_1, which contains the first element in the
+        address lines array and address_line_2, which contains the rest of the
+        elements """
+        # Testing 0 lines
+        address_lines = []
+        data = views.prepare_address_lines(lines=address_lines)
+        self.assertEqual({}, data)
+
+        # Testing 1 line
+        address_lines.append('line 1')
+        data = views.prepare_address_lines(lines=address_lines)
+        self.assertEqual({'address_line_1': 'line 1'}, data)
+
+        # Testing 2 lines
+        address_lines.append('line 2')
+        data = views.prepare_address_lines(lines=address_lines)
         self.assertEqual(
-            transformed_data.get('address_lines'),
-            '\n'.join(['Sharron H. Hawkins', 'FOIA Officer']))
+            {'address_line_1': 'line 1', 'address_line_2': 'line 2'}, data)
+
+        # Testing 3 lines
+        address_lines.append('line 3')
+        data = views.prepare_address_lines(lines=address_lines)
+        self.assertEqual(
+            {'address_line_1': 'line 1', 'address_line_2': 'line 2 line 3'},
+            data)
+
+    def test_prepare_emails(self):
+        """ Check if function returns only the first email, else returns
+        a blank line """
+        # Test with no emails
+        emails = []
+        data = views.prepare_emails(emails)
+        self.assertEqual(data, {'emails': ''})
+
+        # Test with 1 email
+        emails.append('test@gmail.com')
+        data = views.prepare_emails(emails)
+        self.assertEqual(data, {'emails': 'test@gmail.com'})
+
+        # Test with 2 email
+        emails.append('test_2@gmail.com')
+        data = views.prepare_emails(emails)
+        self.assertEqual(data, {'emails': 'test@gmail.com'})

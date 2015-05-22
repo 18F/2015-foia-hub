@@ -1,62 +1,38 @@
-
 {% block head %}
-<style>
-.errorlist {
-  color: red;
-  text-decoration: underline;
-}
-</style>
+<script src="{{ static("js/jquery-2.1.1.min.js") }}"></script>
 {% endblock %}
 
 {% block body %}
-
-    {% if validated  %}
-        <h3>Instructions</h3>
-    {% else %}
-        <h5>Please review the current information and make updates as needed</h5>
-    {% endif %}
-
     <form action="" method="post">
         {% csrf_token %}
         {{management_form|safe}}
+         <!-- Validated instructions -->
         {% if validated %}
-            <!-- insert list items orderd list not working -->
-            <ol class="default">
-                <li>Make sure that all the updated information is correct. The contact information you have entered will appear on your agency’s page. </li>
-                <li>Download the contact_data.json file.</li>
-                <li>Agency web managers will need to place the contact_data.json file in the <code>/foia/quarterly/</code> directory of the agency's website. For example, the Department of Justice will place its file at <code>www.justice.gov/foia/quarterly/contact_data.json</code>. In some cases, the <code>/foia/quarterly/</code> directory may not yet exist, and web managers will first need to create it.</li>
-                <li>Within 2 days your updates should appear on your agency’s page. Please double-check to make sure your changes have been implemented. If not, please email us at <a href="mailto:18f-foia@gsa.gov">18f-foia@gsa.gov</a></li>
-            </ol>
-
-            {% for agency, form in data %}
-                {% for field in form %}
-                    {{field.as_hidden()}}
-                {% endfor %}
-            {% endfor %}
+            {% include 'validated.html' %}
+         <!-- Display forms when not validated -->
         {% else %}
-            {% for agency, form in data %}
-                <h2>{{agency.name}}</h2><br>
-                {% for field in form.visible_fields() %}
-                    <h3>{{field.label}}</h3>
-                    {{ field.errors }}
-                    <div class='editable' name="{{field.id_for_label}}" contentEditable="true" style="display: none;">{{field.value() | default("")}}</div>
-                    {{field}}
-                    <br>
+            <!-- Centralized Form -->
+            {% if forms|length == 1 %}
+            <h1>{{agency_names.0}}</h1>
+                {% for form in forms %}
+                    {% include 'centralized.html' %}
                 {% endfor %}
-                {% for field in form.hidden_fields() %}
-                    {{field}}
-                {% endfor %}
-            {% endfor %}
+            <!-- Decentralized Form -->
+            {% else %}
+                {% include 'decentralized.html' %}
+            {% endif %}
         {% endif %}
         <br>
+        <!-- Buttons when validated -->
         {% if validated %}
          <input type="submit" name="download" value="Download" />
          <input type="submit" name="return" value="Return" />
         {% else %}
+        <!-- Buttons when not validated -->
         <input type="submit" value="Submit" />
         {% endif %}
-
-
     </form>
-
+<!-- Form controls -->
+<script src="{{ static("js/contact-updater/form-controls.js") }}"></script>
 {% endblock %}
+

@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'djangosecure',
     'corsheaders',
     'storages',
+    'localflavor',
     'foia_hub',
     'contact_updater'
 )

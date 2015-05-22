@@ -1,0 +1,14 @@
+<h3>Instructions</h3>
+<ol class="default">
+    <li>Make sure that all the updated information is correct. The contact information you have entered will appear on your agency’s page. </li>
+    <li>Download the contact_data.json file.</li>
+    <li>Agency web managers will need to place the contact_data.json file in the <code>/foia/quarterly/</code> directory of the agency's website. For example, the Department of Justice will place its file at <code>www.justice.gov/foia/quarterly/contact_data.json</code>. In some cases, the <code>/foia/quarterly/</code> directory may not yet exist, and web managers will first need to create it.</li>
+    <li>Within 2 days your updates should appear on your agency’s page. Please double-check to make sure your changes have been implemented. If not, please email us at <a href="mailto:18f-foia@gsa.gov">18f-foia@gsa.gov</a></li>
+</ol>
+ <!-- Invisible form to store data while validated this allows the user to
+ not have data deleted -->
+{% for form in forms %}
+    {% for field in form %}
+        {{field.as_hidden()}}
+    {% endfor %}
+{% endfor %}

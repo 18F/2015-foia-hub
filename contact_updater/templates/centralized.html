@@ -1,0 +1,32 @@
+<!-- The slug is an invisible field for ID purposes  -->
+{{form.slug.as_hidden()}}
+
+<!-- `form.field_name.label` is the label on the backend can be changed if needed on the backend or just replaced with html on the front-end -->
+<!-- `form.error.field_name` renders as <ul class="errorlist">, the error can be changed if needed on the backend -->
+{{form.description.label}} {{form.description}} {{form.errors.description}}
+
+<p>Public liaison</p>
+{{form.public_liaison_name.label}} {{form.public_liaison_name}} {{form.errors.public_liaison_name}}
+{{form.public_liaison_email.label}} {{form.public_liaison_email}} {{form.errors.public_liaison_email}}
+{{form.public_liaison_phone.label}} {{form.public_liaison_phone}} {{form.errors.public_liaison_phone}}
+
+<p>Foia Request Service Center</p>
+{{form.phone.label}} {{form.phone}} {{form.phone.errors}}
+
+<p>Foia Request Submission</p>
+{{form.address_line_1.label}} {{form.address_line_1}} {{form.errors.address_line_1}}
+{{form.address_line_2.label}} {{form.address_line_2}} {{form.errors.address_line_2}}
+{{form.city.label}} {{form.city}} {{form.errors.city}}
+{{form.state.label}} {{form.state}} {{form.errors.state}}
+{{form.zip_code.label}} {{form.zip_code}} {{form.errors.zip_code}}
+{{form.office_url.label}} {{form.office_url}} {{form.errors.office_url}}
+{{form.emails.label}} {{form.emails}} {{form.errors.emails}}
+{{form.fax.label}} {{form.fax}} {{form.errors.fax}}
+
+<p>Other</p>
+{{form.component_url.label}} {{form.component_url}} {{form.errors.component_url}}
+{{form.foia_libraries.label}} {{form.foia_libraries}} {{form.errors.foia_libraries}}
+{{form.regulations_website.label}} {{form.regulations_website}} {{form.errors.regulations_website}}
+{{form.common_requests.label}} {{form.common_requests}} {{form.errors.common_requests}}
+{{form.no_records_about.label}} {{form.no_records_about}} {{form.errors.no_records_about}}
+{{form.request_instructions.label}} {{form.request_instructions}} {{form.errors.request_instructions}}

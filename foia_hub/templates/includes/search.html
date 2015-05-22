@@ -3,7 +3,7 @@
     <section class="search--content">
       <h1>
         <label for="query">
-            <em> 
+            <em>
             Begin your federal Freedom of Information Act request by connecting
             with the agency that has the information you’re seeking.
             </em>
@@ -15,12 +15,9 @@
           <form id="search">
             <div class="search-icon"><span class="fa fa-search"></span></div>
             {% set search_placeholder = 'Search for an agency' %}
-            <input id="query" class="typeahead agency" name="query" type="search"
-              placeholder="{{ search_placeholder }}"
-              aria-label="{{ search_placeholder }}"
+            <input id="query" class="typeahead agency" type="search"
               {% if query %}value="{{ query }}"{% endif %}
-              search-type="bigSearch">
-            <input class="submit" type="submit" value="Search">
+              search-type="contactSearch">
           </form>
         </div>
       </form>
