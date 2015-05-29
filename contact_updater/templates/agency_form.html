@@ -1,13 +1,17 @@
 {% block head %}
+<link rel="stylesheet" href="{{ static("css/main.css") }}" />
+<link rel="stylesheet" href="{{ static("css/contactupdater.css") }}" />
 <script src="{{ static("js/jquery-2.1.1.min.js") }}"></script>
 <!-- Validatr -->
 <script src="{{ static("js/contact-updater/validatr.min.js") }}"></script>
 <!-- Form controls -->
 <script src="{{ static("js/contact-updater/form-controls.js") }}"></script>
+
 {% endblock %}
 
 {% block body %}
-    <form action="" method="post">
+<div class="container">
+    <form class="contactupdater" action="" method="post">
         {% csrf_token %}
         {{management_form|safe}}
          <!-- Validated instructions -->
@@ -36,5 +40,6 @@
         <input type="submit" value="Submit" />
         {% endif %}
     </form>
+</div>
 {% endblock %}
 
