@@ -19,7 +19,7 @@ form.contactupdater {
 	& > section {
 		@include clearfix();
 	}
-	.fields {
+	.field {
 		@include span-columns(12);
 	}
 	.error {

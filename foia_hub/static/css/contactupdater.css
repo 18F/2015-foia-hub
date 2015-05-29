@@ -707,12 +707,12 @@ form.contactupdater > section:after {
   content: "";
   display: table;
   clear: both; }
-form.contactupdater .fields {
+form.contactupdater .field {
   float: left;
   display: block;
   margin-right: 1.05263%;
   width: 49.47368%; }
-  form.contactupdater .fields:last-child {
+  form.contactupdater .field:last-child {
     margin-right: 0; }
 form.contactupdater .error {
   float: left;
