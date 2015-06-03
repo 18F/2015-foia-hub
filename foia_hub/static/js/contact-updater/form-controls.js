@@ -4,7 +4,7 @@ $(function(){
 });
 
 jQuery(function ($) {
-    $('form').validatr({'theme': 'custom'});
+    $('form').validatr();
 });
 
 $('form').validatr('addTest', {
