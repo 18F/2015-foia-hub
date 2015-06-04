@@ -4,7 +4,7 @@ $(function(){
 });
 
 // Set up Validatr
-jQuery(function ($) {
+$(function() {
     $('form').validatr({'showall': true});
 });
 
@@ -18,25 +18,28 @@ $(function(){
         document.getElementById("office_" + form_id).style.display = "block";
         $("#office_" + form_id).show();
     });
-})
+});
 
-$(document).ready(function() {
-
-    // Set max
-    var max = 500;
-
-    // Init the char number
-    $('#charNum').text(max - $('.agency_description').val().length + '/500 characters');
-
-    // Set a lister to change on keyup
-    $('.agency_description').keyup(function () {
-
-        var len = $(this).val().length;
-        if (len >= max) {
-        $('#charNum').text('You have reached the limit');
-        } else {
-            var char = max - len;
-            $('#charNum').text(char + '/500 characters');
-        }
+// Set Char counters
+$(function(){
+    $('textarea[id$=-description]').each(function() {
+        // Get the current char count
+        var max = 500;
+        var current_len = $(this).val().length
+        // Create and insert text counters
+        var charDiv = document.createElement("div");
+        charDiv.setAttribute("id", "charNum" + this.name);
+        charDiv.innerHTML = current_len + "/500 characters";
+        this.parentNode.insertBefore(charDiv, this.nextSibling);
+        // Set a listener to change on keyup
+        $(this).keyup(function () {
+            var len = $(this).val().length;
+            if (len >= max) {
+            $("#charNum" + this.name).text('You have reached the limit');
+            } else {
+                var char = len;
+                $("#charNum" + this.name).text(char + '/500 characters');
+            }
+        });
     });
 });
