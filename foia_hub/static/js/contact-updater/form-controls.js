@@ -1,46 +1,45 @@
 // Make some fields required
 $(function(){
-   $(".description,.public_liaison_phone,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
+   $(".agency_description,.public_liaison_phone,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
 });
 
-jQuery(function ($) {
-    $('form').validatr({'theme': 'custom'});
-});
-
-$('form').validatr('addTest', {
-    phone: function (element) {
-        console.log('here');
-    }
+// Set up Validatr
+$(function() {
+    $('form').validatr({'showall': true});
 });
 
 // Make forms visible
-$( "#form_selector" ).change( function() {
-    // Keep the rest of the forms hidden
-    $("div[id^=office_]").hide();
-    var form_id = document.getElementById("form_selector").value;
-    // Show selected form
-    document.getElementById("office_" + form_id).style.display = "block";
-    $("#office_" + form_id).show();
+$(function(){
+    $( "#form_selector" ).change( function() {
+        // Keep the rest of the forms hidden
+        $("div[id^=office_]").hide();
+        var form_id = document.getElementById("form_selector").value;
+        // Show selected form
+        document.getElementById("office_" + form_id).style.display = "block";
+        $("#office_" + form_id).show();
+    });
 });
 
-
-$(document).ready(function() {
-
-    // Set max
-    var max = 500;
-
-    // Init the char number
-    $('#charNum').text(max - $('.description').val().length + '/500 characters');
-
-    // Set a lister to change on keyup
-    $('.description').keyup(function () {
-
-        var len = $(this).val().length;
-        if (len >= max) {
-        $('#charNum').text('You have reached the limit');
-        } else {
-            var char = max - len;
-            $('#charNum').text(char + '/500 characters');
-        }
+// Set Char counters
+$(function(){
+    $('textarea[id$=-description]').each(function() {
+        // Get the current char count
+        var max = 500;
+        var current_len = $(this).val().length
+        // Create and insert text counters
+        var charDiv = document.createElement("div");
+        charDiv.setAttribute("id", "charNum" + this.name);
+        charDiv.innerHTML = current_len + "/500 characters";
+        this.parentNode.insertBefore(charDiv, this.nextSibling);
+        // Set a listener to change on keyup
+        $(this).keyup(function () {
+            var len = $(this).val().length;
+            if (len >= max) {
+            $("#charNum" + this.name).text('You have reached the limit');
+            } else {
+                var char = len;
+                $("#charNum" + this.name).text(char + '/500 characters');
+            }
+        });
     });
 });
