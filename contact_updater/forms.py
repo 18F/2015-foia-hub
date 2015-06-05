@@ -24,7 +24,7 @@ class AgencyForm(forms.Form):
         max_length=500,
         required=False,
         widget=forms.Textarea(attrs={
-            'class': 'description',
+            'class': 'agency_description',
             'maxlength': 500}))
 
     # Public Liaison
