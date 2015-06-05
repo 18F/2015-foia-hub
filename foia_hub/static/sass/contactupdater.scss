@@ -11,10 +11,6 @@ body {
 
 }
 
-label {
-	display:block;
-}
-
 form.contactupdater {
 	& > section {
 		@include clearfix();
@@ -25,4 +21,28 @@ form.contactupdater {
 	.error {
 		@include span-columns(8);
 	}
+	.required:after {
+		content: "Required";
+		float:right;
+		font-weight: 300;
+		font-style: italic;
+	}
+	h3 {
+		font-size: 1.4em;
+		margin-top: 1.5em;
+	}
+	label {
+		margin: 0.5em 0;
+		font-weight: 300;
+	}
+}
+
+.validatr-message {
+	&:before {
+		content: "\f06a";
+		font-family: FontAwesome;
+		margin-right: 0.5em;
+	}
+	color:red;
+	margin-bottom: 1.5em;
 }

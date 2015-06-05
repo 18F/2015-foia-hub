@@ -700,9 +700,6 @@ html {
   font-style: italic;
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot");
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
-label {
-  display: block; }
-
 form.contactupdater > section:after {
   content: "";
   display: table;
@@ -721,3 +718,22 @@ form.contactupdater .error {
   width: 32.63158%; }
   form.contactupdater .error:last-child {
     margin-right: 0; }
+form.contactupdater .required:after {
+  content: "Required";
+  float: right;
+  font-weight: 300;
+  font-style: italic; }
+form.contactupdater h3 {
+  font-size: 1.4em;
+  margin-top: 1.5em; }
+form.contactupdater label {
+  margin: 0.5em 0;
+  font-weight: 300; }
+
+.validatr-message {
+  color: red;
+  margin-bottom: 1.5em; }
+  .validatr-message:before {
+    content: "\f06a";
+    font-family: FontAwesome;
+    margin-right: 0.5em; }
