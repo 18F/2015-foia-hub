@@ -39,7 +39,7 @@ form.contactupdater {
 	input.parsley-error {
 		border: solid 1px red;
 	}
-	.parsley-type, .parsley-pattern {
+	.parsley-errors-list li {
 		&:before {
 			content: "\f06a";
 			font-family: FontAwesome;

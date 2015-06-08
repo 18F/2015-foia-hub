@@ -732,9 +732,9 @@ form.contactupdater label {
   font-size: 0.875em; }
 form.contactupdater input.parsley-error {
   border: solid 1px red; }
-form.contactupdater .parsley-type, form.contactupdater .parsley-pattern {
+form.contactupdater .parsley-errors-list li {
   color: red; }
-  form.contactupdater .parsley-type:before, form.contactupdater .parsley-pattern:before {
+  form.contactupdater .parsley-errors-list li:before {
     content: "\f06a";
     font-family: FontAwesome;
     margin-right: 0.5em; }
