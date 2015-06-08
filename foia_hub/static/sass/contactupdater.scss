@@ -32,17 +32,19 @@ form.contactupdater {
 		margin-top: 1.5em;
 	}
 	label {
-		margin: 0.5em 0;
+		margin: 0.8em 0;
 		font-weight: 300;
+		font-size: 0.875em;
 	}
-}
-
-.validatr-message {
-	&:before {
-		content: "\f06a";
-		font-family: FontAwesome;
-		margin-right: 0.5em;
+	input.parsley-error {
+		border: solid 1px red;
 	}
-	color:red;
-	margin-bottom: 1.5em;
+	.parsley-type, .parsley-pattern {
+		&:before {
+			content: "\f06a";
+			font-family: FontAwesome;
+			margin-right: 0.5em;
+		}
+		color:red;
+	}
 }

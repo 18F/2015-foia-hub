@@ -727,13 +727,14 @@ form.contactupdater h3 {
   font-size: 1.4em;
   margin-top: 1.5em; }
 form.contactupdater label {
-  margin: 0.5em 0;
-  font-weight: 300; }
-
-.validatr-message {
-  color: red;
-  margin-bottom: 1.5em; }
-  .validatr-message:before {
+  margin: 0.8em 0;
+  font-weight: 300;
+  font-size: 0.875em; }
+form.contactupdater input.parsley-error {
+  border: solid 1px red; }
+form.contactupdater .parsley-type, form.contactupdater .parsley-pattern {
+  color: red; }
+  form.contactupdater .parsley-type:before, form.contactupdater .parsley-pattern:before {
     content: "\f06a";
     font-family: FontAwesome;
     margin-right: 0.5em; }
