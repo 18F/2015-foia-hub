@@ -1,6 +1,6 @@
 // Make some fields required
 $(function(){
-   $(".agency_description,.public_liaison_phone,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
+   $(".agency_description,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
 });
 
 // Set up Parsely
