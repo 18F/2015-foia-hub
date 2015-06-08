@@ -3,9 +3,15 @@ $(function(){
    $(".agency_description,.public_liaison_phone,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
 });
 
-// Set up Validatr
+// Set up Parsely
 $(function() {
-    $('form').validatr({'showall': true});
+    //setup key listners
+    $('form').find(':input').each(function(){
+         this.setAttribute("data-parsley-trigger", "keyup");
+    });
+    $('form').parsley().validate();
+    //validate form, but scroll to
+    $('body').scrollTop(0);
 });
 
 // Make forms visible
