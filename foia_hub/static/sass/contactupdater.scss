@@ -1,0 +1,28 @@
+@import "normalize";
+@import "bourbon/bourbon";
+@import "base/grid-settings";
+@import "base/base";
+@import "neat/neat";
+@import "mixins";
+@import "accessibility";
+@import "fonts";
+
+body {
+
+}
+
+label {
+	display:block;
+}
+
+form.contactupdater {
+	& > section {
+		@include clearfix();
+	}
+	.field {
+		@include span-columns(12);
+	}
+	.error {
+		@include span-columns(8);
+	}
+}

@@ -1,32 +1,199 @@
 <!-- The slug is an invisible field for ID purposes  -->
-{{form.slug.as_hidden()}}
-
+		{{form.slug.as_hidden()}}
 <!-- `form.field_name.label` is the label on the backend can be changed if needed on the backend or just replaced with html on the front-end -->
 <!-- `form.error.field_name` renders as <ul class="errorlist">, the error can be changed if needed on the backend -->
-{{form.description.label}} {{form.description}} {{form.errors.description}}
+<section class="description">
+	<div class="field">
+		<label for="description">{{form.description.label}}</label>
+		{{form.description}}
+		<div id="charNum"></div>
+	</div>
+	<div class="error">
+		{{form.errors.description}}
+	</div>
+</section>
 
-<p>Public liaison</p>
-{{form.public_liaison_name.label}} {{form.public_liaison_name}} {{form.errors.public_liaison_name}}
-{{form.public_liaison_email.label}} {{form.public_liaison_email}} {{form.errors.public_liaison_email}}
-{{form.public_liaison_phone.label}} {{form.public_liaison_phone}} {{form.errors.public_liaison_phone}}
+<h3>Public liaison</h3>
+<section class="public_liaison_name">
+	<div class="field">
+		<label>{{form.public_liaison_name.label}}</label>
+		{{form.public_liaison_name}}
+	</div>
+	<div class="error">
+		{{form.errors.public_liaison_name}}
+	</div>
+</section>
 
-<p>Foia Request Service Center</p>
-{{form.phone.label}} {{form.phone}} {{form.phone.errors}}
+<section>
+	<div class="field">
+		<label>{{form.public_liaison_email.label}}</label>
+		{{form.public_liaison_email}}
+	</div>
+	<div class="error">
+		{{form.errors.public_liaison_email}}
+	</div>
+</section>
 
-<p>Foia Request Submission</p>
-{{form.address_line_1.label}} {{form.address_line_1}} {{form.errors.address_line_1}}
-{{form.address_line_2.label}} {{form.address_line_2}} {{form.errors.address_line_2}}
-{{form.city.label}} {{form.city}} {{form.errors.city}}
-{{form.state.label}} {{form.state}} {{form.errors.state}}
-{{form.zip_code.label}} {{form.zip_code}} {{form.errors.zip_code}}
-{{form.office_url.label}} {{form.office_url}} {{form.errors.office_url}}
-{{form.emails.label}} {{form.emails}} {{form.errors.emails}}
-{{form.fax.label}} {{form.fax}} {{form.errors.fax}}
+<section>
+	<div class="field">
+		<label>{{form.public_liaison_phone.label}}</label>
+		{{form.public_liaison_phone}}
+	</div>
+	<div class="error">
+		{{form.errors.public_liaison_phone}}
+	</div>
+</section>
 
-<p>Other</p>
-{{form.component_url.label}} {{form.component_url}} {{form.errors.component_url}}
-{{form.foia_libraries.label}} {{form.foia_libraries}} {{form.errors.foia_libraries}}
-{{form.regulations_website.label}} {{form.regulations_website}} {{form.errors.regulations_website}}
-{{form.common_requests.label}} {{form.common_requests}} {{form.errors.common_requests}}
-{{form.no_records_about.label}} {{form.no_records_about}} {{form.errors.no_records_about}}
-{{form.request_instructions.label}} {{form.request_instructions}} {{form.errors.request_instructions}}
+<h3>Foia Request Service Center</h3>
+<section>
+		<div class="field">
+			<label>{{form.phone.label}}</label>
+			{{form.phone}}
+		</div>
+		<div class="error">
+			{{form.phone.errors}}
+		</div>
+</section>
+
+<h3>Foia Request Submission</h3>
+
+<section>
+		<div class="field">
+			<label>{{form.address_line_1.label}}</label>
+			{{form.address_line_1}}
+		</div>
+		<div class="error">
+			{{form.errors.address_line_1}}
+		</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.address_line_2.label}}</label>
+		{{form.address_line_2}}
+	</div>
+	<div class="error">
+		{{form.errors.address_line_2}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.city.label}}</label>
+		{{form.city}}
+	</div>
+	<div class="error">
+		{{form.errors.city}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.state.label}}</label>
+		{{form.state}}
+	</div>
+	<div class="error">
+		{{form.errors.state}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.zip_code.label}}</label>
+		{{form.zip_code}}
+	</div>
+	<div class="error">
+		{{form.errors.zip_code}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.office_url.label}}</label>
+		{{form.office_url}}
+	</div>
+	<div class="error">
+		{{form.errors.office_url}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.emails.label}}</label>
+		{{form.emails}}
+	</div>
+	<div class="error">
+		{{form.errors.emails}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.fax.label}}</label>
+		{{form.fax}}
+	</div>
+	<div class="error">
+		{{form.errors.fax}}
+	</div>
+</section>
+
+<h3>Other</h3>
+<section>
+	<div class="field">
+		<label>{{form.component_url.label}}</label>
+		{{form.component_url}}
+	</div>
+	<div class="error">
+		{{form.errors.component_url}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.foia_libraries.label}}</label>
+		{{form.foia_libraries}}
+	</div>
+	<div class="error">
+		{{form.errors.foia_libraries}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.regulations_website.label}}</label>
+		{{form.regulations_website}}
+	</div>
+	<div class="error">
+		{{form.errors.regulations_website}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.common_requests.label}}</label>
+		{{form.common_requests}}
+	</div>
+	<div class="error">
+		{{form.errors.common_requests}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.no_records_about.label}}</label>
+		{{form.no_records_about}}
+	</div>
+	<div class="error">
+		{{form.errors.no_records_about}}
+	</div>
+</section>
+
+<section>
+	<div class="field">
+		<label>{{form.request_instructions.label}}</label>
+		{{form.request_instructions}}
+	</div>
+	<div class="error">
+		{{form.errors.request_instructions}}
+	</div>
+</section>

@@ -10,6 +10,7 @@ PHONE_RE = (
     r"""(?P<extension>[\s\(,]*?ext[ .]*?\d{3,5})?"""
     r"""(?P<tty>\s*\(tty)?"""
 )
+PHONE_PATTERN = '(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}'
 STATE_CHOICES = list(STATE_CHOICES)
 STATE_CHOICES.insert(0, ('', '---------'))
 
@@ -22,7 +23,9 @@ class AgencyForm(forms.Form):
     description = forms.CharField(
         max_length=500,
         required=False,
-        widget=forms.Textarea(attrs={'rows': 3, 'class': 'description'}))
+        widget=forms.Textarea(attrs={
+            'class': 'agency_description',
+            'maxlength': 500}))
 
     # Public Liaison
     public_liaison_name = forms.CharField(
@@ -38,7 +41,9 @@ class AgencyForm(forms.Form):
         required=False,
         regex=PHONE_RE,
         error_message=('Must contain a valid phone number'),
-        widget=forms.TextInput(attrs={'class': 'public_liaison_phone'}))
+        widget=forms.TextInput(attrs={
+            'class': 'public_liaison_phone',
+            'pattern': PHONE_PATTERN}))
 
     # Request Center
     phone = forms.RegexField(
@@ -46,7 +51,9 @@ class AgencyForm(forms.Form):
         required=False,
         regex=PHONE_RE,
         error_message=('Must contain a valid phone number'),
-        widget=forms.TextInput(attrs={'class': 'phone'}))
+        widget=forms.TextInput(attrs={
+            'class': 'phone',
+            'pattern': PHONE_PATTERN}))
 
     # FOIA Request Submission
     address_line_1 = forms.CharField(
@@ -66,7 +73,9 @@ class AgencyForm(forms.Form):
             choices=STATE_CHOICES, attrs={'class': 'state'}))
     zip_code = USZipCodeField(
         required=False,
-        widget=forms.TextInput(attrs={'class': 'zip_code'}))
+        widget=forms.TextInput(attrs={
+            'class': 'zip_code',
+            'pattern': '\d{5,5}(-\d{4,4})?'}))
     office_url = forms.URLField(
         label="Website URL",
         required=False,
@@ -81,7 +90,9 @@ class AgencyForm(forms.Form):
         required=False,
         regex=PHONE_RE,
         error_message=('Must contain a valid phone number'),
-        widget=forms.TextInput(attrs={'class': 'fax'}))
+        widget=forms.TextInput(attrs={
+            'class': 'fax',
+            'pattern': PHONE_PATTERN}))
 
     # Other
     component_url = forms.URLField(
@@ -97,13 +108,18 @@ class AgencyForm(forms.Form):
     common_requests = forms.CharField(
         label='Commonly requested topics',
         required=False,
-        widget=forms.Textarea(attrs={'rows': 4, 'class': 'common_requests'}))
+        widget=forms.Textarea(attrs={
+            'class': 'common_requests',
+            'maxlength': 500}))
     no_records_about = forms.CharField(
         label='Commonly misdirected topics',
         required=False,
-        widget=forms.Textarea(attrs={'rows': 4, 'class': 'no_records_about'}))
+        widget=forms.Textarea(attrs={
+            'class': 'no_records_about',
+            'maxlength': 500}))
     request_instructions = forms.CharField(
         label='Request instructions',
         required=False,
-        widget=forms.Textarea(
-            attrs={'rows': 4, 'class': 'request_instructions'}))
+        widget=forms.Textarea(attrs={
+            'class': 'request_instructions',
+            'maxlength': 500}))
