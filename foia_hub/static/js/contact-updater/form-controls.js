@@ -1,10 +1,8 @@
-// Make some fields required
 $(function(){
+    // Make some fields required
    $(".agency_description,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
-});
 
-// Set up Parsely
-$(function() {
+    // Set up Parsely
     //setup key listners
     $('form').find(':input').each(function(){
          this.setAttribute("data-parsley-trigger", "keyup");
@@ -12,10 +10,8 @@ $(function() {
     $('form').parsley().validate();
     //validate form, but scroll to
     $('body').scrollTop(0);
-});
 
-// Make forms visible
-$(function(){
+    // Make forms visible
     $( "#form_selector" ).change( function() {
         // Keep the rest of the forms hidden
         $("div[id^=office_]").hide();
@@ -24,10 +20,8 @@ $(function(){
         document.getElementById("office_" + form_id).style.display = "block";
         $("#office_" + form_id).show();
     });
-});
 
-// Set Char counters
-$(function(){
+    // Set Char counters
     $('textarea[id$=-description]').each(function() {
         // Get the current char count
         var max = 500;
