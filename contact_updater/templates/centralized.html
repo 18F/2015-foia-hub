@@ -1,7 +1,5 @@
-<!-- The slug is an invisible field for ID purposes  -->
-		{{form.slug.as_hidden()}}
-<!-- `form.field_name.label` is the label on the backend can be changed if needed on the backend or just replaced with html on the front-end -->
-<!-- `form.error.field_name` renders as <ul class="errorlist">, the error can be changed if needed on the backend -->
+{# The slug is an invisible field for ID purposes #}
+{{form.slug.as_hidden()}}
 <section class="description">
 	<div class="field">
 		<label for="description">{{form.description.label}}</label>
