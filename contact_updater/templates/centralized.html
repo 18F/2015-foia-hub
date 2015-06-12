@@ -49,10 +49,10 @@
 		<div class="field">
 			<label>{{form.phone.label}}</label>
 			{{form.phone}}
-		</div>
+	</div>
 		<div class="error">
 			{{form.phone.errors}}
-		</div>
+	</div>
 </section>
 
 <h3>Foia Request Submission</h3>
@@ -61,10 +61,10 @@
 		<div class="field">
 			<label class="required">{{form.address_line_1.label}}</label>
 			{{form.address_line_1}}
-		</div>
+	</div>
 		<div class="error">
 			{{form.errors.address_line_1}}
-		</div>
+	</div>
 </section>
 
 <section>
@@ -109,19 +109,17 @@
 
 <section>
 	<div class="field">
-		<label class="required">{{form.office_url.label}}</label>
+		<label class="nudge">{{form.office_url.label}}</label>
 		{{form.office_url}}
 	</div>
 	<div class="error">
 		{{form.errors.office_url}}
-		<h4><em>Optional but encouraged!</em></h4>
-		<p>Website where requesters can submit requests online</p>
 	</div>
 </section>
 
 <section>
 	<div class="field">
-		<label>{{form.emails.label}}</label>
+		<label class="nudge">{{form.emails.label}}</label>
 		{{form.emails}}
 	</div>
 	<div class="error">
@@ -152,7 +150,7 @@
 
 <section>
 	<div class="field">
-		<label>{{form.foia_libraries.label}}</label>
+		<label class="nudge">{{form.foia_libraries.label}}</label>
 		{{form.foia_libraries}}
 	</div>
 	<div class="error">
@@ -162,12 +160,12 @@
 
 <section>
 	<div class="field">
-		<label>{{form.regulations_website.label}}</label>
+		<label class="nudge">{{form.regulations_website.label}}</label>
 		{{form.regulations_website}}
 	</div>
 	<div class="error">
 		{{form.errors.regulations_website}}
-		<p>Requesters have to follow certain rules or regulations to properly file a FOIA request. To help requesters more easily access those rules and make certain they file a proper request, please provide a link to where those rules are on your website.</p>
+			<p>Requesters have to follow certain rules or regulations to properly file a FOIA request. To help requesters more easily access those rules and make certain they file a proper request, please provide a link to where those rules are on your website.</p>
 	</div>
 </section>
 
@@ -195,7 +193,7 @@
 
 <section>
 	<div class="field">
-		<label>{{form.request_instructions.label}}</label>
+		<label class="nudge">{{form.request_instructions.label}}</label>
 		{{form.request_instructions}}
 	</div>
 	<div class="error">

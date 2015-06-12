@@ -24,14 +24,22 @@ form.contactupdater {
 	}
 	.error {
 		@include span-columns(10);
-
-		color: #555;
+		color: #777;
 		font-size: 0.85em;
+		padding-left: 1em;		
 		padding-top: 3em;
 		position: relative;
 		p {
 			// position: absolute;
 		}
+		h4 {
+			margin-bottom: 0.5em;
+		}
+	}
+	.nudge:before {
+/*			content: "\f06a";
+			font-family: FontAwesome;
+			margin-right: 0.5em;*/
 	}
 	.required:after {
 		content: "Required";
@@ -39,6 +47,13 @@ form.contactupdater {
 		font-weight: 300;
 		font-style: italic;
 	}
+	.nudge:after {
+		content: "Optional but encouraged";
+		float:right;
+		font-weight: 300;
+		font-style: italic;
+	}
+
 	h3 {
 		font-size: 1.4em;
 		margin-top: 1.5em;
@@ -59,5 +74,9 @@ form.contactupdater {
 		}
 		color:red;
 		margin-bottom: 0.5em;
+	}
+	section {
+		border-bottom: 1px solid #ddd;
+	    padding: 1em 0;
 	}
 }
