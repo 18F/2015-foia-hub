@@ -12,14 +12,26 @@ body {
 }
 
 form.contactupdater {
+	min-width: 640px;
 	& > section {
 		@include clearfix();
+	}
+	textarea {
+		height: 10em;
 	}
 	.field {
 		@include span-columns(12);
 	}
 	.error {
-		@include span-columns(8);
+		@include span-columns(10);
+
+		color: #555;
+		font-size: 0.85em;
+		padding-top: 3em;
+		position: relative;
+		p {
+			// position: absolute;
+		}
 	}
 	.required:after {
 		content: "Required";
@@ -46,5 +58,6 @@ form.contactupdater {
 			margin-right: 0.5em;
 		}
 		color:red;
+		margin-bottom: 0.5em;
 	}
 }

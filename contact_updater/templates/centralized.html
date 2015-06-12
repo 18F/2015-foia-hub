@@ -8,6 +8,7 @@
 	</div>
 	<div class="error">
 		{{form.errors.description}}
+		<p>Here's where you can tell the public about what your agency or office does. People reading this description will use it to have a clearer understanding of the mission of the office and what kinds of records it processes.</p>
 	</div>
 </section>
 
@@ -24,11 +25,12 @@
 
 <section>
 	<div class="field">
-		<label>{{form.public_liaison_email.label}}</label>
+		<label class="required">{{form.public_liaison_email.label}}</label>
 		{{form.public_liaison_email}}
 	</div>
 	<div class="error">
 		{{form.errors.public_liaison_email}}
+		<p>When certain questions arise, requesters will need to contact the agency or office FOIA public liaison or Request Service Center. Please provide current information for how to reach both.</p>
 	</div>
 </section>
 
@@ -57,7 +59,7 @@
 
 <section>
 		<div class="field">
-			<label>{{form.address_line_1.label}}</label>
+			<label class="required">{{form.address_line_1.label}}</label>
 			{{form.address_line_1}}
 		</div>
 		<div class="error">
@@ -77,7 +79,7 @@
 
 <section>
 	<div class="field">
-		<label>{{form.city.label}}</label>
+		<label class="required">{{form.city.label}}</label>
 		{{form.city}}
 	</div>
 	<div class="error">
@@ -87,7 +89,7 @@
 
 <section>
 	<div class="field">
-		<label>{{form.state.label}}</label>
+		<label class="required">{{form.state.label}}</label>
 		{{form.state}}
 	</div>
 	<div class="error">
@@ -97,7 +99,7 @@
 
 <section>
 	<div class="field">
-		<label>{{form.zip_code.label}}</label>
+		<label class="required">{{form.zip_code.label}}</label>
 		{{form.zip_code}}
 	</div>
 	<div class="error">
@@ -107,11 +109,13 @@
 
 <section>
 	<div class="field">
-		<label>{{form.office_url.label}}</label>
+		<label class="required">{{form.office_url.label}}</label>
 		{{form.office_url}}
 	</div>
 	<div class="error">
 		{{form.errors.office_url}}
+		<h4><em>Optional but encouraged!</em></h4>
+		<p>Website where requesters can submit requests online</p>
 	</div>
 </section>
 
@@ -163,6 +167,7 @@
 	</div>
 	<div class="error">
 		{{form.errors.regulations_website}}
+		<p>Requesters have to follow certain rules or regulations to properly file a FOIA request. To help requesters more easily access those rules and make certain they file a proper request, please provide a link to where those rules are on your website.</p>
 	</div>
 </section>
 
@@ -173,6 +178,7 @@
 	</div>
 	<div class="error">
 		{{form.errors.common_requests}}
+		<p>Requesters will have an easier time determining if your agency is the correct one to file a request with if they know what kinds of records your agency processes. This helps to ensure a request isn't misdirected. Please provide some examples of commonly requested topics here.</p>
 	</div>
 </section>
 
@@ -183,6 +189,7 @@
 	</div>
 	<div class="error">
 		{{form.errors.no_records_about}}
+		<p>Requesters sometimes misdirect a request because they misunderstand the kinds of records the agency or office processes. Providing this information makes it clear to requesters the kinds of information the agency does not process. Please provide some examples of commonly misdirected topics here.</p>
 	</div>
 </section>
 
@@ -193,5 +200,6 @@
 	</div>
 	<div class="error">
 		{{form.errors.request_instructions}}
+		<p>Are there any other instructions you make of FOIA requesters not covered above? Please include those or a link to where those exist on your site here.</p>
 	</div>
 </section>
