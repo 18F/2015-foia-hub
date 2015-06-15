@@ -13,8 +13,10 @@ body {
 
 form.contactupdater {
 	min-width: 640px;
-	& > section {
+	& section {
 		@include clearfix();
+		border-bottom: 1px solid #ddd;
+	    padding: 1em 0;
 	}
 	textarea {
 		height: 10em;
@@ -73,7 +75,7 @@ form.contactupdater {
 	input.parsley-error {
 		border: solid 1px red;
 	}
-	.parsley-errors-list li {
+	.parsley-errors-list li, ul.errorlist {
 		&:before {
 			content: "\f06a";
 			font-family: FontAwesome;
@@ -81,10 +83,6 @@ form.contactupdater {
 		}
 		color:red;
 		margin-bottom: 0.5em;
-	}
-	section {
-		border-bottom: 1px solid #ddd;
-	    padding: 1em 0;
 	}
 }
 

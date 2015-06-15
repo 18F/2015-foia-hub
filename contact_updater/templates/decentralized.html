@@ -1,15 +1,30 @@
 <!-- Agency Description -->
 <h1>{{agency_names[0]}}</h1>
-{{forms[0].description.label}} {{forms[0].description}} {{forms[0].errors.description}}
+
+<section class="description">
+	<div class="field">
+		<label for="description">{{forms[0].description.label}}</label>
+		{{forms[0].description}}
+		<div id="charNum"></div>
+	</div>
+	<div class="error">
+		{{forms[0].errors.description}}
+		<p>Here's where you can tell the public about what your agency or office does. People reading this description will use it to have a clearer understanding of the mission of the office and what kinds of records it processes.</p>
+	</div>
+</section>
+
 {{forms[0].slug.as_hidden()}}
 
 <!-- Office Selector -->
-<select id="form_selector">
-<option value="------"> Select Office
-{% for office in agency_names[1:] %}
-  <option value="{{loop.index}}">{{office}}
-{% endfor %}
-</select>
+<h3>Office</h3>
+<section class="component">
+	<select id="form_selector">
+		<option value="------"> Select Office
+		{% for office in agency_names[1:] %}
+		  <option value="{{loop.index}}">{{office}}
+		{% endfor %}
+	</select>
+</section>
 
 <!-- Office Forms -->
 {% for form in forms[1:] %}

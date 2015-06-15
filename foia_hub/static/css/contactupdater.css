@@ -702,10 +702,13 @@ html {
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
 form.contactupdater {
   min-width: 640px; }
-  form.contactupdater > section:after {
-    content: "";
-    display: table;
-    clear: both; }
+  form.contactupdater section {
+    border-bottom: 1px solid #ddd;
+    padding: 1em 0; }
+    form.contactupdater section:after {
+      content: "";
+      display: table;
+      clear: both; }
   form.contactupdater textarea {
     height: 10em; }
   form.contactupdater .field {
@@ -767,16 +770,13 @@ form.contactupdater {
       margin-right: 0; }
   form.contactupdater input.parsley-error {
     border: solid 1px red; }
-  form.contactupdater .parsley-errors-list li {
+  form.contactupdater .parsley-errors-list li, form.contactupdater ul.errorlist {
     color: red;
     margin-bottom: 0.5em; }
-    form.contactupdater .parsley-errors-list li:before {
+    form.contactupdater .parsley-errors-list li:before, form.contactupdater ul.errorlist:before {
       content: "\f06a";
       font-family: FontAwesome;
       margin-right: 0.5em; }
-  form.contactupdater section {
-    border-bottom: 1px solid #ddd;
-    padding: 1em 0; }
 
 footer {
   background-color: inherit;
