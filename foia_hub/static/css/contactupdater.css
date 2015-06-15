@@ -719,11 +719,11 @@ form.contactupdater {
     float: left;
     display: block;
     margin-right: 1.05263%;
-    width: 41.05263%;
+    width: 32.63158%;
     color: #777;
     font-size: 0.85em;
-    padding-left: 1em;
-    padding-top: 3em;
+    padding-left: 1.5em;
+    padding-top: 0.85em;
     position: relative; }
     form.contactupdater .error:last-child {
       margin-right: 0; }
@@ -736,12 +736,13 @@ form.contactupdater {
   form.contactupdater .required:after {
     content: "Required";
     float: right;
-    font-weight: 300;
+    font-weight: 200;
     font-style: italic; }
   form.contactupdater .nudge:after {
     content: "Optional but encouraged";
+    /*		border-bottom: 1px solid $aqua-blue; */
     float: right;
-    font-weight: 300;
+    font-weight: 200;
     font-style: italic; }
   form.contactupdater h3 {
     font-size: 1.4em;
@@ -762,3 +763,8 @@ form.contactupdater {
   form.contactupdater section {
     border-bottom: 1px solid #ddd;
     padding: 1em 0; }
+
+footer {
+  background-color: inherit;
+  padding-top: 0;
+  margin-top: 0; }

@@ -23,11 +23,11 @@ form.contactupdater {
 		@include span-columns(12);
 	}
 	.error {
-		@include span-columns(10);
+		@include span-columns(8);
 		color: #777;
 		font-size: 0.85em;
-		padding-left: 1em;		
-		padding-top: 3em;
+		padding-left: 1.5em;		
+		padding-top: 0.85em;
 		position: relative;
 		p {
 			// position: absolute;
@@ -44,13 +44,14 @@ form.contactupdater {
 	.required:after {
 		content: "Required";
 		float:right;
-		font-weight: 300;
+		font-weight: 200;
 		font-style: italic;
 	}
 	.nudge:after {
 		content: "Optional but encouraged";
+/*		border-bottom: 1px solid $aqua-blue; */
 		float:right;
-		font-weight: 300;
+		font-weight: 200;
 		font-style: italic;
 	}
 
@@ -79,4 +80,10 @@ form.contactupdater {
 		border-bottom: 1px solid #ddd;
 	    padding: 1em 0;
 	}
+}
+
+footer {
+	background-color: inherit;
+    padding-top: 0;
+    margin-top: 0;
 }
