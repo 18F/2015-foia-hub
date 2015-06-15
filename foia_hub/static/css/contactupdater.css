@@ -746,11 +746,25 @@ form.contactupdater {
     font-style: italic; }
   form.contactupdater h3 {
     font-size: 1.4em;
-    margin-top: 1.5em; }
+    margin-top: 1.5em;
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 100%; }
+    form.contactupdater h3:last-child {
+      margin-right: 0; }
   form.contactupdater label {
     margin: 0.8em 0;
     font-weight: 300;
     font-size: 0.875em; }
+  form.contactupdater input[type="submit"] {
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 15.78947%;
+    clear: both; }
+    form.contactupdater input[type="submit"]:last-child {
+      margin-right: 0; }
   form.contactupdater input.parsley-error {
     border: solid 1px red; }
   form.contactupdater .parsley-errors-list li {

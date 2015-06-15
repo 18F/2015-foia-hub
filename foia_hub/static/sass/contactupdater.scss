@@ -58,11 +58,17 @@ form.contactupdater {
 	h3 {
 		font-size: 1.4em;
 		margin-top: 1.5em;
+		@include span-columns(24 of 24);
 	}
 	label {
 		margin: 0.8em 0;
 		font-weight: 300;
 		font-size: 0.875em;
+	}
+	input[type="submit"] {
+		@include span-columns(4 of 24);
+//		@include clearfix();
+		clear: both;
 	}
 	input.parsley-error {
 		border: solid 1px red;
