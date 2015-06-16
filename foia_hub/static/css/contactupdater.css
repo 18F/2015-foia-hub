@@ -778,6 +778,24 @@ form.contactupdater {
       font-family: FontAwesome;
       margin-right: 0.5em; }
 
+.contactUpdater .search-icon {
+  color: #777777;
+  position: absolute;
+  z-index: 100;
+  padding-top: 0.75em;
+  padding-left: 0.75em; }
+  .contactUpdater .search-icon .fa {
+    color: inherit; }
+.contactUpdater input.typeahead {
+  padding-left: 2.2em; }
+.contactUpdater .search--box {
+  float: left;
+  display: block;
+  margin-right: 1.05263%;
+  width: 49.47368%; }
+  .contactUpdater .search--box:last-child {
+    margin-right: 0; }
+
 footer {
   background-color: inherit;
   padding-top: 0;

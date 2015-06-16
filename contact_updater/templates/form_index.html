@@ -1,6 +1,9 @@
 {% extends "contact-updater-base.html" %}
 
 {% block body %}
+<div class="container contactUpdater">
+  <h1>openFOIA Contact Updater</h1>
+  <p>Update your agency's contact information on openFOIA.</p>
     <div class="search--box scrollable-dropdown-menu">
         <div class="search-icon"><span class="fa fa-search"></span></div>
         {% set search_placeholder = 'Search for an agency' %}
@@ -8,7 +11,9 @@
           placeholder="{{ search_placeholder }}"
           aria-label="{{ search_placeholder }}"
           search-type="contactSearch">
+        <input class="submit" type="submit" value="Search">
     </div>
+</div>
 {% endblock %}
 
 {% block footer %}

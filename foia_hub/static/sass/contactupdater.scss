@@ -86,6 +86,25 @@ form.contactupdater {
 	}
 }
 
+.contactUpdater {
+  .search-icon {
+    color: $gray;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
+    .fa {
+      color: inherit;
+    }
+  }
+  input.typeahead {
+  	padding-left: 2.2em;
+  }
+  .search--box {
+  	@include span-columns(12 of 24);
+  }
+}
+
 footer {
 	background-color: inherit;
     padding-top: 0;
