@@ -20,7 +20,7 @@
         {% else %}
             <!-- Centralized Form -->
             {% if forms|length == 1 %}
-            <h1>{{agency_names.0}}</h1>
+            <h1 class="agency-name">{{agency_names.0}}</h1>
                 {% for form in forms %}
                     {% include 'centralized.html' %}
                 {% endfor %}

@@ -1,5 +1,6 @@
 {# The slug is an invisible field for ID purposes #}
 {{form.slug.as_hidden()}}
+{% if loop %}<h1 class="agency-name">{{agency_names[loop.index]}}</h1>{% endif %}
 <section class="description">
 	<div class="field">
 		<label for="description">{{form.description.label}}</label>
