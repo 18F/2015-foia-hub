@@ -2,14 +2,53 @@ $(function(){
     // Make some fields required
    $(".agency_description,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
 
-    // Set up Parsely
-    //setup key listners
+   // Function to allow error list
+   var validateActions = function (fieldInstance) {
+        var arrErrorMsg = ParsleyUI.getErrorsMessages(fieldInstance);
+        var errorMsg = arrErrorMsg.join(';');
+        var errorElement = fieldInstance.$element[0];
+        var errorElementLabel = errorElement.previousElementSibling.innerHTML;
+        var errorOffice = errorElement.parentNode.parentNode.parentNode.getElementsByClassName('agency-name')[0].innerHTML;
+        var error = "Agency: " + errorOffice + " Field: " + errorElementLabel + " Error: " + errorMsg;
+        var ul = $('#error-list');
+        var li = ul.find('li').filter(function (){ return this.id == errorElement.id})
+        if (li.length == 1){
+            li.innerHTML = error
+        }
+        else{
+            var li = document.createElement("li");
+            li.id = errorElement.id
+            li.innerHTML = error
+            ul[0].appendChild(li);
+        }
+        document.getElementById('submit-agency').className = 'submit-invalid';
+    };
+
+    // Setup Parsely keyup triggers
     $('form').find(':input').each(function(){
          this.setAttribute("data-parsley-trigger", "keyup");
     });
+
+    // Setup error listners
+    $.listen('parsley:field:error', function (fieldInstance) {
+        validateActions(fieldInstance);
+    });
+
+    // Init Parsely
     $('form').parsley().validate();
-    //validate form, but scroll to
+    // Validate form, but scroll to top
     $('body').scrollTop(0);
+
+    // Set up success listener to remove items from error list
+    $.listen('parsley:field:success', function (fieldInstance) {
+        var errorElement = fieldInstance.$element[0];
+        $('#error-list').find('li').each(function () {
+            if(errorElement.id == this.id){
+                document.getElementById("error-list").removeChild(this);
+            }
+        });
+        document.getElementById('submit-agency').className = 'submit-valid';
+    });
 
     // Make forms visible
     $( "#form_selector" ).change( function() {

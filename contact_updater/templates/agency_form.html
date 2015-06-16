@@ -36,7 +36,10 @@
          <input type="submit" name="return" value="Return" />
         {% else %}
         <!-- Buttons when not validated -->
-        <input type="submit" value="Submit" />
+        <div class="submission-errors">
+            <ul id="error-list"></ul>
+        </div>
+        <input type="submit" id='submit-agency' value="Submit"/>
         {% endif %}
     </form>
 </div>
