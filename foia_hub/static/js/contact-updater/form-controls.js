@@ -21,7 +21,6 @@ $(function(){
             li.innerHTML = error
             ul[0].appendChild(li);
         }
-        document.getElementById('submit-agency').className = 'submit-invalid';
     };
 
     // Setup Parsely keyup triggers
@@ -30,11 +29,13 @@ $(function(){
     });
 
     // Setup error listners
-    if (document.getElementById("form_selector")) {
-        $.listen('parsley:field:error', function (fieldInstance) {
+    $.listen('parsley:field:error', function (fieldInstance) {
+        document.getElementById('submit-agency').className = 'submit-invalid';
+        // Only create error list if the agency is decentralized
+        if (document.getElementById("form_selector")) {
             validateActions(fieldInstance);
-        });
-    }
+        }
+    });
 
     // Init Parsely
     $('form').parsley().validate();
