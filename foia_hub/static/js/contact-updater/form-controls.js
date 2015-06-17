@@ -9,7 +9,7 @@ $(function(){
         var errorElement = fieldInstance.$element[0];
         var errorElementLabel = errorElement.previousElementSibling.innerHTML;
         var errorOffice = errorElement.parentNode.parentNode.parentNode.getElementsByClassName('agency-name')[0].innerHTML;
-        var error = "Agency: " + errorOffice + " Field: " + errorElementLabel + " Error: " + errorMsg;
+        var error = "<b>" + errorOffice + "</b>" + " is missing " + errorElementLabel;
         var ul = $('#error-list');
         var li = ul.find('li').filter(function (){ return this.id == errorElement.id})
         if (li.length == 1){
