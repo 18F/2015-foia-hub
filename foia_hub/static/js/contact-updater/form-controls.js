@@ -1,6 +1,6 @@
 $(function(){
     // Make some fields required
-   $(".agency_description,.phone,.address_line_1,.city,.state,.zip_code,.component_url").prop('required', true)
+   $(".public_liaison_name,.public_liaison_email,.agency_description,.address_line_1,.city,.state,.zip_code").prop('required', true)
 
    // Function to allow error list
    var validateActions = function (fieldInstance) {
