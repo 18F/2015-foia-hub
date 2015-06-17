@@ -30,9 +30,11 @@ $(function(){
     });
 
     // Setup error listners
-    $.listen('parsley:field:error', function (fieldInstance) {
-        validateActions(fieldInstance);
-    });
+    if (document.getElementById("form_selector")) {
+        $.listen('parsley:field:error', function (fieldInstance) {
+            validateActions(fieldInstance);
+        });
+    }
 
     // Init Parsely
     $('form').parsley().validate();
