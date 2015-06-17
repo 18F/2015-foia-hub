@@ -5,7 +5,6 @@ $(document).ready(function() {
         substrRegex,
         substringMatcher,
         typeahead;
-
     onSelection = function(ev, suggestion) {
         var agency = agencies[suggestion]
         var callback = function() {
