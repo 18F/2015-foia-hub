@@ -32,8 +32,13 @@
         <br>
         <!-- Buttons when validated -->
         {% if validated %}
-         <input type="submit" name="download" value="Download" />
+         <input type="submit" id="download-button" name="download" value="Download" />
          <input type="submit" name="return" value="Return" />
+         {# A tiny script that downloads the data when it gets to the validated
+         page. #}
+         <script>
+            document.getElementById("download-button").click();
+         </script>
         {% else %}
         <!-- Buttons when not validated -->
         <div class="submission-errors">
