@@ -1,13 +1,18 @@
 {% extends "contact-updater-base.html" %}
 
 {% block body %}
+{# Pass data to JS #}
+<script>
+  var agencies = {{agencies|safe}};
+</script>
+
 <div class="container contactUpdater">
   <h1>openFOIA Contact Updater</h1>
   <p>Update your agency's contact information on openFOIA.</p>
     <div class="search--box scrollable-dropdown-menu">
         <div class="search-icon"><span class="fa fa-search"></span></div>
         {% set search_placeholder = 'Search for an agency' %}
-        <input id="contact" class="typeahead agency" type="search"
+        <input id="contact-typeahead" class="typeahead agency" type="search"
           placeholder="{{ search_placeholder }}"
           aria-label="{{ search_placeholder }}"
           search-type="contactSearch">
@@ -19,7 +24,6 @@
 {% block footer %}
 {{ super() }}
     <!-- JS scripts needed for search -->
-    <script src="{{ static("js/typeahead.bundle.js") }}"></script>
-    <script src="{{ static("js/handlebars-v1.2.0.js") }}"></script>
+    <script src="{{ static("js/contact-updater/typeahead.min.js") }}"></script>
     <script src="{{ static("js/contact-updater/contact-search.js") }}"></script>
 {% endblock %}

@@ -18,7 +18,10 @@ def form_index(request):
     """
     agencies = Agency.objects.filter(parent__isnull=True).values()
     return render(
-        request, "form_index.html", {'agencies': agencies})
+        request,
+        "form_index.html",
+        {'agencies': {agency['name']: agency['slug'] for agency in agencies}}
+    )
 
 
 def download_data(request):
