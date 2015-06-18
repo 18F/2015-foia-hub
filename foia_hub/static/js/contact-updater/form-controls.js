@@ -1,4 +1,5 @@
 $(function(){
+    window.ParsleyConfig.i18n.en.required="This field is required."
     // Make some fields required
    $(".public_liaison_name,.public_liaison_email,.agency_description,.address_line_1,.city,.state,.zip_code").prop('required', true)
 
@@ -9,7 +10,7 @@ $(function(){
         var errorElement = fieldInstance.$element[0];
         var errorElementLabel = errorElement.previousElementSibling.innerHTML;
         var errorOffice = errorElement.parentNode.parentNode.parentNode.getElementsByClassName('agency-name')[0].innerHTML;
-        var error = "<b>" + errorOffice + "</b>" + " is missing " + errorElementLabel;
+        var error = "<b>" + errorOffice + "</b>" + "'s " + errorElementLabel + " field is incomplete";
         var ul = $('#error-list');
         var li = ul.find('li').filter(function (){ return this.id == errorElement.id})
         if (li.length == 1){
