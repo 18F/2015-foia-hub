@@ -1,12 +1,29 @@
-'use strict';
 $(document).ready(function() {
-    var gaTimeout = 500,
+    var agencyDatasource,
+        gaTimeout = 500,
+        getKeys,
         onSelection,
         substrRegex,
         substringMatcher,
         typeahead;
+    //  Set up the agency data source
+    agencyDatasource = new Bloodhound({
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 500,
+        prefetch: {
+          url: '/api/agency/',
+          filter: function(response) {
+            return response.objects;
+          }
+        },
+        datumTokenizer: function(d) {
+          return []
+            .concat(Bloodhound.tokenizers.whitespace(d.name))
+            .concat(Bloodhound.tokenizers.whitespace(d.abbreviation));
+        }
+    });
     onSelection = function(ev, suggestion) {
-        var agency = agencies[suggestion]
+        var agency = suggestion.slug
         var callback = function() {
               clearTimeout(timeout);
               window.location = '/update-contacts/' + agency + '/';
@@ -19,19 +36,6 @@ $(document).ready(function() {
             'eventLabel': document.location.pathname},
             {'hitCallback': callback});
     }
-    substringMatcher = function(strs) {
-      return function findMatches(q, cb) {
-        var matches, substringRegex;
-        matches = [];
-        substrRegex = new RegExp(q, 'i');
-        $.each(strs, function(i, str) {
-          if (substrRegex.test(str)) {
-            matches.push(str);
-          }
-        });
-        cb(matches);
-      };
-    };
     typeahead = $('#contact-typeahead').typeahead({
         hint: false,
         highlight: true,
@@ -39,6 +43,7 @@ $(document).ready(function() {
       },
       {
         name: 'agencies',
-        source: substringMatcher(Object.keys(agencies))
+        displayKey: 'name',
+        source: agencyDatasource
       }).on('typeahead:selected', onSelection);
 });
