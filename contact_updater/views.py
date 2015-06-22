@@ -16,11 +16,9 @@ def form_index(request):
     This function renders the landing page of the contact updater, which
     contains a links to each agencies update form.
     """
-    agencies = Agency.objects.filter(parent__isnull=True).values()
     return render(
         request,
-        "form_index.html",
-        {'agencies': {agency['name']: agency['slug'] for agency in agencies}}
+        "form_index.html"
     )
 
 
