@@ -46,7 +46,7 @@ $(function(){
     };
 
     // Make some fields required
-   $(".public_liaison_name,.public_liaison_email,.agency_description,.address_line_1,.city,.state,.zip_code").prop('required', true)
+   $(".public_liaison_name,.public_liaison_email,#id_form-0-description,.address_line_1,.city,.state,.zip_code").prop('required', true)
 
     // Setting the default required message for parsely
     window.ParsleyConfig.i18n.en.required="This field is required."
