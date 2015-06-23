@@ -7,8 +7,8 @@ $(function(){
    addErrorItem = function (fieldInstance) {
         var errorMsg = ParsleyUI.getErrorsMessages(fieldInstance).join(';');
         var errorElement = fieldInstance.$element[0];
-        var errorElementLabel = errorElement.previousElementSibling.innerHTML;
-        var errorOffice = errorElement.parentNode.parentNode.parentNode.getElementsByClassName('agency-name')[0].innerHTML;
+        var errorElementLabel = $(errorElement).parent().find('label')[0].innerHTML;
+        var errorOffice = $(errorElement).parent()[0].getAttribute('agency');
         var error = "<b>" + errorOffice + "'s </b>" + errorElementLabel
         if (errorMsg == "This field is required.")
             error += " is missing.";
