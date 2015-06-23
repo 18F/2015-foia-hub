@@ -1,8 +1,13 @@
 {# The slug is an invisible field for ID purposes #}
 {{form.slug.as_hidden()}}
-{% if loop %}<h1 class="agency-name">{{agency_names[loop.index]}}</h1>{% endif %}
+{% if loop %}
+	{% set agency_name = agency_names[loop.index] %}
+{% else %}
+	{% set agency_name = agency_names.0 %}
+{% endif %}
+{% if loop %}<h1 class="agency-name">{{agency_name}}</h1>{% endif %}
 <section class="description">
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label for="description" class="required">{{form.description.label}}</label>
 		{{form.description}}
 		<div id="charNum"></div>
@@ -15,7 +20,7 @@
 
 <h3>Public liaison</h3>
 <section class="public_liaison_name">
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="required">{{form.public_liaison_name.label}}</label>
 		{{form.public_liaison_name}}
 	</div>
@@ -25,7 +30,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="required">{{form.public_liaison_email.label}}</label>
 		{{form.public_liaison_email}}
 	</div>
@@ -36,7 +41,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.public_liaison_phone.label}}</label>
 		{{form.public_liaison_phone}}
 	</div>
@@ -47,7 +52,7 @@
 
 <h3>Foia Request Service Center</h3>
 <section>
-		<div class="field">
+		<div class="field" agency="{{agency_name}}">
 			<label>{{form.phone.label}}</label>
 			{{form.phone}}
 	</div>
@@ -59,7 +64,7 @@
 <h3>Foia Request Submission</h3>
 
 <section>
-		<div class="field">
+		<div class="field" agency="{{agency_name}}">
 			<label class="required">{{form.address_line_1.label}}</label>
 			{{form.address_line_1}}
 	</div>
@@ -69,7 +74,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.address_line_2.label}}</label>
 		{{form.address_line_2}}
 	</div>
@@ -79,7 +84,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="required">{{form.city.label}}</label>
 		{{form.city}}
 	</div>
@@ -89,7 +94,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="required">{{form.state.label}}</label>
 		{{form.state}}
 	</div>
@@ -99,7 +104,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="required">{{form.zip_code.label}}</label>
 		{{form.zip_code}}
 	</div>
@@ -109,7 +114,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="nudge">{{form.office_url.label}}</label>
 		{{form.office_url}}
 	</div>
@@ -119,7 +124,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="nudge">{{form.emails.label}}</label>
 		{{form.emails}}
 	</div>
@@ -129,7 +134,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.fax.label}}</label>
 		{{form.fax}}
 	</div>
@@ -140,7 +145,7 @@
 
 <h3>Other</h3>
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.component_url.label}}</label>
 		{{form.component_url}}
 	</div>
@@ -150,7 +155,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="nudge">{{form.foia_libraries.label}}</label>
 		{{form.foia_libraries}}
 	</div>
@@ -160,7 +165,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="nudge">{{form.regulations_website.label}}</label>
 		{{form.regulations_website}}
 	</div>
@@ -171,7 +176,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.common_requests.label}}</label>
 		{{form.common_requests}}
 	</div>
@@ -182,7 +187,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label>{{form.no_records_about.label}}</label>
 		{{form.no_records_about}}
 	</div>
@@ -193,7 +198,7 @@
 </section>
 
 <section>
-	<div class="field">
+	<div class="field" agency="{{agency_name}}">
 		<label class="nudge">{{form.request_instructions.label}}</label>
 		{{form.request_instructions}}
 	</div>
