@@ -700,24 +700,109 @@ html {
   font-style: italic;
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot");
   src: url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.eot?#iefix") format("embedded-opentype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.woff") format("woff"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.ttf") format("truetype"), url("https://18f-foia-static.s3.amazonaws.com/fonts/proximanova/proximanova-i@600.svg#proximanova") format("svg"); }
-label {
-  display: block; }
+form.contactupdater {
+  min-width: 640px; }
+  form.contactupdater section {
+    border-bottom: 1px solid #ddd;
+    padding: 1em 0; }
+    form.contactupdater section:after {
+      content: "";
+      display: table;
+      clear: both; }
+  form.contactupdater textarea {
+    height: 10em; }
+  form.contactupdater .field {
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 49.47368%; }
+    form.contactupdater .field:last-child {
+      margin-right: 0; }
+  form.contactupdater .error {
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 32.63158%;
+    color: #777;
+    font-size: 0.85em;
+    padding-left: 1.5em;
+    padding-top: 0.85em;
+    position: relative; }
+    form.contactupdater .error:last-child {
+      margin-right: 0; }
+    form.contactupdater .error:after {
+      content: "";
+      display: table;
+      clear: both; }
+    form.contactupdater .error h4 {
+      margin-bottom: 0.5em; }
+  form.contactupdater .nudge:before {
+    /*			content: "\f06a";
+    			font-family: FontAwesome;
+    			margin-right: 0.5em;*/ }
+  form.contactupdater .required:after {
+    content: "Required";
+    float: right;
+    font-weight: 200;
+    font-style: italic; }
+  form.contactupdater .nudge:after {
+    content: "Optional but encouraged";
+    /*		border-bottom: 1px solid $aqua-blue; */
+    float: right;
+    font-weight: 200;
+    font-style: italic; }
+  form.contactupdater h3 {
+    font-size: 1.4em;
+    margin-top: 1.5em;
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 100%; }
+    form.contactupdater h3:last-child {
+      margin-right: 0; }
+  form.contactupdater label {
+    margin: 0.8em 0;
+    font-weight: 300;
+    font-size: 0.875em; }
+  form.contactupdater input[type="submit"] {
+    float: left;
+    display: block;
+    margin-right: 1.05263%;
+    width: 15.78947%;
+    clear: both; }
+    form.contactupdater input[type="submit"]:last-child {
+      margin-right: 0; }
+    form.contactupdater input[type="submit"] .submit-invalid {
+      background-color: #DDD; }
+  form.contactupdater input.parsley-error {
+    border: solid 1px red; }
+  form.contactupdater .parsley-errors-list li, form.contactupdater ul.errorlist {
+    color: red;
+    margin-bottom: 0.5em; }
+    form.contactupdater .parsley-errors-list li:before, form.contactupdater ul.errorlist:before {
+      content: "\f06a";
+      font-family: FontAwesome;
+      margin-right: 0.5em; }
 
-form.contactupdater > section:after {
-  content: "";
-  display: table;
-  clear: both; }
-form.contactupdater .field {
+.contactUpdater .search-icon {
+  color: #777777;
+  position: absolute;
+  z-index: 100;
+  padding-top: 0.75em;
+  padding-left: 0.75em; }
+  .contactUpdater .search-icon .fa {
+    color: inherit; }
+.contactUpdater input.typeahead {
+  padding-left: 2.2em; }
+.contactUpdater .search--box {
   float: left;
   display: block;
   margin-right: 1.05263%;
   width: 49.47368%; }
-  form.contactupdater .field:last-child {
+  .contactUpdater .search--box:last-child {
     margin-right: 0; }
-form.contactupdater .error {
-  float: left;
-  display: block;
-  margin-right: 1.05263%;
-  width: 32.63158%; }
-  form.contactupdater .error:last-child {
-    margin-right: 0; }
+
+footer {
+  background-color: inherit;
+  padding-top: 0;
+  margin-top: 0; }

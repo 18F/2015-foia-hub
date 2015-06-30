@@ -11,18 +11,106 @@ body {
 
 }
 
-label {
-	display:block;
-}
-
 form.contactupdater {
-	& > section {
+	min-width: 640px;
+	& section {
 		@include clearfix();
+		border-bottom: 1px solid #ddd;
+	    padding: 1em 0;
+	}
+	textarea {
+		height: 10em;
 	}
 	.field {
 		@include span-columns(12);
 	}
 	.error {
 		@include span-columns(8);
+		@include clearfix();
+		color: #777;
+		font-size: 0.85em;
+		padding-left: 1.5em;		
+		padding-top: 0.85em;
+		position: relative;
+		p {
+			// position: absolute;
+		}
+		h4 {
+			margin-bottom: 0.5em;
+		}
 	}
+	.nudge:before {
+/*			content: "\f06a";
+			font-family: FontAwesome;
+			margin-right: 0.5em;*/
+	}
+	.required:after {
+		content: "Required";
+		float:right;
+		font-weight: 200;
+		font-style: italic;
+	}
+	.nudge:after {
+		content: "Optional but encouraged";
+/*		border-bottom: 1px solid $aqua-blue; */
+		float:right;
+		font-weight: 200;
+		font-style: italic;
+	}
+
+	h3 {
+		font-size: 1.4em;
+		margin-top: 1.5em;
+		@include span-columns(24 of 24);
+	}
+	label {
+		margin: 0.8em 0;
+		font-weight: 300;
+		font-size: 0.875em;
+	}
+	input[type="submit"] {
+		@include span-columns(4 of 24);
+//		@include clearfix();
+		clear: both;
+		& .submit-invalid {
+			background-color: #DDD;
+		}
+	}
+	input.parsley-error {
+		border: solid 1px red;
+	}
+	.parsley-errors-list li, ul.errorlist {
+		&:before {
+			content: "\f06a";
+			font-family: FontAwesome;
+			margin-right: 0.5em;
+		}
+		color:red;
+		margin-bottom: 0.5em;
+	}
+}
+
+.contactUpdater {
+  .search-icon {
+    color: $gray;
+    position: absolute;
+    z-index: 100;
+    padding-top: 0.75em;
+    padding-left: 0.75em;
+    .fa {
+      color: inherit;
+    }
+  }
+  input.typeahead {
+  	padding-left: 2.2em;
+  }
+  .search--box {
+  	@include span-columns(12 of 24);
+  }
+}
+
+footer {
+	background-color: inherit;
+    padding-top: 0;
+    margin-top: 0;
 }
