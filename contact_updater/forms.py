@@ -35,14 +35,18 @@ class AgencyForm(forms.Form):
     public_liaison_email = forms.EmailField(
         label='Email',
         required=False,
-        widget=forms.EmailInput(attrs={'class': 'public_liaison_email'}))
+        widget=forms.EmailInput(attrs={
+            'class': 'public_liaison_email',
+            'data-parsley-type-message': 'Please enter a valid email.'
+        }))
     public_liaison_phone = forms.RegexField(
         label='Phone Number',
         required=False,
         regex=PHONE_RE,
-        error_message=('Must contain a valid phone number'),
         widget=forms.TextInput(attrs={
             'class': 'public_liaison_phone',
+            'data-parsley-pattern-message':
+                'Please enter a valid phone number.',
             'pattern': PHONE_PATTERN}))
 
     # Request Center
@@ -50,9 +54,10 @@ class AgencyForm(forms.Form):
         label='Phone Number',
         required=False,
         regex=PHONE_RE,
-        error_message=('Must contain a valid phone number'),
         widget=forms.TextInput(attrs={
             'class': 'phone',
+            'data-parsley-pattern-message':
+                'Please enter a valid phone number.',
             'pattern': PHONE_PATTERN}))
 
     # FOIA Request Submission
@@ -75,15 +80,22 @@ class AgencyForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'zip_code',
+            'data-parsley-pattern-message': 'Please enter a valid zip code.',
             'pattern': '\d{5,5}(-\d{4,4})?'}))
     office_url = forms.URLField(
         label="Website URL",
         required=False,
-        widget=forms.URLInput(attrs={'class': 'office_url'}))
+        widget=forms.URLInput(attrs={
+            'class': 'office_url',
+            'data-parsley-type-message': 'Please enter a valid url.',
+        }))
     emails = forms.EmailField(
         label='Email',
         required=False,
-        widget=forms.EmailInput(attrs={'class': 'email'}))
+        widget=forms.EmailInput(attrs={
+            'class': 'email',
+            'data-parsley-type-message': 'Please enter a valid email.',
+        }))
 
     fax = forms.RegexField(
         label='Fax Number',
@@ -92,19 +104,30 @@ class AgencyForm(forms.Form):
         error_message=('Must contain a valid phone number'),
         widget=forms.TextInput(attrs={
             'class': 'fax',
+            'data-parsley-pattern-message': 'Please enter a valid fax number.',
             'pattern': PHONE_PATTERN}))
 
     # Other
     component_url = forms.URLField(
         label="Agency/component website",
         required=False,
-        widget=forms.URLInput(attrs={'class': 'component_url'}))
+        widget=forms.URLInput(attrs={
+            'class': 'component_url',
+            'data-parsley-type-message': 'Please enter a valid url.',
+        }))
     foia_libraries = forms.URLField(
         label="Reading room website",
         required=False,
-        widget=forms.URLInput(attrs={'class': 'foia_libraries'}))
+        widget=forms.URLInput(attrs={
+            'class': 'foia_libraries',
+            'data-parsley-type-message': 'Please enter a valid url.',
+        }))
     regulations_website = forms.URLField(
-        label="Regulations Website", required=False)
+        label="Regulations Website",
+        required=False,
+        widget=forms.URLInput(attrs={
+            'data-parsley-type-message': 'Please enter a valid url.'
+        }))
     common_requests = forms.CharField(
         label='Commonly requested topics',
         required=False,

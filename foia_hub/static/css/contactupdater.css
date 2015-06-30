@@ -730,6 +730,10 @@ form.contactupdater {
     position: relative; }
     form.contactupdater .error:last-child {
       margin-right: 0; }
+    form.contactupdater .error:after {
+      content: "";
+      display: table;
+      clear: both; }
     form.contactupdater .error h4 {
       margin-bottom: 0.5em; }
   form.contactupdater .nudge:before {
@@ -768,6 +772,8 @@ form.contactupdater {
     clear: both; }
     form.contactupdater input[type="submit"]:last-child {
       margin-right: 0; }
+    form.contactupdater input[type="submit"] .submit-invalid {
+      background-color: #DDD; }
   form.contactupdater input.parsley-error {
     border: solid 1px red; }
   form.contactupdater .parsley-errors-list li, form.contactupdater ul.errorlist {

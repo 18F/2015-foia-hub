@@ -2,7 +2,7 @@
 
 {% block head %}
 {{ super() }}
-<!-- Validatr -->
+<!-- Parsley -->
 <script src="{{ static("js/contact-updater/parsley.min.js") }}"></script>
 <!-- Form controls -->
 <script src="{{ static("js/contact-updater/form-controls.js") }}"></script>
@@ -20,7 +20,7 @@
         {% else %}
             <!-- Centralized Form -->
             {% if forms|length == 1 %}
-            <h1>{{agency_names.0}}</h1>
+            <h1 class="agency-name">{{agency_names.0}}</h1>
                 {% for form in forms %}
                     {% include 'centralized.html' %}
                 {% endfor %}
@@ -32,11 +32,19 @@
         <br>
         <!-- Buttons when validated -->
         {% if validated %}
-         <input type="submit" name="download" value="Download" />
+         <input type="submit" id="download-button" name="download" value="Download" />
          <input type="submit" name="return" value="Return" />
+         {# A tiny script that downloads the data when it gets to the validated
+         page. #}
+         <script>
+            document.getElementById("download-button").click();
+         </script>
         {% else %}
         <!-- Buttons when not validated -->
-        <input type="submit" value="Submit" />
+        <div class="submission-errors">
+            <ul id="error-list"></ul>
+        </div>
+        <input type="submit" id='submit-agency' value="Submit"/>
         {% endif %}
     </form>
 </div>

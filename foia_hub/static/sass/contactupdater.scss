@@ -26,6 +26,7 @@ form.contactupdater {
 	}
 	.error {
 		@include span-columns(8);
+		@include clearfix();
 		color: #777;
 		font-size: 0.85em;
 		padding-left: 1.5em;		
@@ -71,6 +72,9 @@ form.contactupdater {
 		@include span-columns(4 of 24);
 //		@include clearfix();
 		clear: both;
+		& .submit-invalid {
+			background-color: #DDD;
+		}
 	}
 	input.parsley-error {
 		border: solid 1px red;

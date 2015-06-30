@@ -44,7 +44,7 @@ class MainPageTests(TestCase):
 
         response = self.client.get(reverse('contact_updater_index'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'typeahead agency')
+        self.assertContains(response, 'Update your')
 
 
 class FormPageTests(TestCase):
