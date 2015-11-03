@@ -27,6 +27,28 @@ class AgencyForm(forms.Form):
             'class': 'agency_description',
             'maxlength': 500}))
 
+    # Chief Foia officer
+    chief_officer_name = forms.CharField(
+        label='Name',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'chief_officer_name'}))
+    chief_officer_email = forms.EmailField(
+        label='Email',
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'class': 'chief_officer_email',
+            'data-parsley-type-message': 'Please enter a valid email.'
+        }))
+    chief_officer_phone = forms.RegexField(
+        label='Phone Number',
+        required=False,
+        regex=PHONE_RE,
+        widget=forms.TextInput(attrs={
+            'class': 'chief_officer_phone',
+            'data-parsley-pattern-message':
+                'Please enter a valid phone number.',
+            'pattern': PHONE_PATTERN}))
+
     # Public Liaison
     public_liaison_name = forms.CharField(
         label='Name',
@@ -96,7 +118,6 @@ class AgencyForm(forms.Form):
             'class': 'email',
             'data-parsley-type-message': 'Please enter a valid email.',
         }))
-
     fax = forms.RegexField(
         label='Fax Number',
         required=False,
@@ -116,14 +137,14 @@ class AgencyForm(forms.Form):
             'data-parsley-type-message': 'Please enter a valid url.',
         }))
     foia_libraries = forms.URLField(
-        label="Reading room website",
+        label="FOIA library website",
         required=False,
         widget=forms.URLInput(attrs={
             'class': 'foia_libraries',
             'data-parsley-type-message': 'Please enter a valid url.',
         }))
     regulations_website = forms.URLField(
-        label="Regulations Website",
+        label="Regulations website",
         required=False,
         widget=forms.URLInput(attrs={
             'data-parsley-type-message': 'Please enter a valid url.'
