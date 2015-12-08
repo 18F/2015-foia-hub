@@ -178,15 +178,6 @@ class AgenciesPageTests(TestCase):
 class ContactPageTests(TestCase):
     fixtures = ['agencies_test.json', 'offices_test.json']
 
-    def test_inaccurate_contact(self):
-        response = self.client.get(
-            reverse(
-                'contact_landing',
-                args=['department-of-commerce--census-bureau']))
-        self.assertTrue(200, response.status_code)
-        content = response.content.decode('utf-8')
-        self.assertTrue('18f-foia@gsa.gov' in content)
-
     def test_no_email(self):
         """ For agencies without their own request form, and without an email
         address, do not display a FOIA request form. """
