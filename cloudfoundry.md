@@ -122,8 +122,6 @@ Better instructions TBD!
 
 ## Cloud Foundry time
 
-* Change `Procfile` to use `$PORT` instead of `$PORT`.
-
 * Set the necessary environment variables:
 
 ```bash
