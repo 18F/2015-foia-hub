@@ -25,10 +25,10 @@ waitress-serve --port=8000 foia_hub.wsgi:application
 * Make a `Procfile` that will work with CloudFoundry's port:
 
 ```bash
-web: waitress-serve --port=$VCAP_APP_PORT foia_hub.wsgi:application
+web: waitress-serve --port=$PORT foia_hub.wsgi:application
 ```
 
-* Add `VCAP_APP_PORT` to `.env` and `env.example`.
+* Add `PORT` to `.env` and `env.example`.
 
 * Run with foreman:
 
@@ -122,7 +122,7 @@ Better instructions TBD!
 
 ## Cloud Foundry time
 
-* Change `Procfile` to use `$VCAP_APP_PORT` instead of `$PORT`.
+* Change `Procfile` to use `$PORT` instead of `$PORT`.
 
 * Set the necessary environment variables:
 
