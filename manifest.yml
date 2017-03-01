@@ -9,5 +9,6 @@ applications:
   timeout: 180
   services:
     - foia-db
+    - foia-public-bucket
   env:
     DISABLE_COLLECTSTATIC: 1
