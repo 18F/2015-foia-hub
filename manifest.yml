@@ -7,3 +7,7 @@ applications:
   path: .
   stack: cflinuxfs2
   timeout: 180
+  services:
+    - foia-db
+  env:
+    DISABLE_COLLECTSTATIC: 1
