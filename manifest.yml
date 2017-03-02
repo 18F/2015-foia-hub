@@ -7,3 +7,11 @@ applications:
   path: .
   stack: cflinuxfs2
   timeout: 180
+  no-hostname: true
+  services:
+    - foia-db
+    - foia-public-bucket
+  domains:
+    - open.foia.gov
+  env:
+    DISABLE_COLLECTSTATIC: 1
