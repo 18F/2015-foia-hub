@@ -128,6 +128,8 @@ Better instructions TBD!
 cf cs s3 basic-public foia-public-bucket
 ```
 
+* Configure [CORS policy](https://landing.app.cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications) on the s3 bucket
+
 * Create an RDS database for the database.
 
 ```bash
