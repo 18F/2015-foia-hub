@@ -15,7 +15,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-DEFAULT_DATA_REPO = "https://github.com/18F/foia.git"
+DEFAULT_DATA_REPO = "https://github.com/18F/2015-foia.git"
 
 DATABASES = {}
 

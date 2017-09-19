@@ -29,7 +29,7 @@ Instead, our tool will focus on a small, US-focused user experience, and API-dri
 
 ## Setup
 
-This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3](https://docs.python.org/3/).
+This is a Django app that uses [Postgres](http://www.postgresql.org/), and depends on [Python 3.4](https://docs.python.org/3/).
 
 * **If using Ubuntu**, you may need to install the following:
 

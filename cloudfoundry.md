@@ -122,12 +122,25 @@ Better instructions TBD!
 
 ## Cloud Foundry time
 
+* Create an S3 bucket for the public assets.
+
+```bash
+cf cs s3 basic-public foia-public-bucket
+```
+
+* Configure [CORS policy](https://landing.app.cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications) on the s3 bucket
+
+* Create an RDS database for the database.
+
+```bash
+cf cs aws-rds medium-psql foia-db
+```
+
 * Change `Procfile` to use `$VCAP_APP_PORT` instead of `$PORT`.
 
 * Set the necessary environment variables:
 
 ```bash
-cf set-env foia DATABASE_URL [value]
 cf set-env foia FOIA_ANALYTICS_ID [value]
 cf set-env foia FOIA_SECRET_SESSION_KEY [value]
 cf set-env foia DJANGO_SETTINGS_MODULE foia_hub.settings.dev
@@ -135,7 +148,7 @@ cf set-env foia NEW_RELIC_LICENSE_KEY=[value]
 cf set-env foia NEW_RELIC_APP_NAME=[value]
 ```
 
-* Moved the runtime down from `3.4.2` to `3.4.0`, as that's what 18F's CF currently supports.
+* Moved the runtime to `3.4.6`
 
 * Renamed app from `foia-testing` to `foia`.
 
@@ -188,6 +201,3 @@ At 18F:
 
 * There is no ELB instance used by the staging instance, since we don't
 * configure that with HTTPS.
-
-
-

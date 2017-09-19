@@ -2,8 +2,12 @@ from .notdev import *
 
 # Some possible hosts
 ALLOWED_HOSTS = [
-    'open.foia.gov', 'foia-a.cf.18f.us', 'foia-b.cf.18f.us',
-    'openfoia-staging.cf.18f.us'
+    'open-foia-test.app.cloud.gov',
+    'open.foia.gov',
+    'foia-a.cf.18f.us',
+    'foia-b.cf.18f.us',
+    'openfoia-staging.cf.18f.us',
+    'foia.app.cloud.gov',
 ]
 
 # Force an HTTPS connection.
