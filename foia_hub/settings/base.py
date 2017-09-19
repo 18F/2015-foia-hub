@@ -113,3 +113,7 @@ ANALYTICS_ID = ""
 
 # Don't allow client-side JS to access CSRF cookie
 CSRF_COOKIE_HTTPONLY = True
+
+# Cache only as long as necessary, otherwise the CDN will cache for the 24 hour
+# default
+USE_ETAGS = True
