@@ -37,7 +37,7 @@ $(document).ready(function(){
     // that gets set to keep the banner closed once a user has clicked
     // the close button. if not present, show the banner.
     if (typeof window.localStorage !== 'undefined') {
-        if (window.localStorage.getItem('keep-banner-closed') !== '1') {
+        if (window.localStorage.getItem('keep-banner-closed--sunset') !== '1') {
             $('#notice').removeClass('hidden');
         }
     }
@@ -56,7 +56,7 @@ $(document).ready(function(){
         // close button, set a local storage value that gets checked
         // on page load and determines whether banner is shown
         if (typeof window.localStorage !== 'undefined') {
-            window.localStorage.setItem('keep-banner-closed', '1');
+            window.localStorage.setItem('keep-banner-closed--sunset', '1');
         }
     });
     // if someone tabs to the close button and hits enter, trigger
